@@ -1,0 +1,30 @@
+prepare-commit-msg:
+  commands:
+    commitzen:
+      interactive: true
+      run: pnpm run cz --hook
+      env:
+        LEFTHOOK: "0"
+
+pre-commit:
+  commands:
+    check:
+      run: pnpm lint
+      glob: "*.{js,jsx,ts,tsx,json,jsonc}"
+      stage_fixed: true
+
+pre-push:
+  commands:
+    check:
+      run: pnpm lint
+      glob: "*.{js,jsx,ts,tsx,json,jsonc}"
+      stage_fixed: true
+    test:
+      run: pnpm test
+    build:
+      run: pnpm build
+
+commit-msg:
+  commands:
+    lint commit message:
+      run: pnpm exec commitlint --edit {1}
