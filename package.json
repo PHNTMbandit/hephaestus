@@ -32,6 +32,7 @@
 		"@biomejs/biome": "2.3.11",
 		"@commitlint/cli": "^20.3.0",
 		"@commitlint/config-conventional": "^20.3.0",
+		"@netlify/vite-plugin-tanstack-start": "^1.2.6",
 		"@phosphor-icons/react": "^2.1.10",
 		"@semantic-release/changelog": "^6.0.3",
 		"@semantic-release/commit-analyzer": "^13.0.1",
