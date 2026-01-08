@@ -19,9 +19,9 @@ call_lefthook()
   elif lefthook.bat -h >/dev/null 2>&1
   then
     lefthook.bat "$@"
-  elif D:\suwa-ui-docs\node_modules\.pnpm\lefthook-windows-x64@2.0.13\node_modules\lefthook-windows-x64\bin\lefthook.exe -h >/dev/null 2>&1
+  elif C:\Users\dompi\AppData\Local\pnpm-cache\dlx\f4b25be9deaa68699b28da1cb4a63c1bee109a7508d088ba306348db6bc7763d\19b9cb71bdd-9b50\node_modules\.pnpm\lefthook-windows-x64@2.0.13\node_modules\lefthook-windows-x64\bin\lefthook.exe -h >/dev/null 2>&1
   then
-    D:\suwa-ui-docs\node_modules\.pnpm\lefthook-windows-x64@2.0.13\node_modules\lefthook-windows-x64\bin\lefthook.exe "$@"
+    C:\Users\dompi\AppData\Local\pnpm-cache\dlx\f4b25be9deaa68699b28da1cb4a63c1bee109a7508d088ba306348db6bc7763d\19b9cb71bdd-9b50\node_modules\.pnpm\lefthook-windows-x64@2.0.13\node_modules\lefthook-windows-x64\bin\lefthook.exe "$@"
   else
     dir="$(git rev-parse --show-toplevel)"
     osArch=$(uname | tr '[:upper:]' '[:lower:]')
