@@ -13,6 +13,8 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as SecureRouteImport } from './routes/_secure'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SecureDashboardRouteImport } from './routes/_secure/dashboard'
+import { Route as DocsComponentsIndexRouteImport } from './routes/docs/components/index'
+import { Route as DocsComponentsComponentNameRouteImport } from './routes/docs/components/$componentName'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const LoginRoute = LoginRouteImport.update({
@@ -34,6 +36,17 @@ const SecureDashboardRoute = SecureDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => SecureRoute,
 } as any)
+const DocsComponentsIndexRoute = DocsComponentsIndexRouteImport.update({
+  id: '/docs/components/',
+  path: '/docs/components/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsComponentsComponentNameRoute =
+  DocsComponentsComponentNameRouteImport.update({
+    id: '/docs/components/$componentName',
+    path: '/docs/components/$componentName',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -45,12 +58,16 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/dashboard': typeof SecureDashboardRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/docs/components/$componentName': typeof DocsComponentsComponentNameRoute
+  '/docs/components': typeof DocsComponentsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/dashboard': typeof SecureDashboardRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/docs/components/$componentName': typeof DocsComponentsComponentNameRoute
+  '/docs/components': typeof DocsComponentsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -59,12 +76,26 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/_secure/dashboard': typeof SecureDashboardRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/docs/components/$componentName': typeof DocsComponentsComponentNameRoute
+  '/docs/components/': typeof DocsComponentsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/dashboard' | '/api/auth/$'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/dashboard'
+    | '/api/auth/$'
+    | '/docs/components/$componentName'
+    | '/docs/components'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/dashboard' | '/api/auth/$'
+  to:
+    | '/'
+    | '/login'
+    | '/dashboard'
+    | '/api/auth/$'
+    | '/docs/components/$componentName'
+    | '/docs/components'
   id:
     | '__root__'
     | '/'
@@ -72,6 +103,8 @@ export interface FileRouteTypes {
     | '/login'
     | '/_secure/dashboard'
     | '/api/auth/$'
+    | '/docs/components/$componentName'
+    | '/docs/components/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -79,6 +112,8 @@ export interface RootRouteChildren {
   SecureRoute: typeof SecureRouteWithChildren
   LoginRoute: typeof LoginRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  DocsComponentsComponentNameRoute: typeof DocsComponentsComponentNameRoute
+  DocsComponentsIndexRoute: typeof DocsComponentsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -111,6 +146,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SecureDashboardRouteImport
       parentRoute: typeof SecureRoute
     }
+    '/docs/components/': {
+      id: '/docs/components/'
+      path: '/docs/components'
+      fullPath: '/docs/components'
+      preLoaderRoute: typeof DocsComponentsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/docs/components/$componentName': {
+      id: '/docs/components/$componentName'
+      path: '/docs/components/$componentName'
+      fullPath: '/docs/components/$componentName'
+      preLoaderRoute: typeof DocsComponentsComponentNameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -137,6 +186,8 @@ const rootRouteChildren: RootRouteChildren = {
   SecureRoute: SecureRouteWithChildren,
   LoginRoute: LoginRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
+  DocsComponentsComponentNameRoute: DocsComponentsComponentNameRoute,
+  DocsComponentsIndexRoute: DocsComponentsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

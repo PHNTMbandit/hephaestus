@@ -6,6 +6,9 @@ import {
 	Scripts,
 } from "@tanstack/react-router"
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
+import { Header } from "@/components/header"
+import { ThemeProvider } from "@/hooks/theme-provider"
+import { getThemeServerFn } from "@/lib/theme"
 import appCss from "../styles.css?url"
 
 export const Route = createRootRouteWithContext<{
@@ -32,16 +35,22 @@ export const Route = createRootRouteWithContext<{
 		],
 	}),
 	shellComponent: RootDocument,
+	loader: () => getThemeServerFn(),
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+	const theme = Route.useLoaderData()
+
 	return (
-		<html lang="en">
+		<html className={theme} lang="en">
 			<head>
 				<HeadContent />
 			</head>
-			<body>
-				{children}
+			<body className="flex h-screen flex-col items-center justify-start">
+				<ThemeProvider theme={theme}>
+					<Header />
+					{children}
+				</ThemeProvider>
 				<TanStackDevtools
 					config={{
 						position: "bottom-right",
