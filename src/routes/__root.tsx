@@ -6,7 +6,6 @@ import {
 	Scripts,
 } from "@tanstack/react-router"
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
-import { Header } from "@/components/header"
 import { ThemeProvider } from "@/hooks/theme-provider"
 import { getThemeServerFn } from "@/lib/theme"
 import appCss from "../styles.css?url"
@@ -42,15 +41,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 	const theme = Route.useLoaderData()
 
 	return (
-		<html className={theme} lang="en">
+		<html className={theme} lang="en" suppressHydrationWarning>
 			<head>
 				<HeadContent />
 			</head>
 			<body className="flex h-screen flex-col items-center justify-start">
-				<ThemeProvider theme={theme}>
-					<Header />
-					{children}
-				</ThemeProvider>
+				<ThemeProvider theme={theme}>{children}</ThemeProvider>
 				<TanStackDevtools
 					config={{
 						position: "bottom-right",

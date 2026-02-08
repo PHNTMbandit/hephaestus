@@ -14,6 +14,7 @@ export const getRouter = () => {
 		defaultPreload: "intent",
 		scrollRestoration: true,
 		defaultPreloadStaleTime: 0,
+		defaultPendingComponent: () => <div>Loading...</div>,
 	})
 	setupRouterSsrQueryIntegration({ router, queryClient })
 

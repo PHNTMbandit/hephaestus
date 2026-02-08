@@ -1,4 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, Outlet } from "@tanstack/react-router"
+import { SidebarProvider, SidebarToggle } from "suwa-ui"
+import { ClientSidebar } from "@/features/client-sidebar/components/client-sidebar"
 import { authMiddleware } from "@/middleware/auth-middleware"
 
 export const Route = createFileRoute("/_secure")({
@@ -9,5 +11,11 @@ export const Route = createFileRoute("/_secure")({
 })
 
 function RouteComponent() {
-	return <div>Hello "/_secure"!</div>
+	return (
+		<SidebarProvider collapsible="icon">
+			<ClientSidebar />
+			<SidebarToggle />
+			<Outlet />
+		</SidebarProvider>
+	)
 }

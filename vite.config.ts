@@ -17,13 +17,23 @@ const config = defineConfig({
 		tailwindcss(),
 		netlify(),
 		tanstackStart(),
-		viteReact(),
+		viteReact({
+			babel: {
+				plugins: ["babel-plugin-react-compiler"],
+			},
+		}),
 	],
-	nitro: {},
 	test: {
 		globals: true,
 		environment: "jsdom",
 		css: true,
+	},
+	optimizeDeps: {
+		include: [
+			"@phosphor-icons/react",
+			"@tanstack/react-form",
+			"@tanstack/react-form-start",
+		],
 	},
 })
 
