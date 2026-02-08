@@ -2,21 +2,21 @@ prepare-commit-msg:
   commands:
     commitzen:
       interactive: true
-      run: pnpm run cz --hook
+      run: pnpm cz
       env:
         LEFTHOOK: "0"
 
 pre-commit:
   commands:
     check:
-      run: pnpm lint
+      run: pnpm lint && pnpm format
       glob: "*.{js,jsx,ts,tsx,json,jsonc}"
       stage_fixed: true
 
 pre-push:
   commands:
     check:
-      run: pnpm lint
+      run: pnpm lint && pnpm format
       glob: "*.{js,jsx,ts,tsx,json,jsonc}"
       stage_fixed: true
     test:
