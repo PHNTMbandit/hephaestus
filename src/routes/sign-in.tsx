@@ -1,8 +1,8 @@
 import { createFileRoute, Link, redirect } from "@tanstack/react-router"
 import { Suspense } from "react"
 import { SignInForm } from "@/features/auth/components/sign-in-form"
+import { getFormDataFromServer } from "@/lib/form"
 import { sessionMiddleware } from "@/middleware/session-middleware"
-import { getFormDataFromServer } from "@/utils/server-form-data"
 
 export const Route = createFileRoute("/sign-in")({
 	component: RouteComponent,

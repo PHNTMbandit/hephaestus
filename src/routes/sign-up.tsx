@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { Suspense } from "react"
 import { SignUpForm } from "@/features/auth/components/sign-up-form"
-import { getFormDataFromServer } from "@/utils/server-form-data"
+import { getFormDataFromServer } from "@/lib/form"
 
 export const Route = createFileRoute("/sign-up")({
 	component: RouteComponent,
