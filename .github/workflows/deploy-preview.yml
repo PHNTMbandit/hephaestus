@@ -39,7 +39,7 @@ jobs:
       - name: Run Migrations
         run: pnpm run db:generate && pnpm run db:migrate
         env:
-          DATABASE_URL: ${{ steps.create-branch.outputs.db_url }}
+          DATABASE_URL: ${{ steps.create-branch.outputs.db_url_pooled }}
 
       - name: Install Netlify CLI
         run: pnpm install -g netlify-cli && pnpx netlify link --id ${{ secrets.NETLIFY_SITE_ID }} --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
@@ -50,13 +50,8 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
-          # Set environment variables in Netlify for this deploy-preview context
-          PREVIEW_URL="https://pr-${{ github.event.number }}--${{ secrets.NETLIFY_SITE_ID }}.netlify.app"
-
-          pnpx netlify env:set DATABASE_URL "${{ steps.create-branch.outputs.db_url }}" --context deploy-preview
-          pnpx netlify env:set BETTER_AUTH_SECRET "${{ secrets.BETTER_AUTH_SECRET }}" --context deploy-preview
-          pnpx netlify env:set BETTER_AUTH_BASE_URL "$PREVIEW_URL" --context deploy-preview
-          pnpx netlify env:list --context deploy-preview
+          pnpx netlify env:list --context deploy-preview --plain >> .env
+          echo DATABASE_URL="${{ steps.create-branch.outputs.db_url_pooled }}" >> .env
 
           # Build and deploy
           pnpx netlify build --context=deploy-preview
