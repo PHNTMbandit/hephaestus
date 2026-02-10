@@ -42,17 +42,21 @@ jobs:
           DATABASE_URL: ${{ steps.create-branch.outputs.db_url }}
 
       - name: Install Netlify CLI
-        run: pnpm install -g netlify-cli && netlify link --id ${{ secrets.NETLIFY_SITE_ID }} --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: pnpm install -g netlify-cli
 
       - name: Deploy Preview to Netlify
         id: deploy
         run: |
-          netlify env:set DATABASE_URL ${{ steps.create-branch.outputs.db_url }} --context=deploy-preview
+          netlify env:set DATABASE_URL ${{ steps.create-branch.outputs.db_url }} --context=deploy-preview --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
-          netlify deploy --dir=./dist --message="Preview for PR #${{ github.event.number }}" --json >> netlify-deploy.json
+          netlify deploy \
+            --dir=./dist \
+            --site=${{ secrets.NETLIFY_SITE_ID }} \
+            --auth=${{ secrets.NETLIFY_AUTH_TOKEN }} \
+            --message="Preview for PR #${{ github.event.number }}" \
+            --json > netlify-deploy.json
 
-          DEPLOY_URL=$(jq -r '.[0].url' netlify-deploy.json)
-
+          DEPLOY_URL=$(jq -r '.deploy_url' netlify-deploy.json)
           echo "deploy_url=$DEPLOY_URL" >> "$GITHUB_OUTPUT"
 
       - name: Comment on Pull Request
