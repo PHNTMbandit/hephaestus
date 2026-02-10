@@ -50,23 +50,15 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
-          pnpx netlify env:list --context deploy-preview --plain >> .env
+          # Set environment variables in Netlify for this deploy-preview context
+          pnpx netlify env:set DATABASE_URL "${{ steps.create-branch.outputs.db_url }}" --context deploy-preview
+          pnpx netlify env:list --context deploy-preview
 
-          echo DATABASE_URL="${{ steps.create-branch.outputs.db_url }}" >> .env
-          echo BETTER_AUTH_SECRET="${{ secrets.BETTER_AUTH_SECRET }}" >> .env
-
+          # Build and deploy
           pnpx netlify build --context=deploy-preview
-          pnpx netlify deploy \
-            --context=deploy-preview \
-            --dir=dist/client \
-            --alias="pr-${{ github.event.number }}" \
-            --json \
-            --env DATABASE_URL="${{ steps.create-branch.outputs.db_url }}" \
-            --env BETTER_AUTH_SECRET="${{ secrets.BETTER_AUTH_SECRET }}" \
-            > netlify-deploy.json
+          pnpx netlify deploy --context=deploy-preview --dir=dist/client --alias="pr-${{ github.event.number }}" --json > netlify-deploy.json
 
           DEPLOY_URL=$(cat netlify-deploy.json | jq -r '.deploy_url')
-
           echo "deploy_url=$DEPLOY_URL" >> "$GITHUB_OUTPUT"
 
       - name: Comment on Pull Request
