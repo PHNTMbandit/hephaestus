@@ -44,26 +44,19 @@ jobs:
       - name: Install Netlify CLI
         run: pnpm install -g netlify-cli && netlify link --id ${{ secrets.NETLIFY_SITE_ID }} --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
-      - name: Deploy Preview to Netlify with CLI
+      - name: Deploy Preview to Netlify
         id: deploy
         run: |
-          # Pull down the environment variables for the deploy-preview context
-          netlify env:list --context deploy-preview --plain >> .env
+          netlify env:set DATABASE_URL ${{ steps.create-branch.outputs.db_url }} --context=deploy-preview
 
-          # Add the database connection URLs to the .env file
-          echo DATABASE_URL="${{ steps.create-branch.outputs.db_url }}" >> .env
+          netlify deploy --dir=./dist --message="Preview for PR #${{ github.event.number }}" --json >> netlify-deploy.json
 
-          # Deploy the preview to Netlify
-          netlify deploy --alias="pr-${{ github.event.number }}" --context=deploy-preview --json > netlify-deploy.json
+          DEPLOY_URL=$(jq -r '.[0].url' netlify-deploy.json)
 
-          # Get the deploy URL from the netlify-deploy.json file
-          DEPLOY_URL=$(cat netlify-deploy.json | jq -r '.deploy_url')
-
-          # Export the deploy URL as an output for this step
           echo "deploy_url=$DEPLOY_URL" >> "$GITHUB_OUTPUT"
 
       - name: Comment on Pull Request
-        uses: thollander/actions-comment-pull-request@v2
+        uses: thollander/actions-comment-pull-request@v3
         with:
           message: |
             | Resource | Link |
