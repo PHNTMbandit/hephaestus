@@ -41,19 +41,19 @@ jobs:
         env:
           DATABASE_URL: ${{ steps.create-branch.outputs.db_url }}
 
+      - name: Build Project
+        run: pnpm run build
+        env:
+          DATABASE_URL: ${{ steps.create-branch.outputs.db_url }}
+
       - name: Install Netlify CLI
         run: npm install -g netlify-cli && netlify link --id ${{ secrets.NETLIFY_SITE_ID }} --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
       - name: Deploy Preview to Netlify
         id: deploy
         run: |
-          netlify env:list --context deploy-preview --plain >> .env
-
-          # Add the database connection URLs to the .env file
-          echo DIRECT_URL="${{ steps.create-branch.outputs.db_url }}" >> .env
-
-          # Deploy the preview to Netlify
-          netlify deploy --alias="pr-${{ github.event.number }}" --context=deploy-preview --json > netlify-deploy.json
+          # Deploy the pre-built site to Netlify (skip build)
+          netlify deploy --alias="pr-${{ github.event.number }}" --dir=dist --json > netlify-deploy.json
 
           # Get the deploy URL from the netlify-deploy.json file
           DEPLOY_URL=$(cat netlify-deploy.json | jq -r '.deploy_url')
