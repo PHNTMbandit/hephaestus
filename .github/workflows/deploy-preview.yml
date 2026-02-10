@@ -41,18 +41,21 @@ jobs:
         env:
           DATABASE_URL: ${{ steps.create-branch.outputs.db_url }}
 
+      - name: Build
+        run: pnpm run build
+        env:
+          DATABASE_URL: ${{ steps.create-branch.outputs.db_url }}
+
       - name: Install Netlify CLI
         run: pnpm install -g netlify-cli
 
       - name: Deploy Preview to Netlify
         id: deploy
         run: |
-          netlify env:set DATABASE_URL ${{ steps.create-branch.outputs.db_url }} --context=deploy-preview --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
-
           netlify deploy \
-            --dir=./dist \
             --site=${{ secrets.NETLIFY_SITE_ID }} \
             --auth=${{ secrets.NETLIFY_AUTH_TOKEN }} \
+            --dir=./dist \
             --message="Preview for PR #${{ github.event.number }}" \
             --json > netlify-deploy.json
 
