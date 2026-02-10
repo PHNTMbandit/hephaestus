@@ -44,6 +44,10 @@ jobs:
       - name: Install Netlify CLI
         run: pnpm install -g netlify-cli && pnpx netlify link --id ${{ secrets.NETLIFY_SITE_ID }} --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
+      - name: Build Netlify
+        id: deploy
+        run: pnpx netlify build --context=deploy-preview
+
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0
         with:
