@@ -53,6 +53,8 @@ jobs:
           pnpx netlify env:list --context deploy-preview --plain >> .env
 
           echo DATABASE_URL="${{ steps.create-branch.outputs.db_url }}" >> .env
+          echo BETTER_AUTH_SECRET="${{ secrets.BETTER_AUTH_SECRET }}" >> .env
+          echo BETTER_AUTH_URL="https://pr-${{ github.event.number }}--suwa-ui.netlify.app" >> .env
 
           pnpx netlify build --context=deploy-preview
           pnpx netlify deploy --context=deploy-preview --dir=dist/client --alias="pr-${{ github.event.number }}" --json > netlify-deploy.json
