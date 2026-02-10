@@ -42,7 +42,7 @@ jobs:
           DATABASE_URL: ${{ steps.create-branch.outputs.db_url }}
 
       - name: Install Netlify CLI
-        run: pnpm install -g netlify-cli && netlify init
+        run: pnpm install -g netlify-cli && netlify link --id ${{ secrets.NETLIFY_SITE_ID }} --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
       - name: Deploy Preview to Netlify
         id: deploy
