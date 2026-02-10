@@ -41,31 +41,22 @@ jobs:
         env:
           DATABASE_URL: ${{ steps.create-branch.outputs.db_url }}
 
-      - name: Build Project
-        run: pnpm run build
-        env:
-          DATABASE_URL: ${{ steps.create-branch.outputs.db_url }}
-
       - name: Install Netlify CLI
-        run: npm install -g netlify-cli && netlify link --id ${{ secrets.NETLIFY_SITE_ID }} --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: pnpm install -g netlify-cli
 
-      - name: Deploy Preview to Netlify
-        id: deploy
+      - name: Add .env file
         run: |
-          # Deploy the pre-built site to Netlify (skip build)
-          netlify deploy --alias="pr-${{ github.event.number }}" --dir=dist --json > netlify-deploy.json
+          netlify env:list --context deploy-preview --plain >> .env
+          echo DATABASE_URL=${{ steps.create-branch.outputs.db_url }} >> .env
 
-          # Get the deploy URL from the netlify-deploy.json file
-          DEPLOY_URL=$(cat netlify-deploy.json | jq -r '.deploy_url')
-
-          # Export the deploy URL as an output for this step
-          echo "deploy_url=$DEPLOY_URL" >> "$GITHUB_OUTPUT"
-
-      - name: Comment on Pull Request
-        uses: thollander/actions-comment-pull-request@v3
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v3.0
         with:
-          message: |
-            | Resource | Link |
-            |----------|------|
-            | Netlify Preview 🚀 | ${{ steps.deploy.outputs.deploy_url }} |
-            | Neon branch 🐘 | https://console.neon.tech/app/projects/${{ vars.NEON_PROJECT_ID }}/branches/${{ steps.create-branch.outputs.branch_id }} |
+          alias: "preview/pr-${{ github.event.number }}-${{ steps.branch-name.outputs.current_branch }}"
+          deploy-message: "Preview for PR #${{ github.event.number }} on branch ${{ steps.branch-name.outputs.current_branch }}"
+          fails-without-credentials: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          publish-dir: "./dist"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
