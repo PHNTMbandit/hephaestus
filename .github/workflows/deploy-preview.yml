@@ -46,12 +46,16 @@ jobs:
 
       - name: Deploy Preview to Netlify
         id: deploy
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
           netlify env:list --context deploy-preview --plain >> .env
 
           echo DATABASE_URL="${{ steps.create-branch.outputs.db_url }}" >> .env
 
-          netlify deploy --alias="pr-${{ github.event.number }}" --json > netlify-deploy.json
+          netlify build --context deploy-preview
+          netlify deploy --dir=dist --alias="pr-${{ github.event.number }}" --json > netlify-deploy.json
 
           DEPLOY_URL=$(cat netlify-deploy.json | jq -r '.deploy_url')
 
