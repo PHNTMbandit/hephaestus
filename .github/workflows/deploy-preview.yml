@@ -44,14 +44,11 @@ jobs:
       - name: Install Netlify CLI
         run: pnpm install -g netlify-cli && pnpx netlify link --id ${{ secrets.NETLIFY_SITE_ID }} --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
-      - name: Deploy Preview to Netlify
-        id: deploy
-        run: pnpx netlify build
-
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0
         with:
-          publish-dir: "./dist"
+          publish-dir: "dist"
+          netlify-config-path: "./netlify.toml"
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deploy Preview for PR #${{ github.event.number }}"
           alias: "pr-${{ github.event.number }}"
