@@ -22,17 +22,24 @@ const serverValidate = createServerValidate({
 
 		try {
 			const headers = await getResponseHeaders()
-			await auth.api.signInEmail({
+			console.log("Sign-in attempt:", { email: data.email, headers })
+
+			const response = await auth.api.signInEmail({
 				body: {
 					email: data.email,
 					password: data.password,
 				},
 				headers: headers,
 			})
+
+			console.log("Sign-in response:", response)
 		} catch (error) {
+			console.error("Sign-in error:", error)
 			if (error instanceof APIError) {
 				return error.message
 			}
+			// Re-throw non-APIError exceptions
+			throw error
 		}
 	},
 })

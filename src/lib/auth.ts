@@ -5,6 +5,8 @@ import { tanstackStartCookies } from "better-auth/tanstack-start"
 import { db } from "@/db"
 import { account, session, user, verification } from "@/db/schema"
 
+const baseURL = process.env.BETTER_AUTH_BASE_URL || "http://localhost:3000"
+
 export const auth = betterAuth({
 	database: drizzleAdapter(db, {
 		provider: "pg",
@@ -18,7 +20,11 @@ export const auth = betterAuth({
 	emailAndPassword: {
 		enabled: true,
 	},
+	baseURL,
+	secret: process.env.BETTER_AUTH_SECRET,
 	plugins: [tanstackStartCookies()],
 })
 
-export const authClient = createAuthClient()
+export const authClient = createAuthClient({
+	baseURL,
+})
