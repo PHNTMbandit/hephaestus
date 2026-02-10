@@ -15,13 +15,13 @@ const config = defineConfig({
 			projects: ["./tsconfig.json"],
 		}),
 		tailwindcss(),
-		netlify(),
 		tanstackStart(),
 		viteReact({
 			babel: {
 				plugins: ["babel-plugin-react-compiler"],
 			},
 		}),
+		netlify(),
 	],
 	test: {
 		globals: true,
