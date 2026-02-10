@@ -37,9 +37,9 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Run Migrations
-        run: |
-          echo "DATABASE_URL=${{ steps.create-branch.outputs.db_url_with_pooler }}" > .env
-          pnpm run db:generate && pnpm run db:migrate
+        run: pnpm run db:generate && pnpm run db:migrate
+        env:
+          DATABASE_URL: ${{ steps.create-branch.outputs.db_url }}
 
       - name: Install Netlify CLI
         run: pnpm install -g netlify-cli && netlify link --id ${{ secrets.NETLIFY_SITE_ID }} --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
@@ -49,6 +49,9 @@ jobs:
         run: |
           # Pull down the environment variables for the deploy-preview context
           netlify env:list --context deploy-preview --plain >> .env
+
+          # Add the database connection URLs to the .env file
+          echo DATABASE_URL="${{ steps.create-branch.outputs.db_url_with_pooler }}" >> .env
 
           # Deploy the preview to Netlify
           netlify deploy --alias="pr-${{ github.event.number }}" --context=deploy-preview --json > netlify-deploy.json
