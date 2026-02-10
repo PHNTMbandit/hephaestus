@@ -51,7 +51,11 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
           # Set environment variables in Netlify for this deploy-preview context
+          PREVIEW_URL="https://pr-${{ github.event.number }}--${{ secrets.NETLIFY_SITE_ID }}.netlify.app"
+
           pnpx netlify env:set DATABASE_URL "${{ steps.create-branch.outputs.db_url }}" --context deploy-preview
+          pnpx netlify env:set BETTER_AUTH_SECRET "${{ secrets.BETTER_AUTH_SECRET }}" --context deploy-preview
+          pnpx netlify env:set BETTER_AUTH_BASE_URL "$PREVIEW_URL" --context deploy-preview
           pnpx netlify env:list --context deploy-preview
 
           # Build and deploy
