@@ -52,13 +52,18 @@ jobs:
         run: |
           pnpx netlify env:list --context deploy-preview --plain >> .env
 
-          pnpx netlify env:set DATABASE_URL ${{ steps.create-branch.outputs.db_url }} --context deploy-preview
-          pnpx netlify env:set BETTER_AUTH_SECRET ${{ secrets.BETTER_AUTH_SECRET }} --context deploy-preview
-
           echo DATABASE_URL="${{ steps.create-branch.outputs.db_url }}" >> .env
+          echo BETTER_AUTH_SECRET="${{ secrets.BETTER_AUTH_SECRET }}" >> .env
 
           pnpx netlify build --context=deploy-preview
-          pnpx netlify deploy --context=deploy-preview --dir=dist/client --alias="pr-${{ github.event.number }}" --json > netlify-deploy.json
+          pnpx netlify deploy \
+            --context=deploy-preview \
+            --dir=dist/client \
+            --alias="pr-${{ github.event.number }}" \
+            --json \
+            --env DATABASE_URL="${{ steps.create-branch.outputs.db_url }}" \
+            --env BETTER_AUTH_SECRET="${{ secrets.BETTER_AUTH_SECRET }}" \
+            > netlify-deploy.json
 
           DEPLOY_URL=$(cat netlify-deploy.json | jq -r '.deploy_url')
 
