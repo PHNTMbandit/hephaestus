@@ -11,4 +11,7 @@ export const signInFormOpts = formOptions({
 		email: "",
 		password: "",
 	},
+	validators: {
+		onSubmit: signInSchema,
+	},
 })

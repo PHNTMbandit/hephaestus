@@ -18,15 +18,8 @@ export const auth = betterAuth({
 	emailAndPassword: {
 		enabled: true,
 	},
-	socialProviders: {
-		github: {
-			clientId: process.env.GITHUB_CLIENT_ID as string,
-			clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
-		},
-	},
+	secret: process.env.BETTER_AUTH_SECRET,
 	plugins: [tanstackStartCookies()],
 })
 
-export const authClient = createAuthClient({
-	baseURL: "http://localhost:3000",
-})
+export const authClient = createAuthClient()

@@ -53,6 +53,7 @@ export const SignInForm = ({
 									<field.FieldInput
 										leadingIcon={AtIcon}
 										placeholder="Email"
+										required
 										type="email"
 									/>
 									<field.FieldErrors />
@@ -66,6 +67,7 @@ export const SignInForm = ({
 								<field.FieldInput
 									leadingIcon={PasswordIcon}
 									placeholder="Password"
+									required
 									type="password"
 								/>
 								<field.FieldErrors />
