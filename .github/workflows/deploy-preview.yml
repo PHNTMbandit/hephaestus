@@ -14,15 +14,12 @@ jobs:
         id: branch-name
         uses: tj-actions/branch-names@v9.0.2
 
-      - name: Output branch name
-        run: echo "Branch name is ${{ steps.branch-name.outputs.current_branch }}"
-
       - name: Create Neon Branch
         id: create-branch
         uses: neondatabase/create-branch-action@v6.3.0
         with:
           api_key: ${{ secrets.NEON_API_KEY }}
-          project_id: ${{ secrets.NEON_PROJECT_ID }}
+          project_id: ${{ vars.NEON_PROJECT_ID }}
           branch_name: preview/pr-${{ github.event.number }}-${{ steps.branch-name.outputs.current_branch }}
 
       - name: Install pnpm
@@ -68,4 +65,4 @@ jobs:
             | Resource | Link |
             |----------|------|
             | Netlify Preview 🚀 | ${{ steps.deploy.outputs.deploy_url }} |
-            | Neon branch 🐘 | https://console.neon.tech/app/projects/${{ secrets.NEON_PROJECT_ID }}/branches/${{ steps.create-branch.outputs.branch_id }} |
+            | Neon branch 🐘 | https://console.neon.tech/app/projects/${{ vars.NEON_PROJECT_ID }}/branches/${{ steps.create-branch.outputs.branch_id }} |
