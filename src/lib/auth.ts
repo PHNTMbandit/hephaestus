@@ -18,12 +18,7 @@ export const auth = betterAuth({
 	emailAndPassword: {
 		enabled: true,
 	},
-	baseURL: process.env.BETTER_AUTH_BASE_URL || "http://localhost:3000",
-	secret: process.env.BETTER_AUTH_SECRET,
 	plugins: [tanstackStartCookies()],
 })
 
-export const authClient = createAuthClient({
-	baseURL: process.env.BETTER_AUTH_BASE_URL || "http://localhost:3000",
-	secret: process.env.BETTER_AUTH_SECRET,
-})
+export const authClient = createAuthClient()
