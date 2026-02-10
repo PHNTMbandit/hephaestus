@@ -44,18 +44,28 @@ jobs:
       - name: Install Netlify CLI
         run: pnpm install -g netlify-cli && pnpx netlify link --id ${{ secrets.NETLIFY_SITE_ID }} --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
-      - name: Build Netlify
+      - name: Deploy Preview to Netlify
         id: deploy
-        run: pnpx netlify build --context=deploy-preview
-
-      - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v3.0
-        with:
-          publish-dir: "dist"
-          netlify-config-path: "./netlify.toml"
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: "Deploy Preview for PR #${{ github.event.number }}"
-          alias: "pr-${{ github.event.number }}"
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          pnpx netlify env:list --context deploy-preview --plain >> .env
+
+          echo DATABASE_URL="${{ steps.create-branch.outputs.db_url }}" >> .env
+
+          pnpx netlify build --context=deploy-preview
+          pnpx netlify deploy --dir=dist --alias="pr-${{ github.event.number }}" --json > netlify-deploy.json
+
+          DEPLOY_URL=$(cat netlify-deploy.json | jq -r '.deploy_url')
+
+          echo "deploy_url=$DEPLOY_URL" >> "$GITHUB_OUTPUT"
+
+      - name: Comment on Pull Request
+        uses: thollander/actions-comment-pull-request@v3
+        with:
+          message: |
+            | Resource | Link |
+            |----------|------|
+            | Netlify Preview 🚀 | ${{ steps.deploy.outputs.deploy_url }} |
+            | Neon branch 🐘 | https://console.neon.tech/app/projects/${{ vars.NEON_PROJECT_ID }}/branches/${{ steps.create-branch.outputs.branch_id }} |
