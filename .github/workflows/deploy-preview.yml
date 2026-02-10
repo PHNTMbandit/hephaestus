@@ -56,7 +56,7 @@ jobs:
           deploy-message: "Preview for PR #${{ github.event.number }} on branch ${{ steps.branch-name.outputs.current_branch }}"
           fails-without-credentials: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          publish-dir: "./dist"
+          publish-dir: "dist"
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
