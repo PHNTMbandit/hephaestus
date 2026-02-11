@@ -4,6 +4,7 @@ import {
 	cn,
 	Sidebar,
 	SidebarContent,
+	SidebarFooter,
 	SidebarGroup,
 	SidebarGroupContent,
 	SidebarGroupLabel,
@@ -11,6 +12,7 @@ import {
 	SidebarMenu,
 	SidebarMenuLink,
 } from "suwa-ui"
+import { LanguageToggle } from "@/components/language-toggle"
 import { secureRoutes } from "../lib/secure-route"
 
 type ClientSidebarProps = React.ComponentProps<"div">
@@ -44,6 +46,9 @@ export const ClientSidebar = ({
 					</SidebarGroupContent>
 				</SidebarGroup>
 			</SidebarContent>
+			<SidebarFooter>
+				<LanguageToggle />
+			</SidebarFooter>
 			{children}
 		</Sidebar>
 	)

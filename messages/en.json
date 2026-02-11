@@ -1,0 +1,7 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"sidebar": {
+		"dashboard-label": "Dashboard",
+		"projects-label": "Projects"
+	}
+}
