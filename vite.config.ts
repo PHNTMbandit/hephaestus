@@ -2,6 +2,7 @@
 
 import path from "node:path"
 import { fileURLToPath } from "node:url"
+import { paraglideVitePlugin } from "@inlang/paraglide-js"
 import { storybookTest } from "@storybook/addon-vitest/vitest-plugin"
 import tailwindcss from "@tailwindcss/vite"
 import { devtools } from "@tanstack/devtools-vite"
@@ -19,6 +20,19 @@ const dirname =
 
 const config = defineConfig({
 	plugins: [
+		paraglideVitePlugin({
+			project: "./project.inlang",
+			outdir: "./src/paraglide",
+			outputStructure: "message-modules",
+			cookieName: "PARAGLIDE_LOCALE",
+			strategy: ["url", "cookie", "preferredLanguage", "baseLocale"],
+			urlPatterns: [
+				{
+					pattern: "/:path(.*)?",
+					localized: [["en", "/en/:path(.*)?"]],
+				},
+			],
+		}),
 		devtools(),
 		viteTsConfigPaths({
 			projects: ["./tsconfig.json"],

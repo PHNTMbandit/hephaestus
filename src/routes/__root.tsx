@@ -1,13 +1,12 @@
-import { TanStackDevtools } from "@tanstack/react-devtools"
 import type { QueryClient } from "@tanstack/react-query"
 import {
 	createRootRouteWithContext,
 	HeadContent,
 	Scripts,
 } from "@tanstack/react-router"
-import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
 import { ThemeProvider } from "@/hooks/theme-provider"
 import { getThemeServerFn } from "@/lib/theme"
+import { getLocale } from "../paraglide/runtime.js"
 import appCss from "../styles/input.css?url"
 
 export const Route = createRootRouteWithContext<{
@@ -41,15 +40,15 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 	const theme = Route.useLoaderData()
 
 	return (
-		<html className={theme} lang="en" suppressHydrationWarning>
+		<html className={theme} lang={getLocale()} suppressHydrationWarning>
 			<head>
 				<HeadContent />
 			</head>
 			<body className="flex h-screen flex-col items-center justify-start">
 				<ThemeProvider theme={theme}>{children}</ThemeProvider>
-				<TanStackDevtools
+				{/* <TanStackDevtools
 					config={{
-						position: "bottom-right",
+						position: "middle-right",
 					}}
 					plugins={[
 						{
@@ -57,7 +56,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 							render: <TanStackRouterDevtoolsPanel />,
 						},
 					]}
-				/>
+				/> */}
 				<Scripts />
 			</body>
 		</html>

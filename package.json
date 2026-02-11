@@ -19,7 +19,8 @@
 		"db:migrate": "drizzle-kit migrate",
 		"db:push": "drizzle-kit push",
 		"db:pull": "drizzle-kit pull",
-		"db:studio": "drizzle-kit studio"
+		"db:studio": "drizzle-kit studio",
+		"machine-translate": "inlang machine translate --project project.inlang"
 	},
 	"dependencies": {
 		"@neondatabase/serverless": "^1.0.2",
@@ -87,7 +88,9 @@
 		"typescript": "^5.9.3",
 		"vite": "^7.3.1",
 		"vitest": "^4.0.18",
-		"web-vitals": "^5.1.0"
+		"web-vitals": "^5.1.0",
+		"@inlang/paraglide-js": "^2.11.0",
+		"@inlang/cli": "^3.0.0"
 	},
 	"config": {
 		"commitizen": {
