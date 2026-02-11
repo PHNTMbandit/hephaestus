@@ -1,8 +1,0 @@
-@import "suwa-ui/styles";
-@source "../node_modules/suwa-ui/dist/**/*.{js,mjs}";
-
-body{
-    background-color: theme(--color-surface);
-    color: theme(--color-on-surface);
-    font-family: theme(--font-body);
-}

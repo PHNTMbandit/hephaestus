@@ -8,7 +8,7 @@ import {
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
 import { ThemeProvider } from "@/hooks/theme-provider"
 import { getThemeServerFn } from "@/lib/theme"
-import appCss from "../styles.css?url"
+import appCss from "../styles/input.css?url"
 
 export const Route = createRootRouteWithContext<{
 	queryClient: QueryClient
