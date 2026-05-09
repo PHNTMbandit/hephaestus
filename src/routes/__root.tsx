@@ -1,8 +1,8 @@
+import { ThemeProvider } from '#/hooks/use-theme.tsx'
 import { getLocale } from '#/paraglide/runtime'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 import { HeadContent, Scripts, createRootRouteWithContext } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
-import { ThemeProvider } from 'storybook/theming'
 import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
 import appCss from '../styles/input.css?url'
 
