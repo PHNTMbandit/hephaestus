@@ -2,8 +2,15 @@ import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_secure/dashboard')({
   component: RouteComponent,
+  loader: async ({ context }) => context.user,
 })
 
 function RouteComponent() {
-  return <div>Hello "/_secure/dashboard"!</div>
+  const data = Route.useLoaderData()
+
+  return (
+    <div>
+      Hello {data?.username}: {data?.name}
+    </div>
+  )
 }

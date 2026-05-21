@@ -11,10 +11,18 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SecureRouteImport } from './routes/_secure'
 import { Route as SecureDashboardRouteImport } from './routes/_secure/dashboard'
+import { Route as SecurePaletteGeneratorRouteImport } from './routes/_secure/palette-generator'
+import { Route as SecureProjectsRouteImport } from './routes/_secure/projects'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SignInRouteImport } from './routes/sign-in'
+import { Route as SignUpRouteImport } from './routes/sign-up'
 
+const SignUpRoute = SignUpRouteImport.update({
+  id: '/sign-up',
+  path: '/sign-up',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SignInRoute = SignInRouteImport.update({
   id: '/sign-in',
   path: '/sign-in',
@@ -28,6 +36,16 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const SecureProjectsRoute = SecureProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => SecureRoute,
+} as any)
+const SecurePaletteGeneratorRoute = SecurePaletteGeneratorRouteImport.update({
+  id: '/palette-generator',
+  path: '/palette-generator',
+  getParentRoute: () => SecureRoute,
 } as any)
 const SecureDashboardRoute = SecureDashboardRouteImport.update({
   id: '/dashboard',
@@ -43,13 +61,19 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/sign-in': typeof SignInRoute
+  '/sign-up': typeof SignUpRoute
   '/dashboard': typeof SecureDashboardRoute
+  '/palette-generator': typeof SecurePaletteGeneratorRoute
+  '/projects': typeof SecureProjectsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/sign-in': typeof SignInRoute
+  '/sign-up': typeof SignUpRoute
   '/dashboard': typeof SecureDashboardRoute
+  '/palette-generator': typeof SecurePaletteGeneratorRoute
+  '/projects': typeof SecureProjectsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
@@ -57,26 +81,60 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_secure': typeof SecureRouteWithChildren
   '/sign-in': typeof SignInRoute
+  '/sign-up': typeof SignUpRoute
   '/_secure/dashboard': typeof SecureDashboardRoute
+  '/_secure/palette-generator': typeof SecurePaletteGeneratorRoute
+  '/_secure/projects': typeof SecureProjectsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sign-in' | '/dashboard' | '/api/auth/$'
+  fullPaths:
+    | '/'
+    | '/sign-in'
+    | '/sign-up'
+    | '/dashboard'
+    | '/palette-generator'
+    | '/projects'
+    | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sign-in' | '/dashboard' | '/api/auth/$'
-  id: '__root__' | '/' | '/_secure' | '/sign-in' | '/_secure/dashboard' | '/api/auth/$'
+  to:
+    | '/'
+    | '/sign-in'
+    | '/sign-up'
+    | '/dashboard'
+    | '/palette-generator'
+    | '/projects'
+    | '/api/auth/$'
+  id:
+    | '__root__'
+    | '/'
+    | '/_secure'
+    | '/sign-in'
+    | '/sign-up'
+    | '/_secure/dashboard'
+    | '/_secure/palette-generator'
+    | '/_secure/projects'
+    | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SecureRoute: typeof SecureRouteWithChildren
   SignInRoute: typeof SignInRoute
+  SignUpRoute: typeof SignUpRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sign-up': {
+      id: '/sign-up'
+      path: '/sign-up'
+      fullPath: '/sign-up'
+      preLoaderRoute: typeof SignUpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sign-in': {
       id: '/sign-in'
       path: '/sign-in'
@@ -98,6 +156,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_secure/projects': {
+      id: '/_secure/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof SecureProjectsRouteImport
+      parentRoute: typeof SecureRoute
+    }
+    '/_secure/palette-generator': {
+      id: '/_secure/palette-generator'
+      path: '/palette-generator'
+      fullPath: '/palette-generator'
+      preLoaderRoute: typeof SecurePaletteGeneratorRouteImport
+      parentRoute: typeof SecureRoute
+    }
     '/_secure/dashboard': {
       id: '/_secure/dashboard'
       path: '/dashboard'
@@ -117,10 +189,14 @@ declare module '@tanstack/react-router' {
 
 interface SecureRouteChildren {
   SecureDashboardRoute: typeof SecureDashboardRoute
+  SecurePaletteGeneratorRoute: typeof SecurePaletteGeneratorRoute
+  SecureProjectsRoute: typeof SecureProjectsRoute
 }
 
 const SecureRouteChildren: SecureRouteChildren = {
   SecureDashboardRoute: SecureDashboardRoute,
+  SecurePaletteGeneratorRoute: SecurePaletteGeneratorRoute,
+  SecureProjectsRoute: SecureProjectsRoute,
 }
 
 const SecureRouteWithChildren = SecureRoute._addFileChildren(SecureRouteChildren)
@@ -129,6 +205,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SecureRoute: SecureRouteWithChildren,
   SignInRoute: SignInRoute,
+  SignUpRoute: SignUpRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport

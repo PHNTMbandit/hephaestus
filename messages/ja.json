@@ -1,3 +1,76 @@
 {
-  "$schema": "https://inlang.com/schema/inlang-message-format"
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "common": {
+    "languages": {
+      "en": "英語",
+      "ja": "日本語"
+    }
+  },
+  "auth": {
+    "signIn": {
+      "title": "アカウントにサインイン",
+      "description": "資格情報を使用してアカウントにサインインしてください",
+      "noAccount": "アカウントをお持ちでないですか？ {#g}アカウントを作成{/g}",
+      "fields": {
+        "username": "ユーザー名",
+        "password": "パスワード",
+        "rememberMe": "ログイン状態を保持する"
+      },
+      "buttons": {
+        "signIn": "サインイン",
+        "forgotPassword": "パスワードをお忘れですか？",
+        "sso": {
+          "apple": "Appleで続行",
+          "github": "GitHubで続行",
+          "google": "Googleで続行",
+          "figma": "Figmaで続行",
+          "passkey": "Passkeyで続行"
+        }
+      },
+      "errors": {
+        "invalidCredentials": "ユーザー名またはパスワードが無効です。もう一度お試しください。"
+      }
+    },
+    "signUp": {
+      "title": "新しいアカウントを作成",
+      "fields": {
+        "username": "ユーザー名",
+        "email": "メールアドレス",
+        "password": "パスワード",
+        "confirmPassword": "パスワードを確認"
+      },
+      "buttons": {
+        "signUp": "サインアップ",
+        "haveAccount": "すでにアカウントをお持ちですか？ {#g}サインイン{/g}"
+      },
+      "errors": {
+        "passwordMismatch": "パスワードが一致しません。もう一度お試しください。",
+        "emailInUse": "このメールアドレスは既に使用されています。別のメールアドレスを使用してください。"
+      }
+    }
+  },
+  "dashboard": {
+    "label": "ダッシュボード",
+    "title": "ダッシュボードへようこそ",
+    "description": "アカウントとアクティビティの概要。"
+  },
+  "paletteGenerator": {
+    "label": "パレットジェネレータ",
+    "title": "カラーパレットを生成",
+    "description": "ベースカラーを入力して、調和のとれたカラーパレットを生成します。",
+    "fields": {
+      "baseColor": "ベースカラー (Hex、RGB、またはHSL)"
+    },
+    "buttons": {
+      "generate": "パレットを生成"
+    },
+    "errors": {
+      "invalidColor": "無効なカラー形式です。有効な16進数、RGB、またはHSLカラーを入力してください。"
+    }
+  },
+  "projects": {
+    "label": "プロジェクト",
+    "title": "あなたのプロジェクト",
+    "description": "プロジェクトを管理し、チームと協力します。"
+  }
 }

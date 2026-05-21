@@ -1,9 +1,7 @@
+import { HeadContent, Scripts, createRootRouteWithContext } from '@tanstack/react-router'
+import { ToastProvider } from 'dawn-ui-react'
 import { ThemeProvider } from '#/hooks/use-theme.tsx'
 import { getLocale } from '#/paraglide/runtime'
-import { TanStackDevtools } from '@tanstack/react-devtools'
-import { HeadContent, Scripts, createRootRouteWithContext } from '@tanstack/react-router'
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
-import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
 import appCss from '../styles/input.css?url'
 
 import type { QueryClient } from '@tanstack/react-query'
@@ -29,7 +27,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        title: 'Hephaestus',
       },
     ],
     links: [
@@ -48,22 +46,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className="h-screen w-full">
         <ThemeProvider defaultTheme="system" storageKey="theme">
-          {children}
+          <ToastProvider className="size-full">{children}</ToastProvider>
         </ThemeProvider>
-        <TanStackDevtools
-          config={{
-            position: 'bottom-right',
-          }}
-          plugins={[
-            {
-              name: 'Tanstack Router',
-              render: <TanStackRouterDevtoolsPanel />,
-            },
-            TanStackQueryDevtools,
-          ]}
-        />
         <Scripts />
       </body>
     </html>
