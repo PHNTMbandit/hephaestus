@@ -12,7 +12,7 @@ export const ColourValue = ({ className, children, ref, ...props }: ColourValueP
   return (
     <span
       style={{
-        color: chroma.contrast(colour.hex, 'white') > 4.5 ? 'var(--white)' : 'var(--black)',
+        color: chroma.contrast(colour.value, 'white') > 4.5 ? 'var(--white)' : 'var(--black)',
       }}
       className={cn(
         'w-full truncate text-left style-text-strong-2 uppercase xl:text-center',
@@ -21,7 +21,7 @@ export const ColourValue = ({ className, children, ref, ...props }: ColourValueP
       ref={ref}
       {...props}
     >
-      {state.valueType.render(colour.hex)}
+      {state.valueType.displayColor(colour.value)}
       {children}
     </span>
   )

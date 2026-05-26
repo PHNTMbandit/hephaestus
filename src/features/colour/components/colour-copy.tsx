@@ -13,8 +13,9 @@ export const ColourCopy = ({ className, children, ...props }: ColourCopyProps) =
   const buttonRef = React.useRef<HTMLButtonElement | null>(null)
   const { colour } = useColour()
   const { state } = usePalette()
-  const chromaColour = chroma(colour.hex)
-  const value = state.valueType.copyToClipboard(colour.hex)
+  const chromaColour = chroma(colour.value)
+  const value = state.valueType.getColorClipboardFormat(colour.value)
+  const isDark = chromaColour.luminance() < 0.5
 
   const handleClick = async () => {
     try {
@@ -54,8 +55,8 @@ export const ColourCopy = ({ className, children, ...props }: ColourCopyProps) =
       ref={buttonRef}
       onClick={handleClick}
       style={{
-        backgroundColor: chromaColour.darken().hex(),
-        color: chromaColour.luminance() > 0.5 ? 'black' : 'white',
+        backgroundColor: isDark ? chromaColour.brighten(0.5).hex() : chromaColour.darken(0.5).hex(),
+        color: isDark ? 'white' : 'black',
       }}
       tone="neutral"
       variant={'ghost'}

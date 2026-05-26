@@ -9,12 +9,12 @@ type ColourNameProps = React.ComponentProps<'span'>
 
 export const ColourName = ({ className, children, ref, ...props }: ColourNameProps) => {
   const { colour } = useColour()
-  const { data, isPending } = useQuery(colourNameQueryOptions(colour.hex))
+  const { data, isPending } = useQuery(colourNameQueryOptions(colour.value))
 
   return (
     <span
       style={{
-        color: chroma.contrast(colour.hex, 'white') > 4.5 ? 'var(--white)' : 'var(--black)',
+        color: chroma.contrast(colour.value, 'white') > 4.5 ? 'var(--white)' : 'var(--black)',
         opacity: 0.65,
       }}
       className={cn('w-full truncate text-left style-text-default-0 xl:text-center', className)}

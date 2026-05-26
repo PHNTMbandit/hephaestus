@@ -7,9 +7,14 @@ function Home() {
   return (
     <div>
       <ThemeToggle />
-      <Link to="/sign-in" className="text-brand-default hover:underline">
-        Sign In
-      </Link>
+      <div className="flex gap-xs">
+        <Link to="/sign-in" className="text-brand-default hover:underline">
+          Sign In
+        </Link>
+        <Link to="/dashboard" className="text-brand-default hover:underline">
+          Dashboard
+        </Link>
+      </div>
     </div>
   )
 }

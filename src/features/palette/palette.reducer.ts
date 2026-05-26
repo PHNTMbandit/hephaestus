@@ -1,4 +1,9 @@
-import { generateRandomColour, valueTypes, valueTypesList } from './palette.utils'
+import {
+  generateRandomColour,
+  paletteGeneratorMethodsList,
+  valueTypes,
+  valueTypesList,
+} from './palette.utils'
 
 import type { PaletteAction, PaletteState } from './palette.types'
 
@@ -42,11 +47,11 @@ export const paletteReducer = (state: PaletteState, action: PaletteAction): Pale
       return {
         ...state,
         colours: state.colours.map((colour) =>
-          colour.id === action.payload.id ? { ...colour, hex: action.payload.hex } : colour,
+          colour.id === action.payload.id ? { ...colour, value: action.payload.hex } : colour,
         ),
       }
     case 'GENERATE':
-      const newBaseColour = generateRandomColour().hex
+      const newBaseColour = generateRandomColour().value
       return {
         ...state,
         baseColour: newBaseColour,
@@ -87,10 +92,12 @@ export const paletteReducer = (state: PaletteState, action: PaletteAction): Pale
     case 'SET_GENERATOR_METHOD':
       return {
         ...state,
-        currentGeneratorMethod: action.payload.method,
-        colours: action.payload.method
-          .generatePalette(state.baseColour, state.limit)
-          .slice(0, state.colours.length),
+        currentGeneratorMethod: paletteGeneratorMethodsList.find(
+          (method) => method.id === action.payload.id,
+        )!,
+        colours: paletteGeneratorMethodsList
+          .find((method) => method.id === action.payload.id)!
+          .generatePalette(state.baseColour, state.colours.length),
       }
     case 'SET_BASE_COLOUR':
       return {

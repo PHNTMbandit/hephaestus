@@ -62,10 +62,15 @@
       "baseColor": "ベースカラー (Hex、RGB、またはHSL)"
     },
     "buttons": {
+      "export": "エクスポート",
       "generate": "パレットを生成"
     },
     "errors": {
       "invalidColor": "無効なカラー形式です。有効な16進数、RGB、またはHSLカラーを入力してください。"
+    },
+    "export": {
+      "title": "パレットをエクスポート",
+      "description": "生成されたカラーパレットをエクスポートする形式を選択してください。"
     }
   },
   "projects": {

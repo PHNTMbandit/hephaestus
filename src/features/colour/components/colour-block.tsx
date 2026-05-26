@@ -9,10 +9,10 @@ export const ColourBlock = ({ className, children, ref, ...props }: ColourBlockP
   return (
     <div
       style={{
-        backgroundColor: colour.hex,
+        backgroundColor: colour.value,
       }}
       className={cn(
-        'group relative grid size-full grid-cols-3 items-center justify-center gap-md px-sm xl:flex xl:flex-col xl:justify-end xl:py-lg',
+        'relative grid size-full grid-cols-2 items-center justify-center gap-md px-xl py-md xl:flex xl:flex-col xl:justify-end xl:px-sm xl:py-lg',
         className,
       )}
       ref={ref}

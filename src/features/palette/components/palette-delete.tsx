@@ -9,7 +9,8 @@ type PaletteDeleteProps = React.ComponentProps<'button'>
 export const PaletteDelete = ({ className, children, ref, ...props }: PaletteDeleteProps) => {
   const { colour } = useColour()
   const { state, dispatch } = usePalette()
-  const chromaColour = chroma(colour.hex)
+  const chromaColour = chroma(colour.value)
+  const isDark = chromaColour.luminance() < 0.5
 
   const handleClick = () => {
     dispatch({
@@ -21,8 +22,8 @@ export const PaletteDelete = ({ className, children, ref, ...props }: PaletteDel
   return (
     <Button
       style={{
-        backgroundColor: chromaColour.darken().hex(),
-        color: chromaColour.luminance() > 0.5 ? 'black' : 'white',
+        backgroundColor: isDark ? chromaColour.brighten(0.5).hex() : chromaColour.darken(0.5).hex(),
+        color: isDark ? 'white' : 'black',
       }}
       onClick={handleClick}
       tone="neutral"

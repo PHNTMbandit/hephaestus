@@ -25,6 +25,6 @@ export const colourNameQueryOptions = (
   noDuplicates?: boolean,
 ) =>
   queryOptions({
-    queryKey: ['colourName', hex, list, noDuplicates],
+    queryKey: ['colourName', hex],
     queryFn: () => getColourName({ data: { hex: hex.split('#')[1], list, noDuplicates } }),
   })

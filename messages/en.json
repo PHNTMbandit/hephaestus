@@ -62,10 +62,15 @@
       "baseColor": "Base Color (Hex, RGB, or HSL)"
     },
     "buttons": {
+      "export": "Export",
       "generate": "Generate Palette"
     },
     "errors": {
       "invalidColor": "Invalid color format. Please enter a valid hex, RGB, or HSL color."
+    },
+    "export": {
+      "title": "Export Palette",
+      "description": "Choose a format to export your generated color palette."
     }
   },
   "projects": {

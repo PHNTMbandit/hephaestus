@@ -2,7 +2,9 @@ import { PaletteAdd } from './palette-add'
 import { PaletteBaseColour } from './palette-base-colour'
 import { PaletteCount } from './palette-count'
 import { PaletteDelete } from './palette-delete'
+import { PaletteExportRoot } from './palette-export-root'
 import { PaletteGenerate } from './palette-generate'
+import { PaletteGeneratorSelect } from './palette-generator-select'
 import { PaletteList } from './palette-list'
 import { PaletteLock } from './palette-lock'
 import { PaletteProvider } from './palette-provider'
@@ -14,7 +16,9 @@ export const Palette = {
   BaseColour: PaletteBaseColour,
   Count: PaletteCount,
   Delete: PaletteDelete,
+  Export: PaletteExportRoot,
   Generate: PaletteGenerate,
+  GeneratorSelect: PaletteGeneratorSelect,
   List: PaletteList,
   Lock: PaletteLock,
   Provider: PaletteProvider,

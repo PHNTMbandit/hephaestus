@@ -2,3 +2,6 @@ allowBuilds:
   '@parcel/watcher': true
   esbuild: true
   lefthook: true
+minimumReleaseAgeExclude:
+  - dawn-ui-react@1.0.0-alpha.10
+  - dawn-ui-react@1.0.0-alpha.11

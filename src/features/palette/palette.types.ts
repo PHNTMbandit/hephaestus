@@ -20,7 +20,7 @@ export type PaletteAction =
   | { type: 'GENERATE' }
   | { type: 'RECALIBRATE' }
   | { type: 'SET_BASE_COLOUR'; payload: { baseColour: string } }
-  | { type: 'SET_GENERATOR_METHOD'; payload: { method: PaletteGeneratorMethod } }
+  | { type: 'SET_GENERATOR_METHOD'; payload: { id: string } }
   | { type: 'SET_VALUE_TYPE'; payload: { valueType: string } }
   | { type: 'SET_LIMIT'; payload: { limit: number } }
   | { type: 'RESET' }
@@ -41,6 +41,6 @@ export type PaletteGeneratorMethod = {
 export type ValueType = {
   value: string
   label: string
-  render: (colour: string) => string
-  copyToClipboard: (colour: string) => string
+  displayColor: (colour: string) => string
+  getColorClipboardFormat: (colour: string) => string
 }

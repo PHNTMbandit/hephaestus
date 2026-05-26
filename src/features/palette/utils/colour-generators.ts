@@ -5,7 +5,7 @@ import type { Colour } from '../../colour/colour.types'
 export const generateRandomColour = (): Colour => {
   return {
     id: crypto.randomUUID(),
-    hex: chroma.random().hex(),
+    value: chroma.random().hex(),
     locked: false,
   }
 }
@@ -17,20 +17,20 @@ export const generateInbetweenColour = (colours: Colour[], targetIndex: number):
   if (!previousColour) {
     const nextColour = colours[targetIndex + 1]
     const mixTarget = nextColour
-      ? chroma.mix(currentColour.hex, nextColour.hex, 0.5)
-      : chroma(currentColour.hex).brighten(0.5)
+      ? chroma.mix(currentColour.value, nextColour.value, 0.5)
+      : chroma(currentColour.value).brighten(0.5)
 
     return {
       id: crypto.randomUUID(),
-      hex: mixTarget.hex(),
+      value: mixTarget.hex(),
       locked: false,
     }
   }
 
-  const inbetweenColour = chroma.mix(currentColour.hex, previousColour.hex, 0.5)
+  const inbetweenColour = chroma.mix(currentColour.value, previousColour.value, 0.5)
   return {
     id: crypto.randomUUID(),
-    hex: inbetweenColour.hex(),
+    value: inbetweenColour.hex(),
     locked: false,
   }
 }
@@ -48,7 +48,7 @@ export const generateMonochromaticColour = (
 
   return {
     id: crypto.randomUUID(),
-    hex: baseChroma.set('hsl.l', newLightness).hex(),
+    value: baseChroma.set('hsl.l', newLightness).hex(),
     locked: false,
   }
 }
@@ -64,7 +64,7 @@ export const generateComplementaryColour = (baseColour: string): Colour => {
   )
   return {
     id: crypto.randomUUID(),
-    hex: complementaryColour.hex(),
+    value: complementaryColour.hex(),
     locked: false,
   }
 }
@@ -73,7 +73,7 @@ export const generateComplementaryPalette = (baseColour: string, count: number):
   const complementaryColour = generateComplementaryColour(baseColour)
   return Array.from({ length: count }, (_, i) => ({
     id: crypto.randomUUID(),
-    hex: i % 2 === 0 ? baseColour : complementaryColour.hex,
+    hex: i % 2 === 0 ? baseColour : complementaryColour.value,
     locked: false,
   }))
 }

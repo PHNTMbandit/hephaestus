@@ -6,7 +6,7 @@ export const ColourActions = ({ className, children, ref, ...props }: ColourActi
   return (
     <div
       className={cn(
-        'group col-start-2 row-start-1 flex size-full h-fit items-center justify-center gap-3xs place-self-center xl:flex-col xl:justify-end',
+        'group col-start-2 row-start-1 flex size-full grow items-center justify-end gap-3xs place-self-center xl:flex-col',
         className,
       )}
       ref={ref}

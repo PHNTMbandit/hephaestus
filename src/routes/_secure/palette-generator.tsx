@@ -10,7 +10,7 @@ import {
 export const Route = createFileRoute('/_secure/palette-generator')({
   component: RouteComponent,
   loader: async ({ context }) => {
-    const baseColour = generateRandomColour().hex
+    const baseColour = generateRandomColour().value
     const defaultPalette = await context.queryClient.ensureQueryData(
       initialisePaletteStateQueryOptions(baseColour),
     )
@@ -32,11 +32,15 @@ function RouteComponent() {
       }}
     >
       <Palette.List />
-      <Palette.Generate />
-      <Palette.Recalibrate />
-      <Palette.BaseColour />
-      <Palette.Count />
-      <Palette.ValueSelect />
+      <div className="flex flex-wrap items-center gap-sm p-md">
+        <Palette.Generate className="grow" />
+        <Palette.Recalibrate className="grow" />
+        <Palette.Export className="grow" />
+        <Palette.BaseColour className="grow" />
+        <Palette.Count className="grow" />
+        <Palette.ValueSelect className="grow" />
+        <Palette.GeneratorSelect className="grow" />
+      </div>
     </Palette.Provider>
   )
 }

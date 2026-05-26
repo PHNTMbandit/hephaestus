@@ -1,5 +1,5 @@
 import { HeadContent, Scripts, createRootRouteWithContext } from '@tanstack/react-router'
-import { ToastProvider } from 'dawn-ui-react'
+import { DrawerProvider, ToastProvider } from 'dawn-ui-react'
 import { ThemeProvider } from '#/hooks/use-theme.tsx'
 import { getLocale } from '#/paraglide/runtime'
 import appCss from '../styles/input.css?url'
@@ -48,7 +48,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body className="h-screen w-full">
         <ThemeProvider defaultTheme="system" storageKey="theme">
-          <ToastProvider className="size-full">{children}</ToastProvider>
+          <DrawerProvider>
+            <ToastProvider className="size-full">{children}</ToastProvider>
+          </DrawerProvider>
         </ThemeProvider>
         <Scripts />
       </body>

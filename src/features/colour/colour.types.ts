@@ -1,6 +1,6 @@
 export type Colour = {
   id: string
-  hex: string
+  value: string
   locked: boolean
 }
 

@@ -9,7 +9,8 @@ type PaletteLockProps = React.ComponentProps<'button'>
 export const PaletteLock = ({ className, children, ref, ...props }: PaletteLockProps) => {
   const { colour } = useColour()
   const { dispatch } = usePalette()
-  const chromaColour = chroma(colour.hex)
+  const chromaColour = chroma(colour.value)
+  const isDark = chromaColour.luminance() < 0.5
 
   const handleClick = () => {
     if (colour.locked) {
@@ -22,8 +23,8 @@ export const PaletteLock = ({ className, children, ref, ...props }: PaletteLockP
   return (
     <Button
       style={{
-        backgroundColor: chromaColour.darken().hex(),
-        color: chromaColour.luminance() > 0.5 ? 'black' : 'white',
+        backgroundColor: isDark ? chromaColour.brighten(0.5).hex() : chromaColour.darken(0.5).hex(),
+        color: isDark ? 'white' : 'black',
       }}
       tone="neutral"
       variant={'ghost'}
