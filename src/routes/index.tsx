@@ -11,7 +11,7 @@ function Home() {
         <Link to="/sign-in" className="text-brand-default hover:underline">
           Sign In
         </Link>
-        <Link to="/dashboard" className="text-brand-default hover:underline">
+        <Link preload={false} to="/dashboard" className="text-brand-default hover:underline">
           Dashboard
         </Link>
       </div>

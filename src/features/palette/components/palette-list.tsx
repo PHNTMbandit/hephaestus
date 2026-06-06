@@ -40,9 +40,10 @@ export const PaletteList = ({ className, ref, ...props }: PaletteListProps) => {
           onDragEnd={() => setIsDragging(false)}
           value={colour}
           className="min-w-0 grow origin-center"
-          whileDrag={{
-            zIndex: 10,
+          whileTap={{
             boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.651)',
+            scale: 1.05,
+            zIndex: 10,
           }}
           transition={{
             boxShadow: { duration: 0.3 },

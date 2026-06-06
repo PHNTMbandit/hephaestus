@@ -75,5 +75,6 @@ export const generateComplementaryPalette = (baseColour: string, count: number):
     id: crypto.randomUUID(),
     hex: i % 2 === 0 ? baseColour : complementaryColour.value,
     locked: false,
+    value: i % 2 === 0 ? baseColour : complementaryColour.value,
   }))
 }

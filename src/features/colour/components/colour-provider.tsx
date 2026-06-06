@@ -1,8 +1,7 @@
 import { cn } from 'dawn-ui-react'
 import React from 'react'
 
-import type { Colour } from '#/features/palette/palette.types.ts'
-import type { ColourContextValue } from '../colour.types'
+import type { Colour, ColourContextValue } from '../colour.types'
 
 export const ColourContext = React.createContext<ColourContextValue | undefined>(undefined)
 

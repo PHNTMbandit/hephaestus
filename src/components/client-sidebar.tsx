@@ -15,12 +15,16 @@ import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from 'dawn-ui-react'
-import { secureRoutes } from '#/lib/secure-routes.ts'
+import { exploreRoute, myRoutes, secureRoutes } from '#/lib/my-routes.ts'
+import { m } from '@/paraglide/messages'
 
 import type { User } from 'better-auth'
 
@@ -38,17 +42,51 @@ export const ClientSidebar = ({ user, className, children, ref, ...props }: Clie
       </SidebarHeader>
       <SidebarContent>
         <SidebarMenu>
-          {secureRoutes.map((route) => (
-            <Link key={route.label} {...route.linkOptions} className="w-full">
-              {({ isActive }) => (
-                <SidebarMenuItem>
-                  <SidebarMenuButton isActive={isActive}>
-                    <route.leadingIcon weight="bold" /> <span>{route.label}</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              )}
-            </Link>
-          ))}
+          <SidebarGroup>
+            {exploreRoute.map((route) => (
+              <Link key={route.label} {...route.linkOptions} className="w-full">
+                {({ isActive }) => (
+                  <SidebarMenuItem>
+                    <SidebarMenuButton isActive={isActive}>
+                      <route.leadingIcon weight="bold" /> <span>{route.label}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                )}
+              </Link>
+            ))}
+          </SidebarGroup>
+          <SidebarGroup>
+            <SidebarGroupLabel>{m['navigation.groups.designTools']()}</SidebarGroupLabel>
+            <SidebarGroupContent>
+              {secureRoutes.map((route) => (
+                <Link key={route.label} {...route.linkOptions} className="w-full">
+                  {({ isActive }) => (
+                    <SidebarMenuItem>
+                      <SidebarMenuButton isActive={isActive}>
+                        <route.leadingIcon weight="bold" /> <span>{route.label}</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  )}
+                </Link>
+              ))}
+            </SidebarGroupContent>
+          </SidebarGroup>
+          <SidebarGroup>
+            <SidebarGroupLabel>{m['navigation.groups.myLibrary']()}</SidebarGroupLabel>
+            <SidebarGroupContent>
+              {myRoutes.map((route) => (
+                <Link key={route.label} {...route.linkOptions} className="w-full">
+                  {({ isActive }) => (
+                    <SidebarMenuItem>
+                      <SidebarMenuButton isActive={isActive}>
+                        <route.leadingIcon weight="bold" /> <span>{route.label}</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  )}
+                </Link>
+              ))}
+            </SidebarGroupContent>
+          </SidebarGroup>
         </SidebarMenu>
       </SidebarContent>
       <SidebarFooter>

@@ -6,6 +6,21 @@
       "ja": "Japanese"
     }
   },
+  "navigation": {
+    "groups": {
+      "designTools": "Design Tools",
+      "myLibrary": "My Library"
+    },
+    "items": {
+      "explore": "Explore",
+      "colourPalette": "Colour Palette",
+      "spacing": "Spacing",
+      "typography": "Typography",
+      "designSystems": "Design Systems",
+      "myLibrary": "My Library",
+      "favourites": "Favourites"
+    }
+  },
   "auth": {
     "signIn": {
       "title": "Hello there!",
@@ -52,30 +67,71 @@
   "dashboard": {
     "label": "Dashboard",
     "title": "Welcome to the Dashboard",
-    "description": "Overview of your account and activities."
+    "description": "Overview of your account and activity."
   },
-  "paletteGenerator": {
-    "label": "Palette Generator",
-    "title": "Generate a Color Palette",
-    "description": "Enter a base color to generate a harmonious color palette.",
+  "colourPalette": {
+    "label": "Colour Palette",
+    "title": "Generate a Colour Palette",
+    "description": "Enter a base colour to generate a harmonious colour palette.",
     "fields": {
-      "baseColor": "Base Color (Hex, RGB, or HSL)"
+      "baseColour": "Base Colour (Hex, RGB, or HSL)"
     },
     "buttons": {
       "export": "Export",
-      "generate": "Generate Palette"
+      "generate": "Generate",
+      "save": "Save"
     },
     "errors": {
-      "invalidColor": "Invalid color format. Please enter a valid hex, RGB, or HSL color."
+      "invalidColour": "Invalid colour format. Please enter a valid hex, RGB, or HSL colour."
     },
     "export": {
       "title": "Export Palette",
       "description": "Choose a format to export your generated color palette."
+    },
+    "toasts": {
+      "saveSuccess": {
+        "title": "Palette Saved",
+        "description": "Your colour palette has been saved successfully."
+      },
+      "saveError": {
+        "title": "Save Failed",
+        "description": "An error occurred while saving your colour palette. Please try again."
+      }
     }
+  },
+  "designSystems": {
+    "label": "Design Systems",
+    "title": "Design Systems Overview",
+    "description": "Explore our design systems and find the right one for your project."
+  },
+  "explore": {
+    "label": "Explore",
+    "title": "Welcome to the Explore Page",
+    "description": "Discover new features, updates, and resources to help you get the most out of our application."
+  },
+  "favourites": {
+    "label": "Favourites",
+    "title": "Your Favourites",
+    "description": "Access your favourite items, projects, and resources in one convenient location."
+  },
+  "myLibrary": {
+    "label": "My Library",
+    "title": "Your Library",
+    "description": "Access your saved items, projects, and resources in one convenient location."
   },
   "projects": {
     "label": "Projects",
     "title": "Your Projects",
     "description": "Manage your projects and collaborate with your team."
+  },
+  "spacing": {
+    "label": "Spacing",
+    "title": "Spacing Settings",
+    "description": "Customize your spacing preferences and settings."
+  },
+  "typography": {
+    "label": "Typography",
+    "title": "Typography Settings",
+    "description": "Customize your typography preferences and settings."
   }
 }

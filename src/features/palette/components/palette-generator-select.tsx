@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from 'dawn-ui-react'
 import { usePalette } from '../hooks/use-palette'
-import { paletteGeneratorMethods, paletteGeneratorMethodsList } from '../palette.utils'
+import { paletteGeneratorMethods, paletteGeneratorMethodsList } from '../utils'
 
 type PaletteGeneratorSelectProps = React.ComponentProps<typeof SelectTrigger>
 

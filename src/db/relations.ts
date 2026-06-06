@@ -1,5 +1,44 @@
 import { relations } from 'drizzle-orm/relations'
-import { user, account, session, projects, designTokens } from './schema'
+import { user, colourPalettes, designSystems, typographyBoards, account, session } from './schema'
+
+export const colourPalettesRelations = relations(colourPalettes, ({ one, many }) => ({
+  user: one(user, {
+    fields: [colourPalettes.userId],
+    references: [user.id],
+  }),
+  designSystems: many(designSystems),
+}))
+
+export const userRelations = relations(user, ({ many }) => ({
+  colourPalettes: many(colourPalettes),
+  designSystems: many(designSystems),
+  typographyBoards: many(typographyBoards),
+  accounts: many(account),
+  sessions: many(session),
+}))
+
+export const designSystemsRelations = relations(designSystems, ({ one }) => ({
+  user: one(user, {
+    fields: [designSystems.userId],
+    references: [user.id],
+  }),
+  colourPalette: one(colourPalettes, {
+    fields: [designSystems.colourPaletteId],
+    references: [colourPalettes.id],
+  }),
+  typographyBoard: one(typographyBoards, {
+    fields: [designSystems.typographyBoardId],
+    references: [typographyBoards.id],
+  }),
+}))
+
+export const typographyBoardsRelations = relations(typographyBoards, ({ one, many }) => ({
+  designSystems: many(designSystems),
+  user: one(user, {
+    fields: [typographyBoards.userId],
+    references: [user.id],
+  }),
+}))
 
 export const accountRelations = relations(account, ({ one }) => ({
   user: one(user, {
@@ -8,43 +47,9 @@ export const accountRelations = relations(account, ({ one }) => ({
   }),
 }))
 
-export const userRelations = relations(user, ({ many }) => ({
-  accounts: many(account),
-  sessions: many(session),
-  projects: many(projects),
-  designTokens: many(designTokens),
-}))
-
 export const sessionRelations = relations(session, ({ one }) => ({
   user: one(user, {
     fields: [session.userId],
     references: [user.id],
-  }),
-}))
-
-export const projectsRelations = relations(projects, ({ one, many }) => ({
-  user: one(user, {
-    fields: [projects.userId],
-    references: [user.id],
-  }),
-  designTokens: many(designTokens),
-}))
-
-export const designTokensRelations = relations(designTokens, ({ one, many }) => ({
-  project: one(projects, {
-    fields: [designTokens.projectId],
-    references: [projects.id],
-  }),
-  user: one(user, {
-    fields: [designTokens.userId],
-    references: [user.id],
-  }),
-  designToken: one(designTokens, {
-    fields: [designTokens.aliasOf],
-    references: [designTokens.id],
-    relationName: 'designTokens_aliasOf_designTokens_id',
-  }),
-  designTokens: many(designTokens, {
-    relationName: 'designTokens_aliasOf_designTokens_id',
   }),
 }))

@@ -3,7 +3,7 @@ import {
   paletteGeneratorMethodsList,
   valueTypes,
   valueTypesList,
-} from './palette.utils'
+} from './utils'
 
 import type { PaletteAction, PaletteState } from './palette.types'
 

@@ -69,6 +69,9 @@ export default defineConfig({
       exemptDestructuredRootsFromChecks: false,
       tagNamePreference: {},
     },
+    tailwindcss: {
+      entryPoint: 'src/styles/input.css',
+    },
     vitest: {
       typecheck: false,
     },

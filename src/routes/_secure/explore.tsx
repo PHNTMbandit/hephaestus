@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/_secure/dashboard')({
+export const Route = createFileRoute('/_secure/explore')({
   component: RouteComponent,
   loader: async ({ context }) => context.user,
 })

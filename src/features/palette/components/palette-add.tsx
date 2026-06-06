@@ -2,8 +2,8 @@ import { PlusIcon } from '@phosphor-icons/react/dist/ssr'
 import chroma from 'chroma-js'
 import { Button, cn } from 'dawn-ui-react'
 import { usePalette } from '#/features/palette/hooks/use-palette.ts'
-import { generateInbetweenColour } from '#/features/palette/palette.utils.ts'
 import { useColour } from '../../colour/components/colour-provider'
+import { generateInbetweenColour } from '../utils'
 
 type PaletteAddProps = React.ComponentProps<'button'>
 

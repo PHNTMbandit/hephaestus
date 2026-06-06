@@ -2,24 +2,30 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Palette } from '#/features/palette/components/palette.ts'
 import {
   generateRandomColour,
+  getPaletteQueryOptions,
   initialisePaletteStateQueryOptions,
   paletteGeneratorMethods,
   valueTypes,
-} from '#/features/palette/palette.utils.ts'
+} from '#/features/palette/utils/index.ts'
 
-export const Route = createFileRoute('/_secure/palette-generator')({
+export const Route = createFileRoute('/_secure/colour-palette/{-$projectId}')({
   component: RouteComponent,
-  loader: async ({ context }) => {
+  loader: async ({ context: { queryClient }, params: { projectId } }) => {
     const baseColour = generateRandomColour().value
-    const defaultPalette = await context.queryClient.ensureQueryData(
+    const defaultPalette = await queryClient.ensureQueryData(
       initialisePaletteStateQueryOptions(baseColour),
     )
-    return { baseColour, defaultPalette }
+    const savedPalette = await queryClient.ensureQueryData(getPaletteQueryOptions(projectId ?? ''))
+
+    if (projectId && !savedPalette) {
+      throw new Error('Palette not found')
+    }
+    return { baseColour, defaultPalette, savedPalette }
   },
 })
 
 function RouteComponent() {
-  const { baseColour, defaultPalette } = Route.useLoaderData()
+  const { baseColour, defaultPalette, savedPalette } = Route.useLoaderData()
 
   return (
     <Palette.Provider
@@ -33,9 +39,11 @@ function RouteComponent() {
     >
       <Palette.List />
       <div className="flex flex-wrap items-center gap-sm p-md">
+        {savedPalette?.id}
         <Palette.Generate className="grow" />
         <Palette.Recalibrate className="grow" />
         <Palette.Export className="grow" />
+        <Palette.Save className="grow" />
         <Palette.BaseColour className="grow" />
         <Palette.Count className="grow" />
         <Palette.ValueSelect className="grow" />

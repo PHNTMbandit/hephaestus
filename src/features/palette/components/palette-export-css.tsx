@@ -30,7 +30,7 @@ import {
   convertColoursToScss,
 } from '#/utils/code-to-html.ts'
 import { usePalette } from '../hooks/use-palette'
-import { valueTypes } from '../palette.utils'
+import { valueTypes } from '../utils'
 
 import type { ValueType } from '../palette.types'
 
@@ -82,7 +82,7 @@ export const PaletteExportCss = ({ className, children, ref, ...props }: Palette
         </DialogHeader>
         <DialogContent>
           {children}
-          <Tabs>
+          <Tabs size="small" fill>
             <TabsList>
               <TabsTab value="css">CSS</TabsTab>
               <TabsTab value="scss">SCSS</TabsTab>

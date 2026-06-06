@@ -48,12 +48,12 @@ export const PaletteExportRoot = ({
           >
             {children}
             <DownloadIcon weight="bold" className="shrink-0" />
-            {m['paletteGenerator.buttons.export']()}
+            {m['colourPalette.buttons.export']()}
           </Button>
         </DialogTrigger>
         <DialogPopup className={'w-1/2'}>
           <DialogHeader>
-            <DialogTitle>{m['paletteGenerator.export.title']()}</DialogTitle>
+            <DialogTitle>{m['colourPalette.export.title']()}</DialogTitle>
           </DialogHeader>
           <DialogContent>
             <PaletteExportCss />

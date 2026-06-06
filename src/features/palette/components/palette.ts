@@ -9,6 +9,7 @@ import { PaletteList } from './palette-list'
 import { PaletteLock } from './palette-lock'
 import { PaletteProvider } from './palette-provider'
 import { PaletteRecalibrate } from './palette-recalibrate'
+import { PaletteSave } from './palette-save'
 import { PaletteValueSelect } from './palette-value-select'
 
 export const Palette = {
@@ -23,5 +24,6 @@ export const Palette = {
   Lock: PaletteLock,
   Provider: PaletteProvider,
   Recalibrate: PaletteRecalibrate,
+  Save: PaletteSave,
   ValueSelect: PaletteValueSelect,
 }

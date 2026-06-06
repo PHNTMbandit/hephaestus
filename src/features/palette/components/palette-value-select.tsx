@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from 'dawn-ui-react'
 import { usePalette } from '../hooks/use-palette'
-import { valueTypesList } from '../palette.utils'
+import { valueTypesList } from '../utils'
 
 type PaletteValueSelectProps = React.ComponentProps<typeof SelectTrigger>
 
