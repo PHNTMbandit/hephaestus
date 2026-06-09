@@ -1,4 +1,6 @@
-import type { Colour } from '../colour/colour.types'
+import type { Colour } from '../../colour/colour.types'
+import type { PaletteGeneratorMethod } from './generator'
+import type { ValueType } from './value'
 
 export type PaletteState = {
   baseColour: string
@@ -28,19 +30,4 @@ export type PaletteAction =
 export type PaletteContextValue = {
   state: PaletteState
   dispatch: React.Dispatch<PaletteAction>
-}
-
-export type PaletteGeneratorMethod = {
-  id: string
-  name: string
-  description: string
-  generate: (baseColour: string, index: number, total: number, range?: number) => Colour
-  generatePalette: (baseColour: string, count: number, range?: number) => Colour[]
-}
-
-export type ValueType = {
-  value: string
-  label: string
-  displayColor: (colour: string) => string
-  getColorClipboardFormat: (colour: string) => string
 }

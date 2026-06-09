@@ -6,7 +6,7 @@ import {
   generateRandomColour,
 } from './colour-generators'
 
-import type { PaletteGeneratorMethod } from '../palette.types'
+import type { PaletteGeneratorMethod } from '../types/generator'
 
 export const paletteGeneratorMethods = {
   random: {

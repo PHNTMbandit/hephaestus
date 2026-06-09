@@ -1,11 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Palette } from '#/features/palette/components/palette.ts'
+import { defaultPaletteState } from '#/features/palette/constants/state.ts'
 import {
   generateRandomColour,
   getPaletteQueryOptions,
   initialisePaletteStateQueryOptions,
-  paletteGeneratorMethods,
-  valueTypes,
 } from '#/features/palette/utils/index.ts'
 
 export const Route = createFileRoute('/_secure/colour-palette/{-$projectId}')({
@@ -31,11 +30,9 @@ function RouteComponent() {
   return (
     <Palette.Provider
       initialState={{
+        ...defaultPaletteState,
         baseColour: baseColour,
         colours: savedPalette ? savedPalette.colours : defaultPalette,
-        currentGeneratorMethod: paletteGeneratorMethods.monochromatic,
-        limit: 10,
-        valueType: valueTypes.rgb,
       }}
     >
       <Palette.List />

@@ -2,7 +2,7 @@ import { cn } from 'dawn-ui-react'
 import React from 'react'
 import { paletteReducer } from '../palette.reducer'
 
-import type { PaletteContextValue, PaletteState } from '../palette.types'
+import type { PaletteContextValue, PaletteState } from '../types/state'
 
 export const PaletteContext = React.createContext<PaletteContextValue | undefined>(undefined)
 

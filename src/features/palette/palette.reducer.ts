@@ -1,11 +1,7 @@
-import {
-  generateRandomColour,
-  paletteGeneratorMethodsList,
-  valueTypes,
-  valueTypesList,
-} from './utils'
+import { valueTypes } from './constants/values'
+import { generateRandomColour, paletteGeneratorMethodsList, valueTypesList } from './utils'
 
-import type { PaletteAction, PaletteState } from './palette.types'
+import type { PaletteAction, PaletteState } from './types/state'
 
 export const paletteReducer = (state: PaletteState, action: PaletteAction): PaletteState => {
   switch (action.type) {

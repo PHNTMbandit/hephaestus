@@ -32,7 +32,7 @@ import {
 import { usePalette } from '../hooks/use-palette'
 import { valueTypes } from '../utils'
 
-import type { ValueType } from '../palette.types'
+import type { ValueType } from '../types/value'
 
 type PaletteExportCssProps = React.ComponentProps<'button'>
 

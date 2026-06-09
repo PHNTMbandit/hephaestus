@@ -1,6 +1,6 @@
 import chroma from 'chroma-js'
 
-import type { ValueType } from '../palette.types'
+import type { ValueType } from '../types/value'
 
 /** Rounds a number to specified decimal places */
 const round = (value: number, decimals = 2) => Math.round(value * 10 ** decimals) / 10 ** decimals

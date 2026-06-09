@@ -1,7 +1,7 @@
 import React from 'react'
 import { PaletteContext } from '../components/palette-provider'
 
-import type { PaletteContextValue } from '../palette.types'
+import type { PaletteContextValue } from '../types/state'
 
 export const usePalette = (): PaletteContextValue => {
   const context = React.useContext(PaletteContext)
