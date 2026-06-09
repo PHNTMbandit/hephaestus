@@ -64,11 +64,6 @@
       }
     }
   },
-  "dashboard": {
-    "label": "ダッシュボード",
-    "title": "ダッシュボードへようこそ",
-    "description": "アカウントとアクティビティの概要。"
-  },
   "colourPalette": {
     "label": "カラーパレット",
     "title": "カラーパレットを生成",
@@ -79,7 +74,8 @@
     "buttons": {
       "export": "エクスポート",
       "generate": "パレットを生成",
-      "save": "保存"
+      "save": "保存",
+      "update": "更新"
     },
     "errors": {
       "invalidColour": "無効なカラー形式です。有効な16進数、RGB、またはHSLカラーを入力してください。"
@@ -96,6 +92,14 @@
       "saveError": {
         "title": "保存に失敗しました",
         "description": "カラーパレットの保存中にエラーが発生しました。もう一度お試しください。"
+      },
+      "updateSuccess": {
+        "title": "パレットが更新されました",
+        "description": "カラーパレットが正常に更新されました。"
+      },
+      "updateError": {
+        "title": "更新に失敗しました",
+        "description": "カラーパレットの更新中にエラーが発生しました"
       }
     }
   },

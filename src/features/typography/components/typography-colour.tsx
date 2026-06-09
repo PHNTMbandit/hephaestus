@@ -1,4 +1,4 @@
-import { cn, Input, InputGroup } from 'dawn-ui-react'
+import { cn, Input } from 'dawn-ui-react'
 import { useTypography } from './typography-provider'
 
 type TypographyColourProps = React.ComponentProps<typeof Input>
@@ -12,17 +12,15 @@ export const TypographyColour = ({ className, ref, ...props }: TypographyColourP
   }
 
   return (
-    <InputGroup>
-      <Input
-        key={state.colour}
-        type="color"
-        defaultValue={state.colour}
-        value={state.colour}
-        onChange={handleChange}
-        className={cn('', className)}
-        ref={ref}
-        {...props}
-      />
-    </InputGroup>
+    <Input
+      key={state.colour}
+      type="color"
+      defaultValue={state.colour}
+      value={state.colour}
+      onChange={handleChange}
+      className={cn('', className)}
+      ref={ref}
+      {...props}
+    />
   )
 }

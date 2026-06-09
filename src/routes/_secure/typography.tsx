@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Typography } from '#/features/typography/components/typography.ts'
-import { defaultTypographyState } from '#/features/typography/typography.constants.ts'
-import { fontsQueryOptions } from '#/features/typography/typography.utils.ts'
+import { defaultTypographyState } from '#/features/typography/constants/state.ts'
+import { fontsQueryOptions } from '#/features/typography/utils/queries.ts'
 
 export const Route = createFileRoute('/_secure/typography')({
   component: RouteComponent,

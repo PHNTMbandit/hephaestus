@@ -14,7 +14,7 @@ export const AppleSSO = ({ className, children, ref, ...props }: AppleSSOProps) 
       await signIn.social(
         {
           provider: 'apple',
-          callbackURL: '/dashboard',
+          callbackURL: '/explore',
         },
         {
           onRequest: () => {

@@ -1,4 +1,4 @@
-import { cn, Input, InputGroup } from 'dawn-ui-react'
+import { cn, Input } from 'dawn-ui-react'
 import { useTypography } from './typography-provider'
 
 type TypographyBackgroundProps = React.ComponentProps<typeof Input>
@@ -12,17 +12,15 @@ export const TypographyBackground = ({ className, ref, ...props }: TypographyBac
   }
 
   return (
-    <InputGroup>
-      <Input
-        key={state.background}
-        type="color"
-        defaultValue={state.background}
-        value={state.background}
-        onChange={handleChange}
-        className={cn('', className)}
-        ref={ref}
-        {...props}
-      />
-    </InputGroup>
+    <Input
+      key={state.background}
+      type="color"
+      defaultValue={state.background}
+      value={state.background}
+      onChange={handleChange}
+      className={cn('', className)}
+      ref={ref}
+      {...props}
+    />
   )
 }

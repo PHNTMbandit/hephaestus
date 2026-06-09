@@ -21,24 +21,44 @@ export const initialisePaletteStateQueryOptions = (baseColour: string) =>
   })
 
 export const savePalette = createServerFn({ method: 'POST' })
-  .inputValidator((data: { name: string; palette: Colour[] }) => data)
+  .inputValidator((data: { name: string; colours: Colour[] }) => data)
   .middleware([authMiddleware])
-  .handler(async ({ data: { name, palette }, context }) => {
+  .handler(async ({ data: { name, colours }, context }) => {
     try {
       const [response] = await db
         .insert(colourPalettes)
         .values({
           name: name,
           userId: context.user.id,
-          dataJson: palette,
+          colours: colours,
         })
         .returning({
           id: colourPalettes.id,
+          name: colourPalettes.name,
+          colours: colourPalettes.colours,
         })
 
       return response
     } catch (error) {
+      console.error('Error saving palette:', error)
       throw new Error('Failed to save palette', { cause: error })
+    }
+  })
+
+export const updatePalette = createServerFn({ method: 'POST' })
+  .inputValidator((data: { id: string; colours: Colour[] }) => data)
+  .middleware([authMiddleware])
+  .handler(async ({ data: { id, colours } }) => {
+    try {
+      await db
+        .update(colourPalettes)
+        .set({
+          colours: colours,
+        })
+        .where(eq(colourPalettes.id, id))
+    } catch (error) {
+      console.error('Error updating palette:', error)
+      throw new Error('Failed to update palette', { cause: error })
     }
   })
 
@@ -56,6 +76,7 @@ const getPalette = createServerFn({ method: 'GET' })
       return {
         id: response.id,
         name: response.name,
+        colours: response.colours,
       }
     } catch {
       return null

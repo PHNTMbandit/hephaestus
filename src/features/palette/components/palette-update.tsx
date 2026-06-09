@@ -1,48 +1,62 @@
 import { CircleNotchIcon, FloppyDiskIcon } from '@phosphor-icons/react/dist/ssr'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useNavigate } from '@tanstack/react-router'
 import { Button, cn, stackToastManager } from 'dawn-ui-react'
 import { m } from '#/paraglide/messages.js'
 import { usePalette } from '../hooks/use-palette'
-import { getPaletteQueryOptions, getPalettesQueryOptions, savePalette } from '../utils'
+import { getPaletteQueryOptions, updatePalette } from '../utils'
 
-type PaletteSaveProps = React.ComponentProps<'button'>
+import type { Colour } from '#/features/colour/colour.types.ts'
 
-export const PaletteSave = ({ className, children, ref, ...props }: PaletteSaveProps) => {
-  const navigate = useNavigate()
+type PaletteUpdateProps = React.ComponentProps<'button'> & {
+  paletteId: string
+}
+
+export const PaletteUpdate = ({
+  paletteId,
+  className,
+  children,
+  ref,
+  ...props
+}: PaletteUpdateProps) => {
   const queryClient = useQueryClient()
   const { state } = usePalette()
 
   const mutation = useMutation({
-    mutationFn: savePalette,
+    mutationFn: updatePalette,
     onError: (error) => {
       stackToastManager.add({
-        title: m['colourPalette.toasts.saveError.title'](),
+        title: m['colourPalette.toasts.updateError.title'](),
         description: error.message + ' ' + error.cause,
         variant: 'error',
       })
-      console.error('Failed to save palette', error.cause)
+      console.error('Failed to update palette', error.cause)
     },
-    onSuccess: (data) => {
-      queryClient.setQueryData(getPaletteQueryOptions(data.id).queryKey, () => ({
-        id: data.id,
-        name: data.name,
-        colours: data.colours,
-      }))
-      queryClient.invalidateQueries({ queryKey: getPalettesQueryOptions.queryKey })
+    onSuccess: (_, variables) => {
+      queryClient.setQueryData(
+        getPaletteQueryOptions(variables.data.id).queryKey,
+        (current: { id: string; name: string; colours: Colour[] } | null | undefined) => {
+          if (!current) {
+            return current
+          }
+
+          return {
+            ...current,
+            colours: variables.data.colours,
+          }
+        },
+      )
       stackToastManager.add({
-        title: m['colourPalette.toasts.saveSuccess.title'](),
-        description: m['colourPalette.toasts.saveSuccess.description'](),
+        title: m['colourPalette.toasts.updateSuccess.title'](),
+        description: m['colourPalette.toasts.updateSuccess.description'](),
         variant: 'success',
       })
-      navigate({ to: '/colour-palette/{-$projectId}', params: { projectId: data.id } })
     },
   })
 
   const handleClick = () => {
     mutation.mutate({
       data: {
-        name: `Palette ${new Date().toLocaleString()}`,
+        id: paletteId,
         colours: state.colours,
       },
     })
@@ -60,7 +74,7 @@ export const PaletteSave = ({ className, children, ref, ...props }: PaletteSaveP
     <Button onClick={handleClick} tone="accent" className={cn('', className)} ref={ref} {...props}>
       {children}
       <FloppyDiskIcon weight="bold" />
-      {m['colourPalette.buttons.save']()}
+      {m['colourPalette.buttons.update']()}
     </Button>
   )
 }

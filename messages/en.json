@@ -64,11 +64,6 @@
       }
     }
   },
-  "dashboard": {
-    "label": "Dashboard",
-    "title": "Welcome to the Dashboard",
-    "description": "Overview of your account and activity."
-  },
   "colourPalette": {
     "label": "Colour Palette",
     "title": "Generate a Colour Palette",
@@ -79,7 +74,8 @@
     "buttons": {
       "export": "Export",
       "generate": "Generate",
-      "save": "Save"
+      "save": "Save",
+      "update": "Update"
     },
     "errors": {
       "invalidColour": "Invalid colour format. Please enter a valid hex, RGB, or HSL colour."
@@ -96,6 +92,14 @@
       "saveError": {
         "title": "Save Failed",
         "description": "An error occurred while saving your colour palette. Please try again."
+      },
+      "updateSuccess": {
+        "title": "Palette Updated",
+        "description": "Your colour palette has been updated successfully."
+      },
+      "updateError": {
+        "title": "Update Failed",
+        "description": "An error occurred while updating your colour palette. Please try again."
       }
     }
   },

@@ -14,7 +14,7 @@ export const FigmaSSO = ({ className, children, ref, ...props }: FigmaSSOProps) 
       await signIn.social(
         {
           provider: 'figma',
-          callbackURL: '/dashboard',
+          callbackURL: '/explore',
         },
         {
           onRequest: () => {

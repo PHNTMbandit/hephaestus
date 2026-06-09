@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from 'dawn-ui-react'
-import { fontWeights } from '../typography.constants'
+import { fontWeights } from '../constants/font-weight'
 import { useTypography } from './typography-provider'
 
 import type { FontWeight } from '../types/font-weight'

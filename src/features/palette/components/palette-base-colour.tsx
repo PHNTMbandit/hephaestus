@@ -1,4 +1,4 @@
-import { cn, Input, InputGroup } from 'dawn-ui-react'
+import { cn, Input } from 'dawn-ui-react'
 import { usePalette } from '../hooks/use-palette'
 
 type PaletteBaseColourProps = React.ComponentProps<typeof Input>
@@ -16,19 +16,16 @@ export const PaletteBaseColour = ({
   }
 
   return (
-    <InputGroup>
-      <Input
-        key={state.baseColour}
-        defaultValue={state.baseColour}
-        onChange={handleChange}
-        type="color"
-        value={state.baseColour}
-        className={cn('', className)}
-        ref={ref}
-        {...props}
-      >
-        {children}
-      </Input>
-    </InputGroup>
+    <Input
+      type="color"
+      defaultValue={state.baseColour}
+      onChange={handleChange}
+      value={state.baseColour}
+      className={cn('', className)}
+      ref={ref}
+      {...props}
+    >
+      {children}
+    </Input>
   )
 }

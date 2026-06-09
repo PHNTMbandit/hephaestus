@@ -15,6 +15,13 @@
       "when": 1780742562252,
       "tag": "0001_low_karma",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1780805821248,
+      "tag": "0002_colossal_kulan_gath",
+      "breakpoints": true
     }
   ]
 }

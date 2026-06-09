@@ -1,7 +1,7 @@
 import { queryOptions } from '@tanstack/react-query'
 import { createServerFn } from '@tanstack/react-start'
 
-import type { WebFont } from './types/font-family'
+import type { WebFont } from '../types/font-family'
 
 const getFonts = createServerFn().handler(async (): Promise<WebFont[]> => {
   try {

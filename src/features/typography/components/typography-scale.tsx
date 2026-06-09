@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from 'dawn-ui-react'
-import { typeScales } from '../typography.constants'
+import { typeScales } from '../constants/scale'
 import { useTypography } from './typography-provider'
 
 import type { TypeScale } from '../types/type-scale'

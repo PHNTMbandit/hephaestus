@@ -11,13 +11,15 @@ import {
   boolean,
 } from 'drizzle-orm/pg-core'
 
+import type { Colour } from '#/features/colour/colour.types.ts'
+
 export const colourPalettes = pgTable(
   'colour_palettes',
   {
     id: uuid().defaultRandom().primaryKey().notNull(),
     userId: text('user_id').notNull(),
     name: text().notNull(),
-    dataJson: jsonb('data_json').notNull(),
+    colours: jsonb('colours').$type<Colour[]>().notNull(),
     createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
       .defaultNow()
       .notNull(),

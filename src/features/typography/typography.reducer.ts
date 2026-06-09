@@ -1,4 +1,4 @@
-import { defaultTypographyState } from './typography.constants'
+import { defaultTypographyState } from './constants/state'
 
 import type { TypographyAction, TypographyState } from './types/state'
 
