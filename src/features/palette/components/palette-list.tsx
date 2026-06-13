@@ -1,74 +1,63 @@
+import { cva } from 'class-variance-authority'
 import { cn } from 'dawn-ui-react'
-import { Reorder, type HTMLMotionProps } from 'motion/react'
-import React from 'react'
-import { type Colour as ColourType } from '#/features/colour/colour.types.ts'
-import { Colour } from '#/features/colour/components/colour'
-import { useMediaQuery } from '#/hooks/use-media-query.tsx'
 import { usePalette } from '../hooks/use-palette'
-import { Palette } from './palette'
 
-type PaletteListProps = HTMLMotionProps<'ul'>
+import type { Colour } from '#/features/colour/colour.types.ts'
+import type { ValueType } from '../types/value'
+import type { VariantProps } from 'class-variance-authority'
 
-export const PaletteList = ({ className, ref, ...props }: PaletteListProps) => {
-  const [isDragging, setIsDragging] = React.useState(false)
-  const isDesktop = useMediaQuery('(min-width: 1280px)')
-  const {
-    state: { colours },
-    dispatch,
-  } = usePalette()
+const paletteListVariants = cva(
+  'relative grid size-full min-h-0 min-w-0 grow auto-cols-fr overflow-hidden',
+  {
+    variants: {
+      rounded: {
+        none: '',
+        xSmall: 'rounded-xs',
+        small: 'rounded-sm',
+        medium: 'rounded-md',
+        large: 'rounded-lg',
+        xLarge: 'rounded-xl',
+        xxLarge: 'rounded-2xl',
+        xxxLarge: 'rounded-3xl',
+        full: 'rounded-full',
+      },
+      orientation: {
+        horizontal: 'grid-flow-col',
+        vertical: 'grid-flow-row',
+      },
+    },
+    defaultVariants: { orientation: 'horizontal', rounded: 'none' },
+  },
+)
 
-  const handleReorder = (newColours: ColourType[]) => {
-    dispatch({ type: 'REORDER', payload: { newColours } })
+type PaletteListProps = Omit<React.ComponentProps<'ul'>, 'children'> &
+  VariantProps<typeof paletteListVariants> & {
+    children: (props: { colour: Colour; valueType?: ValueType }) => React.ReactNode
   }
 
+export const PaletteList = ({
+  orientation,
+  rounded,
+  className,
+  children,
+  ref,
+  ...props
+}: PaletteListProps) => {
+  const {
+    state: { colours, valueType },
+  } = usePalette()
+
   return (
-    <Reorder.Group
-      axis={isDesktop ? 'x' : 'y'}
-      {...props}
-      values={colours}
-      onReorder={handleReorder}
+    <ul
+      className={cn(paletteListVariants({ orientation, rounded }), className)}
       ref={ref}
-      className={cn(
-        'grid h-2/3 w-full grow auto-cols-fr grid-flow-row border-b border-border xl:grid-flow-col',
-        className,
-      )}
+      {...props}
     >
       {colours.map((colour) => (
-        <Reorder.Item
-          key={colour.id}
-          onDragStart={() => setIsDragging(true)}
-          onDragEnd={() => setIsDragging(false)}
-          value={colour}
-          className="min-w-0 grow origin-center"
-          whileTap={{
-            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.651)',
-            scale: 1.05,
-            zIndex: 10,
-          }}
-          transition={{
-            boxShadow: { duration: 0.3 },
-          }}
-        >
-          <Colour.Provider colour={colour}>
-            <Colour.Block className="hover:cursor-grab active:cursor-grabbing">
-              {!isDragging && (
-                <>
-                  <Palette.Add />
-                  <Colour.Actions>
-                    <Palette.Delete />
-                    <Colour.Copy />
-                    <Palette.Lock />
-                  </Colour.Actions>
-                </>
-              )}
-              <Colour.Footer>
-                <Colour.Value />
-                <Colour.Name />
-              </Colour.Footer>
-            </Colour.Block>
-          </Colour.Provider>
-        </Reorder.Item>
+        <li key={colour.id} className="">
+          {children({ colour, valueType })}
+        </li>
       ))}
-    </Reorder.Group>
+    </ul>
   )
 }

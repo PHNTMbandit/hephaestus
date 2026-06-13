@@ -21,8 +21,9 @@ export const PaletteBaseColour = ({
       defaultValue={state.baseColour}
       onChange={handleChange}
       value={state.baseColour}
-      className={cn('', className)}
+      className={cn('ml-auto xl:ml-0', className)}
       ref={ref}
+      variant={'secondary'}
       {...props}
     >
       {children}

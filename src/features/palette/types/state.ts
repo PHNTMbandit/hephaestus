@@ -3,11 +3,12 @@ import type { PaletteGeneratorMethod } from './generator'
 import type { ValueType } from './value'
 
 export type PaletteState = {
-  baseColour: string
   colours: Colour[]
+  valueType: ValueType
+  baseColour: string
   currentGeneratorMethod: PaletteGeneratorMethod
   limit: number
-  valueType: ValueType
+  mode: 'list' | 'preview'
 }
 
 export type PaletteAction =
@@ -25,9 +26,17 @@ export type PaletteAction =
   | { type: 'SET_GENERATOR_METHOD'; payload: { id: string } }
   | { type: 'SET_VALUE_TYPE'; payload: { valueType: string } }
   | { type: 'SET_LIMIT'; payload: { limit: number } }
+  | { type: 'SET_MODE'; payload: { mode: 'list' | 'preview' } }
   | { type: 'RESET' }
 
 export type PaletteContextValue = {
   state: PaletteState
   dispatch: React.Dispatch<PaletteAction>
+}
+
+export type SerializablePaletteState = {
+  colours: PaletteState['colours']
+  baseColour: string
+  limit: number
+  mode: PaletteState['mode']
 }

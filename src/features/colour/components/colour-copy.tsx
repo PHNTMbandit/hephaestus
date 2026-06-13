@@ -3,22 +3,22 @@ import chroma from 'chroma-js'
 import { anchoredToastManager, Button, cn } from 'dawn-ui-react'
 import { AnimatePresence, motion } from 'motion/react'
 import React from 'react'
-import { usePalette } from '#/features/palette/hooks/use-palette.ts'
 import { useColour } from './colour-provider'
 
-type ColourCopyProps = React.ComponentProps<'button'>
+type ColourCopyProps = React.ComponentProps<'button'> & {
+  value?: string
+}
 
-export const ColourCopy = ({ className, children, ...props }: ColourCopyProps) => {
+export const ColourCopy = ({ value, className, children, ...props }: ColourCopyProps) => {
   const [showingToast, setShowingToast] = React.useState(false)
   const buttonRef = React.useRef<HTMLButtonElement | null>(null)
   const { colour } = useColour()
-  const { state } = usePalette()
   const chromaColour = chroma(colour.value)
-  const value = state.valueType.getColorClipboardFormat(colour.value)
   const isDark = chromaColour.luminance() < 0.5
 
   const handleClick = async () => {
     try {
+      if (!value) return
       await navigator.clipboard.writeText(value)
 
       if (showingToast) return

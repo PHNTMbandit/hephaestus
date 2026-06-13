@@ -1,3 +1,4 @@
+import { ArrowsClockwiseIcon } from '@phosphor-icons/react/dist/ssr'
 import { useHotkey } from '@tanstack/react-hotkeys'
 import { Button, cn, Kbd } from 'dawn-ui-react'
 import { usePalette } from '../hooks/use-palette'
@@ -16,8 +17,9 @@ export const PaletteGenerate = ({ className, children, ref, ...props }: PaletteG
 
   return (
     <Button className={cn('', className)} ref={ref} {...props} onClick={handleClick}>
-      Generate
-      <Kbd>
+      <ArrowsClockwiseIcon weight="bold" />
+      <span className="hidden xl:block">Generate</span>
+      <Kbd className="hidden xl:flex">
         <svg
           width="800px"
           height="800px"

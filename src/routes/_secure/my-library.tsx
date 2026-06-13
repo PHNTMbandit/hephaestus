@@ -1,4 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
+import { Colour } from '#/features/colour/components/colour.ts'
+import { Palette } from '#/features/palette/components/palette.ts'
+import { defaultPaletteState } from '#/features/palette/constants/state.ts'
 import { getPalettesQueryOptions } from '#/features/palette/utils/queries.ts'
 
 export const Route = createFileRoute('/_secure/my-library')({
@@ -12,16 +15,31 @@ function RouteComponent() {
   const data = Route.useLoaderData()
 
   return (
-    <div>
-      {data?.map((palette) => (
-        <Link
-          key={palette.id}
-          to="/colour-palette/{-$projectId}"
-          params={{ projectId: palette.id }}
-        >
-          <div>{palette.name}</div>
-        </Link>
-      ))}
-    </div>
+    <section className="size-full">
+      <div className="grid auto-rows-[100px] grid-cols-[repeat(auto-fill,minmax(256px,1fr))] gap-sm p-md">
+        {data?.map((palette) => (
+          <Link
+            key={palette.id}
+            to="/colour-palette/{-$projectId}"
+            params={{ projectId: palette.id }}
+          >
+            <Palette.Root
+              initialState={{
+                ...defaultPaletteState,
+                colours: palette.colours,
+              }}
+            >
+              <Palette.List orientation={'horizontal'} rounded="xxLarge">
+                {({ colour }) => (
+                  <Colour.Provider colour={colour}>
+                    <Colour.Block />
+                  </Colour.Provider>
+                )}
+              </Palette.List>
+            </Palette.Root>
+          </Link>
+        ))}
+      </div>
+    </section>
   )
 }

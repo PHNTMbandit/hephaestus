@@ -28,7 +28,11 @@ export const PaletteGeneratorSelect = ({
   }
 
   return (
-    <Select value={state.currentGeneratorMethod.id} onValueChange={handleValueChange}>
+    <Select
+      value={state.currentGeneratorMethod.id}
+      items={paletteGeneratorMethodsList.map((m) => ({ label: m.name, value: m.id }))}
+      onValueChange={handleValueChange}
+    >
       <SelectTrigger className={cn('', className)} ref={ref} {...props}>
         <SelectValue>
           {(value: keyof typeof paletteGeneratorMethods) => paletteGeneratorMethods[value].name}

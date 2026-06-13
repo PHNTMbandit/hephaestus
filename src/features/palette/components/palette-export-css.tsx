@@ -38,6 +38,7 @@ type PaletteExportCssProps = React.ComponentProps<'button'>
 
 export const PaletteExportCss = ({ className, children, ref, ...props }: PaletteExportCssProps) => {
   const { state } = usePalette()
+
   const formattedCss = Object.keys(valueTypes).map((key) =>
     convertColoursToCss(state.colours, valueTypes[key as keyof typeof valueTypes] as ValueType),
   )

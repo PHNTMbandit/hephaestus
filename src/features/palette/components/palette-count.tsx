@@ -23,7 +23,7 @@ export const PaletteCount = ({ className, children, ref, ...props }: PaletteCoun
       max={state.limit}
       onValueChange={handleChange}
       value={state.colours.length}
-      className={cn('', className)}
+      className={cn('hidden xl:block', className)}
       ref={ref}
       {...props}
     >

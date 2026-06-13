@@ -10,8 +10,9 @@ type PaletteAddProps = React.ComponentProps<'button'>
 export const PaletteAdd = ({ className, children, ref, ...props }: PaletteAddProps) => {
   const { colour } = useColour()
   const { state, dispatch } = usePalette()
-  const currentColourIndex = state.colours.findIndex((c) => c.id === colour.id)
-  const inbetweenColour = generateInbetweenColour(state.colours, currentColourIndex)
+  const colours = state.colours ?? []
+  const currentColourIndex = colours.findIndex((c) => c.id === colour.id)
+  const inbetweenColour = generateInbetweenColour(colours, currentColourIndex)
 
   if (currentColourIndex === 0) {
     return null

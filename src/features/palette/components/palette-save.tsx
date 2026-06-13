@@ -24,11 +24,7 @@ export const PaletteSave = ({ className, children, ref, ...props }: PaletteSaveP
       console.error('Failed to save palette', error.cause)
     },
     onSuccess: (data) => {
-      queryClient.setQueryData(getPaletteQueryOptions(data.id).queryKey, () => ({
-        id: data.id,
-        name: data.name,
-        colours: data.colours,
-      }))
+      queryClient.setQueryData(getPaletteQueryOptions(data.id).queryKey, () => data)
       queryClient.invalidateQueries({ queryKey: getPalettesQueryOptions.queryKey })
       stackToastManager.add({
         title: m['colourPalette.toasts.saveSuccess.title'](),
@@ -43,6 +39,7 @@ export const PaletteSave = ({ className, children, ref, ...props }: PaletteSaveP
     mutation.mutate({
       data: {
         name: `Palette ${new Date().toLocaleString()}`,
+        baseColour: state.baseColour,
         colours: state.colours,
       },
     })
@@ -50,17 +47,31 @@ export const PaletteSave = ({ className, children, ref, ...props }: PaletteSaveP
 
   if (mutation.isPending) {
     return (
-      <Button disabled tone="accent" className={cn('', className)} ref={ref} {...props}>
+      <Button
+        disabled
+        tone="neutral"
+        variant={'ghost'}
+        className={cn('', className)}
+        ref={ref}
+        {...props}
+      >
         <CircleNotchIcon weight="bold" className="animate-spin" />
       </Button>
     )
   }
 
   return (
-    <Button onClick={handleClick} tone="accent" className={cn('', className)} ref={ref} {...props}>
+    <Button
+      onClick={handleClick}
+      tone="neutral"
+      variant={'ghost'}
+      className={cn('', className)}
+      ref={ref}
+      {...props}
+    >
       {children}
       <FloppyDiskIcon weight="bold" />
-      {m['colourPalette.buttons.save']()}
+      <span className="hidden xl:block">{m['colourPalette.buttons.save']()}</span>
     </Button>
   )
 }

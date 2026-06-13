@@ -7,9 +7,13 @@ import { PaletteGenerate } from './palette-generate'
 import { PaletteGeneratorSelect } from './palette-generator-select'
 import { PaletteList } from './palette-list'
 import { PaletteLock } from './palette-lock'
-import { PaletteProvider } from './palette-provider'
+import { PaletteModeToggle } from './palette-mode-toggle'
+import { PaletteModeView } from './palette-mode-view'
 import { PaletteRecalibrate } from './palette-recalibrate'
+import { PaletteReorderableList } from './palette-reorderable-list'
+import { PaletteRoot } from './palette-root'
 import { PaletteSave } from './palette-save'
+import { PaletteToolbar } from './palette-toolbar'
 import { PaletteUpdate } from './palette-update'
 import { PaletteValueSelect } from './palette-value-select'
 
@@ -23,9 +27,13 @@ export const Palette = {
   GeneratorSelect: PaletteGeneratorSelect,
   List: PaletteList,
   Lock: PaletteLock,
-  Provider: PaletteProvider,
+  ModeToggle: PaletteModeToggle,
+  ModeView: PaletteModeView,
+  Root: PaletteRoot,
   Recalibrate: PaletteRecalibrate,
+  ReorderableList: PaletteReorderableList,
   Save: PaletteSave,
+  Toolbar: PaletteToolbar,
   Update: PaletteUpdate,
   ValueSelect: PaletteValueSelect,
 }

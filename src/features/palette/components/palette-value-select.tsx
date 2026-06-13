@@ -22,13 +22,14 @@ export const PaletteValueSelect = ({
   ...props
 }: PaletteValueSelectProps) => {
   const { state, dispatch } = usePalette()
+  const valueType = state.valueType ?? valueTypesList[0]
 
   const handleValueChange = (value: any) => {
     dispatch({ type: 'SET_VALUE_TYPE', payload: { valueType: value } })
   }
 
   return (
-    <Select value={state.valueType.value} items={valueTypesList} onValueChange={handleValueChange}>
+    <Select value={valueType?.value} items={valueTypesList} onValueChange={handleValueChange}>
       <SelectTrigger className={cn('', className)} ref={ref} {...props}>
         <SelectValue />
         <SelectIcon>

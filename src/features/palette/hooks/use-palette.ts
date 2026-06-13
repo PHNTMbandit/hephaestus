@@ -1,5 +1,5 @@
 import React from 'react'
-import { PaletteContext } from '../components/palette-provider'
+import { PaletteContext } from '../components/palette-root'
 
 import type { PaletteContextValue } from '../types/state'
 

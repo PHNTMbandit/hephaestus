@@ -5,8 +5,6 @@ import { m } from '#/paraglide/messages.js'
 import { usePalette } from '../hooks/use-palette'
 import { getPaletteQueryOptions, updatePalette } from '../utils'
 
-import type { Colour } from '#/features/colour/colour.types.ts'
-
 type PaletteUpdateProps = React.ComponentProps<'button'> & {
   paletteId: string
 }
@@ -32,19 +30,14 @@ export const PaletteUpdate = ({
       console.error('Failed to update palette', error.cause)
     },
     onSuccess: (_, variables) => {
-      queryClient.setQueryData(
-        getPaletteQueryOptions(variables.data.id).queryKey,
-        (current: { id: string; name: string; colours: Colour[] } | null | undefined) => {
-          if (!current) {
-            return current
-          }
-
-          return {
-            ...current,
-            colours: variables.data.colours,
-          }
-        },
-      )
+      queryClient.setQueryData(getPaletteQueryOptions(variables.data.id).queryKey, (current) => {
+        if (!current) return current
+        return {
+          ...current,
+          colours: variables.data.colours,
+          baseColour: variables.data.baseColour,
+        }
+      })
       stackToastManager.add({
         title: m['colourPalette.toasts.updateSuccess.title'](),
         description: m['colourPalette.toasts.updateSuccess.description'](),
@@ -57,7 +50,8 @@ export const PaletteUpdate = ({
     mutation.mutate({
       data: {
         id: paletteId,
-        colours: state.colours,
+        colours: state.colours ?? [],
+        baseColour: state.baseColour ?? '#ff0000',
       },
     })
   }
@@ -71,7 +65,14 @@ export const PaletteUpdate = ({
   }
 
   return (
-    <Button onClick={handleClick} tone="accent" className={cn('', className)} ref={ref} {...props}>
+    <Button
+      onClick={handleClick}
+      tone="neutral"
+      variant={'ghost'}
+      className={cn('', className)}
+      ref={ref}
+      {...props}
+    >
       {children}
       <FloppyDiskIcon weight="bold" />
       {m['colourPalette.buttons.update']()}

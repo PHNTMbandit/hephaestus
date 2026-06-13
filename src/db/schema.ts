@@ -19,6 +19,7 @@ export const colourPalettes = pgTable(
     id: uuid().defaultRandom().primaryKey().notNull(),
     userId: text('user_id').notNull(),
     name: text().notNull(),
+    baseColour: text('base_colour').notNull(),
     colours: jsonb('colours').$type<Colour[]>().notNull(),
     createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
       .defaultNow()

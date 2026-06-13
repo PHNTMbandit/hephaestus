@@ -9,13 +9,14 @@ type PaletteDeleteProps = React.ComponentProps<'button'>
 export const PaletteDelete = ({ className, children, ref, ...props }: PaletteDeleteProps) => {
   const { colour } = useColour()
   const { state, dispatch } = usePalette()
+  const colours = state.colours ?? []
   const chromaColour = chroma(colour.value)
   const isDark = chromaColour.luminance() < 0.5
 
   const handleClick = () => {
     dispatch({
       type: 'REMOVE_AT',
-      payload: { index: state.colours.findIndex((c) => c.id === colour.id) },
+      payload: { index: colours.findIndex((c) => c.id === colour.id) },
     })
   }
 

@@ -1,13 +1,11 @@
 import chroma from 'chroma-js'
 import { cn } from 'dawn-ui-react'
-import { usePalette } from '#/features/palette/hooks/use-palette.ts'
 import { useColour } from './colour-provider'
 
 type ColourValueProps = React.ComponentProps<'span'>
 
 export const ColourValue = ({ className, children, ref, ...props }: ColourValueProps) => {
   const { colour } = useColour()
-  const { state } = usePalette()
 
   return (
     <span
@@ -21,7 +19,6 @@ export const ColourValue = ({ className, children, ref, ...props }: ColourValueP
       ref={ref}
       {...props}
     >
-      {state.valueType.displayColor(colour.value)}
       {children}
     </span>
   )
