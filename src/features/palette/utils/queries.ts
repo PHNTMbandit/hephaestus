@@ -8,37 +8,18 @@ import { authMiddleware } from '#/middleware/auth-middleware.ts'
 import type { Colour } from '#/features/colour/colour.types.ts'
 
 export const savePalette = createServerFn({ method: 'POST' })
-  .inputValidator((data: { name: string; colours: Colour[]; baseColour: string }) => data)
+  .validator((data: { id: string; name: string; colours: Colour[]; baseColour: string }) => data)
   .middleware([authMiddleware])
-  .handler(async ({ data: { name, colours, baseColour }, context }) => {
-    try {
-      const [response] = await db
-        .insert(colourPalettes)
-        .values({
-          name: name,
-          userId: context.user.id,
-          baseColour: baseColour,
-          colours: colours,
-        })
-        .returning({
-          id: colourPalettes.id,
-          name: colourPalettes.name,
-          baseColour: colourPalettes.baseColour,
-          colours: colourPalettes.colours,
-          createdAt: colourPalettes.createdAt,
-          updatedAt: colourPalettes.updatedAt,
-          userId: colourPalettes.userId,
-        })
-
-      return response
-    } catch (error) {
-      console.error('Error saving palette:', error)
-      throw new Error('Failed to save palette', { cause: error })
-    }
+  .handler(async ({ data: { id, name, colours, baseColour }, context }) => {
+    const [response] = await db
+      .insert(colourPalettes)
+      .values({ id, name, userId: context.user.id, baseColour, colours })
+      .returning()
+    return response
   })
 
 export const updatePalette = createServerFn({ method: 'POST' })
-  .inputValidator((data: { id: string; colours: Colour[]; baseColour: string }) => data)
+  .validator((data: { id: string; colours: Colour[]; baseColour: string }) => data)
   .middleware([authMiddleware])
   .handler(async ({ data: { id, colours, baseColour } }) => {
     try {
@@ -55,55 +36,43 @@ export const updatePalette = createServerFn({ method: 'POST' })
     }
   })
 
-const getPalette = createServerFn({ method: 'GET' })
-  .inputValidator((data: { id: string }) => data)
+export const deletePalette = createServerFn({ method: 'POST' })
+  .validator((data: { id: string }) => data)
   .middleware([authMiddleware])
   .handler(async ({ data: { id } }) => {
     try {
-      const [response] = await db
-        .select()
-        .from(colourPalettes)
-        .where(eq(colourPalettes.id, id))
-        .limit(1)
-
-      return {
-        baseColour: response.baseColour,
-        colours: response.colours,
-        createdAt: response.createdAt,
-        id: response.id,
-        name: response.name,
-        updatedAt: response.updatedAt,
-        userId: response.userId,
-      }
-    } catch {
-      return null
+      await db.delete(colourPalettes).where(eq(colourPalettes.id, id))
+    } catch (error) {
+      console.error('Error deleting palette:', error)
+      throw new Error('Failed to delete palette', { cause: error })
     }
   })
 
-const getPalettes = createServerFn({ method: 'GET' }).handler(async () => {
-  try {
-    const response = await db.select().from(colourPalettes)
-    return response.map((palette) => ({
-      baseColour: palette.baseColour,
-      colours: palette.colours,
-      createdAt: palette.createdAt,
-      id: palette.id,
-      name: palette.name,
-      updatedAt: palette.updatedAt,
-      userId: palette.userId,
-    }))
-  } catch {
-    return null
-  }
+const getPalette = createServerFn({ method: 'GET' })
+  .validator((data: { id: string }) => data)
+  .middleware([authMiddleware])
+  .handler(async ({ data: { id } }) => {
+    const [response] = await db
+      .select()
+      .from(colourPalettes)
+      .where(eq(colourPalettes.id, id))
+      .limit(1)
+
+    if (!response) throw new Error('Palette not found')
+    return response
+  })
+
+export const getPalettes = createServerFn({ method: 'GET' }).handler(async () => {
+  return db.select().from(colourPalettes)
 })
 
-export const getPaletteQueryOptions = (id: string) =>
+export const paletteQueryOptions = (id: string) =>
   queryOptions({
     queryKey: ['getPalette', id],
     queryFn: () => getPalette({ data: { id } }),
   })
 
-export const getPalettesQueryOptions = queryOptions({
+export const palettesQueryOptions = queryOptions({
   queryKey: ['getPalettes'],
   queryFn: getPalettes,
 })

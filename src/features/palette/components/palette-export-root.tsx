@@ -48,7 +48,6 @@ export const PaletteExportRoot = ({
           >
             {children}
             <DownloadIcon weight="bold" className="shrink-0" />
-            <span className="hidden xl:block">{m['colourPalette.buttons.export']()}</span>
           </Button>
         </DialogTrigger>
         <DialogPopup className={'w-1/2'}>

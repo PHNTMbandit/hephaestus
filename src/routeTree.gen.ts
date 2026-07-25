@@ -22,9 +22,13 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as SignUpRouteImport } from './routes/sign-up'
 
-const SignUpRoute = SignUpRouteImport.update({
-  id: '/sign-up',
-  path: '/sign-up',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SecureRoute = SecureRouteImport.update({
+  id: '/_secure',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SignInRoute = SignInRouteImport.update({
@@ -32,33 +36,14 @@ const SignInRoute = SignInRouteImport.update({
   path: '/sign-in',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SecureRoute = SecureRouteImport.update({
-  id: '/_secure',
+const SignUpRoute = SignUpRouteImport.update({
+  id: '/sign-up',
+  path: '/sign-up',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SecureTypographyRoute = SecureTypographyRouteImport.update({
-  id: '/typography',
-  path: '/typography',
-  getParentRoute: () => SecureRoute,
-} as any)
-const SecureSpacingRoute = SecureSpacingRouteImport.update({
-  id: '/spacing',
-  path: '/spacing',
-  getParentRoute: () => SecureRoute,
-} as any)
-const SecureMyLibraryRoute = SecureMyLibraryRouteImport.update({
-  id: '/my-library',
-  path: '/my-library',
-  getParentRoute: () => SecureRoute,
-} as any)
-const SecureFavouritesRoute = SecureFavouritesRouteImport.update({
-  id: '/favourites',
-  path: '/favourites',
+const SecureDesignSystemsRoute = SecureDesignSystemsRouteImport.update({
+  id: '/design-systems',
+  path: '/design-systems',
   getParentRoute: () => SecureRoute,
 } as any)
 const SecureExploreRoute = SecureExploreRouteImport.update({
@@ -66,15 +51,25 @@ const SecureExploreRoute = SecureExploreRouteImport.update({
   path: '/explore',
   getParentRoute: () => SecureRoute,
 } as any)
-const SecureDesignSystemsRoute = SecureDesignSystemsRouteImport.update({
-  id: '/design-systems',
-  path: '/design-systems',
+const SecureFavouritesRoute = SecureFavouritesRouteImport.update({
+  id: '/favourites',
+  path: '/favourites',
   getParentRoute: () => SecureRoute,
 } as any)
-const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
-  id: '/api/auth/$',
-  path: '/api/auth/$',
-  getParentRoute: () => rootRouteImport,
+const SecureMyLibraryRoute = SecureMyLibraryRouteImport.update({
+  id: '/my-library',
+  path: '/my-library',
+  getParentRoute: () => SecureRoute,
+} as any)
+const SecureSpacingRoute = SecureSpacingRouteImport.update({
+  id: '/spacing',
+  path: '/spacing',
+  getParentRoute: () => SecureRoute,
+} as any)
+const SecureTypographyRoute = SecureTypographyRouteImport.update({
+  id: '/typography',
+  path: '/typography',
+  getParentRoute: () => SecureRoute,
 } as any)
 const SecureColourPaletteChar123ProjectIdChar125Route =
   SecureColourPaletteChar123ProjectIdChar125RouteImport.update({
@@ -82,6 +77,11 @@ const SecureColourPaletteChar123ProjectIdChar125Route =
     path: '/colour-palette/{-$projectId}',
     getParentRoute: () => SecureRoute,
   } as any)
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -177,18 +177,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sign-up': {
-      id: '/sign-up'
-      path: '/sign-up'
-      fullPath: '/sign-up'
-      preLoaderRoute: typeof SignUpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sign-in': {
-      id: '/sign-in'
-      path: '/sign-in'
-      fullPath: '/sign-in'
-      preLoaderRoute: typeof SignInRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_secure': {
@@ -198,39 +191,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SecureRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/sign-in': {
+      id: '/sign-in'
+      path: '/sign-in'
+      fullPath: '/sign-in'
+      preLoaderRoute: typeof SignInRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_secure/typography': {
-      id: '/_secure/typography'
-      path: '/typography'
-      fullPath: '/typography'
-      preLoaderRoute: typeof SecureTypographyRouteImport
-      parentRoute: typeof SecureRoute
+    '/sign-up': {
+      id: '/sign-up'
+      path: '/sign-up'
+      fullPath: '/sign-up'
+      preLoaderRoute: typeof SignUpRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_secure/spacing': {
-      id: '/_secure/spacing'
-      path: '/spacing'
-      fullPath: '/spacing'
-      preLoaderRoute: typeof SecureSpacingRouteImport
-      parentRoute: typeof SecureRoute
-    }
-    '/_secure/my-library': {
-      id: '/_secure/my-library'
-      path: '/my-library'
-      fullPath: '/my-library'
-      preLoaderRoute: typeof SecureMyLibraryRouteImport
-      parentRoute: typeof SecureRoute
-    }
-    '/_secure/favourites': {
-      id: '/_secure/favourites'
-      path: '/favourites'
-      fullPath: '/favourites'
-      preLoaderRoute: typeof SecureFavouritesRouteImport
+    '/_secure/design-systems': {
+      id: '/_secure/design-systems'
+      path: '/design-systems'
+      fullPath: '/design-systems'
+      preLoaderRoute: typeof SecureDesignSystemsRouteImport
       parentRoute: typeof SecureRoute
     }
     '/_secure/explore': {
@@ -240,11 +219,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SecureExploreRouteImport
       parentRoute: typeof SecureRoute
     }
-    '/_secure/design-systems': {
-      id: '/_secure/design-systems'
-      path: '/design-systems'
-      fullPath: '/design-systems'
-      preLoaderRoute: typeof SecureDesignSystemsRouteImport
+    '/_secure/favourites': {
+      id: '/_secure/favourites'
+      path: '/favourites'
+      fullPath: '/favourites'
+      preLoaderRoute: typeof SecureFavouritesRouteImport
+      parentRoute: typeof SecureRoute
+    }
+    '/_secure/my-library': {
+      id: '/_secure/my-library'
+      path: '/my-library'
+      fullPath: '/my-library'
+      preLoaderRoute: typeof SecureMyLibraryRouteImport
+      parentRoute: typeof SecureRoute
+    }
+    '/_secure/spacing': {
+      id: '/_secure/spacing'
+      path: '/spacing'
+      fullPath: '/spacing'
+      preLoaderRoute: typeof SecureSpacingRouteImport
+      parentRoute: typeof SecureRoute
+    }
+    '/_secure/typography': {
+      id: '/_secure/typography'
+      path: '/typography'
+      fullPath: '/typography'
+      preLoaderRoute: typeof SecureTypographyRouteImport
+      parentRoute: typeof SecureRoute
+    }
+    '/_secure/colour-palette/{-$projectId}': {
+      id: '/_secure/colour-palette/{-$projectId}'
+      path: '/colour-palette/{-$projectId}'
+      fullPath: '/colour-palette/{-$projectId}'
+      preLoaderRoute: typeof SecureColourPaletteChar123ProjectIdChar125RouteImport
       parentRoute: typeof SecureRoute
     }
     '/api/auth/$': {
@@ -253,13 +260,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/auth/$'
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/_secure/colour-palette/{-$projectId}': {
-      id: '/_secure/colour-palette/{-$projectId}'
-      path: '/colour-palette/{-$projectId}'
-      fullPath: '/colour-palette/{-$projectId}'
-      preLoaderRoute: typeof SecureColourPaletteChar123ProjectIdChar125RouteImport
-      parentRoute: typeof SecureRoute
     }
   }
 }

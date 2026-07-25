@@ -1,10 +1,10 @@
 import { queryOptions } from '@tanstack/react-query'
 import { createServerFn } from '@tanstack/react-start'
 
-import type { ColourNameList } from './colour.types'
+import type { ColourNameList } from '../colour.types'
 
 export const getColourName = createServerFn()
-  .inputValidator((data: { hex: string; list?: ColourNameList; noDuplicates?: boolean }) => data)
+  .validator((data: { hex: string; list?: ColourNameList; noDuplicates?: boolean }) => data)
   .handler(async ({ data }): Promise<string | null> => {
     const { hex, list, noDuplicates } = data
 

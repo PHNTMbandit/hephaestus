@@ -1,4 +1,3 @@
-import { defaultPaletteState } from './constants/state'
 import { generateRandomColour, paletteGeneratorMethodsList, valueTypesList } from './utils'
 
 import type { PaletteAction, PaletteState } from './types/state'
@@ -57,7 +56,7 @@ export const paletteReducer = (state: PaletteState, action: PaletteAction): Pale
             : state.currentGeneratorMethod.generate(newBaseColour, index, state.colours.length),
         ),
       }
-    case 'RECALIBRATE':
+    case 'RESET':
       return {
         ...state,
         colours: state.colours.map((colour, index) =>
@@ -120,8 +119,6 @@ export const paletteReducer = (state: PaletteState, action: PaletteAction): Pale
         mode: action.payload.mode,
       }
     }
-    case 'RESET':
-      return defaultPaletteState
     default:
       return state
   }

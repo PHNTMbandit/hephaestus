@@ -49,12 +49,7 @@ export const PaletteReorderableList = ({
           value={colour}
           className="min-w-0 grow origin-center hover:cursor-grab active:cursor-grabbing"
           whileTap={{
-            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.651)',
-            scale: 1.05,
             zIndex: 10,
-          }}
-          transition={{
-            boxShadow: { duration: 0.3 },
           }}
         >
           {children({ colour, isDragging, valueType })}

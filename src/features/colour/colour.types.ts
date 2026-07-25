@@ -48,3 +48,11 @@ export type ColourNameList =
   | 'windows'
   | 'x11'
   | 'xkcd'
+
+export type WCAGGrade = {
+  label: 'AAA' | 'AA' | 'AA Large' | 'Fail'
+  thresholds: {
+    normal: number
+    large: number
+  }
+}

@@ -21,7 +21,6 @@ export type PaletteAction =
   | { type: 'UNLOCK'; payload: { id: string } }
   | { type: 'REORDER'; payload: { newColours: Colour[] } }
   | { type: 'GENERATE' }
-  | { type: 'RECALIBRATE' }
   | { type: 'SET_BASE_COLOUR'; payload: { baseColour: string } }
   | { type: 'SET_GENERATOR_METHOD'; payload: { id: string } }
   | { type: 'SET_VALUE_TYPE'; payload: { valueType: string } }

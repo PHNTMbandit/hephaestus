@@ -1,3 +1,4 @@
+import { EyeIcon, ListIcon } from '@phosphor-icons/react/dist/ssr'
 import { cn, Tabs, TabsIndicator, TabsList, TabsTab } from 'dawn-ui-react'
 import { usePalette } from '../hooks/use-palette'
 
@@ -17,16 +18,20 @@ export const PaletteModeToggle = ({
 
   return (
     <Tabs
+      variant={'ghost'}
       value={state.mode}
       onValueChange={handleModeChange}
-      variant={'ghost'}
       className={cn('', className)}
       ref={ref}
       {...props}
     >
       <TabsList>
-        <TabsTab value="list">List</TabsTab>
-        <TabsTab value="preview">Preview</TabsTab>
+        <TabsTab value="list">
+          <ListIcon weight="bold" />
+        </TabsTab>
+        <TabsTab value="preview">
+          <EyeIcon weight="bold" />
+        </TabsTab>
         <TabsIndicator />
       </TabsList>
       {children}

@@ -2,18 +2,13 @@ import { BroomIcon } from '@phosphor-icons/react/dist/ssr'
 import { Button, cn } from 'dawn-ui-react'
 import { usePalette } from '../hooks/use-palette'
 
-type PaletteRecalibrateProps = React.ComponentProps<'button'>
+type PaletteResetProps = React.ComponentProps<'button'>
 
-export const PaletteRecalibrate = ({
-  className,
-  children,
-  ref,
-  ...props
-}: PaletteRecalibrateProps) => {
+export const PaletteReset = ({ className, children, ref, ...props }: PaletteResetProps) => {
   const { dispatch } = usePalette()
 
   const handleClick = () => {
-    dispatch({ type: 'RECALIBRATE' })
+    dispatch({ type: 'RESET' })
   }
 
   return (
@@ -26,7 +21,6 @@ export const PaletteRecalibrate = ({
       onClick={handleClick}
     >
       <BroomIcon weight="bold" />
-      <span className="hidden xl:block">Reset</span>
       {children}
     </Button>
   )

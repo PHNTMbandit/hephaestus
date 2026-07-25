@@ -20,7 +20,7 @@ export const SignInForm = ({ state, className, children, ref, ...props }: SignIn
       action={handleSignInForm.url}
       encType={'multipart/form-data'}
       method="post"
-      className={cn('w-full space-y-sm', className)}
+      className={cn('w-full', className)}
       ref={ref}
       {...props}
     >

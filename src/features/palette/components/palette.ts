@@ -9,8 +9,8 @@ import { PaletteList } from './palette-list'
 import { PaletteLock } from './palette-lock'
 import { PaletteModeToggle } from './palette-mode-toggle'
 import { PaletteModeView } from './palette-mode-view'
-import { PaletteRecalibrate } from './palette-recalibrate'
 import { PaletteReorderableList } from './palette-reorderable-list'
+import { PaletteReset } from './palette-reset'
 import { PaletteRoot } from './palette-root'
 import { PaletteSave } from './palette-save'
 import { PaletteToolbar } from './palette-toolbar'
@@ -29,8 +29,8 @@ export const Palette = {
   Lock: PaletteLock,
   ModeToggle: PaletteModeToggle,
   ModeView: PaletteModeView,
+  Reset: PaletteReset,
   Root: PaletteRoot,
-  Recalibrate: PaletteRecalibrate,
   ReorderableList: PaletteReorderableList,
   Save: PaletteSave,
   Toolbar: PaletteToolbar,

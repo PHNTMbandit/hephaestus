@@ -4,10 +4,12 @@ import { ThemeProvider } from '#/hooks/use-theme.tsx'
 import { getLocale } from '#/paraglide/runtime'
 import appCss from '../styles/input.css?url'
 
+import type { paletteCollection } from '#/features/palette/db/collection'
 import type { QueryClient } from '@tanstack/react-query'
 
 interface MyRouterContext {
   queryClient: QueryClient
+  paletteCollection: ReturnType<typeof paletteCollection>
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({

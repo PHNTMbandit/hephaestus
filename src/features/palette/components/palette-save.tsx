@@ -1,51 +1,48 @@
 import { CircleNotchIcon, FloppyDiskIcon } from '@phosphor-icons/react/dist/ssr'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useNavigate } from '@tanstack/react-router'
+import { useNavigate, useRouteContext } from '@tanstack/react-router'
 import { Button, cn, stackToastManager } from 'dawn-ui-react'
+import React from 'react'
 import { m } from '#/paraglide/messages.js'
 import { usePalette } from '../hooks/use-palette'
-import { getPaletteQueryOptions, getPalettesQueryOptions, savePalette } from '../utils'
 
 type PaletteSaveProps = React.ComponentProps<'button'>
 
 export const PaletteSave = ({ className, children, ref, ...props }: PaletteSaveProps) => {
   const navigate = useNavigate()
-  const queryClient = useQueryClient()
+  const { paletteCollection } = useRouteContext({ from: '__root__' })
   const { state } = usePalette()
-
-  const mutation = useMutation({
-    mutationFn: savePalette,
-    onError: (error) => {
-      stackToastManager.add({
-        title: m['colourPalette.toasts.saveError.title'](),
-        description: error.message + ' ' + error.cause,
-        variant: 'error',
-      })
-      console.error('Failed to save palette', error.cause)
-    },
-    onSuccess: (data) => {
-      queryClient.setQueryData(getPaletteQueryOptions(data.id).queryKey, () => data)
-      queryClient.invalidateQueries({ queryKey: getPalettesQueryOptions.queryKey })
-      stackToastManager.add({
-        title: m['colourPalette.toasts.saveSuccess.title'](),
-        description: m['colourPalette.toasts.saveSuccess.description'](),
-        variant: 'success',
-      })
-      navigate({ to: '/colour-palette/{-$projectId}', params: { projectId: data.id } })
-    },
-  })
+  const [isPending, startTransition] = React.useTransition()
 
   const handleClick = () => {
-    mutation.mutate({
-      data: {
-        name: `Palette ${new Date().toLocaleString()}`,
+    const id = crypto.randomUUID()
+
+    startTransition(async () => {
+      const tx = paletteCollection.insert({
+        id,
         baseColour: state.baseColour,
         colours: state.colours,
-      },
+        name: `Palette ${new Date().toLocaleString()}`,
+      })
+
+      try {
+        await tx.isPersisted.promise
+        stackToastManager.add({
+          title: m['colourPalette.toasts.saveSuccess.title'](),
+          description: m['colourPalette.toasts.saveSuccess.description'](),
+          variant: 'success',
+        })
+        navigate({ to: '/colour-palette/{-$projectId}', params: { projectId: id } })
+      } catch (error) {
+        stackToastManager.add({
+          title: m['colourPalette.toasts.saveError.title'](),
+          description: error instanceof Error ? error.message : String(error),
+          variant: 'error',
+        })
+      }
     })
   }
 
-  if (mutation.isPending) {
+  if (isPending) {
     return (
       <Button
         disabled
@@ -71,7 +68,6 @@ export const PaletteSave = ({ className, children, ref, ...props }: PaletteSaveP
     >
       {children}
       <FloppyDiskIcon weight="bold" />
-      <span className="hidden xl:block">{m['colourPalette.buttons.save']()}</span>
     </Button>
   )
 }

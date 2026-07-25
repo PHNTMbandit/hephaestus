@@ -3,6 +3,7 @@ import chroma from 'chroma-js'
 import { anchoredToastManager, Button, cn } from 'dawn-ui-react'
 import { AnimatePresence, motion } from 'motion/react'
 import React from 'react'
+import { getForeground } from '../utils/accessibility'
 import { useColour } from './colour-provider'
 
 type ColourCopyProps = React.ComponentProps<'button'> & {
@@ -55,8 +56,10 @@ export const ColourCopy = ({ value, className, children, ...props }: ColourCopyP
       ref={buttonRef}
       onClick={handleClick}
       style={{
-        backgroundColor: isDark ? chromaColour.brighten(0.5).hex() : chromaColour.darken(0.5).hex(),
-        color: isDark ? 'white' : 'black',
+        backgroundColor: isDark
+          ? chromaColour.brighten(0.75).hex()
+          : chromaColour.darken(0.75).hex(),
+        color: getForeground(colour.value),
       }}
       tone="neutral"
       variant={'ghost'}
@@ -79,7 +82,7 @@ export const ColourCopy = ({ value, className, children, ...props }: ColourCopyP
               duration: 0.15,
             }}
           >
-            <CheckIcon weight="bold" className="" />
+            <CheckIcon />
           </motion.div>
         ) : (
           <motion.div
@@ -91,7 +94,7 @@ export const ColourCopy = ({ value, className, children, ...props }: ColourCopyP
               duration: 0.15,
             }}
           >
-            <CopyIcon weight="bold" className="" />
+            <CopyIcon />
           </motion.div>
         )}
       </AnimatePresence>

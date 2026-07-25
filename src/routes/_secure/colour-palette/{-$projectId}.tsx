@@ -4,14 +4,14 @@ import { Colour } from '#/features/colour/components/colour.ts'
 import { Palette } from '#/features/palette/components/palette.ts'
 import { PALETTE_CONFIG, createPaletteState } from '#/features/palette/constants/state.ts'
 import { usePalette } from '#/features/palette/hooks/use-palette.ts'
-import { generateRandomColour, getPaletteQueryOptions } from '#/features/palette/utils/index.ts'
+import { generateRandomColour } from '#/features/palette/utils/index.ts'
 
 import type { SerializablePaletteState } from '#/features/palette/constants/state.ts'
 
 export const Route = createFileRoute('/_secure/colour-palette/{-$projectId}')({
   component: RouteComponent,
   errorComponent: () => <p>Palette doesn't exist</p>,
-  loader: async ({ context: { queryClient }, params: { projectId } }) => {
+  loader: async ({ context: { paletteCollection }, params: { projectId } }) => {
     const baseColour = generateRandomColour().value
     const { currentGeneratorMethod } = createPaletteState({
       colours: [],
@@ -34,7 +34,8 @@ export const Route = createFileRoute('/_secure/colour-palette/{-$projectId}')({
       return { serializableState, savedPalette: null }
     }
 
-    const savedPalette = await queryClient.ensureQueryData(getPaletteQueryOptions(projectId))
+    await paletteCollection.preload()
+    const savedPalette = paletteCollection.get(projectId)
 
     if (projectId && !savedPalette) {
       throw new Error('Palette not found')
@@ -46,11 +47,20 @@ export const Route = createFileRoute('/_secure/colour-palette/{-$projectId}')({
 
 function RouteComponent() {
   const { serializableState, savedPalette } = Route.useLoaderData()
-  const paletteState = createPaletteState(serializableState)
+  const paletteState = createPaletteState(
+    savedPalette
+      ? {
+          baseColour: savedPalette.baseColour,
+          colours: savedPalette.colours,
+          limit: PALETTE_CONFIG.DEFAULT_LIMIT,
+          mode: PALETTE_CONFIG.DEFAULT_MODE,
+        }
+      : serializableState,
+  )
 
   return (
     <Palette.Root initialState={paletteState}>
-      <div className="relative flex size-full flex-col overflow-hidden">
+      <div className="relative flex size-full flex-col">
         <Palette.ModeView>
           {({ mode }) => {
             if (mode === 'list') {
@@ -60,16 +70,20 @@ function RouteComponent() {
                     <Colour.Provider colour={colour}>
                       <Colour.Block>
                         <Palette.Add />
-                        {!isDragging && (
-                          <Colour.Actions>
-                            <Palette.Delete />
-                            <Colour.Copy value={valueType?.getColorClipboardFormat(colour.value)} />
-                            <Palette.Lock />
-                          </Colour.Actions>
-                        )}
-                        <Colour.Footer>
-                          <Colour.Value>{valueType?.displayColor(colour.value)}</Colour.Value>
+                        <Colour.Header>
                           <Colour.Name />
+                        </Colour.Header>
+                        <Colour.Footer>
+                          {!isDragging && (
+                            <Colour.Actions>
+                              <Palette.Delete />
+                              <Colour.Copy
+                                value={valueType?.getColorClipboardFormat(colour.value)}
+                              />
+                              <Palette.Lock />
+                            </Colour.Actions>
+                          )}
+                          <Colour.Value>{valueType?.displayColor(colour.value)}</Colour.Value>
                         </Colour.Footer>
                       </Colour.Block>
                     </Colour.Provider>
@@ -101,15 +115,15 @@ function RouteComponent() {
         </Palette.ModeView>
         <Palette.Toolbar>
           <Palette.Generate />
-          <Palette.Recalibrate />
+          <Palette.Reset />
           <Palette.Export />
           {savedPalette ? <Palette.Update paletteId={savedPalette.id} /> : <Palette.Save />}
           <Separator orientation="vertical" variant={'strong'} className={'hidden xl:block'} />
           <Palette.Count className={'gap-0!'} />
           <Palette.BaseColour />
           <Palette.ModeToggle />
-          {/* <Palette.ValueSelect className={'min-w-fit gap-xs'} />
-        <Palette.GeneratorSelect className={'min-w-fit gap-xs'} /> */}
+          <Palette.ValueSelect className={'min-w-fit gap-xs'} />
+          <Palette.GeneratorSelect className={'min-w-fit gap-xs'} />
         </Palette.Toolbar>
       </div>
     </Palette.Root>

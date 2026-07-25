@@ -1,21 +1,33 @@
-import chroma from 'chroma-js'
+import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from 'dawn-ui-react'
+import { getForeground } from '../utils/accessibility'
 import { useColour } from './colour-provider'
 
-type ColourValueProps = React.ComponentProps<'span'>
+const colourValueVariants = cva('w-full', {
+  variants: {
+    size: {
+      small: 'style-text-prose--1',
+      medium: 'style-text-prose-0',
+      large: 'style-text-prose-1',
+    },
+  },
+  defaultVariants: {
+    size: 'small',
+  },
+})
 
-export const ColourValue = ({ className, children, ref, ...props }: ColourValueProps) => {
+type ColourValueProps = React.ComponentProps<'span'> & VariantProps<typeof colourValueVariants>
+
+export const ColourValue = ({ size, className, children, ref, ...props }: ColourValueProps) => {
   const { colour } = useColour()
 
   return (
     <span
       style={{
-        color: chroma.contrast(colour.value, 'white') > 4.5 ? 'var(--white)' : 'var(--black)',
+        color: getForeground(colour.value),
+        opacity: 0.8,
       }}
-      className={cn(
-        'w-full truncate text-left style-text-strong-2 uppercase xl:text-center',
-        className,
-      )}
+      className={cn(colourValueVariants({ size }), className)}
       ref={ref}
       {...props}
     >

@@ -4,14 +4,7 @@ type ColourActionsProps = React.ComponentProps<'div'>
 
 export const ColourActions = ({ className, children, ref, ...props }: ColourActionsProps) => {
   return (
-    <div
-      className={cn(
-        'group col-start-2 row-start-1 flex size-full grow items-center justify-end gap-3xs place-self-center xl:flex-col',
-        className,
-      )}
-      ref={ref}
-      {...props}
-    >
+    <div className={cn('flex items-center justify-end gap-3xs', className)} ref={ref} {...props}>
       {children}
     </div>
   )

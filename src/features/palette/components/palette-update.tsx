@@ -1,9 +1,9 @@
 import { CircleNotchIcon, FloppyDiskIcon } from '@phosphor-icons/react/dist/ssr'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useRouteContext } from '@tanstack/react-router'
 import { Button, cn, stackToastManager } from 'dawn-ui-react'
+import React from 'react'
 import { m } from '#/paraglide/messages.js'
 import { usePalette } from '../hooks/use-palette'
-import { getPaletteQueryOptions, updatePalette } from '../utils'
 
 type PaletteUpdateProps = React.ComponentProps<'button'> & {
   paletteId: string
@@ -16,47 +16,35 @@ export const PaletteUpdate = ({
   ref,
   ...props
 }: PaletteUpdateProps) => {
-  const queryClient = useQueryClient()
+  const { paletteCollection } = useRouteContext({ from: '__root__' })
   const { state } = usePalette()
-
-  const mutation = useMutation({
-    mutationFn: updatePalette,
-    onError: (error) => {
-      stackToastManager.add({
-        title: m['colourPalette.toasts.updateError.title'](),
-        description: error.message + ' ' + error.cause,
-        variant: 'error',
-      })
-      console.error('Failed to update palette', error.cause)
-    },
-    onSuccess: (_, variables) => {
-      queryClient.setQueryData(getPaletteQueryOptions(variables.data.id).queryKey, (current) => {
-        if (!current) return current
-        return {
-          ...current,
-          colours: variables.data.colours,
-          baseColour: variables.data.baseColour,
-        }
-      })
-      stackToastManager.add({
-        title: m['colourPalette.toasts.updateSuccess.title'](),
-        description: m['colourPalette.toasts.updateSuccess.description'](),
-        variant: 'success',
-      })
-    },
-  })
+  const [isPending, startTransition] = React.useTransition()
 
   const handleClick = () => {
-    mutation.mutate({
-      data: {
-        id: paletteId,
-        colours: state.colours ?? [],
-        baseColour: state.baseColour ?? '#ff0000',
-      },
+    startTransition(async () => {
+      const tx = paletteCollection.update(paletteId, (draft) => {
+        draft.baseColour = state.baseColour
+        draft.colours = state.colours
+      })
+
+      try {
+        await tx.isPersisted.promise
+        stackToastManager.add({
+          title: m['colourPalette.toasts.updateSuccess.title'](),
+          description: m['colourPalette.toasts.updateSuccess.description'](),
+          variant: 'success',
+        })
+      } catch (error) {
+        stackToastManager.add({
+          title: m['colourPalette.toasts.updateError.title'](),
+          description: error instanceof Error ? error.message : String(error),
+          variant: 'error',
+        })
+      }
     })
   }
 
-  if (mutation.isPending) {
+  if (isPending) {
     return (
       <Button disabled tone="accent" className={cn('', className)} ref={ref} {...props}>
         <CircleNotchIcon weight="bold" className="animate-spin" />
