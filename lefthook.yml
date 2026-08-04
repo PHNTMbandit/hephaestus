@@ -4,24 +4,21 @@ prepare-commit-msg:
       interactive: true
       run: pnpm run cz --hook
       env:
-        LEFTHOOK: '0'
+        LEFTHOOK: "0"
+      skip:
+        - rebase
+        - merge
 
 pre-commit:
   commands:
-    format:
-      run: pnpm run fmt
-      stage_fixed: true
-    lint:
-      run: pnpm run lint
+    lint-staged:
+      run: pnpm exec lint-staged --concurrent false
 
 pre-push:
   commands:
     format:
       run: pnpm run fmt
-      stage_fixed: true
-
-    lint:
-      run: pnpm run lint
+      fail_text: "Formatting issues found — run `pnpm run fmt` and commit."
 
     test:
       run: pnpm test
