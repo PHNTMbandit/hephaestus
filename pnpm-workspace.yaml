@@ -4,8 +4,5 @@ allowBuilds:
   lefthook: true
   lightningcss: true
 minimumReleaseAgeExclude:
-  - dawn-ui-react@1.0.0-alpha.17
-  - dawn-ui-react@1.0.0-alpha.18
-  - dawn-ui-react@1.0.0-alpha.19
-  - dawn-ui-react@1.0.0-alpha.20
-  - dawn-ui-react@1.0.0-alpha.21
+  - dawn-ui-react@1.0.0-alpha.28
+  - dawn-ui-react@1.0.0-alpha.29

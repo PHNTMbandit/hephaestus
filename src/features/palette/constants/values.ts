@@ -9,92 +9,92 @@ export const valueTypes = {
   hex: {
     value: 'hex',
     label: 'HEX',
-    displayColor: (colour: string) => chroma(colour).hex().replace('#', '').toUpperCase(),
-    getColorClipboardFormat: (colour: string) => chroma(colour).hex(),
+    displayColor: (color: string) => chroma(color).hex().replace('#', '').toUpperCase(),
+    getColorClipboardFormat: (color: string) => chroma(color).hex(),
   },
   rgb: {
     value: 'rgb',
     label: 'RGB',
-    displayColor: (colour: string) => chroma(colour).rgb().join(', '),
-    getColorClipboardFormat: (colour: string) => `rgb(${chroma(colour).rgb().join(' ')})`,
+    displayColor: (color: string) => chroma(color).rgb().join(', '),
+    getColorClipboardFormat: (color: string) => `rgb(${chroma(color).rgb().join(' ')})`,
   },
   hsl: {
     value: 'hsl',
     label: 'HSL',
-    displayColor: (colour: string) => {
-      const [h, s, l] = chroma(colour).hsl()
+    displayColor: (color: string) => {
+      const [h, s, l] = chroma(color).hsl()
       return `${round(h)}°, ${round(s * 100)}%, ${round(l * 100)}%`
     },
-    getColorClipboardFormat: (colour: string) => {
-      const [h, s, l] = chroma(colour).hsl()
+    getColorClipboardFormat: (color: string) => {
+      const [h, s, l] = chroma(color).hsl()
       return `hsl(${round(h)} ${round(s * 100)}% ${round(l * 100)}%)`
     },
   },
   hsv: {
     value: 'hsv',
     label: 'HSV',
-    displayColor: (colour: string) => {
-      const [h, s, v] = chroma(colour).hsv()
+    displayColor: (color: string) => {
+      const [h, s, v] = chroma(color).hsv()
       return `${round(h)}°, ${round(s * 100)}%, ${round(v * 100)}%`
     },
-    getColorClipboardFormat: (colour: string) => {
-      const [h, s, v] = chroma(colour).hsv()
+    getColorClipboardFormat: (color: string) => {
+      const [h, s, v] = chroma(color).hsv()
       return `color(hsv ${round(h)} ${round(s * 100)}% ${round(v * 100)}%)`
     },
   },
   cmyk: {
     value: 'cmyk',
     label: 'CMYK',
-    displayColor: (colour: string) => {
-      const [c, m, y, k] = chroma(colour).cmyk()
+    displayColor: (color: string) => {
+      const [c, m, y, k] = chroma(color).cmyk()
       return `${round(c * 100)}%, ${round(m * 100)}%, ${round(y * 100)}%, ${round(k * 100)}%`
     },
-    getColorClipboardFormat: (colour: string) => {
-      const [c, m, y, k] = chroma(colour).cmyk()
+    getColorClipboardFormat: (color: string) => {
+      const [c, m, y, k] = chroma(color).cmyk()
       return `device-cmyk(${round(c * 100)}% ${round(m * 100)}% ${round(y * 100)}% ${round(k * 100)}%)`
     },
   },
   lab: {
     value: 'lab',
     label: 'LAB',
-    displayColor: (colour: string) => {
-      const [l, a, b] = chroma(colour).lab()
+    displayColor: (color: string) => {
+      const [l, a, b] = chroma(color).lab()
       return `${round(l)}, ${round(a)}, ${round(b)}`
     },
-    getColorClipboardFormat: (colour: string) => {
-      const [l, a, b] = chroma(colour).lab()
+    getColorClipboardFormat: (color: string) => {
+      const [l, a, b] = chroma(color).lab()
       return `lab(${round(l)}% ${round(a)} ${round(b)})`
     },
   },
   lch: {
     value: 'lch',
     label: 'LCH',
-    displayColor: (colour: string) => {
-      const [l, c, h] = chroma(colour).lch()
+    displayColor: (color: string) => {
+      const [l, c, h] = chroma(color).lch()
       return `${round(l)}, ${round(c)}, ${round(h)}°`
     },
-    getColorClipboardFormat: (colour: string) => {
-      const [l, c, h] = chroma(colour).lch()
+    getColorClipboardFormat: (color: string) => {
+      const [l, c, h] = chroma(color).lch()
       return `lch(${round(l)}% ${round(c)} ${round(h)})`
     },
   },
   oklch: {
     value: 'oklch',
     label: 'OKLCH',
-    displayColor: (colour: string) => {
-      const [l, c, h] = chroma(colour).oklch()
+    displayColor: (color: string) => {
+      const [l, c, h] = chroma(color).oklch()
       return `${round(l * 100)}%, ${round(c, 3)}, ${round(h)}°`
     },
-    getColorClipboardFormat: (colour: string) => {
-      const [l, c, h] = chroma(colour).oklch()
+    getColorClipboardFormat: (color: string) => {
+      const [l, c, h] = chroma(color).oklch()
       return `oklch(${round(l * 100)}% ${round(c, 3)} ${round(h)})`
     },
   },
   num: {
     value: 'num',
     label: 'NUM',
-    displayColor: (colour: string) => chroma(colour).num().toLocaleString(),
-    getColorClipboardFormat: (colour: string) => chroma(colour).num().toString(),
+    displayColor: (color: string) => chroma(color).num().toLocaleString(),
+    getColorClipboardFormat: (color: string) => chroma(color).num().toString(),
   },
 } as const satisfies Record<string, ValueType>
 

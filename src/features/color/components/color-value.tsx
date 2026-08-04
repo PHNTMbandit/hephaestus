@@ -1,9 +1,9 @@
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from 'dawn-ui-react'
 import { getForeground } from '../utils/accessibility'
-import { useColour } from './colour-provider'
+import { useColor } from './color-provider'
 
-const colourValueVariants = cva('w-full', {
+const colorValueVariants = cva('w-full', {
   variants: {
     size: {
       small: 'style-text-prose--1',
@@ -16,18 +16,18 @@ const colourValueVariants = cva('w-full', {
   },
 })
 
-type ColourValueProps = React.ComponentProps<'span'> & VariantProps<typeof colourValueVariants>
+type ColorValueProps = React.ComponentProps<'span'> & VariantProps<typeof colorValueVariants>
 
-export const ColourValue = ({ size, className, children, ref, ...props }: ColourValueProps) => {
-  const { colour } = useColour()
+export const ColorValue = ({ size, className, children, ref, ...props }: ColorValueProps) => {
+  const { color } = useColor()
 
   return (
     <span
       style={{
-        color: getForeground(colour.value),
+        color: getForeground(color.value),
         opacity: 0.8,
       }}
-      className={cn(colourValueVariants({ size }), className)}
+      className={cn(colorValueVariants({ size }), className)}
       ref={ref}
       {...props}
     >

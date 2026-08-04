@@ -26,8 +26,8 @@ import {
 } from 'dawn-ui-react'
 import {
   codeToHtmlQueryOptions,
-  convertColoursToCss,
-  convertColoursToScss,
+  convertColorsToCss,
+  convertColorsToScss,
 } from '#/utils/code-to-html.ts'
 import { usePalette } from '../hooks/use-palette'
 import { valueTypes } from '../utils'
@@ -40,10 +40,10 @@ export const PaletteExportCss = ({ className, children, ref, ...props }: Palette
   const { state } = usePalette()
 
   const formattedCss = Object.keys(valueTypes).map((key) =>
-    convertColoursToCss(state.colours, valueTypes[key as keyof typeof valueTypes] as ValueType),
+    convertColorsToCss(state.colors, valueTypes[key as keyof typeof valueTypes] as ValueType),
   )
   const formattedScss = Object.keys(valueTypes).map((key) =>
-    convertColoursToScss(state.colours, valueTypes[key as keyof typeof valueTypes] as ValueType),
+    convertColorsToScss(state.colors, valueTypes[key as keyof typeof valueTypes] as ValueType),
   )
   const cssQueries = useSuspenseQueries({
     queries: formattedCss.map((css) => codeToHtmlQueryOptions(css, 'css')),

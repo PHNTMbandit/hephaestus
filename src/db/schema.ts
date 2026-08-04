@@ -6,45 +6,10 @@ import {
   pgPolicy,
   uuid,
   text,
-  jsonb,
   timestamp,
+  jsonb,
   boolean,
 } from 'drizzle-orm/pg-core'
-
-import type { Colour } from '#/features/colour/colour.types.ts'
-
-export const colourPalettes = pgTable(
-  'colour_palettes',
-  {
-    id: uuid().defaultRandom().primaryKey().notNull(),
-    userId: text('user_id').notNull(),
-    name: text().notNull(),
-    baseColour: text('base_colour').notNull(),
-    colours: jsonb('colours').$type<Colour[]>().notNull(),
-    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
-      .defaultNow()
-      .notNull(),
-    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' })
-      .defaultNow()
-      .notNull(),
-  },
-  (table) => [
-    index('colour_palettes_user_id_idx').using(
-      'btree',
-      table.userId.asc().nullsLast().op('text_ops'),
-    ),
-    foreignKey({
-      columns: [table.userId],
-      foreignColumns: [user.id],
-      name: 'colour_palettes_user_id_fkey',
-    }).onDelete('cascade'),
-    unique('colour_palettes_user_id_name_key').on(table.userId, table.name),
-    pgPolicy('delete own colour palettes', { as: 'permissive', for: 'delete', to: ['public'] }),
-    pgPolicy('update own colour palettes', { as: 'permissive', for: 'update', to: ['public'] }),
-    pgPolicy('insert own colour palettes', { as: 'permissive', for: 'insert', to: ['public'] }),
-    pgPolicy('select own colour palettes', { as: 'permissive', for: 'select', to: ['public'] }),
-  ],
-)
 
 export const designSystems = pgTable(
   'design_systems',
@@ -52,7 +17,7 @@ export const designSystems = pgTable(
     id: uuid().defaultRandom().primaryKey().notNull(),
     userId: text('user_id').notNull(),
     name: text().notNull(),
-    colourPaletteId: uuid('colour_palette_id'),
+    colorPaletteId: uuid('color_palette_id'),
     typographyBoardId: uuid('typography_board_id'),
     createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
       .defaultNow()
@@ -72,20 +37,20 @@ export const designSystems = pgTable(
       name: 'design_systems_user_id_fkey',
     }).onDelete('cascade'),
     foreignKey({
-      columns: [table.colourPaletteId],
-      foreignColumns: [colourPalettes.id],
-      name: 'design_systems_colour_palette_id_fkey',
-    }).onDelete('set null'),
-    foreignKey({
       columns: [table.typographyBoardId],
       foreignColumns: [typographyBoards.id],
       name: 'design_systems_typography_board_id_fkey',
     }).onDelete('set null'),
+    foreignKey({
+      columns: [table.colorPaletteId],
+      foreignColumns: [colorPalettes.id],
+      name: 'design_systems_color_palette_id_fkey',
+    }).onDelete('set null'),
     unique('design_systems_user_id_name_key').on(table.userId, table.name),
-    pgPolicy('delete own design systems', { as: 'permissive', for: 'delete', to: ['public'] }),
-    pgPolicy('update own design systems', { as: 'permissive', for: 'update', to: ['public'] }),
-    pgPolicy('insert own design systems', { as: 'permissive', for: 'insert', to: ['public'] }),
     pgPolicy('select own design systems', { as: 'permissive', for: 'select', to: ['public'] }),
+    pgPolicy('insert own design systems', { as: 'permissive', for: 'insert', to: ['public'] }),
+    pgPolicy('update own design systems', { as: 'permissive', for: 'update', to: ['public'] }),
+    pgPolicy('delete own design systems', { as: 'permissive', for: 'delete', to: ['public'] }),
   ],
 )
 
@@ -114,10 +79,39 @@ export const typographyBoards = pgTable(
       name: 'typography_boards_user_id_fkey',
     }).onDelete('cascade'),
     unique('typography_boards_user_id_name_key').on(table.userId, table.name),
-    pgPolicy('delete own typography boards', { as: 'permissive', for: 'delete', to: ['public'] }),
-    pgPolicy('update own typography boards', { as: 'permissive', for: 'update', to: ['public'] }),
-    pgPolicy('insert own typography boards', { as: 'permissive', for: 'insert', to: ['public'] }),
     pgPolicy('select own typography boards', { as: 'permissive', for: 'select', to: ['public'] }),
+    pgPolicy('insert own typography boards', { as: 'permissive', for: 'insert', to: ['public'] }),
+    pgPolicy('update own typography boards', { as: 'permissive', for: 'update', to: ['public'] }),
+    pgPolicy('delete own typography boards', { as: 'permissive', for: 'delete', to: ['public'] }),
+  ],
+)
+
+export const colorPalettes = pgTable(
+  'color_palettes',
+  {
+    id: uuid().defaultRandom().primaryKey().notNull(),
+    userId: text('user_id').notNull(),
+    name: text().notNull(),
+    colors: jsonb().notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' })
+      .defaultNow()
+      .notNull(),
+    baseColor: text('base_color').notNull(),
+  },
+  (table) => [
+    index('color_palettes_user_id_idx').using(
+      'btree',
+      table.userId.asc().nullsLast().op('text_ops'),
+    ),
+    foreignKey({
+      columns: [table.userId],
+      foreignColumns: [user.id],
+      name: 'color_palettes_user_id_fkey',
+    }).onDelete('cascade'),
+    unique('color_palettes_user_id_name_key').on(table.userId, table.name),
   ],
 )
 

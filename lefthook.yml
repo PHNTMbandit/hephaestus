@@ -11,8 +11,8 @@ pre-commit:
     format:
       run: pnpm run fmt
       stage_fixed: true
-    lint-staged:
-      run: pnpx lint-staged
+    lint:
+      run: pnpm run lint
 
 pre-push:
   commands:
@@ -20,8 +20,8 @@ pre-push:
       run: pnpm run fmt
       stage_fixed: true
 
-    lint-staged:
-      run: pnpx lint-staged
+    lint:
+      run: pnpm run lint
 
     test:
       run: pnpm test

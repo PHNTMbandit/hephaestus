@@ -1,37 +1,38 @@
 import { LockSimpleIcon, LockSimpleOpenIcon } from '@phosphor-icons/react/dist/ssr'
 import chroma from 'chroma-js'
 import { Button, cn } from 'dawn-ui-react'
-import { useColour } from '#/features/colour/components/colour-provider.tsx'
+import { useColor } from '#/features/color/components/color-provider.tsx'
+import { getForeground } from '#/features/color/utils/accessibility'
 import { usePalette } from '../hooks/use-palette'
 
 type PaletteLockProps = React.ComponentProps<'button'>
 
 export const PaletteLock = ({ className, children, ref, ...props }: PaletteLockProps) => {
-  const { colour } = useColour()
+  const { color } = useColor()
   const { dispatch } = usePalette()
-  const chromaColour = chroma(colour.value)
-  const isDark = chromaColour.luminance() < 0.5
+  const chromaColor = chroma(color.value)
+  const isDark = chromaColor.luminance() < 0.5
 
   const handleClick = () => {
-    if (colour.locked) {
-      dispatch({ type: 'UNLOCK', payload: { id: colour.id } })
+    if (color.locked) {
+      dispatch({ type: 'UNLOCK', payload: { id: color.id } })
     } else {
-      dispatch({ type: 'LOCK', payload: { id: colour.id } })
+      dispatch({ type: 'LOCK', payload: { id: color.id } })
     }
   }
 
   return (
     <Button
       style={{
-        backgroundColor: isDark ? chromaColour.brighten(0.5).hex() : chromaColour.darken(0.5).hex(),
-        color: isDark ? 'white' : 'black',
+        backgroundColor: isDark ? chromaColor.brighten(0.5).hex() : chromaColor.darken(0.5).hex(),
+        color: getForeground(color.value),
       }}
       tone="neutral"
       variant={'ghost'}
       size="iconMedium"
       className={cn(
         'opacity-0 transition-all not-hover:bg-transparent! group-hover:opacity-100',
-        colour.locked && 'opacity-100',
+        color.locked && 'opacity-100',
         className,
       )}
       ref={ref}
@@ -39,7 +40,7 @@ export const PaletteLock = ({ className, children, ref, ...props }: PaletteLockP
       {...props}
     >
       {children}
-      {colour.locked ? <LockSimpleIcon weight="fill" /> : <LockSimpleOpenIcon weight="bold" />}
+      {color.locked ? <LockSimpleIcon weight="fill" /> : <LockSimpleOpenIcon weight="bold" />}
     </Button>
   )
 }

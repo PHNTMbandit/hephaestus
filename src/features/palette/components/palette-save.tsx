@@ -19,22 +19,22 @@ export const PaletteSave = ({ className, children, ref, ...props }: PaletteSaveP
     startTransition(async () => {
       const tx = paletteCollection.insert({
         id,
-        baseColour: state.baseColour,
-        colours: state.colours,
+        baseColor: state.baseColor,
+        colors: state.colors,
         name: `Palette ${new Date().toLocaleString()}`,
       })
 
       try {
         await tx.isPersisted.promise
         stackToastManager.add({
-          title: m['colourPalette.toasts.saveSuccess.title'](),
-          description: m['colourPalette.toasts.saveSuccess.description'](),
+          title: m['colorPalette.toasts.saveSuccess.title'](),
+          description: m['colorPalette.toasts.saveSuccess.description'](),
           variant: 'success',
         })
-        navigate({ to: '/colour-palette/{-$projectId}', params: { projectId: id } })
+        navigate({ to: '/color-palette/{-$projectId}', params: { projectId: id } })
       } catch (error) {
         stackToastManager.add({
-          title: m['colourPalette.toasts.saveError.title'](),
+          title: m['colorPalette.toasts.saveError.title'](),
           description: error instanceof Error ? error.message : String(error),
           variant: 'error',
         })
@@ -46,9 +46,10 @@ export const PaletteSave = ({ className, children, ref, ...props }: PaletteSaveP
     return (
       <Button
         disabled
+        size="iconMedium"
         tone="neutral"
         variant={'ghost'}
-        className={cn('', className)}
+        className={cn('shrink-0', className)}
         ref={ref}
         {...props}
       >
@@ -60,9 +61,10 @@ export const PaletteSave = ({ className, children, ref, ...props }: PaletteSaveP
   return (
     <Button
       onClick={handleClick}
+      size="iconMedium"
       tone="neutral"
       variant={'ghost'}
-      className={cn('', className)}
+      className={cn('shrink-0', className)}
       ref={ref}
       {...props}
     >

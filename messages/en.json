@@ -13,7 +13,7 @@
     },
     "items": {
       "explore": "Explore",
-      "colourPalette": "Colour Palette",
+      "colorPalette": "Color Palette",
       "spacing": "Spacing",
       "typography": "Typography",
       "designSystems": "Design Systems",
@@ -64,12 +64,12 @@
       }
     }
   },
-  "colourPalette": {
-    "label": "Colour Palette",
-    "title": "Generate a Colour Palette",
-    "description": "Enter a base colour to generate a harmonious colour palette.",
+  "colorPalette": {
+    "label": "Color Palette",
+    "title": "Generate a Color Palette",
+    "description": "Enter a base color to generate a harmonious color palette.",
     "fields": {
-      "baseColour": "Base Colour (Hex, RGB, or HSL)"
+      "baseColor": "Base Color (Hex, RGB, or HSL)"
     },
     "buttons": {
       "export": "Export",
@@ -78,7 +78,7 @@
       "update": "Update"
     },
     "errors": {
-      "invalidColour": "Invalid colour format. Please enter a valid hex, RGB, or HSL colour."
+      "invalidColor": "Invalid color format. Please enter a valid hex, RGB, or HSL color."
     },
     "export": {
       "title": "Export Palette",
@@ -87,19 +87,19 @@
     "toasts": {
       "saveSuccess": {
         "title": "Palette Saved",
-        "description": "Your colour palette has been saved successfully."
+        "description": "Your color palette has been saved successfully."
       },
       "saveError": {
         "title": "Save Failed",
-        "description": "An error occurred while saving your colour palette. Please try again."
+        "description": "An error occurred while saving your color palette. Please try again."
       },
       "updateSuccess": {
         "title": "Palette Updated",
-        "description": "Your colour palette has been updated successfully."
+        "description": "Your color palette has been updated successfully."
       },
       "updateError": {
         "title": "Update Failed",
-        "description": "An error occurred while updating your colour palette. Please try again."
+        "description": "An error occurred while updating your color palette. Please try again."
       }
     }
   },

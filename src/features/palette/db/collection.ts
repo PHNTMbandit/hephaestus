@@ -9,7 +9,7 @@ import {
   deletePalette,
 } from '../utils'
 
-import type { Colour } from '#/features/colour/colour.types.ts'
+import type { Color } from '#/features/color/color.types.ts'
 import type { QueryClient } from '@tanstack/query-core'
 
 const paletteSchema = z.object({
@@ -18,8 +18,8 @@ const paletteSchema = z.object({
   createdAt: z.string().default(() => new Date().toISOString()),
   updatedAt: z.string().default(() => new Date().toISOString()),
   name: z.string(),
-  baseColour: z.string(),
-  colours: z.custom<Colour[]>(),
+  baseColor: z.string(),
+  colors: z.custom<Color[]>(),
 })
 
 export const paletteCollection = (queryClient: QueryClient) =>
@@ -37,8 +37,8 @@ export const paletteCollection = (queryClient: QueryClient) =>
               data: {
                 id: m.modified.id,
                 name: m.modified.name,
-                baseColour: m.modified.baseColour,
-                colours: m.modified.colours,
+                baseColor: m.modified.baseColor,
+                colors: m.modified.colors,
               },
             }),
           ),
@@ -50,8 +50,8 @@ export const paletteCollection = (queryClient: QueryClient) =>
             updatePalette({
               data: {
                 id: m.modified.id,
-                baseColour: m.modified.baseColour,
-                colours: m.modified.colours,
+                baseColor: m.modified.baseColor,
+                colors: m.modified.colors,
               },
             }),
           ),

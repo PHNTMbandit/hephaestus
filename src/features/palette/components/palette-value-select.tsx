@@ -30,13 +30,13 @@ export const PaletteValueSelect = ({
 
   return (
     <Select value={valueType?.value} items={valueTypesList} onValueChange={handleValueChange}>
-      <SelectTrigger className={cn('', className)} ref={ref} {...props}>
+      <SelectTrigger variant={'ghost'} className={cn('', className)} ref={ref} {...props}>
         <SelectValue />
         <SelectIcon>
           <CaretUpDownIcon weight="bold" />
         </SelectIcon>
       </SelectTrigger>
-      <SelectPopup>
+      <SelectPopup sideOffset={2}>
         <SelectList>
           <SelectGroup>
             {valueTypesList.map(({ label, value }) => (

@@ -2,39 +2,39 @@ import { PlusIcon } from '@phosphor-icons/react/dist/ssr'
 import chroma from 'chroma-js'
 import { Button, cn } from 'dawn-ui-react'
 import { usePalette } from '#/features/palette/hooks/use-palette.ts'
-import { useColour } from '../../colour/components/colour-provider'
-import { generateInbetweenColour } from '../utils'
+import { useColor } from '../../color/components/color-provider'
+import { generateInbetweenColor } from '../utils'
 
 type PaletteAddProps = React.ComponentProps<'button'>
 
 export const PaletteAdd = ({ className, children, ref, ...props }: PaletteAddProps) => {
-  const { colour } = useColour()
+  const { color } = useColor()
   const { state, dispatch } = usePalette()
-  const colours = state.colours ?? []
-  const currentColourIndex = colours.findIndex((c) => c.id === colour.id)
-  const inbetweenColour = generateInbetweenColour(colours, currentColourIndex)
+  const colors = state.colors ?? []
+  const currentColorIndex = colors.findIndex((c) => c.id === color.id)
+  const inbetweenColor = generateInbetweenColor(colors, currentColorIndex)
 
-  if (currentColourIndex === 0) {
+  if (currentColorIndex === 0) {
     return null
   }
 
   const handleClick = () => {
     dispatch({
       type: 'ADD_AT',
-      payload: { index: currentColourIndex - 1, colour: inbetweenColour },
+      payload: { index: currentColorIndex - 1, color: inbetweenColor },
     })
   }
 
   return (
     <Button
       style={{
-        backgroundColor: inbetweenColour.value,
+        backgroundColor: inbetweenColor.value,
       }}
       onClick={handleClick}
       size="small"
       variant={'elevated'}
       className={cn(
-        'absolute -top-sm left-1/2 w-2/3 -translate-x-1/2 scale-95 opacity-0 hover:scale-100 hover:opacity-100 xl:top-1/2 xl:left-0 xl:h-3/4! xl:w-1/3 xl:max-w-1/6 xl:-translate-y-1/2',
+        'absolute -top-sm left-1/2 w-2/3 -translate-x-1/2 scale-95 opacity-0 hover:scale-100 hover:opacity-100',
         className,
       )}
       ref={ref}
@@ -43,7 +43,7 @@ export const PaletteAdd = ({ className, children, ref, ...props }: PaletteAddPro
       {children}
       <PlusIcon
         style={{
-          color: chroma(inbetweenColour.value).luminance() > 0.5 ? 'black' : 'white',
+          color: chroma(inbetweenColor.value).luminance() > 0.5 ? 'black' : 'white',
         }}
         className="size-2/3! min-h-xs min-w-xs shrink-0"
         weight="bold"

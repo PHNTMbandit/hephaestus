@@ -37,10 +37,10 @@ export const typographyReducer = (
         ...state,
         letterSpacing: action.payload.letterSpacing,
       }
-    case 'SET_COLOUR':
+    case 'SET_COLOR':
       return {
         ...state,
-        colour: action.payload.colour,
+        color: action.payload.color,
       }
     case 'SET_BACKGROUND':
       return {

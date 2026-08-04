@@ -1,30 +1,31 @@
 import { XIcon } from '@phosphor-icons/react/dist/ssr'
 import chroma from 'chroma-js'
 import { Button, cn } from 'dawn-ui-react'
-import { useColour } from '#/features/colour/components/colour-provider.tsx'
+import { useColor } from '#/features/color/components/color-provider.tsx'
+import { getForeground } from '#/features/color/utils/accessibility'
 import { usePalette } from '../hooks/use-palette'
 
 type PaletteDeleteProps = React.ComponentProps<'button'>
 
 export const PaletteDelete = ({ className, children, ref, ...props }: PaletteDeleteProps) => {
-  const { colour } = useColour()
+  const { color } = useColor()
   const { state, dispatch } = usePalette()
-  const colours = state.colours ?? []
-  const chromaColour = chroma(colour.value)
-  const isDark = chromaColour.luminance() < 0.5
+  const colors = state.colors ?? []
+  const chromaColor = chroma(color.value)
+  const isDark = chromaColor.luminance() < 0.5
 
   const handleClick = () => {
     dispatch({
       type: 'REMOVE_AT',
-      payload: { index: colours.findIndex((c) => c.id === colour.id) },
+      payload: { index: colors.findIndex((c) => c.id === color.id) },
     })
   }
 
   return (
     <Button
       style={{
-        backgroundColor: isDark ? chromaColour.brighten(0.5).hex() : chromaColour.darken(0.5).hex(),
-        color: isDark ? 'white' : 'black',
+        backgroundColor: isDark ? chromaColor.brighten(0.5).hex() : chromaColor.darken(0.5).hex(),
+        color: getForeground(color.value),
       }}
       onClick={handleClick}
       tone="neutral"

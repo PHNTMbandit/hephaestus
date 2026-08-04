@@ -1,26 +1,21 @@
 import { cn, Input } from 'dawn-ui-react'
 import { usePalette } from '../hooks/use-palette'
 
-type PaletteBaseColourProps = React.ComponentProps<typeof Input>
+type PaletteBaseColorProps = React.ComponentProps<typeof Input>
 
-export const PaletteBaseColour = ({
-  className,
-  children,
-  ref,
-  ...props
-}: PaletteBaseColourProps) => {
+export const PaletteBaseColor = ({ className, children, ref, ...props }: PaletteBaseColorProps) => {
   const { state, dispatch } = usePalette()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: 'SET_BASE_COLOUR', payload: { baseColour: event.target.value } })
+    dispatch({ type: 'SET_BASE_COLOR', payload: { baseColor: event.target.value } })
   }
 
   return (
     <Input
       type="color"
-      defaultValue={state.baseColour}
+      defaultValue={state.baseColor}
       onChange={handleChange}
-      value={state.baseColour}
+      value={state.baseColor}
       className={cn('ml-auto xl:ml-0', className)}
       ref={ref}
       variant={'secondary'}

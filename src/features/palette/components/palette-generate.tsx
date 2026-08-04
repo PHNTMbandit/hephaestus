@@ -16,8 +16,9 @@ export const PaletteGenerate = ({ className, children, ref, ...props }: PaletteG
   }
 
   return (
-    <Button className={cn('', className)} ref={ref} {...props} onClick={handleClick}>
+    <Button className={cn('w-full', className)} ref={ref} {...props} onClick={handleClick}>
       <ArrowsClockwiseIcon weight="bold" /> {children}
+      Randomize
     </Button>
   )
 }

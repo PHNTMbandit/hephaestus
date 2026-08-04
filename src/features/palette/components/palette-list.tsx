@@ -2,7 +2,7 @@ import { cva } from 'class-variance-authority'
 import { cn } from 'dawn-ui-react'
 import { usePalette } from '../hooks/use-palette'
 
-import type { Colour } from '#/features/colour/colour.types.ts'
+import type { Color } from '#/features/color/color.types.ts'
 import type { ValueType } from '../types/value'
 import type { VariantProps } from 'class-variance-authority'
 
@@ -32,7 +32,7 @@ const paletteListVariants = cva(
 
 type PaletteListProps = Omit<React.ComponentProps<'ul'>, 'children'> &
   VariantProps<typeof paletteListVariants> & {
-    children: (props: { colour: Colour; valueType?: ValueType }) => React.ReactNode
+    children: (props: { color: Color; valueType?: ValueType }) => React.ReactNode
   }
 
 export const PaletteList = ({
@@ -44,7 +44,7 @@ export const PaletteList = ({
   ...props
 }: PaletteListProps) => {
   const {
-    state: { colours, valueType },
+    state: { colors, valueType },
   } = usePalette()
 
   return (
@@ -53,9 +53,9 @@ export const PaletteList = ({
       ref={ref}
       {...props}
     >
-      {colours.map((colour) => (
-        <li key={colour.id} className="">
-          {children({ colour, valueType })}
+      {colors.map((color) => (
+        <li key={color.id} className="">
+          {children({ color, valueType })}
         </li>
       ))}
     </ul>

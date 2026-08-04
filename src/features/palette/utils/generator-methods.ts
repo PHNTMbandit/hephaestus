@@ -1,10 +1,10 @@
 import {
-  generateComplementaryColour,
+  generateComplementaryColor,
   generateComplementaryPalette,
-  generateMonochromaticColour,
+  generateMonochromaticColor,
   generateMonochromaticPalette,
-  generateRandomColour,
-} from './colour-generators'
+  generateRandomColor,
+} from './color-generators'
 
 import type { PaletteGeneratorMethod } from '../types/generator'
 
@@ -13,26 +13,26 @@ export const paletteGeneratorMethods = {
     id: 'random',
     name: 'Random',
     description: 'Generates a completely random palette.',
-    generate: generateRandomColour,
-    generatePalette: (_baseColour: string, count: number) =>
-      Array.from({ length: count }, generateRandomColour),
+    generate: generateRandomColor,
+    generatePalette: (_baseColor: string, count: number) =>
+      Array.from({ length: count }, generateRandomColor),
   },
   monochromatic: {
     id: 'monochromatic',
     name: 'Monochromatic',
-    description: 'Generates a palette based on different shades of a single colour.',
-    generate: (baseColour: string, index: number, total: number) =>
-      generateMonochromaticColour(baseColour, index, total),
-    generatePalette: (baseColour: string, count: number) =>
-      generateMonochromaticPalette(baseColour, count),
+    description: 'Generates a palette based on different shades of a single color.',
+    generate: (baseColor: string, index: number, total: number) =>
+      generateMonochromaticColor(baseColor, index, total),
+    generatePalette: (baseColor: string, count: number) =>
+      generateMonochromaticPalette(baseColor, count),
   },
   complementary: {
     id: 'complementary',
     name: 'Complementary',
-    description: 'Generates a palette consisting of complementary colours.',
-    generate: (baseColour: string) => generateComplementaryColour(baseColour),
-    generatePalette: (baseColour: string, count: number) =>
-      generateComplementaryPalette(baseColour, count),
+    description: 'Generates a palette consisting of complementary colors.',
+    generate: (baseColor: string) => generateComplementaryColor(baseColor),
+    generatePalette: (baseColor: string, count: number) =>
+      generateComplementaryPalette(baseColor, count),
   },
 } as const satisfies Record<string, PaletteGeneratorMethod>
 

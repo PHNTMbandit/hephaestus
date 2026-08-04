@@ -50,13 +50,13 @@ export const TypographyPreview = ({
               <motion.p
                 animate={{
                   fontSize: fontSize,
-                  color: state.colour,
+                  color: state.color,
                   fontWeight: state.fontWeight.weight,
                   letterSpacing: state.letterSpacing,
                   lineHeight: state.lineHeight,
                 }}
                 style={{
-                  color: state.colour,
+                  color: state.color,
                   fontSize: `${fontSize}px`,
                   fontFamily,
                   fontWeight: state.fontWeight.weight,

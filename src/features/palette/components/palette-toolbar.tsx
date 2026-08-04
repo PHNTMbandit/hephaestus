@@ -6,7 +6,7 @@ export const PaletteToolbar = ({ className, children, ref, ...props }: PaletteTo
   return (
     <div
       className={cn(
-        'flex flex-wrap gap-3xs rounded-full p-sm xl:absolute xl:top-md xl:left-1/2 xl:z-50 xl:h-2xl xl:-translate-x-1/2 xl:flex-nowrap xl:items-center xl:justify-between xl:bg-surface xl:px-2xs xl:py-sm xl:shadow-lg',
+        'flex w-full flex-wrap items-center justify-between gap-md border-b border-border bg-surface-background p-2xs',
         className,
       )}
       ref={ref}

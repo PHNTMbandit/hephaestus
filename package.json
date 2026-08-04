@@ -46,6 +46,7 @@
     "@tanstack/react-form": "latest",
     "@tanstack/react-form-start": "^1.33.2",
     "@tanstack/react-hotkeys": "^0.10.0",
+    "@tanstack/react-pacer": "^0.22.1",
     "@tanstack/react-query": "latest",
     "@tanstack/react-query-devtools": "latest",
     "@tanstack/react-router": "latest",
@@ -58,7 +59,7 @@
     "better-auth": "^1.6.25",
     "chroma-js": "^3.2.0",
     "class-variance-authority": "^0.7.1",
-    "dawn-ui-react": "1.0.0-alpha.21",
+    "dawn-ui-react": "1.0.0-alpha.29",
     "drizzle-kit": "0.31.10",
     "drizzle-orm": "^0.45.2",
     "motion": "^12.42.2",
@@ -112,8 +113,7 @@
     "vitest": "^4.1.10"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,mjs,cjs}": "pnpm run lint",
-    "*": "oxfmt --no-error-on-unmatched-pattern"
+    "*.{js,jsx,ts,tsx,mjs,cjs}": "pnpm run lint"
   },
   "config": {
     "commitizen": {

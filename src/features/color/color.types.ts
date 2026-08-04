@@ -1,14 +1,14 @@
-export type Colour = {
+export type Color = {
   id: string
   value: string
   locked: boolean
 }
 
-export type ColourContextValue = {
-  colour: Colour
+export type ColorContextValue = {
+  color: Color
 }
 
-export type ColourNameList =
+export type ColorNameList =
   | 'basic'
   | 'bestOf'
   | 'chineseTraditional'

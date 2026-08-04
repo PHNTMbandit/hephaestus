@@ -1,8 +1,8 @@
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from 'dawn-ui-react'
-import { useColour } from './colour-provider'
+import { useColor } from './color-provider'
 
-const colourBlockVariants = cva(
+const colorBlockVariants = cva(
   'group relative flex size-full flex-col items-start justify-between gap-md',
   {
     variants: {
@@ -18,17 +18,17 @@ const colourBlockVariants = cva(
   },
 )
 
-type ColourBlockProps = React.ComponentProps<'div'> & VariantProps<typeof colourBlockVariants>
+type ColorBlockProps = React.ComponentProps<'div'> & VariantProps<typeof colorBlockVariants>
 
-export const ColourBlock = ({ size, className, children, ref, ...props }: ColourBlockProps) => {
-  const { colour } = useColour()
+export const ColorBlock = ({ size, className, children, ref, ...props }: ColorBlockProps) => {
+  const { color } = useColor()
 
   return (
     <div
       style={{
-        backgroundColor: colour.value,
+        backgroundColor: color.value,
       }}
-      className={cn(colourBlockVariants({ size }), className)}
+      className={cn(colorBlockVariants({ size }), className)}
       ref={ref}
       {...props}
     >

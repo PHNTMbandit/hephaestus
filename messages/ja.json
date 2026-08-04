@@ -13,7 +13,7 @@
     },
     "items": {
       "explore": "探索",
-      "colourPalette": "カラーパレット",
+      "colorPalette": "カラーパレット",
       "spacing": "スペーシング",
       "typography": "タイポグラフィ",
       "designSystems": "デザインシステム",
@@ -64,12 +64,12 @@
       }
     }
   },
-  "colourPalette": {
+  "colorPalette": {
     "label": "カラーパレット",
     "title": "カラーパレットを生成",
     "description": "ベースカラーを入力して、調和のとれたカラーパレットを生成します。",
     "fields": {
-      "baseColour": "ベースカラー (Hex、RGB、またはHSL)"
+      "baseColor": "ベースカラー (Hex、RGB、またはHSL)"
     },
     "buttons": {
       "export": "エクスポート",
@@ -78,7 +78,7 @@
       "update": "更新"
     },
     "errors": {
-      "invalidColour": "無効なカラー形式です。有効な16進数、RGB、またはHSLカラーを入力してください。"
+      "invalidColor": "無効なカラー形式です。有効な16進数、RGB、またはHSLカラーを入力してください。"
     },
     "export": {
       "title": "パレットをエクスポート",

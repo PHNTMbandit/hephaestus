@@ -21,7 +21,7 @@ function RouteComponent() {
       <Typography.FontWeight />
       <Typography.LineHeight />
       <Typography.LetterSpacing />
-      <Typography.Colour />
+      <Typography.Color />
       <Typography.Background />
       <Typography.Preview />
     </Typography.Provider>

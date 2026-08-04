@@ -1,10 +1,10 @@
 import { queryOptions } from '@tanstack/react-query'
 import { createServerFn } from '@tanstack/react-start'
 
-import type { ColourNameList } from '../colour.types'
+import type { ColorNameList } from '../color.types'
 
-export const getColourName = createServerFn()
-  .validator((data: { hex: string; list?: ColourNameList; noDuplicates?: boolean }) => data)
+export const getColorName = createServerFn()
+  .validator((data: { hex: string; list?: ColorNameList; noDuplicates?: boolean }) => data)
   .handler(async ({ data }): Promise<string | null> => {
     const { hex, list, noDuplicates } = data
 
@@ -15,16 +15,12 @@ export const getColourName = createServerFn()
       const jsonData = await response.json()
       return jsonData.colors[0].name
     } catch {
-      throw new Error('Failed to fetch colour name')
+      throw new Error('Failed to fetch color name')
     }
   })
 
-export const colourNameQueryOptions = (
-  hex: string,
-  list?: ColourNameList,
-  noDuplicates?: boolean,
-) =>
+export const colorNameQueryOptions = (hex: string, list?: ColorNameList, noDuplicates?: boolean) =>
   queryOptions({
-    queryKey: ['colourName', hex],
-    queryFn: () => getColourName({ data: { hex: hex.split('#')[1], list, noDuplicates } }),
+    queryKey: ['colorName', hex],
+    queryFn: () => getColorName({ data: { hex: hex.split('#')[1], list, noDuplicates } }),
   })

@@ -10,7 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SecureRouteImport } from './routes/_secure'
-import { Route as SecureColourPaletteChar123ProjectIdChar125RouteImport } from './routes/_secure/colour-palette/{-$projectId}'
+import { Route as SecureColorPaletteChar123ProjectIdChar125RouteImport } from './routes/_secure/color-palette/{-$projectId}'
 import { Route as SecureDesignSystemsRouteImport } from './routes/_secure/design-systems'
 import { Route as SecureExploreRouteImport } from './routes/_secure/explore'
 import { Route as SecureFavouritesRouteImport } from './routes/_secure/favourites'
@@ -71,10 +71,10 @@ const SecureTypographyRoute = SecureTypographyRouteImport.update({
   path: '/typography',
   getParentRoute: () => SecureRoute,
 } as any)
-const SecureColourPaletteChar123ProjectIdChar125Route =
-  SecureColourPaletteChar123ProjectIdChar125RouteImport.update({
-    id: '/colour-palette/{-$projectId}',
-    path: '/colour-palette/{-$projectId}',
+const SecureColorPaletteChar123ProjectIdChar125Route =
+  SecureColorPaletteChar123ProjectIdChar125RouteImport.update({
+    id: '/color-palette/{-$projectId}',
+    path: '/color-palette/{-$projectId}',
     getParentRoute: () => SecureRoute,
   } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
@@ -93,7 +93,7 @@ export interface FileRoutesByFullPath {
   '/my-library': typeof SecureMyLibraryRoute
   '/spacing': typeof SecureSpacingRoute
   '/typography': typeof SecureTypographyRoute
-  '/colour-palette/{-$projectId}': typeof SecureColourPaletteChar123ProjectIdChar125Route
+  '/color-palette/{-$projectId}': typeof SecureColorPaletteChar123ProjectIdChar125Route
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
@@ -106,7 +106,7 @@ export interface FileRoutesByTo {
   '/my-library': typeof SecureMyLibraryRoute
   '/spacing': typeof SecureSpacingRoute
   '/typography': typeof SecureTypographyRoute
-  '/colour-palette/{-$projectId}': typeof SecureColourPaletteChar123ProjectIdChar125Route
+  '/color-palette/{-$projectId}': typeof SecureColorPaletteChar123ProjectIdChar125Route
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
@@ -121,7 +121,7 @@ export interface FileRoutesById {
   '/_secure/my-library': typeof SecureMyLibraryRoute
   '/_secure/spacing': typeof SecureSpacingRoute
   '/_secure/typography': typeof SecureTypographyRoute
-  '/_secure/colour-palette/{-$projectId}': typeof SecureColourPaletteChar123ProjectIdChar125Route
+  '/_secure/color-palette/{-$projectId}': typeof SecureColorPaletteChar123ProjectIdChar125Route
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
@@ -136,7 +136,7 @@ export interface FileRouteTypes {
     | '/my-library'
     | '/spacing'
     | '/typography'
-    | '/colour-palette/{-$projectId}'
+    | '/color-palette/{-$projectId}'
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -149,7 +149,7 @@ export interface FileRouteTypes {
     | '/my-library'
     | '/spacing'
     | '/typography'
-    | '/colour-palette/{-$projectId}'
+    | '/color-palette/{-$projectId}'
     | '/api/auth/$'
   id:
     | '__root__'
@@ -163,7 +163,7 @@ export interface FileRouteTypes {
     | '/_secure/my-library'
     | '/_secure/spacing'
     | '/_secure/typography'
-    | '/_secure/colour-palette/{-$projectId}'
+    | '/_secure/color-palette/{-$projectId}'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
@@ -247,11 +247,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SecureTypographyRouteImport
       parentRoute: typeof SecureRoute
     }
-    '/_secure/colour-palette/{-$projectId}': {
-      id: '/_secure/colour-palette/{-$projectId}'
-      path: '/colour-palette/{-$projectId}'
-      fullPath: '/colour-palette/{-$projectId}'
-      preLoaderRoute: typeof SecureColourPaletteChar123ProjectIdChar125RouteImport
+    '/_secure/color-palette/{-$projectId}': {
+      id: '/_secure/color-palette/{-$projectId}'
+      path: '/color-palette/{-$projectId}'
+      fullPath: '/color-palette/{-$projectId}'
+      preLoaderRoute: typeof SecureColorPaletteChar123ProjectIdChar125RouteImport
       parentRoute: typeof SecureRoute
     }
     '/api/auth/$': {
@@ -271,7 +271,7 @@ interface SecureRouteChildren {
   SecureMyLibraryRoute: typeof SecureMyLibraryRoute
   SecureSpacingRoute: typeof SecureSpacingRoute
   SecureTypographyRoute: typeof SecureTypographyRoute
-  SecureColourPaletteChar123ProjectIdChar125Route: typeof SecureColourPaletteChar123ProjectIdChar125Route
+  SecureColorPaletteChar123ProjectIdChar125Route: typeof SecureColorPaletteChar123ProjectIdChar125Route
 }
 
 const SecureRouteChildren: SecureRouteChildren = {
@@ -281,7 +281,7 @@ const SecureRouteChildren: SecureRouteChildren = {
   SecureMyLibraryRoute: SecureMyLibraryRoute,
   SecureSpacingRoute: SecureSpacingRoute,
   SecureTypographyRoute: SecureTypographyRoute,
-  SecureColourPaletteChar123ProjectIdChar125Route: SecureColourPaletteChar123ProjectIdChar125Route,
+  SecureColorPaletteChar123ProjectIdChar125Route: SecureColorPaletteChar123ProjectIdChar125Route,
 }
 
 const SecureRouteWithChildren = SecureRoute._addFileChildren(SecureRouteChildren)

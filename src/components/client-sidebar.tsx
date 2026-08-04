@@ -34,7 +34,7 @@ type ClientSidebarProps = React.ComponentProps<'div'> & {
 
 export const ClientSidebar = ({ user, className, children, ref, ...props }: ClientSidebarProps) => {
   return (
-    <Sidebar tone="ghost" className={cn('', className)} ref={ref} {...props}>
+    <Sidebar width={350} tone="ghost" className={cn('', className)} ref={ref} {...props}>
       <SidebarHeader>
         {(isExpanded) => {
           return <span className={cn('style-text-strong-2', !isExpanded && 'hidden')}>Dawn UI</span>

@@ -1,5 +1,5 @@
 import { TypographyBackground } from './typography-background'
-import { TypographyColour } from './typography-colour'
+import { TypographyColor } from './typography-color'
 import { TypographyFontFamily } from './typography-font-family'
 import { TypographyFontSize } from './typography-font-size'
 import { TypographyFontWeight } from './typography-font-weight'
@@ -11,7 +11,7 @@ import { TypographyScale } from './typography-scale'
 
 export const Typography = {
   Background: TypographyBackground,
-  Colour: TypographyColour,
+  Color: TypographyColor,
   FontFamily: TypographyFontFamily,
   FontSize: TypographyFontSize,
   FontWeight: TypographyFontWeight,

@@ -1,4 +1,4 @@
-import type { WCAGGrade } from '../colour.types'
+import type { WCAGGrade } from '../color.types'
 
 export const WCAG_GRADES: Record<string, WCAGGrade> = {
   AAA: {

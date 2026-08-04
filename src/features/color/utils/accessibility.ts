@@ -1,7 +1,7 @@
 import chroma from 'chroma-js'
 import { WCAG_GRADES } from '../constants/accessibility'
 
-import type { WCAGGrade } from '../colour.types'
+import type { WCAGGrade } from '../color.types'
 
 export const getForeground = (background: string): string => {
   const bg = chroma(background)

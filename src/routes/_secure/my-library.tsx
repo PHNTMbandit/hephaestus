@@ -1,6 +1,6 @@
 import { useLiveQuery } from '@tanstack/react-db'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { Colour } from '#/features/colour/components/colour.ts'
+import { Color } from '#/features/color/components/color.ts'
 import { Palette } from '#/features/palette/components/palette.ts'
 import { defaultPaletteState } from '#/features/palette/constants/state.ts'
 
@@ -21,20 +21,20 @@ function RouteComponent() {
         {data?.map((palette) => (
           <Link
             key={palette.id}
-            to="/colour-palette/{-$projectId}"
+            to="/color-palette/{-$projectId}"
             params={{ projectId: palette.id }}
           >
             <Palette.Root
               initialState={{
                 ...defaultPaletteState,
-                colours: palette.colours,
+                colors: palette.colors,
               }}
             >
               <Palette.List orientation={'horizontal'} rounded="xxLarge">
-                {({ colour }) => (
-                  <Colour.Provider colour={colour}>
-                    <Colour.Block />
-                  </Colour.Provider>
+                {({ color }) => (
+                  <Color.Provider color={color}>
+                    <Color.Block />
+                  </Color.Provider>
                 )}
               </Palette.List>
             </Palette.Root>

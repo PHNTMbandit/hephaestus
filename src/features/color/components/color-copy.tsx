@@ -4,18 +4,18 @@ import { anchoredToastManager, Button, cn } from 'dawn-ui-react'
 import { AnimatePresence, motion } from 'motion/react'
 import React from 'react'
 import { getForeground } from '../utils/accessibility'
-import { useColour } from './colour-provider'
+import { useColor } from './color-provider'
 
-type ColourCopyProps = React.ComponentProps<'button'> & {
+type ColorCopyProps = React.ComponentProps<'button'> & {
   value?: string
 }
 
-export const ColourCopy = ({ value, className, children, ...props }: ColourCopyProps) => {
+export const ColorCopy = ({ value, className, children, ...props }: ColorCopyProps) => {
   const [showingToast, setShowingToast] = React.useState(false)
   const buttonRef = React.useRef<HTMLButtonElement | null>(null)
-  const { colour } = useColour()
-  const chromaColour = chroma(colour.value)
-  const isDark = chromaColour.luminance() < 0.5
+  const { color } = useColor()
+  const chromaColor = chroma(color.value)
+  const isDark = chromaColor.luminance() < 0.5
 
   const handleClick = async () => {
     try {
@@ -56,10 +56,8 @@ export const ColourCopy = ({ value, className, children, ...props }: ColourCopyP
       ref={buttonRef}
       onClick={handleClick}
       style={{
-        backgroundColor: isDark
-          ? chromaColour.brighten(0.75).hex()
-          : chromaColour.darken(0.75).hex(),
-        color: getForeground(colour.value),
+        backgroundColor: isDark ? chromaColor.brighten(0.5).hex() : chromaColor.darken(0.5).hex(),
+        color: getForeground(color.value),
       }}
       tone="neutral"
       variant={'ghost'}
@@ -94,7 +92,7 @@ export const ColourCopy = ({ value, className, children, ...props }: ColourCopyP
               duration: 0.15,
             }}
           >
-            <CopyIcon />
+            <CopyIcon weight="bold" />
           </motion.div>
         )}
       </AnimatePresence>

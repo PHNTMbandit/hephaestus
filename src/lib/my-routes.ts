@@ -22,8 +22,8 @@ export const exploreRoute: SecureRoute[] = [
 export const secureRoutes: SecureRoute[] = [
   {
     leadingIcon: PaletteIcon,
-    label: m['navigation.items.colourPalette'](),
-    linkOptions: { to: '/colour-palette' },
+    label: m['navigation.items.colorPalette'](),
+    linkOptions: { to: '/color-palette' },
   },
   {
     leadingIcon: RulerIcon,

@@ -23,20 +23,20 @@ export const PaletteUpdate = ({
   const handleClick = () => {
     startTransition(async () => {
       const tx = paletteCollection.update(paletteId, (draft) => {
-        draft.baseColour = state.baseColour
-        draft.colours = state.colours
+        draft.baseColor = state.baseColor
+        draft.colors = state.colors
       })
 
       try {
         await tx.isPersisted.promise
         stackToastManager.add({
-          title: m['colourPalette.toasts.updateSuccess.title'](),
-          description: m['colourPalette.toasts.updateSuccess.description'](),
+          title: m['colorPalette.toasts.updateSuccess.title'](),
+          description: m['colorPalette.toasts.updateSuccess.description'](),
           variant: 'success',
         })
       } catch (error) {
         stackToastManager.add({
-          title: m['colourPalette.toasts.updateError.title'](),
+          title: m['colorPalette.toasts.updateError.title'](),
           description: error instanceof Error ? error.message : String(error),
           variant: 'error',
         })
@@ -57,13 +57,13 @@ export const PaletteUpdate = ({
       onClick={handleClick}
       tone="neutral"
       variant={'ghost'}
-      className={cn('', className)}
+      className={cn('shrink-0', className)}
       ref={ref}
       {...props}
     >
       {children}
       <FloppyDiskIcon weight="bold" />
-      {m['colourPalette.buttons.update']()}
+      {m['colorPalette.buttons.update']()}
     </Button>
   )
 }

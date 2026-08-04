@@ -123,8 +123,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.colour_palettes": {
-      "name": "colour_palettes",
+    "public.color_palettes": {
+      "name": "color_palettes",
       "schema": "",
       "columns": {
         "id": {
@@ -167,8 +167,8 @@
         }
       },
       "indexes": {
-        "colour_palettes_user_id_idx": {
-          "name": "colour_palettes_user_id_idx",
+        "color_palettes_user_id_idx": {
+          "name": "color_palettes_user_id_idx",
           "columns": [
             {
               "expression": "user_id",
@@ -184,9 +184,9 @@
         }
       },
       "foreignKeys": {
-        "colour_palettes_user_id_fkey": {
-          "name": "colour_palettes_user_id_fkey",
-          "tableFrom": "colour_palettes",
+        "color_palettes_user_id_fkey": {
+          "name": "color_palettes_user_id_fkey",
+          "tableFrom": "color_palettes",
           "tableTo": "user",
           "columnsFrom": ["user_id"],
           "columnsTo": ["id"],
@@ -196,33 +196,33 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "colour_palettes_user_id_name_key": {
-          "name": "colour_palettes_user_id_name_key",
+        "color_palettes_user_id_name_key": {
+          "name": "color_palettes_user_id_name_key",
           "nullsNotDistinct": false,
           "columns": ["user_id", "name"]
         }
       },
       "policies": {
-        "select own colour palettes": {
-          "name": "select own colour palettes",
+        "select own color palettes": {
+          "name": "select own color palettes",
           "as": "PERMISSIVE",
           "for": "SELECT",
           "to": ["public"]
         },
-        "insert own colour palettes": {
-          "name": "insert own colour palettes",
+        "insert own color palettes": {
+          "name": "insert own color palettes",
           "as": "PERMISSIVE",
           "for": "INSERT",
           "to": ["public"]
         },
-        "update own colour palettes": {
-          "name": "update own colour palettes",
+        "update own color palettes": {
+          "name": "update own color palettes",
           "as": "PERMISSIVE",
           "for": "UPDATE",
           "to": ["public"]
         },
-        "delete own colour palettes": {
-          "name": "delete own colour palettes",
+        "delete own color palettes": {
+          "name": "delete own color palettes",
           "as": "PERMISSIVE",
           "for": "DELETE",
           "to": ["public"]
@@ -253,8 +253,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "colour_palette_id": {
-          "name": "colour_palette_id",
+        "color_palette_id": {
+          "name": "color_palette_id",
           "type": "uuid",
           "primaryKey": false,
           "notNull": false
@@ -307,11 +307,11 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "design_systems_colour_palette_id_fkey": {
-          "name": "design_systems_colour_palette_id_fkey",
+        "design_systems_color_palette_id_fkey": {
+          "name": "design_systems_color_palette_id_fkey",
           "tableFrom": "design_systems",
-          "tableTo": "colour_palettes",
-          "columnsFrom": ["colour_palette_id"],
+          "tableTo": "color_palettes",
+          "columnsFrom": ["color_palette_id"],
           "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"

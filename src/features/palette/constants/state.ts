@@ -6,13 +6,13 @@ import type { PaletteState } from '../types/state'
 export const PALETTE_CONFIG = {
   DEFAULT_LIMIT: 10,
   DEFAULT_MODE: 'list' as const,
-  DEFAULT_BASE_COLOUR: '#ff0000',
-  INITIAL_COLOURS_COUNT: 5,
+  DEFAULT_BASE_COLOR: '#ff0000',
+  INITIAL_COLORS_COUNT: 5,
 }
 
 export const defaultPaletteState: PaletteState = {
-  baseColour: PALETTE_CONFIG.DEFAULT_BASE_COLOUR,
-  colours: [],
+  baseColor: PALETTE_CONFIG.DEFAULT_BASE_COLOR,
+  colors: [],
   currentGeneratorMethod: paletteGeneratorMethods.monochromatic,
   limit: PALETTE_CONFIG.DEFAULT_LIMIT,
   mode: PALETTE_CONFIG.DEFAULT_MODE,
@@ -20,8 +20,8 @@ export const defaultPaletteState: PaletteState = {
 }
 
 export type SerializablePaletteState = {
-  colours: PaletteState['colours']
-  baseColour: string
+  colors: PaletteState['colors']
+  baseColor: string
   limit: number
   mode: PaletteState['mode']
 }

@@ -9,9 +9,9 @@ export const PaletteCount = ({ className, children, ref, ...props }: PaletteCoun
   const handleChange = (_value: number | null, e: any) => {
     if (e.direction === 1) {
       dispatch({ type: 'ADD' })
-    } else if (e.direction === -1 && state.colours.length > 1) {
-      const lastColour = state.colours[state.colours.length - 1]
-      if (lastColour) {
+    } else if (e.direction === -1 && state.colors.length > 1) {
+      const lastColor = state.colors[state.colors.length - 1]
+      if (lastColor) {
         dispatch({ type: 'REMOVE' })
       }
     }
@@ -22,8 +22,8 @@ export const PaletteCount = ({ className, children, ref, ...props }: PaletteCoun
       min={1}
       max={state.limit}
       onValueChange={handleChange}
-      value={state.colours.length}
-      className={cn('hidden xl:block', className)}
+      value={state.colors.length}
+      className={cn('w-full', className)}
       ref={ref}
       {...props}
     >

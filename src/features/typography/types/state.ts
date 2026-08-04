@@ -9,7 +9,7 @@ export type TypographyState = {
   fontWeight: FontWeight
   lineHeight: number
   letterSpacing: number
-  colour: string
+  color: string
   background: string
 }
 
@@ -20,7 +20,7 @@ export type TypographyAction =
   | { type: 'SET_FONT_WEIGHT'; payload: { fontWeight: FontWeight } }
   | { type: 'SET_LINE_HEIGHT'; payload: { lineHeight: number } }
   | { type: 'SET_LETTER_SPACING'; payload: { letterSpacing: number } }
-  | { type: 'SET_COLOUR'; payload: { colour: string } }
+  | { type: 'SET_COLOR'; payload: { color: string } }
   | { type: 'SET_BACKGROUND'; payload: { background: string } }
   | { type: 'RESET' }
 

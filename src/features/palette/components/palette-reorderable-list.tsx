@@ -1,18 +1,13 @@
 import { cn } from 'dawn-ui-react'
 import { Reorder, type HTMLMotionProps } from 'motion/react'
 import React from 'react'
-import { useMediaQuery } from '#/hooks/use-media-query.tsx'
 import { usePalette } from '../hooks/use-palette'
 
-import type { Colour } from '#/features/colour/colour.types.ts'
+import type { Color } from '#/features/color/color.types.ts'
 import type { ValueType } from '../types/value'
 
 type PaletteReorderableListProps = Omit<HTMLMotionProps<'ul'>, 'children'> & {
-  children: (props: {
-    colour: Colour
-    isDragging: boolean
-    valueType?: ValueType
-  }) => React.ReactNode
+  children: (props: { color: Color; isDragging: boolean; valueType?: ValueType }) => React.ReactNode
 }
 
 export const PaletteReorderableList = ({
@@ -22,37 +17,37 @@ export const PaletteReorderableList = ({
   ...props
 }: PaletteReorderableListProps) => {
   const [isDragging, setIsDragging] = React.useState(false)
-  const isDesktop = useMediaQuery('(min-width: 1280px)')
   const {
-    state: { colours, valueType },
+    state: { colors, valueType },
     dispatch,
   } = usePalette()
 
-  const handleReorder = (newColours: Colour[]) => {
-    dispatch({ type: 'REORDER', payload: { newColours } })
+  const handleReorder = (newColors: Color[]) => {
+    dispatch({ type: 'REORDER', payload: { newColors } })
   }
 
   return (
     <Reorder.Group
-      axis={isDesktop ? 'x' : 'y'}
+      axis={'y'}
       {...props}
-      values={colours}
+      values={colors}
       onReorder={handleReorder}
       ref={ref}
-      className={cn('grid w-full grow auto-cols-fr grid-flow-row xl:grid-flow-col', className)}
+      className={cn('grid w-full grow auto-cols-fr grid-flow-row overflow-y-auto', className)}
     >
-      {colours.map((colour) => (
+      {colors.map((color) => (
         <Reorder.Item
-          key={colour.id}
+          key={color.id}
+          drag={color.locked ? false : 'y'}
           onDragStart={() => setIsDragging(true)}
           onDragEnd={() => setIsDragging(false)}
-          value={colour}
+          value={color}
           className="min-w-0 grow origin-center hover:cursor-grab active:cursor-grabbing"
           whileTap={{
             zIndex: 10,
           }}
         >
-          {children({ colour, isDragging, valueType })}
+          {children({ color, isDragging, valueType })}
         </Reorder.Item>
       ))}
     </Reorder.Group>

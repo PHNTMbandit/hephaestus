@@ -1,9 +1,9 @@
-import type { Colour } from '#/features/colour/colour.types.ts'
+import type { Color } from '#/features/color/color.types.ts'
 
 export type PaletteGeneratorMethod = {
   id: string
   name: string
   description: string
-  generate: (baseColour: string, index: number, total: number, range?: number) => Colour
-  generatePalette: (baseColour: string, count: number, range?: number) => Colour[]
+  generate: (baseColor: string, index: number, total: number, range?: number) => Color
+  generatePalette: (baseColor: string, count: number, range?: number) => Color[]
 }

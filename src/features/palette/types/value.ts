@@ -1,6 +1,6 @@
 export type ValueType = {
   value: string
   label: string
-  displayColor: (colour: string) => string
-  getColorClipboardFormat: (colour: string) => string
+  displayColor: (color: string) => string
+  getColorClipboardFormat: (color: string) => string
 }

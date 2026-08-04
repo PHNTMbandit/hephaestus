@@ -5,7 +5,7 @@ import type { TypographyState } from '../types/state'
 
 export const defaultTypographyState: TypographyState = {
   background: '#000000',
-  colour: '#ffffff',
+  color: '#ffffff',
   fontStyle: {
     family: 'Inter',
     variants: ['regular', 'italic'],

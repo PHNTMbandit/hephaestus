@@ -52,7 +52,7 @@ export const PaletteExportRoot = ({
         </DialogTrigger>
         <DialogPopup className={'w-1/2'}>
           <DialogHeader>
-            <DialogTitle>{m['colourPalette.export.title']()}</DialogTitle>
+            <DialogTitle>{m['colorPalette.export.title']()}</DialogTitle>
           </DialogHeader>
           <DialogContent>
             <PaletteExportCss />

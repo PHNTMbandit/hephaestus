@@ -1,88 +1,85 @@
-import { generateRandomColour, paletteGeneratorMethodsList, valueTypesList } from './utils'
+import { generateRandomColor, paletteGeneratorMethodsList, valueTypesList } from './utils'
 
 import type { PaletteAction, PaletteState } from './types/state'
 
 export const paletteReducer = (state: PaletteState, action: PaletteAction): PaletteState => {
   switch (action.type) {
     case 'ADD':
-      if (state.colours.length >= state.limit) return state
+      if (state.colors.length >= state.limit) return state
       const palette = state.currentGeneratorMethod.generatePalette(
-        state.baseColour,
-        state.colours.length + 1,
+        state.baseColor,
+        state.colors.length + 1,
       )
 
       return {
         ...state,
-        colours: [...state.colours, palette[palette.length - 1]],
+        colors: [...state.colors, palette[palette.length - 1]],
       }
     case 'ADD_AT':
-      if (state.colours.length >= state.limit) return state
+      if (state.colors.length >= state.limit) return state
       return {
         ...state,
-        colours: [
-          ...state.colours.slice(0, action.payload.index + 1),
-          action.payload.colour,
-          ...state.colours.slice(action.payload.index + 1),
+        colors: [
+          ...state.colors.slice(0, action.payload.index + 1),
+          action.payload.color,
+          ...state.colors.slice(action.payload.index + 1),
         ],
       }
     case 'REMOVE':
       return {
         ...state,
-        colours: state.colours.slice(0, -1),
+        colors: state.colors.slice(0, -1),
       }
     case 'REMOVE_AT':
       return {
         ...state,
-        colours: [
-          ...state.colours.slice(0, action.payload.index),
-          ...state.colours.slice(action.payload.index + 1),
+        colors: [
+          ...state.colors.slice(0, action.payload.index),
+          ...state.colors.slice(action.payload.index + 1),
         ],
       }
     case 'UPDATE':
       return {
         ...state,
-        colours: state.colours.map((colour) =>
-          colour.id === action.payload.id ? { ...colour, value: action.payload.hex } : colour,
+        colors: state.colors.map((color) =>
+          color.id === action.payload.id ? { ...color, value: action.payload.hex } : color,
         ),
       }
     case 'GENERATE':
-      const newBaseColour = generateRandomColour().value
+      const newBaseColor = generateRandomColor().value
       return {
         ...state,
-        baseColour: newBaseColour,
-        colours: state.colours.map((colour, index) =>
-          colour.locked
-            ? colour
-            : state.currentGeneratorMethod.generate(newBaseColour, index, state.colours.length),
+        baseColor: newBaseColor,
+        colors: state.colors.map((color, index) =>
+          color.locked
+            ? color
+            : state.currentGeneratorMethod.generate(newBaseColor, index, state.colors.length),
         ),
       }
     case 'RESET':
       return {
         ...state,
-        colours: state.colours.map((colour, index) =>
-          colour.locked
-            ? colour
-            : state.currentGeneratorMethod.generate(state.baseColour, index, state.colours.length),
-        ),
+        baseColor: action.payload.baseColor,
+        colors: action.payload.colors,
       }
     case 'LOCK':
       return {
         ...state,
-        colours: state.colours.map((colour) =>
-          colour.id === action.payload.id ? { ...colour, locked: true } : colour,
+        colors: state.colors.map((color) =>
+          color.id === action.payload.id ? { ...color, locked: true } : color,
         ),
       }
     case 'UNLOCK':
       return {
         ...state,
-        colours: state.colours.map((colour) =>
-          colour.id === action.payload.id ? { ...colour, locked: false } : colour,
+        colors: state.colors.map((color) =>
+          color.id === action.payload.id ? { ...color, locked: false } : color,
         ),
       }
     case 'REORDER':
       return {
         ...state,
-        colours: action.payload.newColours,
+        colors: action.payload.newColors,
       }
     case 'SET_GENERATOR_METHOD':
       return {
@@ -90,17 +87,14 @@ export const paletteReducer = (state: PaletteState, action: PaletteAction): Pale
         currentGeneratorMethod: paletteGeneratorMethodsList.find(
           (method) => method.id === action.payload.id,
         )!,
-        colours: paletteGeneratorMethodsList
-          .find((method) => method.id === action.payload.id)!
-          .generatePalette(state.baseColour, state.colours.length),
       }
-    case 'SET_BASE_COLOUR':
+    case 'SET_BASE_COLOR':
       return {
         ...state,
-        baseColour: action.payload.baseColour,
-        colours: state.currentGeneratorMethod
-          .generatePalette(action.payload.baseColour, state.limit)
-          .slice(0, state.colours.length),
+        baseColor: action.payload.baseColor,
+        colors: state.currentGeneratorMethod
+          .generatePalette(action.payload.baseColor, state.limit)
+          .slice(0, state.colors.length),
       }
     case 'SET_VALUE_TYPE':
       return {
@@ -111,7 +105,7 @@ export const paletteReducer = (state: PaletteState, action: PaletteAction): Pale
       return {
         ...state,
         limit: action.payload.limit,
-        colours: state.colours.slice(0, action.payload.limit),
+        colors: state.colors.slice(0, action.payload.limit),
       }
     case 'SET_MODE': {
       return {
