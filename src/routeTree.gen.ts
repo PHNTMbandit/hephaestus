@@ -9,18 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as SecureRouteImport } from './routes/_secure'
-import { Route as SecureColorPaletteChar123ProjectIdChar125RouteImport } from './routes/_secure/color-palette/{-$projectId}'
+import { Route as SignInRouteImport } from './routes/sign-in'
+import { Route as SignUpRouteImport } from './routes/sign-up'
 import { Route as SecureDesignSystemsRouteImport } from './routes/_secure/design-systems'
 import { Route as SecureExploreRouteImport } from './routes/_secure/explore'
 import { Route as SecureFavouritesRouteImport } from './routes/_secure/favourites'
 import { Route as SecureMyLibraryRouteImport } from './routes/_secure/my-library'
 import { Route as SecureSpacingRouteImport } from './routes/_secure/spacing'
 import { Route as SecureTypographyRouteImport } from './routes/_secure/typography'
+import { Route as SecureColorPaletteChar123ProjectIdChar125RouteImport } from './routes/_secure/color-palette/{-$projectId}'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as SignInRouteImport } from './routes/sign-in'
-import { Route as SignUpRouteImport } from './routes/sign-up'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -281,10 +281,12 @@ const SecureRouteChildren: SecureRouteChildren = {
   SecureMyLibraryRoute: SecureMyLibraryRoute,
   SecureSpacingRoute: SecureSpacingRoute,
   SecureTypographyRoute: SecureTypographyRoute,
-  SecureColorPaletteChar123ProjectIdChar125Route: SecureColorPaletteChar123ProjectIdChar125Route,
+  SecureColorPaletteChar123ProjectIdChar125Route:
+    SecureColorPaletteChar123ProjectIdChar125Route,
 }
 
-const SecureRouteWithChildren = SecureRoute._addFileChildren(SecureRouteChildren)
+const SecureRouteWithChildren =
+  SecureRoute._addFileChildren(SecureRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,

@@ -1,11 +1,22 @@
 import { drizzleAdapter } from '@better-auth/drizzle-adapter'
 import { betterAuth } from 'better-auth'
+import { oAuthProxy } from 'better-auth/plugins'
 import { username } from 'better-auth/plugins/username'
 import { tanstackStartCookies } from 'better-auth/tanstack-start'
 import { db } from '#/db/index'
 import { account, session, user, verification } from '#/db/schema.ts'
 
 export const auth = betterAuth({
+  baseURL: {
+    allowedHosts: [
+      'localhost:3000',
+      'localhost:5173',
+      'hephaestus-one.vercel.app',
+      'www.hephaestus-one.vercel.app',
+      '*.vercel.app',
+    ],
+    protocol: process.env.NODE_ENV === 'development' ? 'http' : 'https',
+  },
   database: drizzleAdapter(db, {
     provider: 'pg',
     schema: {
@@ -46,5 +57,13 @@ export const auth = betterAuth({
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
     },
   },
-  plugins: [username(), tanstackStartCookies()],
+  trustedOrigins: ['https://hephaestus-one.vercel.app', 'http://localhost:3000'],
+  plugins: [
+    oAuthProxy({
+      productionURL: 'https://hephaestus-one.vercel.app',
+      secret: process.env.OAUTH_PROXY_SECRET as string,
+    }),
+    username(),
+    tanstackStartCookies(),
+  ],
 })
