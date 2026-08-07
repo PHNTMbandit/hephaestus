@@ -1,6 +1,6 @@
-import { useTheme } from '#/hooks/use-theme'
 import { MonitorIcon, MoonIcon, SunIcon } from '@phosphor-icons/react'
 import { Button, cn } from 'dawn-ui-react'
+import { useTheme } from '#/hooks/use-theme'
 
 type ThemeToggleProps = React.ComponentProps<'button'>
 
@@ -17,7 +17,7 @@ export const ThemeToggle = ({ className, ref, ...props }: ThemeToggleProps) => {
       size="iconMedium"
       variant={'ghost'}
       tone="neutral"
-      className={cn('', className)}
+      className={cn('shrink-0', className)}
       ref={ref}
       onClick={handleClick}
       {...props}

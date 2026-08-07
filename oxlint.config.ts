@@ -18,6 +18,7 @@ export default defineConfig({
   },
   jsPlugins: ['oxlint-tailwindcss'],
   rules: {
+    'import/namespace': 'off',
     'no-unused-vars': 'error',
     'eslint/no-unused-vars': 'error',
     'react/no-children-prop': 'error',
@@ -68,6 +69,9 @@ export default defineConfig({
       implementsReplacesDocs: false,
       exemptDestructuredRootsFromChecks: false,
       tagNamePreference: {},
+    },
+    tailwindcss: {
+      entryPoint: 'src/styles/input.css',
     },
     vitest: {
       typecheck: false,

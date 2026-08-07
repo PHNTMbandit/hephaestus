@@ -1,19 +1,121 @@
 import {
   pgTable,
   index,
+  foreignKey,
+  unique,
+  pgPolicy,
+  uuid,
   text,
   timestamp,
-  unique,
-  boolean,
-  foreignKey,
-  pgPolicy,
-  serial,
-  uuid,
   jsonb,
-  pgEnum,
+  boolean,
 } from 'drizzle-orm/pg-core'
 
-export const tokenCategory = pgEnum('token_category', ['primitive', 'semantic', 'component'])
+import type { Color } from '#/features/color/color.types.ts'
+
+export const designSystems = pgTable(
+  'design_systems',
+  {
+    id: uuid().defaultRandom().primaryKey().notNull(),
+    userId: text('user_id').notNull(),
+    name: text().notNull(),
+    colorPaletteId: uuid('color_palette_id'),
+    typographyBoardId: uuid('typography_board_id'),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' })
+      .defaultNow()
+      .notNull(),
+  },
+  (table) => [
+    index('design_systems_user_id_idx').using(
+      'btree',
+      table.userId.asc().nullsLast().op('text_ops'),
+    ),
+    foreignKey({
+      columns: [table.userId],
+      foreignColumns: [user.id],
+      name: 'design_systems_user_id_fkey',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [table.typographyBoardId],
+      foreignColumns: [typographyBoards.id],
+      name: 'design_systems_typography_board_id_fkey',
+    }).onDelete('set null'),
+    foreignKey({
+      columns: [table.colorPaletteId],
+      foreignColumns: [colorPalettes.id],
+      name: 'design_systems_color_palette_id_fkey',
+    }).onDelete('set null'),
+    unique('design_systems_user_id_name_key').on(table.userId, table.name),
+    pgPolicy('select own design systems', { as: 'permissive', for: 'select', to: ['public'] }),
+    pgPolicy('insert own design systems', { as: 'permissive', for: 'insert', to: ['public'] }),
+    pgPolicy('update own design systems', { as: 'permissive', for: 'update', to: ['public'] }),
+    pgPolicy('delete own design systems', { as: 'permissive', for: 'delete', to: ['public'] }),
+  ],
+)
+
+export const typographyBoards = pgTable(
+  'typography_boards',
+  {
+    id: uuid().defaultRandom().primaryKey().notNull(),
+    userId: text('user_id').notNull(),
+    name: text().notNull(),
+    dataJson: jsonb('data_json').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' })
+      .defaultNow()
+      .notNull(),
+  },
+  (table) => [
+    index('typography_boards_user_id_idx').using(
+      'btree',
+      table.userId.asc().nullsLast().op('text_ops'),
+    ),
+    foreignKey({
+      columns: [table.userId],
+      foreignColumns: [user.id],
+      name: 'typography_boards_user_id_fkey',
+    }).onDelete('cascade'),
+    unique('typography_boards_user_id_name_key').on(table.userId, table.name),
+    pgPolicy('select own typography boards', { as: 'permissive', for: 'select', to: ['public'] }),
+    pgPolicy('insert own typography boards', { as: 'permissive', for: 'insert', to: ['public'] }),
+    pgPolicy('update own typography boards', { as: 'permissive', for: 'update', to: ['public'] }),
+    pgPolicy('delete own typography boards', { as: 'permissive', for: 'delete', to: ['public'] }),
+  ],
+)
+
+export const colorPalettes = pgTable(
+  'color_palettes',
+  {
+    id: uuid().defaultRandom().primaryKey().notNull(),
+    userId: text('user_id').notNull(),
+    name: text().notNull(),
+    colors: jsonb().$type<Color[]>().notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' })
+      .defaultNow()
+      .notNull(),
+    baseColor: text('base_color').notNull(),
+  },
+  (table) => [
+    index('color_palettes_user_id_idx').using(
+      'btree',
+      table.userId.asc().nullsLast().op('text_ops'),
+    ),
+    foreignKey({
+      columns: [table.userId],
+      foreignColumns: [user.id],
+      name: 'color_palettes_user_id_fkey',
+    }).onDelete('cascade'),
+    unique('color_palettes_user_id_name_key').on(table.userId, table.name),
+  ],
+)
 
 export const verification = pgTable(
   'verification',
@@ -38,13 +140,17 @@ export const user = pgTable(
   {
     id: text().primaryKey().notNull(),
     name: text().notNull(),
+    username: text().notNull(),
     email: text().notNull(),
     emailVerified: boolean('email_verified').default(false).notNull(),
     image: text(),
     createdAt: timestamp('created_at', { mode: 'string' }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { mode: 'string' }).defaultNow().notNull(),
   },
-  (table) => [unique('user_email_unique').on(table.email)],
+  (table) => [
+    unique('user_username_unique').on(table.username),
+    unique('user_email_unique').on(table.email),
+  ],
 )
 
 export const account = pgTable(
@@ -94,65 +200,5 @@ export const session = pgTable(
       name: 'session_user_id_user_id_fk',
     }).onDelete('cascade'),
     unique('session_token_unique').on(table.token),
-  ],
-)
-
-export const projects = pgTable(
-  'projects',
-  {
-    id: serial().primaryKey().notNull(),
-    userId: text('user_id').notNull(),
-    name: text().notNull(),
-    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' }).defaultNow(),
-    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' }).defaultNow(),
-    isPrivate: boolean('is_private').default(true).notNull(),
-  },
-  (table) => [
-    foreignKey({
-      columns: [table.userId],
-      foreignColumns: [user.id],
-      name: 'projects_user_id_fkey',
-    }).onDelete('cascade'),
-    pgPolicy('select own projects', { as: 'permissive', for: 'select', to: ['public'] }),
-    pgPolicy('insert own projects', { as: 'permissive', for: 'insert', to: ['public'] }),
-    pgPolicy('delete own projects', { as: 'permissive', for: 'delete', to: ['public'] }),
-    pgPolicy('update own projects', { as: 'permissive', for: 'update', to: ['public'] }),
-  ],
-)
-
-export const designTokens = pgTable(
-  'design_tokens',
-  {
-    id: uuid().primaryKey().notNull(),
-    projectId: serial('project_id').notNull(),
-    userId: text('user_id').notNull(),
-    name: text().notNull(),
-    category: tokenCategory().notNull(),
-    groupName: text('group_name').notNull(),
-    aliasOf: uuid('alias_of'),
-    value: jsonb(),
-    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' }).defaultNow(),
-    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' }).defaultNow(),
-  },
-  (table) => [
-    foreignKey({
-      columns: [table.projectId],
-      foreignColumns: [projects.id],
-      name: 'design_tokens_project_id_fkey',
-    }).onDelete('cascade'),
-    foreignKey({
-      columns: [table.userId],
-      foreignColumns: [user.id],
-      name: 'design_tokens_user_id_fkey',
-    }).onDelete('cascade'),
-    foreignKey({
-      columns: [table.aliasOf],
-      foreignColumns: [table.id],
-      name: 'design_tokens_alias_of_fkey',
-    }).onDelete('set null'),
-    unique('design_tokens_project_id_name_key').on(table.projectId, table.name),
-    pgPolicy('update own design tokens', { as: 'permissive', for: 'update', to: ['public'] }),
-    pgPolicy('delete own design tokens', { as: 'permissive', for: 'delete', to: ['public'] }),
-    pgPolicy('insert own design tokens', { as: 'permissive', for: 'insert', to: ['public'] }),
   ],
 )

@@ -1,3 +1,141 @@
 {
-  "$schema": "https://inlang.com/schema/inlang-message-format"
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "common": {
+    "languages": {
+      "en": "English",
+      "ja": "Japanese"
+    }
+  },
+  "navigation": {
+    "groups": {
+      "designTools": "Design Tools",
+      "myLibrary": "My Library"
+    },
+    "items": {
+      "explore": "Explore",
+      "colorPalette": "Color Palette",
+      "spacing": "Spacing",
+      "typography": "Typography",
+      "designSystems": "Design Systems",
+      "myLibrary": "My Library",
+      "favourites": "Favourites"
+    }
+  },
+  "auth": {
+    "signIn": {
+      "title": "Hello there!",
+      "description": "Use your credentials to sign in to your account",
+      "noAccount": "Don't have an account? {#g}Create an account{/g}",
+      "fields": {
+        "username": "Username",
+        "password": "Password",
+        "rememberMe": "Remember me?"
+      },
+      "buttons": {
+        "signIn": "Sign In",
+        "forgotPassword": "Forgot Password?",
+        "sso": {
+          "apple": "Continue with Apple",
+          "github": "Continue with GitHub",
+          "google": "Continue with Google",
+          "figma": "Continue with Figma",
+          "passkey": "Continue with Passkey"
+        }
+      },
+      "errors": {
+        "invalidCredentials": "Invalid username or password. Please try again."
+      }
+    },
+    "signUp": {
+      "title": "Create a New Account",
+      "fields": {
+        "username": "Username",
+        "email": "Email Address",
+        "password": "Password",
+        "confirmPassword": "Confirm Password"
+      },
+      "buttons": {
+        "signUp": "Sign Up",
+        "haveAccount": "Already have an account? {#g}Sign In{/g}"
+      },
+      "errors": {
+        "passwordMismatch": "Passwords do not match. Please try again.",
+        "emailInUse": "This email address is already in use. Please use a different email address."
+      }
+    }
+  },
+  "colorPalette": {
+    "label": "Color Palette",
+    "title": "Generate a Color Palette",
+    "description": "Enter a base color to generate a harmonious color palette.",
+    "fields": {
+      "baseColor": "Base Color (Hex, RGB, or HSL)"
+    },
+    "buttons": {
+      "export": "Export",
+      "generate": "Generate",
+      "save": "Save",
+      "update": "Update"
+    },
+    "errors": {
+      "invalidColor": "Invalid color format. Please enter a valid hex, RGB, or HSL color."
+    },
+    "export": {
+      "title": "Export Palette",
+      "description": "Choose a format to export your generated color palette."
+    },
+    "toasts": {
+      "saveSuccess": {
+        "title": "Palette Saved",
+        "description": "Your color palette has been saved successfully."
+      },
+      "saveError": {
+        "title": "Save Failed",
+        "description": "An error occurred while saving your color palette. Please try again."
+      },
+      "updateSuccess": {
+        "title": "Palette Updated",
+        "description": "Your color palette has been updated successfully."
+      },
+      "updateError": {
+        "title": "Update Failed",
+        "description": "An error occurred while updating your color palette. Please try again."
+      }
+    }
+  },
+  "designSystems": {
+    "label": "Design Systems",
+    "title": "Design Systems Overview",
+    "description": "Explore our design systems and find the right one for your project."
+  },
+  "explore": {
+    "label": "Explore",
+    "title": "Welcome to the Explore Page",
+    "description": "Discover new features, updates, and resources to help you get the most out of our application."
+  },
+  "favourites": {
+    "label": "Favourites",
+    "title": "Your Favourites",
+    "description": "Access your favourite items, projects, and resources in one convenient location."
+  },
+  "myLibrary": {
+    "label": "My Library",
+    "title": "Your Library",
+    "description": "Access your saved items, projects, and resources in one convenient location."
+  },
+  "projects": {
+    "label": "Projects",
+    "title": "Your Projects",
+    "description": "Manage your projects and collaborate with your team."
+  },
+  "spacing": {
+    "label": "Spacing",
+    "title": "Spacing Settings",
+    "description": "Customize your spacing preferences and settings."
+  },
+  "typography": {
+    "label": "Typography",
+    "title": "Typography Settings",
+    "description": "Customize your typography preferences and settings."
+  }
 }

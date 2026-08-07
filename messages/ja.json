@@ -1,3 +1,141 @@
 {
-  "$schema": "https://inlang.com/schema/inlang-message-format"
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "common": {
+    "languages": {
+      "en": "英語",
+      "ja": "日本語"
+    }
+  },
+  "navigation": {
+    "groups": {
+      "designTools": "デザインツール",
+      "myLibrary": "マイライブラリ"
+    },
+    "items": {
+      "explore": "探索",
+      "colorPalette": "カラーパレット",
+      "spacing": "スペーシング",
+      "typography": "タイポグラフィ",
+      "designSystems": "デザインシステム",
+      "myLibrary": "マイライブラリ",
+      "favourites": "お気に入り"
+    }
+  },
+  "auth": {
+    "signIn": {
+      "title": "アカウントにサインイン",
+      "description": "資格情報を使用してアカウントにサインインしてください",
+      "noAccount": "アカウントをお持ちでないですか？ {#g}アカウントを作成{/g}",
+      "fields": {
+        "username": "ユーザー名",
+        "password": "パスワード",
+        "rememberMe": "ログイン状態を保持する"
+      },
+      "buttons": {
+        "signIn": "サインイン",
+        "forgotPassword": "パスワードをお忘れですか？",
+        "sso": {
+          "apple": "Appleで続行",
+          "github": "GitHubで続行",
+          "google": "Googleで続行",
+          "figma": "Figmaで続行",
+          "passkey": "Passkeyで続行"
+        }
+      },
+      "errors": {
+        "invalidCredentials": "ユーザー名またはパスワードが無効です。もう一度お試しください。"
+      }
+    },
+    "signUp": {
+      "title": "新しいアカウントを作成",
+      "fields": {
+        "username": "ユーザー名",
+        "email": "メールアドレス",
+        "password": "パスワード",
+        "confirmPassword": "パスワードを確認"
+      },
+      "buttons": {
+        "signUp": "サインアップ",
+        "haveAccount": "すでにアカウントをお持ちですか？ {#g}サインイン{/g}"
+      },
+      "errors": {
+        "passwordMismatch": "パスワードが一致しません。もう一度お試しください。",
+        "emailInUse": "このメールアドレスは既に使用されています。別のメールアドレスを使用してください。"
+      }
+    }
+  },
+  "colorPalette": {
+    "label": "カラーパレット",
+    "title": "カラーパレットを生成",
+    "description": "ベースカラーを入力して、調和のとれたカラーパレットを生成します。",
+    "fields": {
+      "baseColor": "ベースカラー (Hex、RGB、またはHSL)"
+    },
+    "buttons": {
+      "export": "エクスポート",
+      "generate": "パレットを生成",
+      "save": "保存",
+      "update": "更新"
+    },
+    "errors": {
+      "invalidColor": "無効なカラー形式です。有効な16進数、RGB、またはHSLカラーを入力してください。"
+    },
+    "export": {
+      "title": "パレットをエクスポート",
+      "description": "生成されたカラーパレットをエクスポートする形式を選択してください。"
+    },
+    "toasts": {
+      "saveSuccess": {
+        "title": "パレットが保存されました",
+        "description": "カラーパレットが正常に保存されました。"
+      },
+      "saveError": {
+        "title": "保存に失敗しました",
+        "description": "カラーパレットの保存中にエラーが発生しました。もう一度お試しください。"
+      },
+      "updateSuccess": {
+        "title": "パレットが更新されました",
+        "description": "カラーパレットが正常に更新されました。"
+      },
+      "updateError": {
+        "title": "更新に失敗しました",
+        "description": "カラーパレットの更新中にエラーが発生しました"
+      }
+    }
+  },
+  "designSystems": {
+    "label": "デザインシステム",
+    "title": "デザインシステムの概要",
+    "description": "プロジェクトに最適なデザインシステムを見つけましょう。"
+  },
+  "explore": {
+    "label": "探索",
+    "title": "探索ページへようこそ",
+    "description": "新機能、更新、リソースを見つけて、アプリケーションを最大限に活用しましょう。"
+  },
+  "favourites": {
+    "label": "お気に入り",
+    "title": "あなたのお気に入り",
+    "description": "お気に入りの項目、プロジェクト、リソースに1か所でアクセスできます。"
+  },
+  "myLibrary": {
+    "label": "マイライブラリ",
+    "title": "あなたのライブラリ",
+    "description": "保存した項目、プロジェクト、リソースに1か所でアクセスできます。"
+  },
+  "projects": {
+    "label": "プロジェクト",
+    "title": "あなたのプロジェクト",
+    "description": "プロジェクトを管理し、チームと協力します。"
+  },
+  "spacing": {
+    "label": "スペーシング",
+    "title": "スペーシング設定",
+    "description": "スペーシングの設定と好みをカスタマイズします。"
+  },
+  "typography": {
+    "label": "タイポグラフィ",
+    "title": "タイポグラフィ設定",
+    "description": "タイポグラフィの好みと設定をカスタマイズします。"
+  }
 }

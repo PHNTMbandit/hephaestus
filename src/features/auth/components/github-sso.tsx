@@ -1,0 +1,81 @@
+import { CircleNotchIcon } from '@phosphor-icons/react/dist/ssr'
+import { Button, cn } from 'dawn-ui-react'
+import React from 'react'
+import { signIn } from '#/lib/auth-client.ts'
+import { m } from '#/paraglide/messages.js'
+
+type GithubSSOProps = React.ComponentProps<'button'>
+
+export const GithubSSO = ({ className, children, ref, ...props }: GithubSSOProps) => {
+  const [pending, setPending] = React.useState(false)
+
+  const handleClick = async () => {
+    try {
+      await signIn.social(
+        {
+          provider: 'github',
+          callbackURL: '/explore',
+        },
+        {
+          onRequest: () => {
+            setPending(true)
+          },
+          onSuccess: () => {
+            setPending(false)
+          },
+          onError: () => {
+            setPending(false)
+          },
+        },
+      )
+    } catch {
+      throw new Error('Failed to sign in with GitHub')
+    }
+  }
+
+  if (pending) {
+    return (
+      <Button
+        onClick={handleClick}
+        tone="neutral"
+        variant="outline"
+        className={cn(pending && 'cursor-not-allowed opacity-50', className)}
+        ref={ref}
+        disabled={pending}
+        {...props}
+      >
+        <CircleNotchIcon className={cn('animate-spin')} />
+      </Button>
+    )
+  }
+
+  return (
+    <Button
+      onClick={handleClick}
+      tone="neutral"
+      variant="outline"
+      className={cn('', className)}
+      ref={ref}
+      {...props}
+    >
+      {children}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="48"
+        height="48"
+        fill="none"
+        viewBox="0 0 48 48"
+        id="github"
+      >
+        <rect width="48" height="48" fill="var(--dawn-surface-inverse)" rx="24"></rect>
+        <path
+          fill="var(--dawn-surface-background)"
+          fillRule="evenodd"
+          d="M31.4225 46.8287C29.0849 47.589 26.5901 48 24 48C21.4081 48 18.9118 47.5884 16.5728 46.8272C17.6533 46.9567 18.0525 46.2532 18.0525 45.6458C18.0525 45.3814 18.048 44.915 18.0419 44.2911C18.035 43.5692 18.0259 42.6364 18.0195 41.5615C11.343 43.0129 9.9345 38.3418 9.9345 38.3418C8.844 35.568 7.2705 34.8294 7.2705 34.8294C5.091 33.3388 7.4355 33.369 7.4355 33.369C9.843 33.5387 11.1105 35.8442 11.1105 35.8442C13.2525 39.5144 16.728 38.4547 18.096 37.8391C18.3135 36.2871 18.9345 35.2286 19.62 34.6283C14.2905 34.022 8.688 31.9625 8.688 22.7597C8.688 20.1373 9.6225 17.994 11.1585 16.3142C10.911 15.7065 10.0875 13.2657 11.3925 9.95888C11.3925 9.95888 13.4085 9.31336 17.9925 12.4206C19.908 11.8876 21.96 11.6222 24.0015 11.6114C26.04 11.6218 28.0935 11.8876 30.0105 12.4206C34.5915 9.31336 36.603 9.95888 36.603 9.95888C37.9125 13.2657 37.089 15.7065 36.8415 16.3142C38.3805 17.994 39.309 20.1373 39.309 22.7597C39.309 31.9849 33.6975 34.0161 28.3515 34.6104C29.2125 35.3519 29.9805 36.8168 29.9805 39.058C29.9805 41.2049 29.9671 43.0739 29.9582 44.3125C29.9538 44.9261 29.9505 45.385 29.9505 45.6462C29.9505 46.2564 30.3401 46.9613 31.4225 46.8287Z"
+          clipRule="evenodd"
+        ></path>
+      </svg>
+      {m['auth.signIn.buttons.sso.github']()}
+    </Button>
+  )
+}
