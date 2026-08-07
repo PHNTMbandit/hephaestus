@@ -2,7 +2,7 @@ import { useLiveQuery } from '@tanstack/react-db'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { Color } from '#/features/color/components/color.ts'
 import { Palette } from '#/features/palette/components/palette.ts'
-import { defaultPaletteState } from '#/features/palette/constants/state.ts'
+import { hydratePaletteState } from '#/features/palette/utils/state.ts'
 
 export const Route = createFileRoute('/_secure/my-library')({
   component: RouteComponent,
@@ -24,12 +24,7 @@ function RouteComponent() {
             to="/color-palette/{-$projectId}"
             params={{ projectId: palette.id }}
           >
-            <Palette.Root
-              initialState={{
-                ...defaultPaletteState,
-                colors: palette.colors,
-              }}
-            >
+            <Palette.Root initialState={hydratePaletteState(palette)}>
               <Palette.List orientation={'horizontal'} rounded="xxLarge">
                 {({ color }) => (
                   <Color.Provider color={color}>

@@ -9,6 +9,11 @@ export type PaletteState = {
   currentGeneratorMethod: PaletteGeneratorMethod
   limit: number
   mode: 'list' | 'preview'
+  id?: string
+  userId?: string
+  createdAt?: string
+  updatedAt?: string
+  name?: string
 }
 
 export type PaletteAction =
@@ -39,9 +44,7 @@ export type PaletteContextValue = {
   dispatch: React.Dispatch<PaletteAction>
 }
 
-export type SerializablePaletteState = {
-  colors: PaletteState['colors']
-  baseColor: string
-  limit: number
-  mode: PaletteState['mode']
-}
+export type SerializablePaletteState = Omit<PaletteState, 'currentGeneratorMethod' | 'valueType'>
+
+export type PaletteStateInput = Pick<SerializablePaletteState, 'baseColor' | 'colors'> &
+  Partial<Omit<SerializablePaletteState, 'baseColor' | 'colors'>>

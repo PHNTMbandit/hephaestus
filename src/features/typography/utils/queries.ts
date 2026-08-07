@@ -6,7 +6,7 @@ import type { WebFont } from '../types/font-family'
 const getFonts = createServerFn().handler(async (): Promise<WebFont[]> => {
   try {
     const res = await fetch(
-      `https://www.googleapis.com/webfonts/v1/webfonts?capability=WOFF2&key=${process.env.GOOGLE_WEB_FONTS_API_KEY}`,
+      `https://www.googleapis.com/webfonts/v1/webfonts?capability=WOFF2&key=${process.env.GOOGLE_API_KEY}`,
     )
     const data = await res.json()
     return data.items

@@ -1,9 +1,11 @@
-import { CircleNotchIcon, FloppyDiskIcon } from '@phosphor-icons/react/dist/ssr'
+import { FilePlusIcon } from '@phosphor-icons/react'
+import { CircleNotchIcon } from '@phosphor-icons/react/dist/ssr'
 import { useNavigate, useRouteContext } from '@tanstack/react-router'
 import { Button, cn, stackToastManager } from 'dawn-ui-react'
 import React from 'react'
 import { m } from '#/paraglide/messages.js'
 import { usePalette } from '../hooks/use-palette'
+import { serializePaletteState } from '../utils/state'
 
 type PaletteSaveProps = React.ComponentProps<'button'>
 
@@ -15,12 +17,13 @@ export const PaletteSave = ({ className, children, ref, ...props }: PaletteSaveP
 
   const handleClick = () => {
     const id = crypto.randomUUID()
+    const palette = serializePaletteState(state)
 
     startTransition(async () => {
       const tx = paletteCollection.insert({
         id,
-        baseColor: state.baseColor,
-        colors: state.colors,
+        baseColor: palette.baseColor,
+        colors: palette.colors,
         name: `Palette ${new Date().toLocaleString()}`,
       })
 
@@ -44,16 +47,9 @@ export const PaletteSave = ({ className, children, ref, ...props }: PaletteSaveP
 
   if (isPending) {
     return (
-      <Button
-        disabled
-        size="iconMedium"
-        tone="neutral"
-        variant={'ghost'}
-        className={cn('shrink-0', className)}
-        ref={ref}
-        {...props}
-      >
+      <Button variant={'ghost'} disabled className={cn('shrink-0', className)} ref={ref} {...props}>
         <CircleNotchIcon weight="bold" className="animate-spin" />
+        Creating palette...
       </Button>
     )
   }
@@ -61,15 +57,14 @@ export const PaletteSave = ({ className, children, ref, ...props }: PaletteSaveP
   return (
     <Button
       onClick={handleClick}
-      size="iconMedium"
-      tone="neutral"
       variant={'ghost'}
       className={cn('shrink-0', className)}
       ref={ref}
       {...props}
     >
       {children}
-      <FloppyDiskIcon weight="bold" />
+      <FilePlusIcon weight="bold" />
+      Save as new palette
     </Button>
   )
 }

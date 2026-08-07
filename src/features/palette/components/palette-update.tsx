@@ -4,6 +4,7 @@ import { Button, cn, stackToastManager } from 'dawn-ui-react'
 import React from 'react'
 import { m } from '#/paraglide/messages.js'
 import { usePalette } from '../hooks/use-palette'
+import { serializePaletteState } from '../utils/state'
 
 type PaletteUpdateProps = React.ComponentProps<'button'> & {
   paletteId: string
@@ -21,10 +22,12 @@ export const PaletteUpdate = ({
   const [isPending, startTransition] = React.useTransition()
 
   const handleClick = () => {
+    const palette = serializePaletteState(state)
+
     startTransition(async () => {
       const tx = paletteCollection.update(paletteId, (draft) => {
-        draft.baseColor = state.baseColor
-        draft.colors = state.colors
+        draft.baseColor = palette.baseColor
+        draft.colors = palette.colors
       })
 
       try {
@@ -46,7 +49,15 @@ export const PaletteUpdate = ({
 
   if (isPending) {
     return (
-      <Button disabled tone="accent" className={cn('', className)} ref={ref} {...props}>
+      <Button
+        disabled
+        tone="neutral"
+        variant={'ghost'}
+        size={'iconMedium'}
+        className={cn('', className)}
+        ref={ref}
+        {...props}
+      >
         <CircleNotchIcon weight="bold" className="animate-spin" />
       </Button>
     )
@@ -55,6 +66,7 @@ export const PaletteUpdate = ({
   return (
     <Button
       onClick={handleClick}
+      size={'iconMedium'}
       tone="neutral"
       variant={'ghost'}
       className={cn('shrink-0', className)}
@@ -63,7 +75,6 @@ export const PaletteUpdate = ({
     >
       {children}
       <FloppyDiskIcon weight="bold" />
-      {m['colorPalette.buttons.update']()}
     </Button>
   )
 }

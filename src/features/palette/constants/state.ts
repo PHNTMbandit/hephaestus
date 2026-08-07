@@ -18,18 +18,3 @@ export const defaultPaletteState: PaletteState = {
   mode: PALETTE_CONFIG.DEFAULT_MODE,
   valueType: valueTypes.rgb,
 }
-
-export type SerializablePaletteState = {
-  colors: PaletteState['colors']
-  baseColor: string
-  limit: number
-  mode: PaletteState['mode']
-}
-
-export function createPaletteState(data: SerializablePaletteState): PaletteState {
-  return {
-    ...data,
-    currentGeneratorMethod: paletteGeneratorMethods.monochromatic,
-    valueType: valueTypes.rgb,
-  }
-}

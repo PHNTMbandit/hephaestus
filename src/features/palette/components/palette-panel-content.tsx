@@ -10,7 +10,10 @@ export const PalettePanelContent = ({
 }: PalettePanelContentProps) => {
   return (
     <div
-      className={cn('flex w-full grow flex-col items-center justify-start px-md py-sm', className)}
+      className={cn(
+        'flex w-full grow flex-col items-center justify-start overflow-y-auto px-md py-sm',
+        className,
+      )}
       ref={ref}
       {...props}
     >

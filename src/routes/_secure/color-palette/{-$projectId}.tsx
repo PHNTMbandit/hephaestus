@@ -2,32 +2,26 @@ import { createFileRoute, notFound } from '@tanstack/react-router'
 import { Color } from '#/features/color/components/color.ts'
 import { PalettePanelTabs } from '#/features/palette/components/palette-panel-tabs'
 import { Palette } from '#/features/palette/components/palette.ts'
-import { PALETTE_CONFIG, createPaletteState } from '#/features/palette/constants/state.ts'
-import { generateRandomColor } from '#/features/palette/utils/index.ts'
-
-import type { SerializablePaletteState } from '#/features/palette/constants/state.ts'
+import { PALETTE_CONFIG } from '#/features/palette/constants/state.ts'
+import {
+  generateRandomColor,
+  hydratePaletteState,
+  serializePaletteState,
+} from '#/features/palette/utils/index.ts'
 
 export const Route = createFileRoute('/_secure/color-palette/{-$projectId}')({
   component: RouteComponent,
   errorComponent: () => <p>Palette doesn't exist</p>,
   loader: async ({ context: { paletteCollection }, params: { projectId } }) => {
     const baseColor = generateRandomColor().value
-    const { currentGeneratorMethod } = createPaletteState({
-      colors: [],
-      baseColor,
-      limit: PALETTE_CONFIG.DEFAULT_LIMIT,
-      mode: PALETTE_CONFIG.DEFAULT_MODE,
+    const newPaletteState = hydratePaletteState({ baseColor, colors: [] })
+    const serializableState = serializePaletteState({
+      ...newPaletteState,
+      colors: newPaletteState.currentGeneratorMethod.generatePalette(
+        baseColor,
+        PALETTE_CONFIG.INITIAL_COLORS_COUNT,
+      ),
     })
-    const colors = currentGeneratorMethod.generatePalette(
-      baseColor,
-      PALETTE_CONFIG.INITIAL_COLORS_COUNT,
-    )
-    const serializableState: SerializablePaletteState = {
-      baseColor,
-      colors,
-      limit: PALETTE_CONFIG.DEFAULT_LIMIT,
-      mode: PALETTE_CONFIG.DEFAULT_MODE,
-    }
 
     if (!projectId) {
       return { serializableState, savedPalette: null }
@@ -46,16 +40,7 @@ export const Route = createFileRoute('/_secure/color-palette/{-$projectId}')({
 
 function RouteComponent() {
   const { serializableState, savedPalette } = Route.useLoaderData()
-  const paletteState = createPaletteState(
-    savedPalette
-      ? {
-          baseColor: savedPalette.baseColor,
-          colors: savedPalette.colors,
-          limit: PALETTE_CONFIG.DEFAULT_LIMIT,
-          mode: PALETTE_CONFIG.DEFAULT_MODE,
-        }
-      : serializableState,
-  )
+  const paletteState = hydratePaletteState(savedPalette ?? serializableState)
 
   return (
     <Palette.Root key={savedPalette?.id ?? 'new'} initialState={paletteState}>
@@ -71,7 +56,7 @@ function RouteComponent() {
         <div className="flex w-full flex-col">
           <Palette.Toolbar>
             <Palette.ToolbarGroup>
-              <Palette.ProjectSelect value={savedPalette?.id || ''} />
+              {savedPalette && <Palette.Name>{savedPalette.name}</Palette.Name>}
             </Palette.ToolbarGroup>
             <Palette.ToolbarGroup>
               <Palette.ValueSelect />
@@ -79,7 +64,7 @@ function RouteComponent() {
               <Palette.Redo />
               <Palette.Export />
               <Palette.Reset />
-              <Palette.Save />
+              {savedPalette ? <Palette.Update paletteId={savedPalette.id} /> : <Palette.Save />}
             </Palette.ToolbarGroup>
           </Palette.Toolbar>
           <Palette.ModeView>
