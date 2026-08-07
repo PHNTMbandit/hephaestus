@@ -4,7 +4,7 @@ prepare-commit-msg:
       interactive: true
       run: pnpm run cz --hook
       env:
-        LEFTHOOK: "0"
+        LEFTHOOK: '0'
       skip:
         - rebase
         - merge
@@ -18,7 +18,7 @@ pre-push:
   commands:
     format:
       run: pnpm run fmt
-      fail_text: "Formatting issues found — run `pnpm run fmt` and commit."
+      fail_text: 'Formatting issues found — run `pnpm run fmt` and commit.'
 
     test:
       run: pnpm test
