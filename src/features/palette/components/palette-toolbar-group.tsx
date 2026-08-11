@@ -9,7 +9,11 @@ export const PaletteToolbarGroup = ({
   ...props
 }: PaletteToolbarGroupProps) => {
   return (
-    <div className={cn('flex items-center justify-center gap-2xs', className)} ref={ref} {...props}>
+    <div
+      className={cn('flex flex-wrap items-center justify-center gap-2xs', className)}
+      ref={ref}
+      {...props}
+    >
       {children}
     </div>
   )

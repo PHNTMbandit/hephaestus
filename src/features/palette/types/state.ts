@@ -1,8 +1,11 @@
 import type { Color } from '../../color/color.types'
+import type { PaletteCommand } from '../utils'
 import type { PaletteGeneratorMethod } from './generator'
 import type { ValueType } from './value'
 
 export type PaletteState = {
+  undoActions: PaletteCommand[]
+  redoActions: PaletteCommand[]
   colors: Color[]
   valueType: ValueType
   baseColor: string
@@ -38,6 +41,8 @@ export type PaletteAction =
         baseColor: string
       }
     }
+  | { type: 'UNDO' }
+  | { type: 'REDO' }
 
 export type PaletteContextValue = {
   state: PaletteState
