@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { PALETTE_CONFIG } from '../constants/state'
-import { hydratePaletteState, serializePaletteState } from './state'
+import { hydratePaletteState, serializePaletteState } from '../utils/state'
 
 const colors = [{ id: 'red', value: '#ff0000', locked: false }]
 
@@ -15,6 +15,8 @@ describe('palette state serialization', () => {
       colors,
       limit: PALETTE_CONFIG.DEFAULT_LIMIT,
       mode: PALETTE_CONFIG.DEFAULT_MODE,
+      undoActions: [],
+      redoActions: [],
     })
   })
 
@@ -35,6 +37,8 @@ describe('palette state serialization', () => {
       ...savedPalette,
       limit: PALETTE_CONFIG.DEFAULT_LIMIT,
       mode: PALETTE_CONFIG.DEFAULT_MODE,
+      undoActions: [],
+      redoActions: [],
     })
     expect(serialized).not.toHaveProperty('currentGeneratorMethod')
     expect(serialized).not.toHaveProperty('valueType')

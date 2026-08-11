@@ -11,6 +11,8 @@ export function hydratePaletteState(data: PaletteStateInput): PaletteState {
 
 export function serializePaletteState(state: PaletteState): SerializablePaletteState {
   return {
+    undoActions: state.undoActions,
+    redoActions: state.redoActions,
     baseColor: state.baseColor,
     colors: state.colors,
     limit: state.limit,

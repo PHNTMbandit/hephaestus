@@ -11,6 +11,8 @@ export const PALETTE_CONFIG = {
 }
 
 export const defaultPaletteState: PaletteState = {
+  undoActions: [],
+  redoActions: [],
   baseColor: PALETTE_CONFIG.DEFAULT_BASE_COLOR,
   colors: [],
   currentGeneratorMethod: paletteGeneratorMethods.monochromatic,
