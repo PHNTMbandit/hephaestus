@@ -13,13 +13,14 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as SecureRouteImport } from './routes/_secure'
 import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as SignUpRouteImport } from './routes/sign-up'
+import { Route as SecureContrastCheckerRouteImport } from './routes/_secure/contrast-checker'
 import { Route as SecureDesignSystemsRouteImport } from './routes/_secure/design-systems'
 import { Route as SecureExploreRouteImport } from './routes/_secure/explore'
-import { Route as SecureFavouritesRouteImport } from './routes/_secure/favourites'
+import { Route as SecureFavoritesRouteImport } from './routes/_secure/favorites'
 import { Route as SecureMyLibraryRouteImport } from './routes/_secure/my-library'
 import { Route as SecureSpacingRouteImport } from './routes/_secure/spacing'
 import { Route as SecureTypographyRouteImport } from './routes/_secure/typography'
-import { Route as SecureColorPaletteChar123ProjectIdChar125RouteImport } from './routes/_secure/color-palette/{-$projectId}'
+import { Route as SecurePaletteGeneratorChar123ProjectIdChar125RouteImport } from './routes/_secure/palette-generator/{-$projectId}'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const IndexRoute = IndexRouteImport.update({
@@ -41,6 +42,11 @@ const SignUpRoute = SignUpRouteImport.update({
   path: '/sign-up',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SecureContrastCheckerRoute = SecureContrastCheckerRouteImport.update({
+  id: '/contrast-checker',
+  path: '/contrast-checker',
+  getParentRoute: () => SecureRoute,
+} as any)
 const SecureDesignSystemsRoute = SecureDesignSystemsRouteImport.update({
   id: '/design-systems',
   path: '/design-systems',
@@ -51,9 +57,9 @@ const SecureExploreRoute = SecureExploreRouteImport.update({
   path: '/explore',
   getParentRoute: () => SecureRoute,
 } as any)
-const SecureFavouritesRoute = SecureFavouritesRouteImport.update({
-  id: '/favourites',
-  path: '/favourites',
+const SecureFavoritesRoute = SecureFavoritesRouteImport.update({
+  id: '/favorites',
+  path: '/favorites',
   getParentRoute: () => SecureRoute,
 } as any)
 const SecureMyLibraryRoute = SecureMyLibraryRouteImport.update({
@@ -71,10 +77,10 @@ const SecureTypographyRoute = SecureTypographyRouteImport.update({
   path: '/typography',
   getParentRoute: () => SecureRoute,
 } as any)
-const SecureColorPaletteChar123ProjectIdChar125Route =
-  SecureColorPaletteChar123ProjectIdChar125RouteImport.update({
-    id: '/color-palette/{-$projectId}',
-    path: '/color-palette/{-$projectId}',
+const SecurePaletteGeneratorChar123ProjectIdChar125Route =
+  SecurePaletteGeneratorChar123ProjectIdChar125RouteImport.update({
+    id: '/palette-generator/{-$projectId}',
+    path: '/palette-generator/{-$projectId}',
     getParentRoute: () => SecureRoute,
   } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
@@ -87,26 +93,28 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
+  '/contrast-checker': typeof SecureContrastCheckerRoute
   '/design-systems': typeof SecureDesignSystemsRoute
   '/explore': typeof SecureExploreRoute
-  '/favourites': typeof SecureFavouritesRoute
+  '/favorites': typeof SecureFavoritesRoute
   '/my-library': typeof SecureMyLibraryRoute
   '/spacing': typeof SecureSpacingRoute
   '/typography': typeof SecureTypographyRoute
-  '/color-palette/{-$projectId}': typeof SecureColorPaletteChar123ProjectIdChar125Route
+  '/palette-generator/{-$projectId}': typeof SecurePaletteGeneratorChar123ProjectIdChar125Route
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
+  '/contrast-checker': typeof SecureContrastCheckerRoute
   '/design-systems': typeof SecureDesignSystemsRoute
   '/explore': typeof SecureExploreRoute
-  '/favourites': typeof SecureFavouritesRoute
+  '/favorites': typeof SecureFavoritesRoute
   '/my-library': typeof SecureMyLibraryRoute
   '/spacing': typeof SecureSpacingRoute
   '/typography': typeof SecureTypographyRoute
-  '/color-palette/{-$projectId}': typeof SecureColorPaletteChar123ProjectIdChar125Route
+  '/palette-generator/{-$projectId}': typeof SecurePaletteGeneratorChar123ProjectIdChar125Route
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
@@ -115,13 +123,14 @@ export interface FileRoutesById {
   '/_secure': typeof SecureRouteWithChildren
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
+  '/_secure/contrast-checker': typeof SecureContrastCheckerRoute
   '/_secure/design-systems': typeof SecureDesignSystemsRoute
   '/_secure/explore': typeof SecureExploreRoute
-  '/_secure/favourites': typeof SecureFavouritesRoute
+  '/_secure/favorites': typeof SecureFavoritesRoute
   '/_secure/my-library': typeof SecureMyLibraryRoute
   '/_secure/spacing': typeof SecureSpacingRoute
   '/_secure/typography': typeof SecureTypographyRoute
-  '/_secure/color-palette/{-$projectId}': typeof SecureColorPaletteChar123ProjectIdChar125Route
+  '/_secure/palette-generator/{-$projectId}': typeof SecurePaletteGeneratorChar123ProjectIdChar125Route
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
@@ -130,26 +139,28 @@ export interface FileRouteTypes {
     | '/'
     | '/sign-in'
     | '/sign-up'
+    | '/contrast-checker'
     | '/design-systems'
     | '/explore'
-    | '/favourites'
+    | '/favorites'
     | '/my-library'
     | '/spacing'
     | '/typography'
-    | '/color-palette/{-$projectId}'
+    | '/palette-generator/{-$projectId}'
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/sign-in'
     | '/sign-up'
+    | '/contrast-checker'
     | '/design-systems'
     | '/explore'
-    | '/favourites'
+    | '/favorites'
     | '/my-library'
     | '/spacing'
     | '/typography'
-    | '/color-palette/{-$projectId}'
+    | '/palette-generator/{-$projectId}'
     | '/api/auth/$'
   id:
     | '__root__'
@@ -157,13 +168,14 @@ export interface FileRouteTypes {
     | '/_secure'
     | '/sign-in'
     | '/sign-up'
+    | '/_secure/contrast-checker'
     | '/_secure/design-systems'
     | '/_secure/explore'
-    | '/_secure/favourites'
+    | '/_secure/favorites'
     | '/_secure/my-library'
     | '/_secure/spacing'
     | '/_secure/typography'
-    | '/_secure/color-palette/{-$projectId}'
+    | '/_secure/palette-generator/{-$projectId}'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
@@ -205,6 +217,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignUpRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_secure/contrast-checker': {
+      id: '/_secure/contrast-checker'
+      path: '/contrast-checker'
+      fullPath: '/contrast-checker'
+      preLoaderRoute: typeof SecureContrastCheckerRouteImport
+      parentRoute: typeof SecureRoute
+    }
     '/_secure/design-systems': {
       id: '/_secure/design-systems'
       path: '/design-systems'
@@ -219,11 +238,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SecureExploreRouteImport
       parentRoute: typeof SecureRoute
     }
-    '/_secure/favourites': {
-      id: '/_secure/favourites'
-      path: '/favourites'
-      fullPath: '/favourites'
-      preLoaderRoute: typeof SecureFavouritesRouteImport
+    '/_secure/favorites': {
+      id: '/_secure/favorites'
+      path: '/favorites'
+      fullPath: '/favorites'
+      preLoaderRoute: typeof SecureFavoritesRouteImport
       parentRoute: typeof SecureRoute
     }
     '/_secure/my-library': {
@@ -247,11 +266,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SecureTypographyRouteImport
       parentRoute: typeof SecureRoute
     }
-    '/_secure/color-palette/{-$projectId}': {
-      id: '/_secure/color-palette/{-$projectId}'
-      path: '/color-palette/{-$projectId}'
-      fullPath: '/color-palette/{-$projectId}'
-      preLoaderRoute: typeof SecureColorPaletteChar123ProjectIdChar125RouteImport
+    '/_secure/palette-generator/{-$projectId}': {
+      id: '/_secure/palette-generator/{-$projectId}'
+      path: '/palette-generator/{-$projectId}'
+      fullPath: '/palette-generator/{-$projectId}'
+      preLoaderRoute: typeof SecurePaletteGeneratorChar123ProjectIdChar125RouteImport
       parentRoute: typeof SecureRoute
     }
     '/api/auth/$': {
@@ -265,24 +284,26 @@ declare module '@tanstack/react-router' {
 }
 
 interface SecureRouteChildren {
+  SecureContrastCheckerRoute: typeof SecureContrastCheckerRoute
   SecureDesignSystemsRoute: typeof SecureDesignSystemsRoute
   SecureExploreRoute: typeof SecureExploreRoute
-  SecureFavouritesRoute: typeof SecureFavouritesRoute
+  SecureFavoritesRoute: typeof SecureFavoritesRoute
   SecureMyLibraryRoute: typeof SecureMyLibraryRoute
   SecureSpacingRoute: typeof SecureSpacingRoute
   SecureTypographyRoute: typeof SecureTypographyRoute
-  SecureColorPaletteChar123ProjectIdChar125Route: typeof SecureColorPaletteChar123ProjectIdChar125Route
+  SecurePaletteGeneratorChar123ProjectIdChar125Route: typeof SecurePaletteGeneratorChar123ProjectIdChar125Route
 }
 
 const SecureRouteChildren: SecureRouteChildren = {
+  SecureContrastCheckerRoute: SecureContrastCheckerRoute,
   SecureDesignSystemsRoute: SecureDesignSystemsRoute,
   SecureExploreRoute: SecureExploreRoute,
-  SecureFavouritesRoute: SecureFavouritesRoute,
+  SecureFavoritesRoute: SecureFavoritesRoute,
   SecureMyLibraryRoute: SecureMyLibraryRoute,
   SecureSpacingRoute: SecureSpacingRoute,
   SecureTypographyRoute: SecureTypographyRoute,
-  SecureColorPaletteChar123ProjectIdChar125Route:
-    SecureColorPaletteChar123ProjectIdChar125Route,
+  SecurePaletteGeneratorChar123ProjectIdChar125Route:
+    SecurePaletteGeneratorChar123ProjectIdChar125Route,
 }
 
 const SecureRouteWithChildren =

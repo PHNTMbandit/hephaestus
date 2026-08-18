@@ -1,6 +1,5 @@
-import { CheckIcon } from '@phosphor-icons/react'
+import { CheckIcon, PaletteIcon } from '@phosphor-icons/react'
 import { CaretUpDownIcon } from '@phosphor-icons/react/dist/ssr'
-import { Link } from '@tanstack/react-router'
 import {
   Avatar,
   AvatarBadge,
@@ -20,10 +19,12 @@ import {
   SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
+  SidebarMenuCollapsible,
+  SidebarMenuCollapsiblePanel,
+  SidebarMenuCollapsibleTrigger,
 } from 'dawn-ui-react'
-import { exploreRoute, myRoutes, secureRoutes } from '#/lib/my-routes.ts'
+import { CLIENT_ROUTES } from '#/constants/client-routes'
+import { RouteLink } from './route-link'
 import { m } from '@/paraglide/messages'
 
 import type { User } from 'better-auth'
@@ -37,54 +38,37 @@ export const ClientSidebar = ({ user, className, children, ref, ...props }: Clie
     <Sidebar width={350} tone="ghost" className={cn('', className)} ref={ref} {...props}>
       <SidebarHeader>
         {(isExpanded) => {
-          return <span className={cn('style-text-strong-2', !isExpanded && 'hidden')}>Dawn UI</span>
+          return <span className={cn('style-text-strong-3', !isExpanded && 'hidden')}>Dawn UI</span>
         }}
       </SidebarHeader>
       <SidebarContent>
         <SidebarMenu>
           <SidebarGroup>
-            {exploreRoute.map((route) => (
-              <Link key={route.label} {...route.linkOptions} className="w-full">
-                {({ isActive }) => (
-                  <SidebarMenuItem>
-                    <SidebarMenuButton isActive={isActive}>
-                      <route.leadingIcon weight="bold" /> <span>{route.label}</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                )}
-              </Link>
-            ))}
+            <RouteLink route={CLIENT_ROUTES.explore} />
           </SidebarGroup>
           <SidebarGroup>
             <SidebarGroupLabel>{m['navigation.groups.designTools']()}</SidebarGroupLabel>
             <SidebarGroupContent>
-              {secureRoutes.map((route) => (
-                <Link key={route.label} {...route.linkOptions} className="w-full">
-                  {({ isActive }) => (
-                    <SidebarMenuItem>
-                      <SidebarMenuButton isActive={isActive}>
-                        <route.leadingIcon weight="bold" /> <span>{route.label}</span>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  )}
-                </Link>
-              ))}
+              <SidebarMenuCollapsible>
+                <SidebarMenuCollapsibleTrigger>
+                  <PaletteIcon weight="bold" />
+                  <span>{m['navigation.items.color']()}</span>
+                </SidebarMenuCollapsibleTrigger>
+                <SidebarMenuCollapsiblePanel>
+                  <RouteLink route={CLIENT_ROUTES.contrastChecker} />
+                  <RouteLink route={CLIENT_ROUTES.paletteGenerator} />
+                </SidebarMenuCollapsiblePanel>
+              </SidebarMenuCollapsible>
+              <RouteLink route={CLIENT_ROUTES.spacing} />
+              <RouteLink route={CLIENT_ROUTES.typography} />
+              <RouteLink route={CLIENT_ROUTES.designSystems} />
             </SidebarGroupContent>
           </SidebarGroup>
           <SidebarGroup>
             <SidebarGroupLabel>{m['navigation.groups.myLibrary']()}</SidebarGroupLabel>
             <SidebarGroupContent>
-              {myRoutes.map((route) => (
-                <Link key={route.label} {...route.linkOptions} className="w-full">
-                  {({ isActive }) => (
-                    <SidebarMenuItem>
-                      <SidebarMenuButton isActive={isActive}>
-                        <route.leadingIcon weight="bold" /> <span>{route.label}</span>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  )}
-                </Link>
-              ))}
+              <RouteLink route={CLIENT_ROUTES.myLibrary} />
+              <RouteLink route={CLIENT_ROUTES.favorites} />
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarMenu>

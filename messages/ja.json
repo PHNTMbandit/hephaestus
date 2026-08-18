@@ -13,7 +13,10 @@
     },
     "items": {
       "explore": "探索",
+      "color": "色",
       "colorPalette": "カラーパレット",
+      "paletteGenerator": "パレットジェネレーター",
+      "contrastChecker": "コントラストチェッカー",
       "spacing": "スペーシング",
       "typography": "タイポグラフィ",
       "designSystems": "デザインシステム",

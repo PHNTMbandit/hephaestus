@@ -9,6 +9,8 @@ import {
   SelectPopup,
   SelectTrigger,
   SelectValue,
+  SelectTitle,
+  SelectDescription,
 } from 'dawn-ui-react'
 import { usePalette } from '../hooks/use-palette'
 import { paletteGeneratorMethods, paletteGeneratorMethodsList } from '../utils'
@@ -44,9 +46,10 @@ export const PaletteGeneratorSelect = ({
       <SelectPopup>
         <SelectList>
           <SelectGroup>
-            {paletteGeneratorMethodsList.map(({ id, name }) => (
+            {paletteGeneratorMethodsList.map(({ id, name, description }) => (
               <SelectItem key={id} value={id}>
-                {name}
+                <SelectTitle>{name}</SelectTitle>
+                <SelectDescription>{description}</SelectDescription>
               </SelectItem>
             ))}
           </SelectGroup>

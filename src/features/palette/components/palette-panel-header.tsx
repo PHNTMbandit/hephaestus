@@ -11,7 +11,7 @@ export const PalettePanelHeader = ({
   return (
     <div
       className={cn(
-        'flex w-full items-center justify-between border-b border-border pt-sm',
+        'flex w-full flex-col items-center justify-between gap-xs border-b border-border',
         className,
       )}
       ref={ref}

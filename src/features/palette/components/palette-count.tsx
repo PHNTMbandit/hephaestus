@@ -28,6 +28,7 @@ export const PaletteCount = ({ className, children, ref, ...props }: PaletteCoun
       {...props}
     >
       {children}
+      Colors
     </NumberField>
   )
 }

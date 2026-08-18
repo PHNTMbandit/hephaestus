@@ -1,0 +1,24 @@
+import type { ContrastMethod } from './methods'
+
+export type ContrastCheckerState = {
+  foregroundColor: string
+  backgroundColor: string
+  contrastMethod: ContrastMethod
+  contrastScore: number
+  fontSize: number
+  fontWeight: number
+}
+
+export type ContrastCheckerAction =
+  | { type: 'SET_FOREGROUND_COLOR'; payload: { color: string } }
+  | { type: 'SET_BACKGROUND_COLOR'; payload: { color: string } }
+  | { type: 'SET_CONTRAST_METHOD'; payload: { contrastMethod: ContrastMethod } }
+  | { type: 'SET_CONTRAST_SCORE'; payload: { contrastScore: number } }
+  | { type: 'SET_FONT_SIZE'; payload: { fontSize: number } }
+  | { type: 'SET_FONT_WEIGHT'; payload: { fontWeight: number } }
+  | { type: 'SWAP_COLORS' }
+
+export type ContrastCheckerContextValue = {
+  state: ContrastCheckerState
+  dispatch: React.Dispatch<ContrastCheckerAction>
+}

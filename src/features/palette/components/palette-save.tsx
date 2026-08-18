@@ -1,4 +1,4 @@
-import { FilePlusIcon } from '@phosphor-icons/react'
+import { HeartIcon } from '@phosphor-icons/react'
 import { CircleNotchIcon } from '@phosphor-icons/react/dist/ssr'
 import { useNavigate, useRouteContext } from '@tanstack/react-router'
 import { Button, cn, stackToastManager } from 'dawn-ui-react'
@@ -63,8 +63,8 @@ export const PaletteSave = ({ className, children, ref, ...props }: PaletteSaveP
       {...props}
     >
       {children}
-      <FilePlusIcon weight="bold" />
-      Save as new palette
+      <HeartIcon weight="bold" />
+      Save
     </Button>
   )
 }

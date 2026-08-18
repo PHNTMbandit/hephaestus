@@ -1,4 +1,4 @@
-import { BroomIcon } from '@phosphor-icons/react'
+import { CheckIcon, ShuffleIcon } from '@phosphor-icons/react'
 import {
   cn,
   Button,
@@ -11,18 +11,18 @@ import {
   ColorPickerRow,
   ColorPickerValueType,
   ColorPickerInput,
+  Separator,
 } from 'dawn-ui-react'
 import React from 'react'
 import { usePalette } from '../hooks/use-palette'
+import { generateRandomColor } from '../utils'
 import { PaletteCount } from './palette-count'
-import { PaletteGenerate } from './palette-generate'
 import { PaletteGeneratorSelect } from './palette-generator-select'
 
 type PaletteGeneratorContentProps = React.ComponentProps<'div'>
 
 export const PaletteGeneratorContent = ({
   className,
-  children,
   ref,
   ...props
 }: PaletteGeneratorContentProps) => {
@@ -40,6 +40,10 @@ export const PaletteGeneratorContent = ({
     setPendingColor(color)
   }
 
+  const handleRandomColor = () => {
+    setPendingColor(generateRandomColor().value)
+  }
+
   const handleApply = () => {
     dispatch({
       type: 'SET_BASE_COLOR',
@@ -49,33 +53,37 @@ export const PaletteGeneratorContent = ({
 
   return (
     <TabsPanel value="generator">
-      <ColorPicker
-        value={pendingColor}
-        onValueChange={(e) => handleColorChange(e.hex())}
-        variant={'ghost'}
-        className={cn('', className)}
-        ref={ref}
-        {...props}
-      >
-        <ColorPickerArea />
-        <ColorPickerGroup>
-          <ColorPickerHueSlider />
-          <ColorPickerTransparencySlider />
-          <ColorPickerRow>
-            <ColorPickerValueType />
-            <ColorPickerInput />
-          </ColorPickerRow>
-        </ColorPickerGroup>
-        {children}
-      </ColorPicker>
-      <div className="flex w-full flex-col gap-sm">
-        <PaletteCount />
-        <PaletteGeneratorSelect />
-        <Button onClick={handleApply} className={'w-full'}>
-          <BroomIcon weight="bold" />
-          Apply Color
-        </Button>
-        <PaletteGenerate />
+      <div className={cn('flex w-full flex-col gap-md', className)} ref={ref} {...props}>
+        <ColorPicker
+          value={pendingColor}
+          onValueChange={(e) => handleColorChange(e.hex())}
+          variant={'ghost'}
+        >
+          <ColorPickerArea />
+          <ColorPickerGroup>
+            <ColorPickerHueSlider />
+            <ColorPickerTransparencySlider />
+            <ColorPickerRow>
+              <ColorPickerValueType />
+              <ColorPickerInput />
+            </ColorPickerRow>
+          </ColorPickerGroup>
+          <Button tone="neutral" variant="outline" onClick={handleRandomColor} className="w-full">
+            <ShuffleIcon weight="bold" />
+            Random color
+          </Button>
+        </ColorPicker>
+        <Separator />
+        <div className="space-y-xs">
+          <PaletteGeneratorSelect />
+          <PaletteCount />
+          <div className="flex flex-col gap-sm">
+            <Button onClick={handleApply} className="w-full">
+              <CheckIcon weight="bold" />
+              Apply
+            </Button>
+          </div>
+        </div>
       </div>
     </TabsPanel>
   )
