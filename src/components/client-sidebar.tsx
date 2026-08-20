@@ -77,13 +77,16 @@ export const ClientSidebar = ({ user, className, children, ref, ...props }: Clie
         {(isExpanded) => (
           <Profile>
             <Avatar>
-              <AvatarImage src={'https://github.com/shadcn.png'} alt={user.name} />
-              <AvatarFallback>
-                {user.name
-                  .split(' ')
-                  .map((n) => n[0])
-                  .join('')}
-              </AvatarFallback>
+              {user.image ? (
+                <AvatarImage src={user.image} alt={user.name} />
+              ) : (
+                <AvatarFallback>
+                  {user.name
+                    .split(' ')
+                    .map((n) => n[0])
+                    .join('')}
+                </AvatarFallback>
+              )}
               {user.emailVerified && (
                 <AvatarBadge tone="success">
                   <CheckIcon weight="bold" />
