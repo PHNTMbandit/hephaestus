@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Separator } from 'dawn-ui-react'
 import { CurrentPageTitle } from '#/components/current-page-title'
+import { getContrastAlgorithm } from '#/features/contrast-checker/algorithms'
 import { ContrastChecker } from '#/features/contrast-checker/components/contrast-checker'
 
 export const Route = createFileRoute('/_secure/contrast-checker')({
@@ -16,7 +17,7 @@ function RouteComponent() {
         foregroundPalette: [],
         backgroundPalette: [],
         contrastMethod: 'WCAG2',
-        contrastScore: 21.0,
+        contrastScore: getContrastAlgorithm('WCAG2').calculate('#e11d48', '#ffffff'),
         fontSize: 16,
         fontWeight: 400,
       }}
