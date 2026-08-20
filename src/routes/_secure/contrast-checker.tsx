@@ -19,7 +19,7 @@ function RouteComponent() {
         fontWeight: 400,
       }}
     >
-      <div className="flex size-full">
+      <div className="flex size-full flex-col overflow-auto lg:flex-row lg:overflow-hidden">
         <ContrastChecker.Panel>
           <CurrentPageTitle />
           <ContrastChecker.PanelContent>
@@ -28,9 +28,10 @@ function RouteComponent() {
             <ContrastChecker.ApcaFontControls />
           </ContrastChecker.PanelContent>
         </ContrastChecker.Panel>
-        <div className="flex w-full flex-col gap-md overflow-auto p-lg">
+        <div className="flex w-full min-w-0 flex-col gap-md overflow-auto p-lg">
           <ContrastChecker.Summary />
           <Separator />
+          <ContrastChecker.ApcaMatrix />
           <ContrastChecker.ApcaFont />
           <ContrastChecker.Requirements />
         </div>

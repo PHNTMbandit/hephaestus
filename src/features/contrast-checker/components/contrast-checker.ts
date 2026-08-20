@@ -1,6 +1,7 @@
 import { ConformanceLevel } from './conformance-level'
 import { ContrastApcaFont } from './contrast-apca-font'
 import { ContrastApcaFontControls } from './contrast-apca-font-controls'
+import { ContrastApcaMatrix } from './contrast-apca-matrix'
 import { ContrastCheckerRoot } from './contrast-checker-root'
 import { ContrastColorInputs } from './contrast-color-inputs'
 import { ContrastColorPicker } from './contrast-color-picker'
@@ -13,17 +14,18 @@ import { ContrastSummary } from './contrast-summary'
 import { ContrastSwap } from './contrast-swap'
 
 export const ContrastChecker = {
-  Root: ContrastCheckerRoot,
-  Panel: ContrastPanel,
-  PanelContent: ContrastPanelContent,
-  Method: ContrastMethod,
+  ApcaFont: ContrastApcaFont,
+  ApcaFontControls: ContrastApcaFontControls,
+  ApcaMatrix: ContrastApcaMatrix,
   ColorInputs: ContrastColorInputs,
   ColorPicker: ContrastColorPicker,
-  Swap: ContrastSwap,
-  Summary: ContrastSummary,
-  Score: ContrastScore,
   Level: ConformanceLevel,
+  Method: ContrastMethod,
+  Panel: ContrastPanel,
+  PanelContent: ContrastPanelContent,
   Requirements: ContrastRequirements,
-  ApcaFontControls: ContrastApcaFontControls,
-  ApcaFont: ContrastApcaFont,
+  Root: ContrastCheckerRoot,
+  Score: ContrastScore,
+  Summary: ContrastSummary,
+  Swap: ContrastSwap,
 }

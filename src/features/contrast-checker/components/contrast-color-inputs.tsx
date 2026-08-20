@@ -23,14 +23,30 @@ export const ContrastColorInputs = ({
     dispatch({ type: 'SET_BACKGROUND_COLOR', payload: { color: color.hex() } })
   }
 
+  const handleForegroundPaletteChange = (palette: string[]) => {
+    dispatch({
+      type: 'SET_FOREGROUND_PALETTE',
+      payload: { palette },
+    })
+  }
+
+  const handleBackgroundPaletteChange = (palette: string[]) => {
+    dispatch({
+      type: 'SET_BACKGROUND_PALETTE',
+      payload: { palette },
+    })
+  }
+
   return (
-    <div className={cn('flex flex-col gap-sm', className)} ref={ref} {...props}>
+    <div className={cn('flex flex-col gap-sm px-md py-sm', className)} ref={ref} {...props}>
       {children}
       <div className="flex flex-col gap-sm">
         <Label size="large">Foreground</Label>
         <ContrastColorPicker
-          value={state.foregroundColor}
+          color={state.foregroundColor}
           onValueChange={handleForegroundValueChange}
+          palette={state.foregroundPalette}
+          onPaletteChange={handleForegroundPaletteChange}
         />
       </div>
       <div className="flex justify-center">
@@ -39,8 +55,10 @@ export const ContrastColorInputs = ({
       <div className="flex flex-col gap-sm">
         <Label size="large">Background</Label>
         <ContrastColorPicker
-          value={state.backgroundColor}
+          color={state.backgroundColor}
           onValueChange={handleBackgroundValueChange}
+          palette={state.backgroundPalette}
+          onPaletteChange={handleBackgroundPaletteChange}
         />
       </div>
     </div>

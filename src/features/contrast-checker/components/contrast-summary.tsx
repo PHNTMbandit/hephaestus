@@ -48,7 +48,7 @@ export const ContrastSummary = ({ className, children, ref, ...props }: Contrast
       </Meter>
       <div>
         <p className="style-text-prose--1 text-on-surface-variant">{algorithm.description}</p>
-        <div className="flex items-start gap-md">
+        <div className="flex flex-wrap items-start space-x-md">
           {algorithm.references.map((reference) => (
             <Link key={reference.url} to={reference.url} target="_blank" rel="noopener noreferrer">
               <Button size={'small'} tone="accent" variant={'link'}>

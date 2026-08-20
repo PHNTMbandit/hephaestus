@@ -26,6 +26,16 @@ export const contrastCheckerReducer = (
           action.payload.color,
         ),
       }
+    case 'SET_FOREGROUND_PALETTE':
+      return {
+        ...state,
+        foregroundPalette: action.payload.palette,
+      }
+    case 'SET_BACKGROUND_PALETTE':
+      return {
+        ...state,
+        backgroundPalette: action.payload.palette,
+      }
     case 'SET_CONTRAST_METHOD':
       return {
         ...state,
@@ -40,6 +50,8 @@ export const contrastCheckerReducer = (
         ...state,
         foregroundColor: state.backgroundColor,
         backgroundColor: state.foregroundColor,
+        foregroundPalette: state.backgroundPalette,
+        backgroundPalette: state.foregroundPalette,
         contrastScore: getContrastAlgorithm(state.contrastMethod).calculate(
           state.backgroundColor,
           state.foregroundColor,

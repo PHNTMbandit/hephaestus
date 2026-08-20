@@ -83,7 +83,7 @@ export const ContrastRequirements = ({
                 <ContrastStatusIcon status={status} />
                 <span className="style-text-strong-0 text-on-surface">{requirement.label}</span>
                 <span className="style-text-default--1 text-on-surface-variant">
-                  {PREVIEW_SIZES[requirement.preview]}px
+                  {PREVIEW_SIZES[requirement.preview] && `${PREVIEW_SIZES[requirement.preview]}px`}
                 </span>
               </div>
               <div className="flex flex-wrap items-center gap-2xs">

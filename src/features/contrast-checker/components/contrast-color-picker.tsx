@@ -1,3 +1,6 @@
+import { useLiveQuery } from '@tanstack/react-db'
+import { useRouteContext } from '@tanstack/react-router'
+import chroma from 'chroma-js'
 import {
   cn,
   ColorPicker,
@@ -5,48 +8,47 @@ import {
   ColorPickerGroup,
   ColorPickerHueSlider,
   ColorPickerInput,
-  ColorPickerLabel,
-  ColorPickerPaletteLimit,
   ColorPickerPaletteList,
   ColorPickerPaletteSwatch,
-  ColorPickerRow,
   ColorPickerTransparencySlider,
   ColorPickerValueType,
+  Combobox,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+  ComboboxPopup,
 } from 'dawn-ui-react'
+import React from 'react'
 
-type ContrastColorPickerProps = React.ComponentProps<typeof ColorPicker>
-
-const defaultPalette = [
-  '#000000',
-  '#ffffff',
-  '#ef4444',
-  '#f97316',
-  '#f59e0b',
-  '#eab308',
-  '#84cc16',
-  '#22c55e',
-  '#10b981',
-  '#14b8a6',
-  '#06b6d4',
-  '#0ea5e9',
-  '#3b82f6',
-  '#6366f1',
-  '#8b5cf6',
-  '#a855f7',
-  '#d946ef',
-  '#ec4899',
-  '#f43f5e',
-]
+type ContrastColorPickerProps = React.ComponentProps<typeof ColorPicker> & {
+  palette?: string[]
+  onPaletteChange?: (palette: string[]) => void
+}
 
 export const ContrastColorPicker = ({
   className,
   children,
   ref,
+  palette,
+  onPaletteChange,
   ...props
 }: ContrastColorPickerProps) => {
+  const { paletteCollection } = useRouteContext({ from: '__root__' })
+  const { data: palettes } = useLiveQuery((q) => q.from({ palette: paletteCollection }))
+
+  const handleSelectPalette = (value: (typeof palettes)[number] | null) => {
+    if (value) {
+      const hexColors = value.colors.map((c: any) => c.value ?? c.hex?.() ?? '#000000')
+      onPaletteChange?.(hexColors)
+    } else {
+      onPaletteChange?.(['#000000'])
+    }
+  }
+
   return (
     <ColorPicker
-      defaultPalette={defaultPalette}
+      defaultValueType="hex"
       paletteLimit={25}
       variant={'ghost'}
       className={cn('', className)}
@@ -55,26 +57,38 @@ export const ContrastColorPicker = ({
     >
       {children}
       <ColorPickerGroup>
-        <ColorPickerRow>
-          <ColorPickerValueType />
-          <ColorPickerInput showPopover>
-            <ColorPickerArea />
-            <ColorPickerGroup>
-              <ColorPickerHueSlider />
-              <ColorPickerTransparencySlider />
-            </ColorPickerGroup>
-          </ColorPickerInput>
-        </ColorPickerRow>
+        <ColorPickerInput showPopover>
+          <ColorPickerArea />
+          <ColorPickerGroup>
+            <ColorPickerHueSlider />
+            <ColorPickerTransparencySlider />
+            <ColorPickerValueType />
+            <ColorPickerInput />
+          </ColorPickerGroup>
+        </ColorPickerInput>
       </ColorPickerGroup>
       <ColorPickerGroup>
-        <ColorPickerRow>
-          <ColorPickerLabel>Saved</ColorPickerLabel>
-          <ColorPickerPaletteLimit />
-        </ColorPickerRow>
+        <Combobox
+          items={palettes}
+          onValueChange={(value) => handleSelectPalette(value as (typeof palettes)[number] | null)}
+          itemToStringLabel={(palette) => (palette as (typeof palettes)[number] | null)?.name ?? ''}
+        >
+          <ComboboxInput variant={'secondary'} placeholder="Select a saved palette" />
+          <ComboboxPopup>
+            <ComboboxEmpty>No saved palettes found</ComboboxEmpty>
+            <ComboboxList>
+              {(palette: (typeof palettes)[number]) => (
+                <ComboboxItem key={palette.id} value={palette}>
+                  {palette.name}
+                </ComboboxItem>
+              )}
+            </ComboboxList>
+          </ComboboxPopup>
+        </Combobox>
         <ColorPickerPaletteList>
-          {({ color, index }) => (
-            <ColorPickerPaletteSwatch key={index} color={color} size="medium" />
-          )}
+          {palette?.map((color, idx) => (
+            <ColorPickerPaletteSwatch key={idx} color={chroma(color)} />
+          ))}
         </ColorPickerPaletteList>
       </ColorPickerGroup>
     </ColorPicker>

@@ -6,7 +6,7 @@ export const ContrastPanel = ({ className, children, ref, ...props }: ContrastPa
   return (
     <div
       className={cn(
-        'flex w-[420px] shrink-0 flex-col items-center justify-between border-r border-border bg-surface-background',
+        'flex w-full shrink-0 flex-col items-center justify-between overflow-auto border-b border-border bg-surface-background lg:w-[420px] lg:border-r lg:border-b-0',
         className,
       )}
       ref={ref}

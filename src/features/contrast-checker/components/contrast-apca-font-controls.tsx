@@ -35,13 +35,14 @@ export const ContrastApcaFontControls = ({
   if (state.contrastMethod !== 'APCA') return null
 
   return (
-    <>
+    <div className="px-md py-sm">
       <Separator />
-      <div className={cn('flex flex-col gap-sm', className)} ref={ref} {...props}>
+      <div className={cn('flex flex-col gap-sm pt-md', className)} ref={ref} {...props}>
         {children}
         <Label size={'large'}>Font</Label>
         <div className="flex flex-col items-center gap-xs">
           <NumberField
+            variant={'secondary'}
             min={1}
             max={144}
             value={state.fontSize}
@@ -62,7 +63,7 @@ export const ContrastApcaFontControls = ({
               dispatch({ type: 'SET_FONT_WEIGHT', payload: { fontWeight: Number(value) } })
             }
           >
-            <SelectTrigger className="w-full">
+            <SelectTrigger variant={'secondary'} className="w-full">
               <SelectValue>{(value: string) => weightLabel(value)}</SelectValue>
               <SelectIcon>
                 <CaretUpDownIcon weight="bold" />
@@ -84,6 +85,6 @@ export const ContrastApcaFontControls = ({
           </Select>
         </div>
       </div>
-    </>
+    </div>
   )
 }

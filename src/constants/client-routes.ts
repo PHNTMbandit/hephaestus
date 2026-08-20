@@ -6,6 +6,7 @@ import {
   TextAaIcon,
   NotePencilIcon,
   BooksIcon,
+  HeartIcon,
 } from '@phosphor-icons/react'
 import { m } from '#/paraglide/messages'
 
@@ -73,7 +74,7 @@ export const CLIENT_ROUTES: Record<ClientRouteName, ClientRoute> = {
   },
   favorites: {
     label: m['navigation.items.favorites'](),
-    leadingIcon: BooksIcon,
+    leadingIcon: HeartIcon,
     linkOptions: {
       to: '/favorites',
     },

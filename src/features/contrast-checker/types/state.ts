@@ -2,7 +2,9 @@ import type { ContrastMethod } from './methods'
 
 export type ContrastCheckerState = {
   foregroundColor: string
+  foregroundPalette: string[]
   backgroundColor: string
+  backgroundPalette: string[]
   contrastMethod: ContrastMethod
   contrastScore: number
   fontSize: number
@@ -11,7 +13,9 @@ export type ContrastCheckerState = {
 
 export type ContrastCheckerAction =
   | { type: 'SET_FOREGROUND_COLOR'; payload: { color: string } }
+  | { type: 'SET_FOREGROUND_PALETTE'; payload: { palette: string[] } }
   | { type: 'SET_BACKGROUND_COLOR'; payload: { color: string } }
+  | { type: 'SET_BACKGROUND_PALETTE'; payload: { palette: string[] } }
   | { type: 'SET_CONTRAST_METHOD'; payload: { contrastMethod: ContrastMethod } }
   | { type: 'SET_CONTRAST_SCORE'; payload: { contrastScore: number } }
   | { type: 'SET_FONT_SIZE'; payload: { fontSize: number } }
