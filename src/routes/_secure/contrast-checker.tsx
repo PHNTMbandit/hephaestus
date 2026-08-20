@@ -11,8 +11,10 @@ function RouteComponent() {
   return (
     <ContrastChecker.Root
       initialState={{
+        foregroundColor: '#e11d48',
         backgroundColor: '#ffffff',
-        foregroundColor: '#000000',
+        foregroundPalette: [],
+        backgroundPalette: [],
         contrastMethod: 'WCAG2',
         contrastScore: 21.0,
         fontSize: 16,
