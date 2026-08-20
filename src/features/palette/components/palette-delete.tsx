@@ -2,7 +2,7 @@ import { XIcon } from '@phosphor-icons/react/dist/ssr'
 import chroma from 'chroma-js'
 import { Button, cn } from 'dawn-ui-react'
 import { useColor } from '#/features/color/components/color-provider.tsx'
-import { getForeground } from '#/features/color/utils/accessibility'
+import { getForeground } from '#/features/color/utils/style'
 import { usePalette } from '../hooks/use-palette'
 
 type PaletteDeleteProps = React.ComponentProps<'button'>

@@ -8,11 +8,8 @@ import viteReact, { reactCompilerPreset } from '@vitejs/plugin-react'
 import { playwright } from '@vitest/browser-playwright'
 import { nitro } from 'nitro/vite'
 import path from 'node:path'
-import { fileURLToPath, URL } from 'node:url'
+import { URL } from 'node:url'
 import { defineConfig } from 'vitest/config'
-
-const dirname =
-  typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url))
 
 const config = defineConfig({
   resolve: { tsconfigPaths: true },
@@ -64,7 +61,7 @@ const config = defineConfig({
         extends: true,
         plugins: [
           storybookTest({
-            configDir: path.join(dirname, '.storybook'),
+            configDir: path.join(import.meta.dirname, '.storybook'),
           }),
         ],
         test: {

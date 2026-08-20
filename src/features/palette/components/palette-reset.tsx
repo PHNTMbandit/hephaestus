@@ -9,7 +9,7 @@ type PaletteResetProps = React.ComponentProps<'button'>
 export const PaletteReset = ({ className, children, ref, ...props }: PaletteResetProps) => {
   const { dispatch } = usePalette()
   const { paletteCollection } = useRouteContext({ from: '__root__' })
-  const { projectId } = useParams({ from: '/_secure/color-palette/{-$projectId}' })
+  const { projectId } = useParams({ from: '/_secure/palette-generator/{-$projectId}' })
   const { data } = useLiveQuery((q) =>
     q
       .from({ palette: paletteCollection })
@@ -35,7 +35,6 @@ export const PaletteReset = ({ className, children, ref, ...props }: PaletteRese
   return (
     <Button
       tone="neutral"
-      size="iconMedium"
       variant={'ghost'}
       className={cn('shrink-0', className)}
       ref={ref}
@@ -43,6 +42,7 @@ export const PaletteReset = ({ className, children, ref, ...props }: PaletteRese
       onClick={handleClick}
     >
       <ArrowCounterClockwiseIcon weight="bold" />
+      Reset
       {children}
     </Button>
   )

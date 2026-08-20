@@ -1,4 +1,6 @@
 import { createFileRoute, notFound } from '@tanstack/react-router'
+import { Separator } from 'dawn-ui-react'
+import { CurrentPageTitle } from '#/components/current-page-title'
 import { Color } from '#/features/color/components/color.ts'
 import { PalettePanelTabs } from '#/features/palette/components/palette-panel-tabs'
 import { Palette } from '#/features/palette/components/palette.ts'
@@ -9,7 +11,7 @@ import {
   serializePaletteState,
 } from '#/features/palette/utils/index.ts'
 
-export const Route = createFileRoute('/_secure/color-palette/{-$projectId}')({
+export const Route = createFileRoute('/_secure/palette-generator/{-$projectId}')({
   component: RouteComponent,
   errorComponent: () => <p>Palette doesn't exist</p>,
   loader: async ({ context: { paletteCollection }, params: { projectId } }) => {
@@ -47,6 +49,7 @@ function RouteComponent() {
       <div className="relative flex size-full">
         <Palette.Panel>
           <Palette.PanelHeader>
+            <CurrentPageTitle />
             <PalettePanelTabs />
           </Palette.PanelHeader>
           <Palette.PanelContent>
@@ -62,8 +65,9 @@ function RouteComponent() {
               <Palette.ValueSelect />
               <Palette.Undo />
               <Palette.Redo />
-              <Palette.Export />
+              <Separator orientation="vertical" className={'w-px!'} />
               <Palette.Reset />
+              <Palette.Export />
               {savedPalette ? <Palette.Update paletteId={savedPalette.id} /> : <Palette.Save />}
             </Palette.ToolbarGroup>
           </Palette.Toolbar>

@@ -21,7 +21,7 @@ function RouteComponent() {
         {data?.map((palette) => (
           <Link
             key={palette.id}
-            to="/color-palette/{-$projectId}"
+            to="/palette-generator/{-$projectId}"
             params={{ projectId: palette.id }}
           >
             <Palette.Root initialState={hydratePaletteState(palette)}>

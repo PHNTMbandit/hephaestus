@@ -4,8 +4,8 @@ import { useQuery } from '@tanstack/react-query'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from 'dawn-ui-react'
 import React from 'react'
-import { getForeground } from '../utils/accessibility'
 import { colorNameQueryOptions } from '../utils/queries'
+import { getForeground } from '../utils/style'
 import { useColor } from './color-provider'
 
 const colorNameVariants = cva('capitalize', {

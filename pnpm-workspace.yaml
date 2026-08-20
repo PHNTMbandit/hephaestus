@@ -3,12 +3,5 @@ allowBuilds:
   esbuild: true
   lefthook: true
   lightningcss: true
-
 minimumReleaseAgeExclude:
-  - dawn-ui-react@1.0.0-alpha.28
-  - dawn-ui-react@1.0.0-alpha.29
-
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - esbuild
-  - lefthook
+  - dawn-ui-react@1.0.0-alpha.32 || 1.0.0-alpha.33 || 1.0.0-alpha.34

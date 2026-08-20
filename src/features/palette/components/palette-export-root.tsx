@@ -48,6 +48,7 @@ export const PaletteExportRoot = ({
           >
             {children}
             <DownloadIcon weight="bold" className="shrink-0" />
+            Export
           </Button>
         </DialogTrigger>
         <DialogPopup className={'w-1/2'}>

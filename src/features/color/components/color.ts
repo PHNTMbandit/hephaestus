@@ -6,7 +6,6 @@ import { ColorHeader } from './color-header'
 import { ColorName } from './color-name'
 import { ColorProvider } from './color-provider'
 import { ColorValue } from './color-value'
-import { ColorWCAG } from './color-wcag'
 
 export const Color = {
   Actions: ColorActions,
@@ -17,5 +16,4 @@ export const Color = {
   Name: ColorName,
   Provider: ColorProvider,
   Value: ColorValue,
-  WCAG: ColorWCAG,
 }

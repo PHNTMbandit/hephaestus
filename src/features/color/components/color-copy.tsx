@@ -3,7 +3,7 @@ import chroma from 'chroma-js'
 import { anchoredToastManager, Button, cn } from 'dawn-ui-react'
 import { AnimatePresence, motion } from 'motion/react'
 import React from 'react'
-import { getForeground } from '../utils/accessibility'
+import { getForeground } from '../utils/style'
 import { useColor } from './color-provider'
 
 type ColorCopyProps = React.ComponentProps<'button'> & {

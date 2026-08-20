@@ -3,7 +3,6 @@ import { PaletteBaseColor } from './palette-base-color'
 import { PaletteCount } from './palette-count'
 import { PaletteDelete } from './palette-delete'
 import { PaletteExportRoot } from './palette-export-root'
-import { PaletteGenerate } from './palette-generate'
 import { PaletteGeneratorContent } from './palette-generator-content'
 import { PaletteGeneratorSelect } from './palette-generator-select'
 import { PaletteGradient } from './palette-gradient'
@@ -36,7 +35,6 @@ export const Palette = {
   Count: PaletteCount,
   Delete: PaletteDelete,
   Export: PaletteExportRoot,
-  Generate: PaletteGenerate,
   GeneratorSelect: PaletteGeneratorSelect,
   Gradient: PaletteGradient,
   List: PaletteList,

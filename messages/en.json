@@ -13,12 +13,15 @@
     },
     "items": {
       "explore": "Explore",
+      "color": "Color",
       "colorPalette": "Color Palette",
+      "paletteGenerator": "Palette Generator",
+      "contrastChecker": "Contrast Checker",
       "spacing": "Spacing",
       "typography": "Typography",
       "designSystems": "Design Systems",
       "myLibrary": "My Library",
-      "favourites": "Favourites"
+      "favorites": "Favorites"
     }
   },
   "auth": {

@@ -51,7 +51,6 @@ export const PaletteUpdate = ({
     return (
       <Button
         disabled
-        tone="neutral"
         variant={'ghost'}
         size={'iconMedium'}
         className={cn('', className)}
@@ -66,8 +65,6 @@ export const PaletteUpdate = ({
   return (
     <Button
       onClick={handleClick}
-      size={'iconMedium'}
-      tone="neutral"
       variant={'ghost'}
       className={cn('shrink-0', className)}
       ref={ref}
@@ -75,6 +72,7 @@ export const PaletteUpdate = ({
     >
       {children}
       <FloppyDiskIcon weight="bold" />
+      Update
     </Button>
   )
 }

@@ -2,7 +2,7 @@ import { LockSimpleIcon, LockSimpleOpenIcon } from '@phosphor-icons/react/dist/s
 import chroma from 'chroma-js'
 import { Button, cn } from 'dawn-ui-react'
 import { useColor } from '#/features/color/components/color-provider.tsx'
-import { getForeground } from '#/features/color/utils/accessibility'
+import { getForeground } from '#/features/color/utils/style'
 import { usePalette } from '../hooks/use-palette'
 
 type PaletteLockProps = React.ComponentProps<'button'>

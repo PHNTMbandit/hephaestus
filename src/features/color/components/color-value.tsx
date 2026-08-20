@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from 'dawn-ui-react'
-import { getForeground } from '../utils/accessibility'
+import { getForeground } from '../utils/style'
 import { useColor } from './color-provider'
 
 const colorValueVariants = cva('w-full', {

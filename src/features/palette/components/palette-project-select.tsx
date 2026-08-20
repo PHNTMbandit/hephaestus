@@ -28,7 +28,7 @@ export const PaletteProjectSelect = ({
   const { data: palettes } = useLiveQuery((q) => q.from({ palette: paletteCollection }))
 
   const handleSelect = (value: any) => {
-    navigate({ to: '/color-palette/{-$projectId}', params: { projectId: value } })
+    navigate({ to: '/palette-generator/{-$projectId}', params: { projectId: value } })
   }
 
   return (

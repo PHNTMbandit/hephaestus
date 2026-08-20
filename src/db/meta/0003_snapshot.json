@@ -111,12 +111,8 @@
           "name": "account_user_id_user_id_fk",
           "tableFrom": "account",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -200,12 +196,8 @@
           "name": "color_palettes_user_id_fkey",
           "tableFrom": "color_palettes",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -215,10 +207,7 @@
         "color_palettes_user_id_name_key": {
           "name": "color_palettes_user_id_name_key",
           "nullsNotDistinct": false,
-          "columns": [
-            "user_id",
-            "name"
-          ]
+          "columns": ["user_id", "name"]
         }
       },
       "policies": {},
@@ -298,12 +287,8 @@
           "name": "design_systems_user_id_fkey",
           "tableFrom": "design_systems",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -311,12 +296,8 @@
           "name": "design_systems_typography_board_id_fkey",
           "tableFrom": "design_systems",
           "tableTo": "typography_boards",
-          "columnsFrom": [
-            "typography_board_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["typography_board_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -324,12 +305,8 @@
           "name": "design_systems_color_palette_id_fkey",
           "tableFrom": "design_systems",
           "tableTo": "color_palettes",
-          "columnsFrom": [
-            "color_palette_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["color_palette_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -339,10 +316,7 @@
         "design_systems_user_id_name_key": {
           "name": "design_systems_user_id_name_key",
           "nullsNotDistinct": false,
-          "columns": [
-            "user_id",
-            "name"
-          ]
+          "columns": ["user_id", "name"]
         }
       },
       "policies": {
@@ -350,33 +324,25 @@
           "name": "select own design systems",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "public"
-          ]
+          "to": ["public"]
         },
         "insert own design systems": {
           "name": "insert own design systems",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "public"
-          ]
+          "to": ["public"]
         },
         "update own design systems": {
           "name": "update own design systems",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "public"
-          ]
+          "to": ["public"]
         },
         "delete own design systems": {
           "name": "delete own design systems",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "public"
-          ]
+          "to": ["public"]
         }
       },
       "checkConstraints": {},
@@ -459,12 +425,8 @@
           "name": "session_user_id_user_id_fk",
           "tableFrom": "session",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -474,9 +436,7 @@
         "session_token_unique": {
           "name": "session_token_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "token"
-          ]
+          "columns": ["token"]
         }
       },
       "policies": {},
@@ -550,12 +510,8 @@
           "name": "typography_boards_user_id_fkey",
           "tableFrom": "typography_boards",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -565,10 +521,7 @@
         "typography_boards_user_id_name_key": {
           "name": "typography_boards_user_id_name_key",
           "nullsNotDistinct": false,
-          "columns": [
-            "user_id",
-            "name"
-          ]
+          "columns": ["user_id", "name"]
         }
       },
       "policies": {
@@ -576,33 +529,25 @@
           "name": "select own typography boards",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "public"
-          ]
+          "to": ["public"]
         },
         "insert own typography boards": {
           "name": "insert own typography boards",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "public"
-          ]
+          "to": ["public"]
         },
         "update own typography boards": {
           "name": "update own typography boards",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "public"
-          ]
+          "to": ["public"]
         },
         "delete own typography boards": {
           "name": "delete own typography boards",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "public"
-          ]
+          "to": ["public"]
         }
       },
       "checkConstraints": {},
@@ -671,16 +616,12 @@
         "user_username_unique": {
           "name": "user_username_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "username"
-          ]
+          "columns": ["username"]
         },
         "user_email_unique": {
           "name": "user_email_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "email"
-          ]
+          "columns": ["email"]
         }
       },
       "policies": {},
