@@ -61,7 +61,11 @@ export const auth = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
   },
-  trustedOrigins: ['https://hephaestus-one.vercel.app', 'http://localhost:3000'],
+  trustedOrigins: [
+    'https://hephaestus-one.vercel.app',
+    'https://*.vercel.app',
+    'http://localhost:3000',
+  ],
   plugins: [
     oAuthProxy({
       productionURL: 'https://hephaestus-one.vercel.app',
