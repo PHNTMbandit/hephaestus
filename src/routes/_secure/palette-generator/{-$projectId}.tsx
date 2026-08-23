@@ -54,6 +54,7 @@ function RouteComponent() {
           </Palette.PanelHeader>
           <Palette.PanelContent>
             <Palette.GeneratorContent />
+            <Palette.AccessibilityContent />
           </Palette.PanelContent>
         </Palette.Panel>
         <div className="flex w-full flex-col">
@@ -78,7 +79,7 @@ function RouteComponent() {
                   <Palette.ReorderableList>
                     {({ color, isDragging, valueType }) => (
                       <Color.Provider color={color}>
-                        <Color.Block>
+                        <Color.Swatch>
                           <Palette.Add />
                           <Color.Header>
                             <Color.Name />
@@ -93,7 +94,7 @@ function RouteComponent() {
                           <Color.Footer>
                             <Color.Value>{valueType?.displayColor(color.value)}</Color.Value>
                           </Color.Footer>
-                        </Color.Block>
+                        </Color.Swatch>
                       </Color.Provider>
                     )}
                   </Palette.ReorderableList>

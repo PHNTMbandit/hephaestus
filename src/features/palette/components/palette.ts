@@ -1,3 +1,9 @@
+import { PaletteAccessibilityContent } from './palette-accessibility-content'
+import { PaletteAccessibilityPreview } from './palette-accessibility-preview'
+import { PaletteAccessibilityRecommendation } from './palette-accessibility-recommendation'
+import { PaletteAccessibilityRoot } from './palette-accessibility-root'
+import { PaletteAccessibilityScores } from './palette-accessibility-scores'
+import { PaletteAccessibilitySwatches } from './palette-accessibility-swatches'
 import { PaletteAdd } from './palette-add'
 import { PaletteBaseColor } from './palette-base-color'
 import { PaletteCount } from './palette-count'
@@ -30,6 +36,12 @@ import { PaletteValueSelect } from './palette-value-select'
 
 export const Palette = {
   Add: PaletteAdd,
+  AccessibilityContent: PaletteAccessibilityContent,
+  AccessibilityPreview: PaletteAccessibilityPreview,
+  AccessibilityRecommendation: PaletteAccessibilityRecommendation,
+  AccessibilityRoot: PaletteAccessibilityRoot,
+  AccessibilityScores: PaletteAccessibilityScores,
+  AccessibilitySwatches: PaletteAccessibilitySwatches,
   BaseColor: PaletteBaseColor,
   GeneratorContent: PaletteGeneratorContent,
   Count: PaletteCount,

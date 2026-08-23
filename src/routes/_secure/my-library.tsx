@@ -28,7 +28,7 @@ function RouteComponent() {
               <Palette.List orientation={'horizontal'} rounded="xxLarge">
                 {({ color }) => (
                   <Color.Provider color={color}>
-                    <Color.Block />
+                    <Color.Swatch />
                   </Color.Provider>
                 )}
               </Palette.List>

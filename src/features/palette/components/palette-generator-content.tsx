@@ -55,7 +55,7 @@ export const PaletteGeneratorContent = ({
     <TabsPanel value="generator">
       <div className={cn('flex w-full flex-col gap-md', className)} ref={ref} {...props}>
         <ColorPicker
-          value={pendingColor}
+          color={pendingColor}
           onValueChange={(e) => handleColorChange(e.hex())}
           variant={'ghost'}
         >
