@@ -1,4 +1,5 @@
 import { PaletteAccessibilityContent } from './palette-accessibility-content'
+import { PaletteAccessibilityCopy } from './palette-accessibility-copy'
 import { PaletteAccessibilityPreview } from './palette-accessibility-preview'
 import { PaletteAccessibilityRecommendation } from './palette-accessibility-recommendation'
 import { PaletteAccessibilityRoot } from './palette-accessibility-root'
@@ -37,6 +38,7 @@ import { PaletteValueSelect } from './palette-value-select'
 export const Palette = {
   Add: PaletteAdd,
   AccessibilityContent: PaletteAccessibilityContent,
+  AccessibilityCopy: PaletteAccessibilityCopy,
   AccessibilityPreview: PaletteAccessibilityPreview,
   AccessibilityRecommendation: PaletteAccessibilityRecommendation,
   AccessibilityRoot: PaletteAccessibilityRoot,

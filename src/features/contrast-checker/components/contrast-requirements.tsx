@@ -1,7 +1,8 @@
-import { CheckCircleIcon, XCircleIcon } from '@phosphor-icons/react'
-import { Badge, Button, cn } from 'dawn-ui-react'
+import { Button, cn } from 'dawn-ui-react'
 import { getContrastAlgorithm } from '../algorithms'
 import { useContrastChecker } from '../hooks/use-contrast-checker'
+import { getConformanceStatus } from '../utils/conformance'
+import { ConformanceBadge } from './conformance-badge'
 import { ContrastStatusIcon } from './contrast-status-icon'
 
 import type { ContrastRequirementPreview } from '../types/algorithm'
@@ -68,13 +69,7 @@ export const ContrastRequirements = ({
       {children}
 
       {requirements.map((requirement) => {
-        const passedCount = requirement.checks.filter((check) => check.passes).length
-        const status =
-          passedCount === requirement.checks.length
-            ? 'pass'
-            : passedCount === 0
-              ? 'fail'
-              : 'partial'
+        const status = getConformanceStatus(requirement.checks)
 
         return (
           <div key={requirement.id} className="flex flex-col gap-sm not-last:pb-md">
@@ -88,18 +83,7 @@ export const ContrastRequirements = ({
               </div>
               <div className="flex flex-wrap items-center gap-2xs">
                 {requirement.checks.map((check) => (
-                  <Badge
-                    key={check.label}
-                    tone={check.passes ? 'success' : 'error'}
-                    variant={'soft'}
-                  >
-                    {check.passes ? (
-                      <CheckCircleIcon weight="duotone" />
-                    ) : (
-                      <XCircleIcon weight="duotone" />
-                    )}
-                    {check.label} · {check.threshold}
-                  </Badge>
+                  <ConformanceBadge key={check.label} check={check} />
                 ))}
               </div>
             </div>

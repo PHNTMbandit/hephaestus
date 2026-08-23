@@ -6,18 +6,26 @@ import { ContrastChecker } from '#/features/contrast-checker/components/contrast
 
 export const Route = createFileRoute('/_secure/contrast-checker')({
   component: RouteComponent,
+  validateSearch: (search) => {
+    return {
+      foreground: (search.foreground as string) ?? '#e11d48',
+      background: (search.background as string) ?? '#ffffff',
+    }
+  },
 })
 
 function RouteComponent() {
+  const { foreground, background } = Route.useSearch()
+
   return (
     <ContrastChecker.Root
       initialState={{
-        foregroundColor: '#e11d48',
-        backgroundColor: '#ffffff',
+        foregroundColor: foreground,
+        backgroundColor: background,
         foregroundPalette: [],
         backgroundPalette: [],
         contrastMethod: 'WCAG2',
-        contrastScore: getContrastAlgorithm('WCAG2').calculate('#e11d48', '#ffffff'),
+        contrastScore: getContrastAlgorithm('WCAG2').calculate(foreground, background),
         fontSize: 16,
         fontWeight: 400,
       }}

@@ -1,8 +1,11 @@
-import { CheckIcon, SparkleIcon } from '@phosphor-icons/react'
-import { Button, cn } from 'dawn-ui-react'
-import { getForeground } from '#/features/color/utils/style'
-import { getContrastAlgorithm } from '#/features/contrast-checker/algorithms'
+import { SparkleIcon } from '@phosphor-icons/react'
+import { cn } from 'dawn-ui-react'
+import { getCompatiblePalettes } from '#/features/color/utils/style'
+import { ContrastCombinationCard } from '#/features/contrast-checker/components/contrast-combination-card'
+import { usePalette } from '../hooks/use-palette'
 import { usePaletteAccessibility } from '../hooks/use-palette-accessibility'
+
+import type { Color } from '#/features/color/color.types'
 
 type PaletteAccessibilityRecommendationProps = React.ComponentProps<'div'>
 
@@ -12,47 +15,46 @@ export const PaletteAccessibilityRecommendation = ({
   ref,
   ...props
 }: PaletteAccessibilityRecommendationProps) => {
-  const { background, setForeground } = usePaletteAccessibility()
+  const { setForeground, setBackground, foreground, background } = usePaletteAccessibility()
+  const {
+    state: { colors, valueType },
+  } = usePalette()
+  const compatiblePalettes = getCompatiblePalettes(colors)
 
-  if (!background) {
-    return null
+  const isSelected = (buttonForeground: Color, buttonBackground: Color) => {
+    return (
+      buttonForeground.value === foreground.value && buttonBackground.value === background.value
+    )
   }
 
-  const recommended = getForeground(background.value)
-  const algorithm = getContrastAlgorithm('WCAG2')
-  const score = algorithm.calculate(recommended, background.value)
+  const handleClick = (nextForeground: Color, nextBackground: Color) => {
+    setForeground(nextForeground)
+    setBackground(nextBackground)
+  }
 
   return (
-    <div className={cn('flex flex-col gap-2xs', className)} ref={ref} {...props}>
+    <div className={cn('flex flex-col gap-sm', className)} ref={ref} {...props}>
       {children}
       <div className="flex items-center gap-2xs">
         <SparkleIcon weight="bold" />
-        <span className="style-text-strong-0">Recommended foreground</span>
+        <span className="style-text-strong-0">Recommended combinations</span>
       </div>
-      <div
-        className="flex items-center gap-sm rounded-lg border border-border p-sm"
-        style={{ backgroundColor: background.value }}
-      >
-        <span className="style-text-strong-3" style={{ color: recommended }}>
-          Aa
-        </span>
-        <div className="flex flex-1 flex-col">
-          <span className="style-text-default-0 tabular-nums" style={{ color: recommended }}>
-            {recommended}
-          </span>
-          <span className="style-text-default--1 tabular-nums" style={{ color: recommended }}>
-            {algorithm.formatScore(score)}
-          </span>
-        </div>
-        <Button
-          size="small"
-          onClick={() =>
-            setForeground({ id: crypto.randomUUID(), value: recommended, locked: false })
-          }
-        >
-          <CheckIcon weight="bold" />
-          Apply
-        </Button>
+      <div className="grid grid-cols-2 gap-2xs">
+        {compatiblePalettes.map(({ foreground, background }) => (
+          <ContrastCombinationCard
+            key={`${foreground.value}-${background.value}`}
+            foreground={foreground.value}
+            background={background.value}
+            selected={isSelected(foreground, background)}
+            formatValue={valueType.displayColor}
+            onClick={() => handleClick(foreground, background)}
+          />
+        ))}
+        {compatiblePalettes.length === 0 && (
+          <p className="col-span-2 style-text-prose--1 text-error-muted">
+            No compatible combinations found.
+          </p>
+        )}
       </div>
     </div>
   )

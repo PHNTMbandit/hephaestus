@@ -18,5 +18,5 @@ export const defaultPaletteState: PaletteState = {
   currentGeneratorMethod: paletteGeneratorMethods.monochromatic,
   limit: PALETTE_CONFIG.DEFAULT_LIMIT,
   mode: PALETTE_CONFIG.DEFAULT_MODE,
-  valueType: valueTypes.rgb,
+  valueType: valueTypes.hex,
 }
