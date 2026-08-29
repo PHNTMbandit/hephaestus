@@ -1,9 +1,11 @@
 import { HeartIcon } from '@phosphor-icons/react'
 import { CircleNotchIcon } from '@phosphor-icons/react/dist/ssr'
-import { useNavigate, useRouteContext } from '@tanstack/react-router'
+import { useDbClient } from '@tanstack/react-db'
+import { useNavigate } from '@tanstack/react-router'
 import { Button, cn, stackToastManager } from 'dawn-ui-react'
 import React from 'react'
 import { m } from '#/paraglide/messages.js'
+import { paletteCollection } from '../db/collection'
 import { usePalette } from '../hooks/use-palette'
 import { serializePaletteState } from '../utils/state'
 
@@ -11,7 +13,7 @@ type PaletteSaveProps = React.ComponentProps<'button'>
 
 export const PaletteSave = ({ className, children, ref, ...props }: PaletteSaveProps) => {
   const navigate = useNavigate()
-  const { paletteCollection } = useRouteContext({ from: '__root__' })
+  const collection = useDbClient().collection(paletteCollection)
   const { state } = usePalette()
   const [isPending, startTransition] = React.useTransition()
 
@@ -20,7 +22,7 @@ export const PaletteSave = ({ className, children, ref, ...props }: PaletteSaveP
     const palette = serializePaletteState(state)
 
     startTransition(async () => {
-      const tx = paletteCollection.insert({
+      const tx = collection.insert({
         id,
         baseColor: palette.baseColor,
         colors: palette.colors,
@@ -34,7 +36,7 @@ export const PaletteSave = ({ className, children, ref, ...props }: PaletteSaveP
           description: m['colorPalette.toasts.saveSuccess.description'](),
           variant: 'success',
         })
-        navigate({ to: '/color-palette/{-$projectId}', params: { projectId: id } })
+        navigate({ to: '/palette-generator/{-$projectId}', params: { projectId: id } })
       } catch (error) {
         stackToastManager.add({
           title: m['colorPalette.toasts.saveError.title'](),

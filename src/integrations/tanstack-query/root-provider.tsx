@@ -1,13 +1,13 @@
+import { DbClient } from '@tanstack/db'
 import { QueryClient } from '@tanstack/react-query'
-import { paletteCollection } from '#/features/palette/db/collection'
 
 export function getContext() {
   const queryClient = new QueryClient()
-  const collection = paletteCollection(queryClient)
+  const dbClient = new DbClient({ queryClient })
 
   return {
     queryClient,
-    paletteCollection: collection,
+    dbClient,
   }
 }
 export default function TanstackQueryProvider() {}

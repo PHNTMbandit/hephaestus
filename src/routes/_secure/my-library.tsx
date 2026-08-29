@@ -1,19 +1,17 @@
-import { useLiveQuery } from '@tanstack/react-db'
+import { useDbClient, useLiveQuery } from '@tanstack/react-db'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { Color } from '#/features/color/components/color.ts'
 import { Palette } from '#/features/palette/components/palette.ts'
+import { paletteCollection } from '#/features/palette/db/collection'
 import { hydratePaletteState } from '#/features/palette/utils/state.ts'
 
 export const Route = createFileRoute('/_secure/my-library')({
   component: RouteComponent,
-  loader: async ({ context: { paletteCollection } }) => {
-    await paletteCollection.preload()
-  },
 })
 
 function RouteComponent() {
-  const { paletteCollection } = Route.useRouteContext()
-  const { data } = useLiveQuery((q) => q.from({ palette: paletteCollection }))
+  const collection = useDbClient().collection(paletteCollection)
+  const { data } = useLiveQuery((q) => q.from({ palette: collection }))
 
   return (
     <section className="size-full">

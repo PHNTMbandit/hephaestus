@@ -1,18 +1,19 @@
 import { ArrowCounterClockwiseIcon } from '@phosphor-icons/react'
-import { eq, useLiveQuery } from '@tanstack/react-db'
-import { useParams, useRouteContext } from '@tanstack/react-router'
+import { eq, useDbClient, useLiveQuery } from '@tanstack/react-db'
+import { useParams } from '@tanstack/react-router'
 import { Button, cn } from 'dawn-ui-react'
+import { paletteCollection } from '../db/collection'
 import { usePalette } from '../hooks/use-palette'
 
 type PaletteResetProps = React.ComponentProps<'button'>
 
 export const PaletteReset = ({ className, children, ref, ...props }: PaletteResetProps) => {
   const { dispatch } = usePalette()
-  const { paletteCollection } = useRouteContext({ from: '__root__' })
+  const collection = useDbClient().collection(paletteCollection)
   const { projectId } = useParams({ from: '/_secure/palette-generator/{-$projectId}' })
   const { data } = useLiveQuery((q) =>
     q
-      .from({ palette: paletteCollection })
+      .from({ palette: collection })
       .where(({ palette }) => eq(palette.id, projectId))
       .select(({ palette }) => ({
         colors: palette.colors,

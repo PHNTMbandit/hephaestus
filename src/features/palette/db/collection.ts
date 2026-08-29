@@ -1,5 +1,6 @@
+import { QueryClient } from '@tanstack/query-core'
 import { queryCollectionOptions } from '@tanstack/query-db-collection'
-import { createCollection } from '@tanstack/react-db'
+import { collectionOptions } from '@tanstack/react-db'
 import { z } from 'zod'
 import {
   getPalettes,
@@ -10,7 +11,6 @@ import {
 } from '../utils'
 
 import type { Color } from '#/features/color/color.types.ts'
-import type { QueryClient } from '@tanstack/query-core'
 
 const paletteSchema = z.object({
   id: z.string().default(() => crypto.randomUUID()),
@@ -22,45 +22,44 @@ const paletteSchema = z.object({
   colors: z.custom<Color[]>(),
 })
 
-export const paletteCollection = (queryClient: QueryClient) =>
-  createCollection(
-    queryCollectionOptions({
-      schema: paletteSchema,
-      queryKey: palettesQueryOptions.queryKey,
-      queryFn: () => getPalettes(),
-      queryClient,
-      getKey: (palette) => palette.id,
-      onInsert: async ({ transaction }) => {
-        await Promise.all(
-          transaction.mutations.map((m) =>
-            savePalette({
-              data: {
-                id: m.modified.id,
-                name: m.modified.name,
-                baseColor: m.modified.baseColor,
-                colors: m.modified.colors,
-              },
-            }),
-          ),
-        )
-      },
-      onUpdate: async ({ transaction }) => {
-        await Promise.all(
-          transaction.mutations.map((m) =>
-            updatePalette({
-              data: {
-                id: m.modified.id,
-                baseColor: m.modified.baseColor,
-                colors: m.modified.colors,
-              },
-            }),
-          ),
-        )
-      },
-      onDelete: async ({ transaction }) => {
-        await Promise.all(
-          transaction.mutations.map((m) => deletePalette({ data: { id: m.original.id } })),
-        )
-      },
-    }),
-  )
+export const paletteCollection = collectionOptions('palettes', (client) =>
+  queryCollectionOptions({
+    schema: paletteSchema,
+    queryClient: client.requireDependency<QueryClient>('queryClient'),
+    queryKey: palettesQueryOptions.queryKey,
+    queryFn: () => getPalettes(),
+    getKey: (palette) => palette.id,
+    onInsert: async ({ transaction }) => {
+      await Promise.all(
+        transaction.mutations.map((m) =>
+          savePalette({
+            data: {
+              id: m.modified.id,
+              name: m.modified.name,
+              baseColor: m.modified.baseColor,
+              colors: m.modified.colors,
+            },
+          }),
+        ),
+      )
+    },
+    onUpdate: async ({ transaction }) => {
+      await Promise.all(
+        transaction.mutations.map((m) =>
+          updatePalette({
+            data: {
+              id: m.modified.id,
+              baseColor: m.modified.baseColor,
+              colors: m.modified.colors,
+            },
+          }),
+        ),
+      )
+    },
+    onDelete: async ({ transaction }) => {
+      await Promise.all(
+        transaction.mutations.map((m) => deletePalette({ data: { id: m.original.id } })),
+      )
+    },
+  }),
+)
