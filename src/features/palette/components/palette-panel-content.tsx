@@ -11,7 +11,7 @@ export const PalettePanelContent = ({
   return (
     <div
       className={cn(
-        'flex w-full grow flex-col items-center justify-start overflow-y-auto px-md py-sm',
+        'flex w-full grow flex-col items-center justify-start overflow-y-auto',
         className,
       )}
       ref={ref}

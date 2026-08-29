@@ -167,6 +167,7 @@ export const account = pgTable(
     refreshTokenExpiresAt: timestamp('refresh_token_expires_at', { mode: 'string' }),
     scope: text(),
     password: text(),
+    issuer: text(),
     createdAt: timestamp('created_at', { mode: 'string' }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { mode: 'string' }).notNull(),
   },

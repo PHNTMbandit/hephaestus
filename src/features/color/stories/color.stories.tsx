@@ -35,7 +35,7 @@ export const Single: Story = {
   },
   render: ({ color: { id, locked, value } }) => (
     <Color.Provider color={{ id, locked, value }}>
-      <Color.Block size="medium" className="w-1/2">
+      <Color.Swatch size="medium" className="w-1/2">
         <Color.Header>
           <Color.Name size="large" />
         </Color.Header>
@@ -45,7 +45,7 @@ export const Single: Story = {
             <Color.Copy />
           </Color.Actions>
         </Color.Footer>
-      </Color.Block>
+      </Color.Swatch>
     </Color.Provider>
   ),
 }

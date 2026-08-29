@@ -1,8 +1,9 @@
 import { CircleNotchIcon, FloppyDiskIcon } from '@phosphor-icons/react/dist/ssr'
-import { useRouteContext } from '@tanstack/react-router'
+import { useDbClient } from '@tanstack/react-db'
 import { Button, cn, stackToastManager } from 'dawn-ui-react'
 import React from 'react'
 import { m } from '#/paraglide/messages.js'
+import { paletteCollection } from '../db/collection'
 import { usePalette } from '../hooks/use-palette'
 import { serializePaletteState } from '../utils/state'
 
@@ -17,7 +18,7 @@ export const PaletteUpdate = ({
   ref,
   ...props
 }: PaletteUpdateProps) => {
-  const { paletteCollection } = useRouteContext({ from: '__root__' })
+  const collection = useDbClient().collection(paletteCollection)
   const { state } = usePalette()
   const [isPending, startTransition] = React.useTransition()
 
@@ -25,7 +26,7 @@ export const PaletteUpdate = ({
     const palette = serializePaletteState(state)
 
     startTransition(async () => {
-      const tx = paletteCollection.update(paletteId, (draft) => {
+      const tx = collection.update(paletteId, (draft) => {
         draft.baseColor = palette.baseColor
         draft.colors = palette.colors
       })

@@ -1,9 +1,7 @@
-import {
-  generateRandomColor,
-  paletteGeneratorMethodsList,
-  recordHistory,
-  valueTypesList,
-} from './utils'
+import { valueTypesList } from './constants/values'
+import { generateRandomColor } from './utils/color-generators'
+import { paletteGeneratorMethodsList } from './utils/generator-methods'
+import { recordHistory } from './utils/history'
 
 import type { PaletteAction, PaletteState } from './types/state'
 
