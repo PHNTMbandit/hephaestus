@@ -1,5 +1,5 @@
 import { ScriptOnce } from '@tanstack/react-router'
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useSyncExternalStore } from 'react'
 
 type Theme = 'dark' | 'light' | 'system'
 
@@ -12,6 +12,22 @@ type ThemeProviderProps = {
 type ThemeProviderState = {
   theme: Theme
   setTheme: (theme: Theme) => void
+}
+
+const THEME_CHANGE_EVENT = 'theme-change'
+
+function isTheme(value: string | null): value is Theme {
+  return value === 'light' || value === 'dark' || value === 'system'
+}
+
+function subscribeToTheme(onStoreChange: () => void) {
+  window.addEventListener('storage', onStoreChange)
+  window.addEventListener(THEME_CHANGE_EVENT, onStoreChange)
+
+  return () => {
+    window.removeEventListener('storage', onStoreChange)
+    window.removeEventListener(THEME_CHANGE_EVENT, onStoreChange)
+  }
 }
 
 function getThemeScript(storageKey: string, defaultTheme: Theme) {
@@ -46,34 +62,31 @@ export function ThemeProvider({
   defaultTheme = 'system',
   storageKey = 'theme',
 }: ThemeProviderProps) {
-  const [theme, setThemeState] = useState<Theme>(defaultTheme)
-  const [mounted, setMounted] = useState(false)
+  const theme = useSyncExternalStore(
+    subscribeToTheme,
+    () => {
+      const storedTheme = localStorage.getItem(storageKey)
+      return isTheme(storedTheme) ? storedTheme : defaultTheme
+    },
+    () => defaultTheme,
+  )
 
   useEffect(() => {
-    const stored = localStorage.getItem(storageKey)
-    setThemeState(
-      stored === 'light' || stored === 'dark' || stored === 'system' ? stored : defaultTheme,
-    )
-    setMounted(true)
-  }, [defaultTheme, storageKey])
-
-  useEffect(() => {
-    if (!mounted) return
     applyTheme(theme)
-  }, [theme, mounted])
+  }, [theme])
 
   useEffect(() => {
-    if (!mounted || theme !== 'system') return
+    if (theme !== 'system') return
 
     const media = window.matchMedia('(prefers-color-scheme: dark)')
     const onChange = () => applyTheme('system')
     media.addEventListener('change', onChange)
     return () => media.removeEventListener('change', onChange)
-  }, [theme, mounted])
+  }, [theme])
 
   const setTheme = (next: Theme) => {
     localStorage.setItem(storageKey, next)
-    setThemeState(next)
+    window.dispatchEvent(new Event(THEME_CHANGE_EVENT))
   }
 
   return (
