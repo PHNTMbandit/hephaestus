@@ -1,8 +1,8 @@
 import { defaultPaletteState } from '../constants/state'
 
-import type { PaletteState, PaletteStateInput, SerializablePaletteState } from '../types/state'
+import type { PaletteInitialState, PaletteState, SerializablePaletteState } from '../types/state'
 
-export function hydratePaletteState(data: PaletteStateInput): PaletteState {
+export function hydratePaletteState(data: PaletteInitialState = {}): PaletteState {
   return {
     ...defaultPaletteState,
     ...data,

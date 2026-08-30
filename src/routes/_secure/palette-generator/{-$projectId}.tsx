@@ -15,6 +15,7 @@ import {
 export const Route = createFileRoute('/_secure/palette-generator/{-$projectId}')({
   component: RouteComponent,
   errorComponent: () => <p>Palette doesn't exist</p>,
+  notFoundComponent: () => <p>Palette doesn't exist</p>,
   loader: async ({ context: { dbClient }, params: { projectId } }) => {
     const baseColor = generateRandomColor().value
     const newPaletteState = hydratePaletteState({ baseColor, colors: [] })
@@ -70,6 +71,7 @@ function RouteComponent() {
               <Palette.Redo />
               <Separator orientation="vertical" className={'w-px!'} />
               <Palette.Reset />
+              <Palette.Import />
               <Palette.Export />
               {savedPalette ? <Palette.Update paletteId={savedPalette.id} /> : <Palette.Save />}
             </Palette.ToolbarGroup>

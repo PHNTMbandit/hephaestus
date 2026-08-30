@@ -13,6 +13,7 @@ import { PaletteExportRoot } from './palette-export-root'
 import { PaletteGeneratorContent } from './palette-generator-content'
 import { PaletteGeneratorSelect } from './palette-generator-select'
 import { PaletteGradient } from './palette-gradient'
+import { PaletteImport } from './palette-import'
 import { PaletteList } from './palette-list'
 import { PaletteLock } from './palette-lock'
 import { PaletteModeToggle } from './palette-mode-toggle'
@@ -51,6 +52,7 @@ export const Palette = {
   Export: PaletteExportRoot,
   GeneratorSelect: PaletteGeneratorSelect,
   Gradient: PaletteGradient,
+  Import: PaletteImport,
   List: PaletteList,
   Lock: PaletteLock,
   ModeToggle: PaletteModeToggle,

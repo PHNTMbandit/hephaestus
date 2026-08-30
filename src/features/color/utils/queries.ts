@@ -3,6 +3,13 @@ import { createServerFn } from '@tanstack/react-start'
 
 import type { ColorNameList } from '../color.types'
 
+export const normalizeColorNameHex = (hex: string): string => {
+  const value = hex.replace(/^#/, '').toLowerCase()
+  const rgb = value.length === 3 || value.length === 4 ? value.slice(0, 3) : value.slice(0, 6)
+
+  return rgb.length === 3 ? [...rgb].map((channel) => channel.repeat(2)).join('') : rgb
+}
+
 export const getColorName = createServerFn()
   .validator((data: { hex: string; list?: ColorNameList; noDuplicates?: boolean }) => data)
   .handler(async ({ data }): Promise<string | null> => {
@@ -31,6 +38,6 @@ export const getColorName = createServerFn()
 
 export const colorNameQueryOptions = (hex: string, list?: ColorNameList, noDuplicates?: boolean) =>
   queryOptions({
-    queryKey: ['colorName', hex],
-    queryFn: () => getColorName({ data: { hex: hex.split('#')[1], list, noDuplicates } }),
+    queryKey: ['colorName', normalizeColorNameHex(hex)],
+    queryFn: () => getColorName({ data: { hex: normalizeColorNameHex(hex), list, noDuplicates } }),
   })

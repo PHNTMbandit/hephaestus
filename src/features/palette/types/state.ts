@@ -30,6 +30,7 @@ export type PaletteAction =
   | { type: 'REORDER'; payload: { newColors: Color[] } }
   | { type: 'GENERATE' }
   | { type: 'SET_BASE_COLOR'; payload: { baseColor: string } }
+  | { type: 'SET_COLORS'; payload: { colors: Color[] } }
   | { type: 'SET_GENERATOR_METHOD'; payload: { id: string } }
   | { type: 'SET_VALUE_TYPE'; payload: { valueType: string } }
   | { type: 'SET_LIMIT'; payload: { limit: number } }
@@ -53,3 +54,5 @@ export type SerializablePaletteState = Omit<PaletteState, 'currentGeneratorMetho
 
 export type PaletteStateInput = Pick<SerializablePaletteState, 'baseColor' | 'colors'> &
   Partial<Omit<SerializablePaletteState, 'baseColor' | 'colors'>>
+
+export type PaletteInitialState = Partial<PaletteState>

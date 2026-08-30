@@ -133,6 +133,15 @@ export const paletteReducer = (state: PaletteState, action: PaletteAction): Pale
         }),
       }
     }
+    case 'SET_COLORS':
+      return {
+        ...state,
+        ...recordHistory(state, 'Set Colors', {
+          colors: action.payload.colors.slice(0, state.limit),
+          baseColor: state.baseColor,
+        }),
+        colors: action.payload.colors.slice(0, state.limit),
+      }
     case 'SET_VALUE_TYPE':
       return {
         ...state,

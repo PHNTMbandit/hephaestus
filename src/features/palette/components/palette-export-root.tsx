@@ -1,4 +1,5 @@
-import { CircleNotchIcon, DownloadIcon } from '@phosphor-icons/react/dist/ssr'
+import { ExportIcon } from '@phosphor-icons/react'
+import { CircleNotchIcon } from '@phosphor-icons/react/dist/ssr'
 import {
   Button,
   cn,
@@ -47,7 +48,7 @@ export const PaletteExportRoot = ({
             {...props}
           >
             {children}
-            <DownloadIcon weight="bold" className="shrink-0" />
+            <ExportIcon weight="bold" className="shrink-0" />
             Export
           </Button>
         </DialogTrigger>

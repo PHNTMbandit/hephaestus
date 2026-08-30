@@ -5,6 +5,27 @@ import { hydratePaletteState, serializePaletteState } from '../utils/state'
 const colors = [{ id: 'red', value: '#ff0000', locked: false }]
 
 describe('palette state serialization', () => {
+  it('hydrates an empty state with editor defaults', () => {
+    expect(hydratePaletteState()).toStrictEqual({
+      undoActions: [],
+      redoActions: [],
+      baseColor: PALETTE_CONFIG.DEFAULT_BASE_COLOR,
+      colors: [],
+      currentGeneratorMethod: expect.any(Object),
+      limit: PALETTE_CONFIG.DEFAULT_LIMIT,
+      mode: PALETTE_CONFIG.DEFAULT_MODE,
+      valueType: expect.any(Object),
+    })
+  })
+
+  it('hydrates colors without requiring unrelated editor state', () => {
+    const state = hydratePaletteState({ colors })
+
+    expect(state.colors).toBe(colors)
+    expect(state.baseColor).toBe(PALETTE_CONFIG.DEFAULT_BASE_COLOR)
+    expect(state.limit).toBe(PALETTE_CONFIG.DEFAULT_LIMIT)
+  })
+
   it('hydrates an unsaved palette with editor defaults', () => {
     const state = hydratePaletteState({ baseColor: '#ff0000', colors })
 
