@@ -7,6 +7,7 @@ import { PaletteAccessibilityScores } from './palette-accessibility-scores'
 import { PaletteAccessibilitySwatches } from './palette-accessibility-swatches'
 import { PaletteAdd } from './palette-add'
 import { PaletteBaseColor } from './palette-base-color'
+import { PaletteBlocker } from './palette-blocker'
 import { PaletteCount } from './palette-count'
 import { PaletteDelete } from './palette-delete'
 import { PaletteExportRoot } from './palette-export-root'
@@ -46,6 +47,7 @@ export const Palette = {
   AccessibilityScores: PaletteAccessibilityScores,
   AccessibilitySwatches: PaletteAccessibilitySwatches,
   BaseColor: PaletteBaseColor,
+  Blocker: PaletteBlocker,
   GeneratorContent: PaletteGeneratorContent,
   Count: PaletteCount,
   Delete: PaletteDelete,

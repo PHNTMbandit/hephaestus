@@ -49,6 +49,7 @@ function RouteComponent() {
 
   return (
     <Palette.Root key={savedPalette?.id ?? 'new'} initialState={paletteState}>
+      <Palette.Blocker />
       <div className="relative flex size-full">
         <Palette.Panel>
           <Palette.PanelHeader>
