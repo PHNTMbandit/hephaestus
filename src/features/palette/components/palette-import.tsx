@@ -29,7 +29,7 @@ import { Color as ColorComponent } from '#/features/color/components/color'
 import { valueTypesList } from '../constants/values'
 import { usePalette } from '../hooks/use-palette'
 import { paletteImportSchema } from '../schema/palette-import-schema'
-import { stringToHex } from '../utils/parse'
+import { parseColorValues, type ColorValueTypeId } from '../utils/parse'
 import { Palette } from './palette'
 
 import type { Color } from '#/features/color/color.types'
@@ -48,26 +48,24 @@ export const PaletteImport = ({ className, children, ref, ...props }: PaletteImp
     validators: {
       onSubmit: paletteImportSchema,
     },
-    onSubmit: ({ formApi, value }) => {
-      if (value.valueType === 'hex') {
-        try {
-          const parsedValues = value.values
-            .split(/[\s,]+/)
-            .filter(Boolean)
-            .map((input) => ({
-              id: crypto.randomUUID(),
-              value: stringToHex(input),
-              locked: false,
-            }))
 
-          setPreviewColors(parsedValues)
-        } catch (error) {
-          formApi.setErrorMap({
-            onSubmit: {
-              '': [{ message: (error as Error).message }],
-            },
-          })
-        }
+    onSubmit: ({ formApi, value }) => {
+      try {
+        const colors: Color[] = parseColorValues(
+          value.values,
+          value.valueType as ColorValueTypeId,
+        ).map((parsedValue) => ({
+          id: crypto.randomUUID(),
+          value: parsedValue,
+          locked: false,
+        }))
+        setPreviewColors(colors)
+      } catch (error) {
+        formApi.setErrorMap({
+          onSubmit: {
+            '': [{ message: error instanceof Error ? error.message : 'Unable to parse colors' }],
+          },
+        })
       }
     },
   })
@@ -119,7 +117,14 @@ export const PaletteImport = ({ className, children, ref, ...props }: PaletteImp
               </form.FormErrors>
               <form.FormSet>
                 <form.FormSetContent>
-                  <form.AppField name="valueType">
+                  <form.AppField
+                    name="valueType"
+                    listeners={{
+                      onChange: () => {
+                        setPreviewColors([])
+                      },
+                    }}
+                  >
                     {(field) => (
                       <field.FieldSet>
                         <field.FieldSelect>
@@ -146,12 +151,19 @@ export const PaletteImport = ({ className, children, ref, ...props }: PaletteImp
                       </field.FieldSet>
                     )}
                   </form.AppField>
-                  <form.AppField name="values">
+                  <form.AppField
+                    name="values"
+                    listeners={{
+                      onChange: () => {
+                        setPreviewColors([])
+                      },
+                    }}
+                  >
                     {(field) => (
                       <field.FieldSet>
                         <field.FieldTextArea
                           variant={'secondary'}
-                          placeholder="Enter color values separated by commas"
+                          placeholder="Enter color values separated by commas, spaces, or newlines"
                           className="min-h-[20vh] resize-y"
                         />
                       </field.FieldSet>
