@@ -142,6 +142,11 @@ export const paletteReducer = (state: PaletteState, action: PaletteAction): Pale
         }),
         colors: action.payload.colors.slice(0, state.limit),
       }
+    case 'SET_IS_SAVING':
+      return {
+        ...state,
+        saving: action.payload.saving,
+      }
     case 'SET_VALUE_TYPE':
       return {
         ...state,

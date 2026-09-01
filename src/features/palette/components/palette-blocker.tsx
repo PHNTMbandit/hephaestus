@@ -20,7 +20,8 @@ type PaletteBlockerProps = React.ComponentProps<typeof AlertDialogPopup>
 export const PaletteBlocker = ({ className, children, ref, ...props }: PaletteBlockerProps) => {
   const { state } = usePalette()
   const { proceed, reset, status } = useBlocker({
-    shouldBlockFn: () => state.redoActions.length > 0 || state.undoActions.length > 0,
+    shouldBlockFn: () =>
+      state.saving === true ? false : state.redoActions.length > 0 || state.undoActions.length > 0,
     withResolver: true,
   })
 

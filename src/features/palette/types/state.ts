@@ -17,6 +17,7 @@ export type PaletteState = {
   createdAt?: string
   updatedAt?: string
   name?: string
+  saving?: boolean
 }
 
 export type PaletteAction =
@@ -25,6 +26,7 @@ export type PaletteAction =
   | { type: 'REMOVE' }
   | { type: 'REMOVE_AT'; payload: { index: number } }
   | { type: 'UPDATE'; payload: { id: string; hex: string } }
+  | { type: 'SET_IS_SAVING'; payload: { saving: boolean } }
   | { type: 'LOCK'; payload: { id: string } }
   | { type: 'UNLOCK'; payload: { id: string } }
   | { type: 'REORDER'; payload: { newColors: Color[] } }
