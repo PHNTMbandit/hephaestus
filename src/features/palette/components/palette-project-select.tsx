@@ -1,6 +1,6 @@
 import { CaretUpDownIcon } from '@phosphor-icons/react'
-import { useLiveQuery } from '@tanstack/react-db'
-import { useNavigate, useRouteContext } from '@tanstack/react-router'
+import { useDbClient, useLiveQuery } from '@tanstack/react-db'
+import { useNavigate } from '@tanstack/react-router'
 import {
   cn,
   Select,
@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from 'dawn-ui-react'
+import { paletteCollection } from '../db/collection'
 
 type PaletteProjectSelectProps = React.ComponentProps<typeof SelectTrigger> & {
   value: string
@@ -24,8 +25,8 @@ export const PaletteProjectSelect = ({
   ...props
 }: PaletteProjectSelectProps) => {
   const navigate = useNavigate()
-  const { paletteCollection } = useRouteContext({ from: '__root__' })
-  const { data: palettes } = useLiveQuery((q) => q.from({ palette: paletteCollection }))
+  const collection = useDbClient().collection(paletteCollection)
+  const { data: palettes } = useLiveQuery((q) => q.from({ palette: collection }))
 
   const handleSelect = (value: any) => {
     navigate({ to: '/palette-generator/{-$projectId}', params: { projectId: value } })

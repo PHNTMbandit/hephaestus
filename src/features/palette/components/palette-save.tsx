@@ -4,6 +4,7 @@ import { useDbClient } from '@tanstack/react-db'
 import { useNavigate } from '@tanstack/react-router'
 import { Button, cn, stackToastManager } from 'dawn-ui-react'
 import React from 'react'
+import { flushSync } from 'react-dom'
 import { m } from '#/paraglide/messages.js'
 import { paletteCollection } from '../db/collection'
 import { usePalette } from '../hooks/use-palette'
@@ -14,7 +15,7 @@ type PaletteSaveProps = React.ComponentProps<'button'>
 export const PaletteSave = ({ className, children, ref, ...props }: PaletteSaveProps) => {
   const navigate = useNavigate()
   const collection = useDbClient().collection(paletteCollection)
-  const { state } = usePalette()
+  const { state, dispatch } = usePalette()
   const [isPending, startTransition] = React.useTransition()
 
   const handleClick = () => {
@@ -35,6 +36,9 @@ export const PaletteSave = ({ className, children, ref, ...props }: PaletteSaveP
           title: m['colorPalette.toasts.saveSuccess.title'](),
           description: m['colorPalette.toasts.saveSuccess.description'](),
           variant: 'success',
+        })
+        flushSync(() => {
+          dispatch({ type: 'SET_IS_SAVING', payload: { saving: true } })
         })
         navigate({ to: '/palette-generator/{-$projectId}', params: { projectId: id } })
       } catch (error) {

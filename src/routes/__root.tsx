@@ -40,6 +40,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     ],
   }),
   shellComponent: RootDocument,
+  pendingComponent: () => <p>Loading...</p>,
   notFoundComponent: () => <p>Page not found</p>,
 })
 

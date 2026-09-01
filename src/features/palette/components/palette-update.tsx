@@ -59,6 +59,7 @@ export const PaletteUpdate = ({
         {...props}
       >
         <CircleNotchIcon weight="bold" className="animate-spin" />
+        Updating...
       </Button>
     )
   }

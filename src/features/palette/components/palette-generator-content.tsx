@@ -32,10 +32,6 @@ export const PaletteGeneratorContent = ({
   } = usePalette()
   const [pendingColor, setPendingColor] = React.useState<string>(baseColor)
 
-  React.useEffect(() => {
-    setPendingColor(baseColor)
-  }, [baseColor])
-
   const handleColorChange = (color: string) => {
     setPendingColor(color)
   }
