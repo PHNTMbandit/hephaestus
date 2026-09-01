@@ -2,6 +2,7 @@ import { QueryClient } from '@tanstack/query-core'
 import { queryCollectionOptions } from '@tanstack/query-db-collection'
 import { collectionOptions } from '@tanstack/react-db'
 import { z } from 'zod'
+import { paletteVisibilities } from '../schema/palette-save-schema'
 import {
   getPalettes,
   palettesQueryOptions,
@@ -13,13 +14,15 @@ import {
 import type { Color } from '#/features/color/color.types.ts'
 
 const paletteSchema = z.object({
-  id: z.string().default(() => crypto.randomUUID()),
-  userId: z.string().default(''),
-  createdAt: z.string().default(() => new Date().toISOString()),
-  updatedAt: z.string().default(() => new Date().toISOString()),
-  name: z.string(),
   baseColor: z.string(),
   colors: z.custom<Color[]>(),
+  createdAt: z.string().default(() => new Date().toISOString()),
+  description: z.string().default(''),
+  id: z.string().default(() => crypto.randomUUID()),
+  name: z.string(),
+  updatedAt: z.string().default(() => new Date().toISOString()),
+  userId: z.string().default(''),
+  visibility: z.enum(paletteVisibilities).default('private'),
 })
 
 export const paletteCollection = collectionOptions('palettes', (client) =>
@@ -36,6 +39,8 @@ export const paletteCollection = collectionOptions('palettes', (client) =>
             data: {
               id: m.modified.id,
               name: m.modified.name,
+              description: m.modified.description,
+              visibility: m.modified.visibility,
               baseColor: m.modified.baseColor,
               colors: m.modified.colors,
             },

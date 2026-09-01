@@ -32,6 +32,7 @@ export type PaletteAction =
   | { type: 'REORDER'; payload: { newColors: Color[] } }
   | { type: 'GENERATE' }
   | { type: 'SET_BASE_COLOR'; payload: { baseColor: string } }
+  | { type: 'SET_COLOR'; payload: { id: string; colorValue: string } }
   | { type: 'SET_COLORS'; payload: { colors: Color[] } }
   | { type: 'SET_GENERATOR_METHOD'; payload: { id: string } }
   | { type: 'SET_VALUE_TYPE'; payload: { valueType: string } }

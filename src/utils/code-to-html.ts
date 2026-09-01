@@ -9,7 +9,7 @@ import * as prettierPluginTypescript from 'prettier/plugins/typescript'
 import { highlighter } from '#/lib/shiki.ts'
 
 import type { Color } from '#/features/color/color.types.ts'
-import type { ValueType } from '#/features/palette/types/state.ts'
+import type { ValueType } from '#/features/palette/types/value.ts'
 import type { BundledLanguage } from 'shiki/bundle/web'
 
 export const convertColorsToCss = (colors: Color[], valueType: ValueType) => {

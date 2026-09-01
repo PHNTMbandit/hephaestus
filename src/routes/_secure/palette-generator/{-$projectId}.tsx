@@ -2,8 +2,8 @@ import { createFileRoute, notFound } from '@tanstack/react-router'
 import { Separator } from 'dawn-ui-react'
 import { CurrentPageTitle } from '#/components/current-page-title'
 import { Color } from '#/features/color/components/color.ts'
-import { PalettePanelTabs } from '#/features/palette/components/palette-panel-tabs'
-import { Palette } from '#/features/palette/components/palette.ts'
+import { PaletteEditor } from '#/features/palette-editor/components/palette-editor'
+import { Palette } from '#/features/palette/components/palette'
 import { PALETTE_CONFIG } from '#/features/palette/constants/state.ts'
 import { paletteCollection } from '#/features/palette/db/collection'
 import {
@@ -11,6 +11,7 @@ import {
   hydratePaletteState,
   serializePaletteState,
 } from '#/features/palette/utils/index.ts'
+import { getFormDataFromServer } from '#/utils/form-data'
 
 export const Route = createFileRoute('/_secure/palette-generator/{-$projectId}')({
   component: RouteComponent,
@@ -26,9 +27,13 @@ export const Route = createFileRoute('/_secure/palette-generator/{-$projectId}')
         PALETTE_CONFIG.INITIAL_COLORS_COUNT,
       ),
     })
+    const saveFormState = (await getFormDataFromServer()) ?? {
+      errorMap: { onServer: undefined },
+      errors: [],
+    }
 
     if (!projectId) {
-      return { serializableState, savedPalette: null }
+      return { serializableState, savedPalette: null, saveFormState }
     }
 
     const collection = dbClient.collection(paletteCollection)
@@ -39,61 +44,66 @@ export const Route = createFileRoute('/_secure/palette-generator/{-$projectId}')
       notFound({ throw: true })
     }
 
-    return { serializableState, savedPalette }
+    return { serializableState, savedPalette, saveFormState }
   },
 })
 
 function RouteComponent() {
-  const { serializableState, savedPalette } = Route.useLoaderData()
+  const { serializableState, savedPalette, saveFormState } = Route.useLoaderData()
   const paletteState = hydratePaletteState(savedPalette ?? serializableState)
 
   return (
     <Palette.Root key={savedPalette?.id ?? 'new'} initialState={paletteState}>
-      <Palette.Blocker />
+      <PaletteEditor.Blocker />
       <div className="relative flex size-full">
-        <Palette.Panel>
-          <Palette.PanelHeader>
+        <PaletteEditor.Panel>
+          <PaletteEditor.PanelHeader>
             <CurrentPageTitle />
-            <PalettePanelTabs />
-          </Palette.PanelHeader>
-          <Palette.PanelContent>
-            <Palette.GeneratorContent />
-            <Palette.AccessibilityContent />
-          </Palette.PanelContent>
-        </Palette.Panel>
+            <PaletteEditor.PanelTabs />
+          </PaletteEditor.PanelHeader>
+          <PaletteEditor.PanelContent>
+            <PaletteEditor.Controls />
+            <PaletteEditor.AccessibilityContent />
+          </PaletteEditor.PanelContent>
+        </PaletteEditor.Panel>
         <div className="flex w-full flex-col">
-          <Palette.Toolbar>
-            <Palette.ToolbarGroup>
+          <PaletteEditor.Toolbar>
+            <PaletteEditor.ToolbarGroup>
               {savedPalette && <Palette.Name>{savedPalette.name}</Palette.Name>}
-            </Palette.ToolbarGroup>
-            <Palette.ToolbarGroup>
-              <Palette.ValueSelect />
-              <Palette.Undo />
-              <Palette.Redo />
+            </PaletteEditor.ToolbarGroup>
+            <PaletteEditor.ToolbarGroup>
+              <PaletteEditor.ValueSelect />
+              <PaletteEditor.Undo />
+              <PaletteEditor.Redo />
               <Separator orientation="vertical" className={'w-px!'} />
-              <Palette.Reset />
-              <Palette.Import />
-              <Palette.Export />
-              {savedPalette ? <Palette.Update paletteId={savedPalette.id} /> : <Palette.Save />}
-            </Palette.ToolbarGroup>
-          </Palette.Toolbar>
-          <Palette.ModeView>
+              <PaletteEditor.Reset />
+              <PaletteEditor.Import />
+              <PaletteEditor.Export />
+              {savedPalette ? (
+                <PaletteEditor.Update paletteId={savedPalette.id} />
+              ) : (
+                <PaletteEditor.Save saveFormState={saveFormState} />
+              )}
+            </PaletteEditor.ToolbarGroup>
+          </PaletteEditor.Toolbar>
+          <PaletteEditor.ModeView>
             {({ mode }) => {
               if (mode === 'list') {
                 return (
-                  <Palette.ReorderableList>
+                  <PaletteEditor.ReorderableColors>
                     {({ color, isDragging, valueType }) => (
                       <Color.Provider color={color}>
                         <Color.Swatch>
-                          <Palette.Add />
+                          <PaletteEditor.AddColor />
                           <Color.Header>
                             <Color.Name />
                           </Color.Header>
                           {!isDragging && (
                             <Color.Actions>
-                              <Palette.Delete />
+                              <PaletteEditor.RemoveColor />
+                              <PaletteEditor.EditColor />
                               <Color.Copy value={valueType?.getColorClipboardFormat(color.value)} />
-                              <Palette.Lock />
+                              <PaletteEditor.LockColor />
                             </Color.Actions>
                           )}
                           <Color.Footer>
@@ -102,14 +112,14 @@ function RouteComponent() {
                         </Color.Swatch>
                       </Color.Provider>
                     )}
-                  </Palette.ReorderableList>
+                  </PaletteEditor.ReorderableColors>
                 )
               }
               if (mode === 'preview') {
                 return <Palette.Gradient />
               }
             }}
-          </Palette.ModeView>
+          </PaletteEditor.ModeView>
         </div>
       </div>
     </Palette.Root>

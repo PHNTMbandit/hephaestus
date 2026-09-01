@@ -133,6 +133,17 @@ export const paletteReducer = (state: PaletteState, action: PaletteAction): Pale
         }),
       }
     }
+    case 'SET_COLOR': {
+      const colors = state.colors.map((c) =>
+        c.id === action.payload.id ? { ...c, value: action.payload.colorValue } : c,
+      )
+
+      return {
+        ...state,
+        ...recordHistory(state, 'Set Color', { colors, baseColor: state.baseColor }),
+        colors,
+      }
+    }
     case 'SET_COLORS':
       return {
         ...state,

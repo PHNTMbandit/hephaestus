@@ -4,6 +4,7 @@ import {
   foreignKey,
   unique,
   pgPolicy,
+  pgEnum,
   uuid,
   text,
   timestamp,
@@ -12,6 +13,8 @@ import {
 } from 'drizzle-orm/pg-core'
 
 import type { Color } from '#/features/color/color.types.ts'
+
+export const paletteVisibility = pgEnum('palette_visibility', ['public', 'unlisted', 'private'])
 
 export const designSystems = pgTable(
   'design_systems',
@@ -94,14 +97,16 @@ export const colorPalettes = pgTable(
     id: uuid().defaultRandom().primaryKey().notNull(),
     userId: text('user_id').notNull(),
     name: text().notNull(),
+    description: text().default('').notNull(),
+    visibility: paletteVisibility().default('private').notNull(),
     colors: jsonb().$type<Color[]>().notNull(),
+    baseColor: text('base_color').notNull(),
     createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
       .defaultNow()
       .notNull(),
     updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' })
       .defaultNow()
       .notNull(),
-    baseColor: text('base_color').notNull(),
   },
   (table) => [
     index('color_palettes_user_id_idx').using(

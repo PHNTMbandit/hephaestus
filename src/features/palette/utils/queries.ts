@@ -8,12 +8,21 @@ import { authMiddleware } from '#/middleware/auth-middleware.ts'
 import type { Color } from '#/features/color/color.types.ts'
 
 export const savePalette = createServerFn({ method: 'POST' })
-  .validator((data: { id: string; name: string; colors: Color[]; baseColor: string }) => data)
+  .validator(
+    (data: {
+      id: string
+      name: string
+      description: string
+      visibility: 'public' | 'unlisted' | 'private'
+      colors: Color[]
+      baseColor: string
+    }) => data,
+  )
   .middleware([authMiddleware])
-  .handler(async ({ data: { id, name, colors, baseColor }, context }) => {
+  .handler(async ({ data: { id, name, description, visibility, colors, baseColor }, context }) => {
     const [response] = await db
       .insert(colorPalettes)
-      .values({ id, name, userId: context.user.id, baseColor, colors })
+      .values({ id, name, description, visibility, userId: context.user.id, baseColor, colors })
       .returning()
     return response
   })

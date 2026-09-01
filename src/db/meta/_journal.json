@@ -36,6 +36,13 @@
       "when": 1787982293838,
       "tag": "0004_shallow_the_leader",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1788242182269,
+      "tag": "0005_fixed_enchantress",
+      "breakpoints": true
     }
   ]
 }
