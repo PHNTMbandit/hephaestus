@@ -14,7 +14,7 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { PaletteRoot } from '#/features/palette/components/root'
 import { paletteCollection } from '#/features/palette/db/collection'
-import { PaletteBlocker } from '../components/blocker'
+import { PaletteEditorBlocker } from '../components/blocker'
 
 import type { Color } from '#/features/color/color.types.ts'
 import type { PaletteInitialState } from '#/features/palette/types/state'
@@ -82,10 +82,10 @@ async function renderBlocker({
   const secureRoute = createRoute({ getParentRoute: () => rootRoute, id: '_secure' })
   const paletteRoute = createRoute({
     getParentRoute: () => secureRoute,
-    path: 'palette-generator/{-$projectId}',
+    path: 'palette-generator/{-$paletteId}',
     component: () => (
       <PaletteRoot initialState={initialState}>
-        <PaletteBlocker />
+        <PaletteEditorBlocker />
         <NavLink to="/target">Leave page</NavLink>
       </PaletteRoot>
     ),

@@ -1,13 +1,13 @@
 import { cn } from 'dawn-ui-react'
 
-type PaletteToolbarGroupProps = React.ComponentProps<'div'>
+type PaletteEditorToolbarGroupProps = React.ComponentProps<'div'>
 
-export const PaletteToolbarGroup = ({
+export const PaletteEditorToolbarGroup = ({
   className,
   children,
   ref,
   ...props
-}: PaletteToolbarGroupProps) => {
+}: PaletteEditorToolbarGroupProps) => {
   return (
     <div
       className={cn('flex flex-wrap items-center justify-center gap-3xs', className)}

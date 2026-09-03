@@ -1,6 +1,6 @@
 import { CheckCircleIcon } from '@phosphor-icons/react'
 import { cn } from 'dawn-ui-react'
-import { ColorValueRow } from '#/features/color/components/color-value-row'
+import { ColorValueRow } from '#/features/color/components/value-row'
 import { getForeground } from '#/features/color/utils/style'
 
 type ContrastCombinationCardProps = React.ComponentProps<'button'> & {

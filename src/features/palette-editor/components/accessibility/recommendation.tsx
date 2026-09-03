@@ -7,14 +7,14 @@ import { usePalette } from '#/features/palette/hooks/use-palette'
 
 import type { Color } from '#/features/color/color.types'
 
-type PaletteAccessibilityRecommendationProps = React.ComponentProps<'div'>
+type PaletteEditorAccessibilityRecommendationProps = React.ComponentProps<'div'>
 
-export const PaletteAccessibilityRecommendation = ({
+export const PaletteEditorAccessibilityRecommendation = ({
   className,
   children,
   ref,
   ...props
-}: PaletteAccessibilityRecommendationProps) => {
+}: PaletteEditorAccessibilityRecommendationProps) => {
   const { setForeground, setBackground, foreground, background } = usePaletteAccessibility()
   const {
     state: { colors, valueType },

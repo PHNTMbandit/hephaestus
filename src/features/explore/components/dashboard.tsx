@@ -32,7 +32,7 @@ export const Dashboard = ({ className, children, ref, ...props }: DashboardProps
     >
       {data?.map((palette) => (
         <div key={palette.id}>
-          <Link to="/palette-generator/{-$projectId}" params={{ projectId: palette.id }}>
+          <Link to="/palette-generator/{-$paletteId}" params={{ paletteId: palette.id }}>
             <Palette.Root initialState={hydratePaletteState(palette)}>
               <Palette.Swatches orientation={'horizontal'} rounded="xxLarge">
                 {({ color }) => (

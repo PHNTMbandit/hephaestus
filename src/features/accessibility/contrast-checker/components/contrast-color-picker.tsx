@@ -1,5 +1,4 @@
 import { useDbClient, useLiveQuery } from '@tanstack/react-db'
-import chroma from 'chroma-js'
 import {
   cn,
   ColorPicker,
@@ -88,7 +87,7 @@ export const ContrastColorPicker = ({
         </Combobox>
         <ColorPickerPaletteList>
           {palette?.map((color, idx) => (
-            <ColorPickerPaletteSwatch key={idx} color={chroma(color)} />
+            <ColorPickerPaletteSwatch key={idx} color={color} />
           ))}
         </ColorPickerPaletteList>
       </ColorPickerGroup>

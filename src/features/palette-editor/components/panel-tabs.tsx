@@ -1,8 +1,13 @@
 import { cn, TabsIndicator, TabsList, TabsTab } from 'dawn-ui-react'
 
-type PalettePanelTabsProps = React.ComponentProps<'div'>
+type PaletteEditorPanelTabsProps = React.ComponentProps<'div'>
 
-export const PalettePanelTabs = ({ className, children, ref, ...props }: PalettePanelTabsProps) => {
+export const PaletteEditorPanelTabs = ({
+  className,
+  children,
+  ref,
+  ...props
+}: PaletteEditorPanelTabsProps) => {
   return (
     <TabsList className={cn('', className)} ref={ref} {...props}>
       <TabsTab value="generator">Generator</TabsTab>

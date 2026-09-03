@@ -26,19 +26,19 @@ import {
 import { handleSavePaletteForm } from '#/features/palette/server/palette-save-action'
 import { m } from '#/paraglide/messages'
 
-type PaletteSaveFormProps = React.ComponentProps<'form'> & {
+type PaletteEditorSaveFormProps = React.ComponentProps<'form'> & {
   saveFormState?:
     | ServerFormState<any, undefined>
     | { errorMap: { onServer: undefined }; errors: never[] }
 }
 
-export const PaletteSaveForm = ({
+export const PaletteEditorSaveForm = ({
   saveFormState,
   className,
   children,
   ref,
   ...props
-}: PaletteSaveFormProps) => {
+}: PaletteEditorSaveFormProps) => {
   const navigate = useNavigate()
   const collection = useDbClient().collection(paletteCollection)
   const { state, dispatch } = usePalette()
@@ -70,8 +70,8 @@ export const PaletteSaveForm = ({
           dispatch({ type: 'SET_IS_SAVING', payload: { saving: true } })
         })
         await navigate({
-          to: '/palette-generator/{-$projectId}',
-          params: { projectId: response.id },
+          to: '/palette-generator/{-$paletteId}',
+          params: { paletteId: response.id },
         })
         stackToastManager.add({
           title: m['colorPalette.toasts.saveSuccess.title'](),

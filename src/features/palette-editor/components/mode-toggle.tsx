@@ -2,14 +2,14 @@ import { EyeIcon, ListIcon } from '@phosphor-icons/react/dist/ssr'
 import { cn, Tabs, TabsIndicator, TabsList, TabsTab } from 'dawn-ui-react'
 import { usePalette } from '#/features/palette/hooks/use-palette'
 
-type PaletteModeToggleProps = React.ComponentProps<typeof Tabs>
+type PaletteEditorModeToggleProps = React.ComponentProps<typeof Tabs>
 
-export const PaletteModeToggle = ({
+export const PaletteEditorModeToggle = ({
   className,
   children,
   ref,
   ...props
-}: PaletteModeToggleProps) => {
+}: PaletteEditorModeToggleProps) => {
   const { state, dispatch } = usePalette()
 
   const handleModeChange = (value: string) => {

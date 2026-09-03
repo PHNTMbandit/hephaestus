@@ -1,15 +1,23 @@
 import { ArrowUUpRightIcon } from '@phosphor-icons/react'
+import { useHotkey } from '@tanstack/react-hotkeys'
 import { Button, cn } from 'dawn-ui-react'
 import { usePalette } from '#/features/palette/hooks/use-palette'
 
-type PaletteRedoProps = React.ComponentProps<'button'>
+type PaletteEditorRedoProps = React.ComponentProps<'button'>
 
-export const PaletteRedo = ({ className, children, ref, ...props }: PaletteRedoProps) => {
+export const PaletteEditorRedo = ({
+  className,
+  children,
+  ref,
+  ...props
+}: PaletteEditorRedoProps) => {
   const { state, dispatch } = usePalette()
 
   const handleClick = () => {
     dispatch({ type: 'REDO' })
   }
+
+  useHotkey('Control+Y', () => handleClick())
 
   return (
     <Button

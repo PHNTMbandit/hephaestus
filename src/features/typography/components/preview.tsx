@@ -4,7 +4,7 @@ import React from 'react'
 import WebFont from 'webfontloader'
 import { fontWeights } from '../constants/font-weight'
 import { typeSteps } from '../constants/scale'
-import { useTypography } from './typography-provider'
+import { useTypography } from './provider'
 
 import type { WebFont as WebFontType } from '../types/font-family'
 

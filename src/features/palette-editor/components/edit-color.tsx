@@ -17,20 +17,30 @@ import {
   PopoverTrigger,
 } from 'dawn-ui-react'
 import React from 'react'
-import { useColor } from '#/features/color/components/color-provider'
+import { useColor } from '#/features/color/components/provider'
 import { getForeground } from '#/features/color/utils/style'
 import { usePalette } from '#/features/palette/hooks/use-palette'
 
-type PaletteEditProps = React.ComponentProps<typeof Button>
+type PaletteEditorEditColorProps = React.ComponentProps<typeof Button>
 
-export const PaletteEdit = ({ className, children, ref, ...props }: PaletteEditProps) => {
+export const PaletteEditorEditColor = ({
+  className,
+  children,
+  ref,
+  ...props
+}: PaletteEditorEditColorProps) => {
   const { color } = useColor()
   const { dispatch } = usePalette()
   const [newColor, setNewColor] = React.useState<string>(color.value)
   const chromaColor = chroma(color.value)
   const isDark = chromaColor.luminance() < 0.5
 
-  const handleColorChange = () => {
+  const handleOpenChange = (open: boolean) => {
+    if (open) {
+      setNewColor(color.value)
+      return
+    }
+
     dispatch({
       type: 'SET_COLOR',
       payload: {
@@ -41,13 +51,7 @@ export const PaletteEdit = ({ className, children, ref, ...props }: PaletteEditP
   }
 
   return (
-    <Popover
-      onOpenChange={(e) => {
-        if (!e) {
-          handleColorChange()
-        }
-      }}
-    >
+    <Popover onOpenChange={handleOpenChange}>
       <PopoverTrigger>
         <Button
           variant={'ghost'}

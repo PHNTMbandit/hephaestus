@@ -4,7 +4,7 @@ import { anchoredToastManager, Button, cn } from 'dawn-ui-react'
 import { AnimatePresence, motion } from 'motion/react'
 import React from 'react'
 import { getForeground } from '../utils/style'
-import { useColor } from './color-provider'
+import { useColor } from './provider'
 
 type ColorCopyProps = React.ComponentProps<'button'> & {
   value?: string

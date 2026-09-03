@@ -7,17 +7,17 @@ import { usePalette } from '#/features/palette/hooks/use-palette'
 import { serializePaletteState } from '#/features/palette/utils/state'
 import { m } from '#/paraglide/messages.js'
 
-type PaletteUpdateProps = React.ComponentProps<'button'> & {
+type PaletteEditorUpdateProps = React.ComponentProps<'button'> & {
   paletteId: string
 }
 
-export const PaletteUpdate = ({
+export const PaletteEditorUpdate = ({
   paletteId,
   className,
   children,
   ref,
   ...props
-}: PaletteUpdateProps) => {
+}: PaletteEditorUpdateProps) => {
   const collection = useDbClient().collection(paletteCollection)
   const { state } = usePalette()
   const [isPending, startTransition] = React.useTransition()

@@ -34,9 +34,14 @@ import { parseColorValues, type ColorValueTypeId } from '#/features/palette/util
 
 import type { Color } from '#/features/color/color.types'
 
-type PaletteImportProps = React.ComponentProps<typeof Button>
+type PaletteEditorImportProps = React.ComponentProps<typeof Button>
 
-export const PaletteImport = ({ className, children, ref, ...props }: PaletteImportProps) => {
+export const PaletteEditorImport = ({
+  className,
+  children,
+  ref,
+  ...props
+}: PaletteEditorImportProps) => {
   const [previewColors, setPreviewColors] = React.useState<Color[]>([])
   const [open, setOpen] = React.useState(false)
   const { dispatch } = usePalette()
@@ -171,18 +176,20 @@ export const PaletteImport = ({ className, children, ref, ...props }: PaletteImp
                   </form.AppField>
                 </form.FormSetContent>
               </form.FormSet>
-              <Palette.Root
-                key={previewColors.map(({ id }) => id).join(',')}
-                initialState={{ colors: previewColors }}
-              >
-                <Palette.Swatches orientation={'horizontal'} rounded="xxLarge">
-                  {({ color }) => (
-                    <ColorComponent.Provider color={color}>
-                      <ColorComponent.Swatch />
-                    </ColorComponent.Provider>
-                  )}
-                </Palette.Swatches>
-              </Palette.Root>
+              {previewColors.length > 0 && (
+                <Palette.Root
+                  key={previewColors.map(({ id }) => id).join(',')}
+                  initialState={{ colors: previewColors }}
+                >
+                  <Palette.Swatches orientation={'horizontal'} rounded="xxLarge">
+                    {({ color }) => (
+                      <ColorComponent.Provider color={color}>
+                        <ColorComponent.Swatch />
+                      </ColorComponent.Provider>
+                    )}
+                  </Palette.Swatches>
+                </Palette.Root>
+              )}
               <form.FormFooter>
                 <form.FormReset tone="neutral" variant={'outline'}>
                   <ArrowsCounterClockwiseIcon weight="bold" />

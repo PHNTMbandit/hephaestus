@@ -1,15 +1,23 @@
 import { ArrowUUpLeftIcon } from '@phosphor-icons/react'
+import { useHotkey } from '@tanstack/react-hotkeys'
 import { Button, cn } from 'dawn-ui-react'
 import { usePalette } from '#/features/palette/hooks/use-palette'
 
-type PaletteUndoProps = React.ComponentProps<'button'>
+type PaletteEditorUndoProps = React.ComponentProps<'button'>
 
-export const PaletteUndo = ({ className, children, ref, ...props }: PaletteUndoProps) => {
+export const PaletteEditorUndo = ({
+  className,
+  children,
+  ref,
+  ...props
+}: PaletteEditorUndoProps) => {
   const { state, dispatch } = usePalette()
 
   const handleClick = () => {
     dispatch({ type: 'UNDO' })
   }
+
+  useHotkey('Control+Z', () => handleClick())
 
   return (
     <Button

@@ -8,7 +8,7 @@ import {
   ComboboxVirtualizedList,
 } from 'dawn-ui-react'
 import React from 'react'
-import { useTypography } from './typography-provider'
+import { useTypography } from './provider'
 
 import type { WebFont } from '../types/font-family'
 

@@ -1,13 +1,13 @@
 import { cn } from 'dawn-ui-react'
 
-type PalettePanelHeaderProps = React.ComponentProps<'div'>
+type PaletteEditorPanelHeaderProps = React.ComponentProps<'div'>
 
-export const PalettePanelHeader = ({
+export const PaletteEditorPanelHeader = ({
   className,
   children,
   ref,
   ...props
-}: PalettePanelHeaderProps) => {
+}: PaletteEditorPanelHeaderProps) => {
   return (
     <div
       className={cn(

@@ -1,5 +1,5 @@
 import { cn, Input } from 'dawn-ui-react'
-import { useTypography } from './typography-provider'
+import { useTypography } from './provider'
 
 type TypographyColorProps = React.ComponentProps<typeof Input>
 

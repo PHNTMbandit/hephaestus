@@ -1,13 +1,13 @@
 import { cn } from 'dawn-ui-react'
 
-type PalettePanelFooterProps = React.ComponentProps<'div'>
+type PaletteEditorPanelFooterProps = React.ComponentProps<'div'>
 
-export const PalettePanelFooter = ({
+export const PaletteEditorPanelFooter = ({
   className,
   children,
   ref,
   ...props
-}: PalettePanelFooterProps) => {
+}: PaletteEditorPanelFooterProps) => {
   return (
     <div
       className={cn('w-full border-t border-border px-md py-sm', className)}

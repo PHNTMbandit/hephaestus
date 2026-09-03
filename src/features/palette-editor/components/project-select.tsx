@@ -13,23 +13,23 @@ import {
 } from 'dawn-ui-react'
 import { paletteCollection } from '#/features/palette/db/collection'
 
-type PaletteProjectSelectProps = React.ComponentProps<typeof SelectTrigger> & {
+type PaletteEditorProjectSelectProps = React.ComponentProps<typeof SelectTrigger> & {
   value: string
 }
 
-export const PaletteProjectSelect = ({
+export const PaletteEditorProjectSelect = ({
   value,
   className,
   children,
   ref,
   ...props
-}: PaletteProjectSelectProps) => {
+}: PaletteEditorProjectSelectProps) => {
   const navigate = useNavigate()
   const collection = useDbClient().collection(paletteCollection)
   const { data: palettes } = useLiveQuery((q) => q.from({ palette: collection }))
 
   const handleSelect = (value: any) => {
-    navigate({ to: '/palette-generator/{-$projectId}', params: { projectId: value } })
+    navigate({ to: '/palette-generator/{-$paletteId}', params: { paletteId: value } })
   }
 
   return (

@@ -13,14 +13,14 @@ import {
 import { usePalette } from '#/features/palette/hooks/use-palette'
 import { valueTypesList } from '#/features/palette/utils'
 
-type PaletteValueSelectProps = React.ComponentProps<typeof SelectTrigger>
+type PaletteEditorValueSelectProps = React.ComponentProps<typeof SelectTrigger>
 
-export const PaletteValueSelect = ({
+export const PaletteEditorValueSelect = ({
   className,
   children,
   ref,
   ...props
-}: PaletteValueSelectProps) => {
+}: PaletteEditorValueSelectProps) => {
   const { state, dispatch } = usePalette()
   const valueType = state.valueType ?? valueTypesList[0]
 

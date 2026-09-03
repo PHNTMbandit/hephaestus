@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from 'dawn-ui-react'
 import { fontWeights } from '../constants/font-weight'
-import { useTypography } from './typography-provider'
+import { useTypography } from './provider'
 
 import type { FontWeight } from '../types/font-weight'
 

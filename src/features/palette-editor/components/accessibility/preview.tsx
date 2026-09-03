@@ -1,12 +1,14 @@
-import { ColorPairPreview } from '#/features/color/components/color-pair-preview'
+import { ColorPairPreview } from '#/features/color/components/pair-preview'
 import { usePaletteAccessibility } from '#/features/palette-editor/hooks/use-palette-accessibility'
 
-type PaletteAccessibilityPreviewProps = Omit<
+type PaletteEditorAccessibilityPreviewProps = Omit<
   React.ComponentProps<typeof ColorPairPreview>,
   'foreground' | 'background'
 >
 
-export const PaletteAccessibilityPreview = (props: PaletteAccessibilityPreviewProps) => {
+export const PaletteEditorAccessibilityPreview = (
+  props: PaletteEditorAccessibilityPreviewProps,
+) => {
   const { foreground, background } = usePaletteAccessibility()
 
   if (!foreground || !background) {

@@ -1,21 +1,21 @@
 import { cn, Label } from 'dawn-ui-react'
-import { ColorSwatchButton } from '#/features/color/components/color-swatch-button'
+import { ColorSwatchButton } from '#/features/color/components/swatch-button'
 import { usePaletteAccessibility } from '#/features/palette-editor/hooks/use-palette-accessibility'
 import { usePalette } from '#/features/palette/hooks/use-palette'
-import { PaletteAccessibilityCopy } from './copy'
+import { PaletteEditorAccessibilityCopy } from './copy'
 
-type PaletteAccessibilitySwatchesProps = React.ComponentProps<'div'> & {
+type PaletteEditorAccessibilitySwatchesProps = React.ComponentProps<'div'> & {
   role: 'foreground' | 'background'
   label?: string
 }
 
-export const PaletteAccessibilitySwatches = ({
+export const PaletteEditorAccessibilitySwatches = ({
   role,
   label,
   className,
   ref,
   ...props
-}: PaletteAccessibilitySwatchesProps) => {
+}: PaletteEditorAccessibilitySwatchesProps) => {
   const {
     state: { colors },
   } = usePalette()
@@ -30,7 +30,7 @@ export const PaletteAccessibilitySwatches = ({
       <div className="flex items-center justify-between gap-2xs">
         <Label>{label ?? (role === 'foreground' ? 'Foreground' : 'Background')}</Label>
         {selected && (
-          <PaletteAccessibilityCopy
+          <PaletteEditorAccessibilityCopy
             value={selected.value}
             aria-label={`Copy ${role} colour ${selected.value}`}
           />

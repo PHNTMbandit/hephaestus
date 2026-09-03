@@ -3,22 +3,24 @@ import { usePalette } from '#/features/palette/hooks/use-palette'
 
 import type { Color } from '#/features/color/color.types'
 
-export type PaletteAccessibilityContextValue = {
+export type PaletteEditorAccessibilityContextValue = {
   background: Color
   foreground: Color
   setBackground: (color: Color) => void
   setForeground: (color: Color) => void
 }
 
-export const PaletteAccessibilityContext = React.createContext<
-  PaletteAccessibilityContextValue | undefined
+export const PaletteEditorAccessibilityContext = React.createContext<
+  PaletteEditorAccessibilityContextValue | undefined
 >(undefined)
 
-type PaletteAccessibilityRootProps = {
+type PaletteEditorAccessibilityRootProps = {
   children: React.ReactNode
 }
 
-export const PaletteAccessibilityRoot = ({ children }: PaletteAccessibilityRootProps) => {
+export const PaletteEditorAccessibilityRoot = ({
+  children,
+}: PaletteEditorAccessibilityRootProps) => {
   const {
     state: { colors },
   } = usePalette()
@@ -27,10 +29,10 @@ export const PaletteAccessibilityRoot = ({ children }: PaletteAccessibilityRootP
   const [foreground, setForeground] = React.useState<Color>(colors[colors.length - 1])
 
   return (
-    <PaletteAccessibilityContext.Provider
+    <PaletteEditorAccessibilityContext.Provider
       value={{ background, foreground, setBackground, setForeground }}
     >
       {children}
-    </PaletteAccessibilityContext.Provider>
+    </PaletteEditorAccessibilityContext.Provider>
   )
 }

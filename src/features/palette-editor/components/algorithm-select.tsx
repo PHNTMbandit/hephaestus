@@ -15,14 +15,14 @@ import {
 import { usePalette } from '#/features/palette/hooks/use-palette'
 import { paletteGeneratorMethods, paletteGeneratorMethodsList } from '#/features/palette/utils'
 
-type PaletteGeneratorSelectProps = React.ComponentProps<typeof SelectTrigger>
+type PaletteEditorAlgorithmSelectProps = React.ComponentProps<typeof SelectTrigger>
 
-export const PaletteGeneratorSelect = ({
+export const PaletteEditorAlgorithmSelect = ({
   className,
   children,
   ref,
   ...props
-}: PaletteGeneratorSelectProps) => {
+}: PaletteEditorAlgorithmSelectProps) => {
   const { state, dispatch } = usePalette()
 
   const handleValueChange = (value: any) => {

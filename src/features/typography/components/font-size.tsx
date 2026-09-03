@@ -1,25 +1,26 @@
 import { cn, NumberField } from 'dawn-ui-react'
-import { useTypography } from './typography-provider'
+import { useTypography } from './provider'
 
-type TypographyLineHeightProps = React.ComponentProps<typeof NumberField>
+type TypographyFontSizeProps = React.ComponentProps<typeof NumberField>
 
-export const TypographyLineHeight = ({
+export const TypographyFontSize = ({
   className,
   children,
   ref,
   ...props
-}: TypographyLineHeightProps) => {
+}: TypographyFontSizeProps) => {
   const { state, dispatch } = useTypography()
 
   const handleChange = (value: unknown) => {
-    dispatch({ type: 'SET_LINE_HEIGHT', payload: { lineHeight: value as number } })
+    dispatch({ type: 'SET_FONT_SIZE', payload: { fontSize: value as number } })
   }
 
   return (
     <NumberField
-      min={0}
-      step={0.05}
-      value={state.lineHeight}
+      min={10}
+      max={100}
+      step={0.5}
+      value={state.fontSize}
       onValueChange={handleChange}
       className={cn('', className)}
       ref={ref}

@@ -4,23 +4,28 @@ import { useBlocker, useParams } from '@tanstack/react-router'
 import {
   cn,
   AlertDialog,
-  AlertDialogActions,
+  AlertDialogIcon,
   AlertDialogClose,
   AlertDialogConfirm,
-  AlertDialogContent,
   AlertDialogDescription,
   AlertDialogHeader,
   AlertDialogPopup,
   AlertDialogTitle,
   Separator,
+  AlertDialogFooter,
 } from 'dawn-ui-react'
 import { paletteCollection } from '#/features/palette/db/collection'
 import { usePalette } from '#/features/palette/hooks/use-palette'
 
-type PaletteBlockerProps = React.ComponentProps<typeof AlertDialogPopup>
+type PaletteEditorBlockerProps = React.ComponentProps<typeof AlertDialogPopup>
 
-export const PaletteBlocker = ({ className, children, ref, ...props }: PaletteBlockerProps) => {
-  const { projectId } = useParams({ from: '/_secure/palette-generator/{-$projectId}' })
+export const PaletteEditorBlocker = ({
+  className,
+  children,
+  ref,
+  ...props
+}: PaletteEditorBlockerProps) => {
+  const { paletteId } = useParams({ from: '/_secure/palette-generator/{-$paletteId}' })
   const collection = useDbClient().collection(paletteCollection)
   const { state } = usePalette()
 
@@ -29,8 +34,8 @@ export const PaletteBlocker = ({ className, children, ref, ...props }: PaletteBl
       return false
     }
 
-    if (projectId) {
-      const palette = collection.get(projectId)
+    if (paletteId) {
+      const palette = collection.get(paletteId)
       const isSameColors =
         palette?.colors.length === state.colors.length &&
         palette?.colors.every((color, index) => color.id === state.colors[index].id)
@@ -60,16 +65,16 @@ export const PaletteBlocker = ({ className, children, ref, ...props }: PaletteBl
     >
       <AlertDialogPopup tone="warning" className={cn('', className)} ref={ref} {...props}>
         <AlertDialogHeader>
-          <WarningIcon weight="fill" />
-          <AlertDialogContent>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              You have unsaved changes. Are you sure you want to leave?
-            </AlertDialogDescription>
-          </AlertDialogContent>
+          <AlertDialogIcon>
+            <WarningIcon weight="fill" />
+          </AlertDialogIcon>
+          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            You have unsaved changes. Are you sure you want to leave?
+          </AlertDialogDescription>
         </AlertDialogHeader>
         {children}
-        <AlertDialogActions>
+        <AlertDialogFooter>
           <AlertDialogClose
             onClick={() => {
               if (status === 'blocked') {
@@ -89,7 +94,7 @@ export const PaletteBlocker = ({ className, children, ref, ...props }: PaletteBl
           >
             Leave
           </AlertDialogConfirm>
-        </AlertDialogActions>
+        </AlertDialogFooter>
       </AlertDialogPopup>
     </AlertDialog>
   )

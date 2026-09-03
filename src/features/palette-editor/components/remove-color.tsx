@@ -1,18 +1,18 @@
 import { XIcon } from '@phosphor-icons/react/dist/ssr'
 import chroma from 'chroma-js'
 import { Button, cn } from 'dawn-ui-react'
-import { useColor } from '#/features/color/components/color-provider.tsx'
+import { useColor } from '#/features/color/components/provider'
 import { getForeground } from '#/features/color/utils/style'
 import { usePalette } from '#/features/palette/hooks/use-palette'
 
-type PaletteRemoveColorProps = React.ComponentProps<'button'>
+type PaletteEditorRemoveColorProps = React.ComponentProps<'button'>
 
-export const PaletteRemoveColor = ({
+export const PaletteEditorRemoveColor = ({
   className,
   children,
   ref,
   ...props
-}: PaletteRemoveColorProps) => {
+}: PaletteEditorRemoveColorProps) => {
   const { color } = useColor()
   const { state, dispatch } = usePalette()
   const colors = state.colors ?? []

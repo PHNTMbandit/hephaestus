@@ -6,7 +6,7 @@ import { cn } from 'dawn-ui-react'
 import React from 'react'
 import { colorNameQueryOptions } from '../utils/queries'
 import { getForeground } from '../utils/style'
-import { useColor } from './color-provider'
+import { useColor } from './provider'
 
 const colorNameVariants = cva('capitalize', {
   variants: {

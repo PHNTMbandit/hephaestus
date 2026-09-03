@@ -34,9 +34,14 @@ import {
 
 import type { ValueType } from '#/features/palette/types/value'
 
-type PaletteExportCssProps = React.ComponentProps<'button'>
+type PaletteEditorExportCssProps = React.ComponentProps<'button'>
 
-export const PaletteExportCss = ({ className, children, ref, ...props }: PaletteExportCssProps) => {
+export const PaletteEditorExportCss = ({
+  className,
+  children,
+  ref,
+  ...props
+}: PaletteEditorExportCssProps) => {
   const { state } = usePalette()
 
   const formattedCss = Object.keys(valueTypes).map((key) =>

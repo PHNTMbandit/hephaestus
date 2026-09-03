@@ -1,75 +1,77 @@
-import { PaletteAccessibilityContent } from './accessibility/content'
-import { PaletteAccessibilityCopy } from './accessibility/copy'
-import { PaletteAccessibilityPreview } from './accessibility/preview'
-import { PaletteAccessibilityRecommendation } from './accessibility/recommendation'
-import { PaletteAccessibilityRoot } from './accessibility/root'
-import { PaletteAccessibilityScores } from './accessibility/scores'
-import { PaletteAccessibilitySwatches } from './accessibility/swatches'
-import { PaletteAdd } from './add-color'
-import { PaletteGeneratorSelect } from './algorithm-select'
-import { PaletteBaseColor } from './base-color'
-import { PaletteBlocker } from './blocker'
-import { PaletteCount } from './color-count'
-import { PaletteGeneratorContent } from './controls'
-import { PaletteEdit } from './edit-color'
-import { PaletteExportRoot } from './export-root'
-import { PaletteImport } from './import'
-import { PaletteLock } from './lock-color'
-import { PaletteModeToggle } from './mode-toggle'
-import { PaletteModeView } from './mode-view'
-import { PalettePanel } from './panel'
-import { PalettePanelContent } from './panel-content'
-import { PalettePanelFooter } from './panel-footer'
-import { PalettePanelHeader } from './panel-header'
-import { PalettePanelTabs } from './panel-tabs'
-import { PaletteProjectSelect } from './project-select'
-import { PaletteRedo } from './redo'
-import { PaletteRemoveColor } from './remove-color'
-import { PaletteReorderableList } from './reorderable-colors'
-import { PaletteReset } from './reset'
-import { PaletteSave } from './save'
-import { PaletteSaveForm } from './save-form'
-import { PaletteToolbar } from './toolbar'
-import { PaletteToolbarGroup } from './toolbar-group'
-import { PaletteUndo } from './undo'
-import { PaletteUpdate } from './update'
-import { PaletteValueSelect } from './value-select'
+import { PaletteEditorAccessibilityContent } from './accessibility/content'
+import { PaletteEditorAccessibilityCopy } from './accessibility/copy'
+import { PaletteEditorAccessibilityPreview } from './accessibility/preview'
+import { PaletteEditorAccessibilityRecommendation } from './accessibility/recommendation'
+import { PaletteEditorAccessibilityRoot } from './accessibility/root'
+import { PaletteEditorAccessibilityScores } from './accessibility/scores'
+import { PaletteEditorAccessibilitySwatches } from './accessibility/swatches'
+import { PaletteEditorAddColor } from './add-color'
+import { PaletteEditorAlgorithmSelect } from './algorithm-select'
+import { PaletteEditorBaseColor } from './base-color'
+import { PaletteEditorBlocker } from './blocker'
+import { PaletteEditorColorCount } from './color-count'
+import { PaletteEditorColorShades } from './color-shades'
+import { PaletteEditorControls } from './controls'
+import { PaletteEditorEditColor } from './edit-color'
+import { PaletteEditorExportRoot } from './export-root'
+import { PaletteEditorImport } from './import'
+import { PaletteEditorLockColor } from './lock-color'
+import { PaletteEditorModeToggle } from './mode-toggle'
+import { PaletteEditorModeView } from './mode-view'
+import { PaletteEditorPanel } from './panel'
+import { PaletteEditorPanelContent } from './panel-content'
+import { PaletteEditorPanelFooter } from './panel-footer'
+import { PaletteEditorPanelHeader } from './panel-header'
+import { PaletteEditorPanelTabs } from './panel-tabs'
+import { PaletteEditorProjectSelect } from './project-select'
+import { PaletteEditorRedo } from './redo'
+import { PaletteEditorRemoveColor } from './remove-color'
+import { PaletteEditorReorderableColors } from './reorderable-colors'
+import { PaletteEditorReset } from './reset'
+import { PaletteEditorSave } from './save'
+import { PaletteEditorSaveForm } from './save-form'
+import { PaletteEditorToolbar } from './toolbar'
+import { PaletteEditorToolbarGroup } from './toolbar-group'
+import { PaletteEditorUndo } from './undo'
+import { PaletteEditorUpdate } from './update'
+import { PaletteEditorValueSelect } from './value-select'
 
 export const PaletteEditor = {
-  AddColor: PaletteAdd,
-  RemoveColor: PaletteRemoveColor,
-  EditColor: PaletteEdit,
-  LockColor: PaletteLock,
-  Undo: PaletteUndo,
-  Redo: PaletteRedo,
-  Reset: PaletteReset,
-  BaseColor: PaletteBaseColor,
-  AlgorithmSelect: PaletteGeneratorSelect,
-  Controls: PaletteGeneratorContent,
-  ColorCount: PaletteCount,
-  ValueSelect: PaletteValueSelect,
-  ModeToggle: PaletteModeToggle,
-  ModeView: PaletteModeView,
-  ReorderableColors: PaletteReorderableList,
-  Save: PaletteSave,
-  SaveForm: PaletteSaveForm,
-  Update: PaletteUpdate,
-  Import: PaletteImport,
-  Export: PaletteExportRoot,
-  ProjectSelect: PaletteProjectSelect,
-  Blocker: PaletteBlocker,
-  Panel: PalettePanel,
-  PanelHeader: PalettePanelHeader,
-  PanelContent: PalettePanelContent,
-  PanelFooter: PalettePanelFooter,
-  PanelTabs: PalettePanelTabs,
-  Toolbar: PaletteToolbar,
-  ToolbarGroup: PaletteToolbarGroup,
-  AccessibilityRoot: PaletteAccessibilityRoot,
-  AccessibilityContent: PaletteAccessibilityContent,
-  AccessibilityPreview: PaletteAccessibilityPreview,
-  AccessibilitySwatches: PaletteAccessibilitySwatches,
-  AccessibilityScores: PaletteAccessibilityScores,
-  AccessibilityCopy: PaletteAccessibilityCopy,
-  AccessibilityRecommendation: PaletteAccessibilityRecommendation,
+  AddColor: PaletteEditorAddColor,
+  RemoveColor: PaletteEditorRemoveColor,
+  EditColor: PaletteEditorEditColor,
+  LockColor: PaletteEditorLockColor,
+  Undo: PaletteEditorUndo,
+  Redo: PaletteEditorRedo,
+  Reset: PaletteEditorReset,
+  BaseColor: PaletteEditorBaseColor,
+  AlgorithmSelect: PaletteEditorAlgorithmSelect,
+  Controls: PaletteEditorControls,
+  ColorCount: PaletteEditorColorCount,
+  ValueSelect: PaletteEditorValueSelect,
+  ModeToggle: PaletteEditorModeToggle,
+  ModeView: PaletteEditorModeView,
+  ReorderableColors: PaletteEditorReorderableColors,
+  Save: PaletteEditorSave,
+  SaveForm: PaletteEditorSaveForm,
+  Update: PaletteEditorUpdate,
+  Import: PaletteEditorImport,
+  Export: PaletteEditorExportRoot,
+  ProjectSelect: PaletteEditorProjectSelect,
+  Blocker: PaletteEditorBlocker,
+  Panel: PaletteEditorPanel,
+  PanelHeader: PaletteEditorPanelHeader,
+  PanelContent: PaletteEditorPanelContent,
+  PanelFooter: PaletteEditorPanelFooter,
+  PanelTabs: PaletteEditorPanelTabs,
+  Shades: PaletteEditorColorShades,
+  Toolbar: PaletteEditorToolbar,
+  ToolbarGroup: PaletteEditorToolbarGroup,
+  AccessibilityRoot: PaletteEditorAccessibilityRoot,
+  AccessibilityContent: PaletteEditorAccessibilityContent,
+  AccessibilityPreview: PaletteEditorAccessibilityPreview,
+  AccessibilitySwatches: PaletteEditorAccessibilitySwatches,
+  AccessibilityScores: PaletteEditorAccessibilityScores,
+  AccessibilityCopy: PaletteEditorAccessibilityCopy,
+  AccessibilityRecommendation: PaletteEditorAccessibilityRecommendation,
 }

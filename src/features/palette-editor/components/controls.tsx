@@ -16,16 +16,12 @@ import {
 import React from 'react'
 import { usePalette } from '#/features/palette/hooks/use-palette'
 import { generateRandomColor } from '#/features/palette/utils'
-import { PaletteGeneratorSelect } from './algorithm-select'
-import { PaletteCount } from './color-count'
+import { PaletteEditorAlgorithmSelect } from './algorithm-select'
+import { PaletteEditorColorCount } from './color-count'
 
-type PaletteGeneratorContentProps = React.ComponentProps<'div'>
+type PaletteEditorControlsProps = React.ComponentProps<'div'>
 
-export const PaletteGeneratorContent = ({
-  className,
-  ref,
-  ...props
-}: PaletteGeneratorContentProps) => {
+export const PaletteEditorControls = ({ className, ref, ...props }: PaletteEditorControlsProps) => {
   const {
     state: { baseColor },
     dispatch,
@@ -67,8 +63,8 @@ export const PaletteGeneratorContent = ({
         </ColorPicker>
         <Separator />
         <div className="space-y-xs">
-          <PaletteGeneratorSelect />
-          <PaletteCount />
+          <PaletteEditorAlgorithmSelect />
+          <PaletteEditorColorCount />
           <div className="flex flex-col gap-sm">
             <Button onClick={handleApply} className="w-full">
               <CheckIcon weight="bold" />

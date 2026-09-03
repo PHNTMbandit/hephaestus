@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from 'dawn-ui-react'
 import { typeScales } from '../constants/scale'
-import { useTypography } from './typography-provider'
+import { useTypography } from './provider'
 
 import type { TypeScale } from '../types/type-scale'
 

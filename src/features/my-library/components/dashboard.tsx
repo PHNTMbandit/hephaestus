@@ -24,7 +24,7 @@ export const Dashboard = ({ className, children, ref, ...props }: DashboardProps
       {data?.map((palette) => (
         <Palette.Card key={palette.id} palette={palette}>
           <div className="flex items-center justify-between gap-2xs">
-            <Link to="/palette-generator/{-$projectId}" params={{ projectId: palette.id }}>
+            <Link to="/palette-generator/{-$paletteId}" params={{ paletteId: palette.id }}>
               Open
             </Link>
             <Palette.DeletePalette paletteId={palette.id} />

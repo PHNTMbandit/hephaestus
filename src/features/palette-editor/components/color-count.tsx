@@ -1,9 +1,14 @@
 import { cn, NumberField } from 'dawn-ui-react'
 import { usePalette } from '#/features/palette/hooks/use-palette'
 
-type PaletteCountProps = React.ComponentProps<typeof NumberField>
+type PaletteEditorColorCountProps = React.ComponentProps<typeof NumberField>
 
-export const PaletteCount = ({ className, children, ref, ...props }: PaletteCountProps) => {
+export const PaletteEditorColorCount = ({
+  className,
+  children,
+  ref,
+  ...props
+}: PaletteEditorColorCountProps) => {
   const { state, dispatch } = usePalette()
 
   const handleChange = (_value: number | null, e: any) => {

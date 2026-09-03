@@ -41,7 +41,7 @@ export const CLIENT_ROUTES: Record<ClientRouteName, ClientRoute> = {
     label: m['navigation.items.paletteGenerator'](),
     leadingIcon: SwatchesIcon,
     linkOptions: {
-      to: '/palette-generator/{-$projectId}',
+      to: '/palette-generator/{-$paletteId}',
     },
   },
   spacing: {

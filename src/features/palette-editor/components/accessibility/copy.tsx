@@ -3,16 +3,16 @@ import { anchoredToastManager, Button, cn } from 'dawn-ui-react'
 import { AnimatePresence, motion } from 'motion/react'
 import React from 'react'
 
-type PaletteAccessibilityCopyProps = React.ComponentProps<typeof Button> & {
+type PaletteEditorAccessibilityCopyProps = React.ComponentProps<typeof Button> & {
   value: string
 }
 
-export const PaletteAccessibilityCopy = ({
+export const PaletteEditorAccessibilityCopy = ({
   value,
   className,
   children,
   ...props
-}: PaletteAccessibilityCopyProps) => {
+}: PaletteEditorAccessibilityCopyProps) => {
   const buttonRef = React.useRef<HTMLButtonElement | null>(null)
   const [copied, setCopied] = React.useState(false)
 

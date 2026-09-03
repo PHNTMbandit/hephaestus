@@ -6,16 +6,16 @@ import { usePalette } from '#/features/palette/hooks/use-palette'
 import type { Color } from '#/features/color/color.types.ts'
 import type { ValueType } from '#/features/palette/types/value'
 
-type PaletteReorderableListProps = Omit<HTMLMotionProps<'ul'>, 'children'> & {
+type PaletteEditorReorderableColorsProps = Omit<HTMLMotionProps<'ul'>, 'children'> & {
   children: (props: { color: Color; isDragging: boolean; valueType?: ValueType }) => React.ReactNode
 }
 
-export const PaletteReorderableList = ({
+export const PaletteEditorReorderableColors = ({
   children,
   className,
   ref,
   ...props
-}: PaletteReorderableListProps) => {
+}: PaletteEditorReorderableColorsProps) => {
   const [isDragging, setIsDragging] = React.useState(false)
   const {
     state: { colors, valueType },

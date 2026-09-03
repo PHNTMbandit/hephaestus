@@ -3,11 +3,16 @@ import chroma from 'chroma-js'
 import { Button, cn } from 'dawn-ui-react'
 import { usePalette } from '#/features/palette/hooks/use-palette.ts'
 import { generateInbetweenColor } from '#/features/palette/utils'
-import { useColor } from '../../color/components/color-provider'
+import { useColor } from '../../color/components/provider'
 
-type PaletteAddProps = React.ComponentProps<'button'>
+type PaletteEditorAddColorProps = React.ComponentProps<'button'>
 
-export const PaletteAdd = ({ className, children, ref, ...props }: PaletteAddProps) => {
+export const PaletteEditorAddColor = ({
+  className,
+  children,
+  ref,
+  ...props
+}: PaletteEditorAddColorProps) => {
   const { color } = useColor()
   const { state, dispatch } = usePalette()
   const colors = state.colors ?? []

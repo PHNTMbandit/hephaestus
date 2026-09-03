@@ -1,8 +1,13 @@
 import { cn, Tabs } from 'dawn-ui-react'
 
-type PalettePanelProps = React.ComponentProps<'div'>
+type PaletteEditorPanelProps = React.ComponentProps<'div'>
 
-export const PalettePanel = ({ className, children, ref, ...props }: PalettePanelProps) => {
+export const PaletteEditorPanel = ({
+  className,
+  children,
+  ref,
+  ...props
+}: PaletteEditorPanelProps) => {
   return (
     <Tabs
       variant={'underline'}

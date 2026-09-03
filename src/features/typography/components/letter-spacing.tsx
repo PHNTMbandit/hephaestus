@@ -1,5 +1,5 @@
 import { cn, NumberField } from 'dawn-ui-react'
-import { useTypography } from './typography-provider'
+import { useTypography } from './provider'
 
 type TypographyLetterSpacingProps = React.ComponentProps<typeof NumberField>
 

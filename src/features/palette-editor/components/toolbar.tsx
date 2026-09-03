@@ -1,8 +1,13 @@
 import { cn } from 'dawn-ui-react'
 
-type PaletteToolbarProps = React.ComponentProps<'div'>
+type PaletteEditorToolbarProps = React.ComponentProps<'div'>
 
-export const PaletteToolbar = ({ className, children, ref, ...props }: PaletteToolbarProps) => {
+export const PaletteEditorToolbar = ({
+  className,
+  children,
+  ref,
+  ...props
+}: PaletteEditorToolbarProps) => {
   return (
     <div
       className={cn(

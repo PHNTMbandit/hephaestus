@@ -14,23 +14,23 @@ import React from 'react'
 import { Color } from '#/features/color/components/color'
 import { Palette } from '#/features/palette/components/palette'
 import { usePalette } from '#/features/palette/hooks/use-palette'
-import { PaletteSaveForm } from './save-form'
+import { PaletteEditorSaveForm } from './save-form'
 
 import type { ServerFormState } from '@tanstack/react-form-start'
 
-type PaletteSaveProps = React.ComponentProps<'button'> & {
+type PaletteEditorSaveProps = React.ComponentProps<'button'> & {
   saveFormState?:
     | ServerFormState<any, undefined>
     | { errorMap: { onServer: undefined }; errors: never[] }
 }
 
-export const PaletteSave = ({
+export const PaletteEditorSave = ({
   saveFormState,
   className,
   children,
   ref,
   ...props
-}: PaletteSaveProps) => {
+}: PaletteEditorSaveProps) => {
   const { state } = usePalette()
 
   return (
@@ -60,7 +60,7 @@ export const PaletteSave = ({
               )}
             </Palette.Swatches>
           </Palette.Root>
-          <PaletteSaveForm saveFormState={saveFormState} />
+          <PaletteEditorSaveForm saveFormState={saveFormState} />
         </DialogContent>
       </DialogPopup>
     </Dialog>

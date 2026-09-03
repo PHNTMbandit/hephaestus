@@ -13,11 +13,11 @@ import {
 } from '#/features/palette/utils/index.ts'
 import { getFormDataFromServer } from '#/utils/form-data'
 
-export const Route = createFileRoute('/_secure/palette-generator/{-$projectId}')({
+export const Route = createFileRoute('/_secure/palette-generator/{-$paletteId}')({
   component: RouteComponent,
   errorComponent: () => <p>Palette doesn't exist</p>,
   notFoundComponent: () => <p>Palette doesn't exist</p>,
-  loader: async ({ context: { dbClient }, params: { projectId } }) => {
+  loader: async ({ context: { dbClient }, params: { paletteId } }) => {
     const baseColor = generateRandomColor().value
     const newPaletteState = hydratePaletteState({ baseColor, colors: [] })
     const serializableState = serializePaletteState({
@@ -32,15 +32,15 @@ export const Route = createFileRoute('/_secure/palette-generator/{-$projectId}')
       errors: [],
     }
 
-    if (!projectId) {
+    if (!paletteId) {
       return { serializableState, savedPalette: null, saveFormState }
     }
 
     const collection = dbClient.collection(paletteCollection)
     await collection.preload()
-    const savedPalette = collection.get(projectId)
+    const savedPalette = collection.get(paletteId)
 
-    if (projectId && !savedPalette) {
+    if (paletteId && !savedPalette) {
       notFound({ throw: true })
     }
 
@@ -102,6 +102,7 @@ function RouteComponent() {
                             <Color.Actions>
                               <PaletteEditor.RemoveColor />
                               <PaletteEditor.EditColor />
+                              <PaletteEditor.Shades />
                               <Color.Copy value={valueType?.getColorClipboardFormat(color.value)} />
                               <PaletteEditor.LockColor />
                             </Color.Actions>

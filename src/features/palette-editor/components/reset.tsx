@@ -5,16 +5,21 @@ import { Button, cn } from 'dawn-ui-react'
 import { paletteCollection } from '#/features/palette/db/collection'
 import { usePalette } from '#/features/palette/hooks/use-palette'
 
-type PaletteResetProps = React.ComponentProps<'button'>
+type PaletteEditorResetProps = React.ComponentProps<'button'>
 
-export const PaletteReset = ({ className, children, ref, ...props }: PaletteResetProps) => {
+export const PaletteEditorReset = ({
+  className,
+  children,
+  ref,
+  ...props
+}: PaletteEditorResetProps) => {
   const { dispatch } = usePalette()
   const collection = useDbClient().collection(paletteCollection)
-  const { projectId } = useParams({ from: '/_secure/palette-generator/{-$projectId}' })
+  const { paletteId } = useParams({ from: '/_secure/palette-generator/{-$paletteId}' })
   const { data } = useLiveQuery((q) =>
     q
       .from({ palette: collection })
-      .where(({ palette }) => eq(palette.id, projectId))
+      .where(({ palette }) => eq(palette.id, paletteId))
       .select(({ palette }) => ({
         colors: palette.colors,
         baseColor: palette.baseColor,

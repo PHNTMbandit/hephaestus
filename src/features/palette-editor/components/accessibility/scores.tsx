@@ -7,14 +7,14 @@ import { usePaletteAccessibility } from '#/features/palette-editor/hooks/use-pal
 
 import type { ContrastMethod } from '#/features/accessibility/types/methods'
 
-type PaletteAccessibilityScoresProps = React.ComponentProps<'div'>
+type PaletteEditorAccessibilityScoresProps = React.ComponentProps<'div'>
 
-export const PaletteAccessibilityScores = ({
+export const PaletteEditorAccessibilityScores = ({
   className,
   children,
   ref,
   ...props
-}: PaletteAccessibilityScoresProps) => {
+}: PaletteEditorAccessibilityScoresProps) => {
   const { foreground, background } = usePaletteAccessibility()
 
   if (!foreground || !background) {

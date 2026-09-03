@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from 'dawn-ui-react'
-import { useColor } from './color-provider'
+import { useColor } from './provider'
 
 const colorSwatchVariants = cva(
   'group relative flex size-full flex-col items-start justify-between gap-md',

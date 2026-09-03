@@ -12,16 +12,16 @@ import {
 } from 'dawn-ui-react'
 import React from 'react'
 import { m } from '#/paraglide/messages.js'
-import { PaletteExportCss } from './export-css'
+import { PaletteEditorExportCss } from './export-css'
 
-type PaletteExportRootProps = React.ComponentProps<'button'>
+type PaletteEditorExportRootProps = React.ComponentProps<'button'>
 
-export const PaletteExportRoot = ({
+export const PaletteEditorExportRoot = ({
   className,
   children,
   ref,
   ...props
-}: PaletteExportRootProps) => {
+}: PaletteEditorExportRootProps) => {
   return (
     <React.Suspense
       fallback={
@@ -57,7 +57,7 @@ export const PaletteExportRoot = ({
             <DialogTitle>{m['colorPalette.export.title']()}</DialogTitle>
           </DialogHeader>
           <DialogContent>
-            <PaletteExportCss />
+            <PaletteEditorExportCss />
           </DialogContent>
         </DialogPopup>
       </Dialog>
