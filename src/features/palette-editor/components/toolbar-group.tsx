@@ -10,7 +10,7 @@ export const PaletteEditorToolbarGroup = ({
 }: PaletteEditorToolbarGroupProps) => {
   return (
     <div
-      className={cn('flex flex-wrap items-center justify-center gap-3xs', className)}
+      className={cn('flex flex-wrap items-center justify-center gap-xs', className)}
       ref={ref}
       {...props}
     >

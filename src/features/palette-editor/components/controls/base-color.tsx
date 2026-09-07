@@ -1,14 +1,14 @@
 import { cn, Input } from 'dawn-ui-react'
 import { usePalette } from '#/features/palette/hooks/use-palette'
 
-type PaletteEditorBaseColorProps = React.ComponentProps<typeof Input>
+type PaletteEditorControlsBaseColorProps = React.ComponentProps<typeof Input>
 
-export const PaletteEditorBaseColor = ({
+export const PaletteEditorControlsBaseColor = ({
   className,
   children,
   ref,
   ...props
-}: PaletteEditorBaseColorProps) => {
+}: PaletteEditorControlsBaseColorProps) => {
   const { state, dispatch } = usePalette()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

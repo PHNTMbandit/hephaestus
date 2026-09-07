@@ -17,7 +17,7 @@ import {
   useAppForm,
 } from 'dawn-ui-react'
 import { flushSync } from 'react-dom'
-import { paletteCollection } from '#/features/palette/db/collection'
+import { paletteCollection } from '#/features/palette/db/palette-collection'
 import { usePalette } from '#/features/palette/hooks/use-palette'
 import {
   paletteSaveSchema,
@@ -26,19 +26,19 @@ import {
 import { handleSavePaletteForm } from '#/features/palette/server/palette-save-action'
 import { m } from '#/paraglide/messages'
 
-type PaletteEditorSaveFormProps = React.ComponentProps<'form'> & {
-  saveFormState?:
+type PaletteEditorPublishFormProps = React.ComponentProps<'form'> & {
+  publishFormState?:
     | ServerFormState<any, undefined>
     | { errorMap: { onServer: undefined }; errors: never[] }
 }
 
-export const PaletteEditorSaveForm = ({
-  saveFormState,
+export const PaletteEditorPublishForm = ({
+  publishFormState,
   className,
   children,
   ref,
   ...props
-}: PaletteEditorSaveFormProps) => {
+}: PaletteEditorPublishFormProps) => {
   const navigate = useNavigate()
   const collection = useDbClient().collection(paletteCollection)
   const { state, dispatch } = usePalette()
@@ -94,8 +94,8 @@ export const PaletteEditorSaveForm = ({
     },
     transform: useTransform(
       (baseForm) =>
-        mergeForm(baseForm, saveFormState ?? { errorMap: { onServer: undefined }, errors: [] }),
-      [saveFormState],
+        mergeForm(baseForm, publishFormState ?? { errorMap: { onServer: undefined }, errors: [] }),
+      [publishFormState],
     ),
   })
 
@@ -187,7 +187,7 @@ export const PaletteEditorSaveForm = ({
           <form.FormReset variant={'outline'} tone="neutral">
             Reset
           </form.FormReset>
-          <form.FormSubmit>Save</form.FormSubmit>
+          <form.FormSubmit>Publish</form.FormSubmit>
         </form.FormFooter>
         {children}
       </form.AppForm>

@@ -16,12 +16,16 @@ import {
 import React from 'react'
 import { usePalette } from '#/features/palette/hooks/use-palette'
 import { generateRandomColor } from '#/features/palette/utils'
-import { PaletteEditorAlgorithmSelect } from './algorithm-select'
-import { PaletteEditorColorCount } from './color-count'
+import { PaletteEditorControlsAlgorithmSelect } from './algorithm-select'
+import { PaletteEditorControlsColorCount } from './color-count'
 
-type PaletteEditorControlsProps = React.ComponentProps<'div'>
+type PaletteEditorControlsContentProps = React.ComponentProps<'div'>
 
-export const PaletteEditorControls = ({ className, ref, ...props }: PaletteEditorControlsProps) => {
+export const PaletteEditorControlsContent = ({
+  className,
+  ref,
+  ...props
+}: PaletteEditorControlsContentProps) => {
   const {
     state: { baseColor },
     dispatch,
@@ -44,9 +48,9 @@ export const PaletteEditorControls = ({ className, ref, ...props }: PaletteEdito
   }
 
   return (
-    <TabsPanel value="generator">
+    <TabsPanel value="controls">
       <div className={cn('flex w-full flex-col gap-md p-md', className)} ref={ref} {...props}>
-        <ColorPicker color={pendingColor} onValueChange={handleColorChange} variant={'ghost'}>
+        <ColorPicker value={pendingColor} onValueChange={handleColorChange} variant={'ghost'}>
           <ColorPickerArea />
           <ColorPickerGroup>
             <ColorPickerHueSlider />
@@ -63,8 +67,8 @@ export const PaletteEditorControls = ({ className, ref, ...props }: PaletteEdito
         </ColorPicker>
         <Separator />
         <div className="space-y-xs">
-          <PaletteEditorAlgorithmSelect />
-          <PaletteEditorColorCount />
+          <PaletteEditorControlsAlgorithmSelect />
+          <PaletteEditorControlsColorCount />
           <div className="flex flex-col gap-sm">
             <Button onClick={handleApply} className="w-full">
               <CheckIcon weight="bold" />

@@ -138,11 +138,11 @@ describe('paletteReducer settings', () => {
     expect(next.colors).toHaveLength(2)
   })
 
-  it('SET_MODE switches the view mode', () => {
+  it('SET_RENDER_MODE switches the view mode', () => {
     const state = makeState()
-    const next = paletteReducer(state, { type: 'SET_MODE', payload: { mode: 'preview' } })
+    const next = paletteReducer(state, { type: 'SET_RENDER_MODE', payload: { mode: 'gradient' } })
 
-    expect(next.mode).toBe('preview')
+    expect(next.mode).toBe('gradient')
   })
 
   it('RESET replaces colors and base color', () => {

@@ -1,0 +1,1 @@
+ALTER TABLE "color_palettes" ADD COLUMN "likes" integer DEFAULT 0 NOT NULL;

@@ -1,4 +1,4 @@
-import { useDbClient, useLiveQuery } from '@tanstack/react-db'
+import { eq, useDbClient, useLiveQuery } from '@tanstack/react-db'
 import {
   cn,
   ColorPicker,
@@ -18,7 +18,8 @@ import {
   ComboboxPopup,
 } from 'dawn-ui-react'
 import React from 'react'
-import { paletteCollection } from '#/features/palette/db/collection'
+import { paletteCollection } from '#/features/palette/db/palette-collection'
+import { authClient } from '#/lib/auth-client'
 
 type ContrastColorPickerProps = React.ComponentProps<typeof ColorPicker> & {
   palette?: string[]
@@ -34,7 +35,12 @@ export const ContrastColorPicker = ({
   ...props
 }: ContrastColorPickerProps) => {
   const collection = useDbClient().collection(paletteCollection)
-  const { data: palettes } = useLiveQuery((q) => q.from({ palette: collection }))
+  const { data: session } = authClient.useSession()
+  const { data: palettes } = useLiveQuery((q) =>
+    q
+      .from({ palette: collection })
+      .where(({ palette }) => eq(palette.userId, session?.user?.id ?? '')),
+  )
 
   const handleSelectPalette = (value: (typeof palettes)[number] | null) => {
     if (value) {

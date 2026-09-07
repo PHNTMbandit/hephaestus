@@ -1,6 +1,6 @@
 import { useDbClient } from '@tanstack/react-db'
 import { Button, cn } from 'dawn-ui-react'
-import { paletteCollection } from '../db/collection'
+import { paletteCollection } from '../db/palette-collection'
 
 type PaletteDeletePaletteProps = React.ComponentProps<typeof Button> & {
   paletteId: string

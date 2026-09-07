@@ -13,7 +13,7 @@ import { routerWithDbClient } from '@tanstack/react-router-with-db'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { PaletteRoot } from '#/features/palette/components/root'
-import { paletteCollection } from '#/features/palette/db/collection'
+import { paletteCollection } from '#/features/palette/db/palette-collection'
 import { PaletteEditorBlocker } from '../components/blocker'
 
 import type { Color } from '#/features/color/color.types.ts'

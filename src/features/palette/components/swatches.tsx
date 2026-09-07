@@ -10,29 +10,17 @@ const paletteListVariants = cva(
   'relative grid size-full min-h-0 min-w-0 grow auto-cols-fr overflow-hidden border border-border',
   {
     variants: {
-      rounded: {
-        none: '',
-        xSmall: 'rounded-xs',
-        small: 'rounded-sm',
-        medium: 'rounded-md',
-        large: 'rounded-lg',
-        xLarge: 'rounded-xl',
-        xxLarge: 'rounded-2xl',
-        xxxLarge: 'rounded-3xl',
-        full: 'rounded-full',
-      },
       orientation: {
         horizontal: 'grid-flow-col',
         vertical: 'grid-flow-row',
       },
       size: {
-        small: 'h-xl',
-        medium: 'h-2xl',
-        large: 'h-3xl',
-        fill: 'size-full',
+        small: 'h-xl rounded-lg',
+        medium: 'h-2xl rounded-xl',
+        large: 'h-3xl rounded-2xl',
       },
     },
-    defaultVariants: { orientation: 'horizontal', rounded: 'none', size: 'fill' },
+    defaultVariants: { orientation: 'horizontal', size: 'medium' },
   },
 )
 
@@ -43,7 +31,6 @@ type PaletteSwatchesProps = Omit<React.ComponentProps<'ul'>, 'children'> &
 
 export const PaletteSwatches = ({
   orientation,
-  rounded,
   size,
   className,
   children,
@@ -55,11 +42,7 @@ export const PaletteSwatches = ({
   } = usePalette()
 
   return (
-    <ul
-      className={cn(paletteListVariants({ orientation, rounded, size }), className)}
-      ref={ref}
-      {...props}
-    >
+    <ul className={cn(paletteListVariants({ orientation, size }), className)} ref={ref} {...props}>
       {colors.map((color) => (
         <li key={color.id} className="">
           {children({ color, valueType })}

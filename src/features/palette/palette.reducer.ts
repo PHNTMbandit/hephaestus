@@ -169,7 +169,7 @@ export const paletteReducer = (state: PaletteState, action: PaletteAction): Pale
         limit: action.payload.limit,
         colors: state.colors.slice(0, action.payload.limit),
       }
-    case 'SET_MODE': {
+    case 'SET_RENDER_MODE': {
       return {
         ...state,
         mode: action.payload.mode,

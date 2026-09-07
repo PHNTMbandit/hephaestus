@@ -30,7 +30,7 @@ export const PaletteEditorValueSelect = ({
 
   return (
     <Select value={valueType?.value} items={valueTypesList} onValueChange={handleValueChange}>
-      <SelectTrigger variant={'ghost'} className={cn('', className)} ref={ref} {...props}>
+      <SelectTrigger variant={'secondary'} className={cn('w-full', className)} ref={ref} {...props}>
         <SelectValue />
         <SelectIcon>
           <CaretUpDownIcon weight="bold" />

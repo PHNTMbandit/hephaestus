@@ -1,15 +1,9 @@
 import { QueryClient } from '@tanstack/query-core'
 import { queryCollectionOptions } from '@tanstack/query-db-collection'
-import { collectionOptions } from '@tanstack/react-db'
+import { BasicIndex, collectionOptions } from '@tanstack/react-db'
 import { z } from 'zod'
 import { paletteVisibilities } from '../schema/palette-save-schema'
-import {
-  getPalettes,
-  palettesQueryOptions,
-  savePalette,
-  updatePalette,
-  deletePalette,
-} from '../utils'
+import { getPalettes, publishPalette, updatePalette, deletePalette } from '../utils'
 
 import type { Color } from '#/features/color/color.types.ts'
 
@@ -25,17 +19,22 @@ const paletteSchema = z.object({
   visibility: z.enum(paletteVisibilities).default('private'),
 })
 
+export type Palette = z.infer<typeof paletteSchema>
+
 export const paletteCollection = collectionOptions('palettes', (client) =>
   queryCollectionOptions({
+    id: 'palettes',
     schema: paletteSchema,
-    queryClient: client.requireDependency<QueryClient>('queryClient'),
-    queryKey: palettesQueryOptions.queryKey,
+    queryKey: ['getPalettes'],
     queryFn: () => getPalettes(),
+    queryClient: client.requireDependency<QueryClient>('queryClient'),
     getKey: (palette) => palette.id,
+    autoIndex: 'eager',
+    defaultIndexType: BasicIndex,
     onInsert: async ({ transaction }) => {
       await Promise.all(
         transaction.mutations.map((m) =>
-          savePalette({
+          publishPalette({
             data: {
               id: m.modified.id,
               name: m.modified.name,
@@ -54,6 +53,7 @@ export const paletteCollection = collectionOptions('palettes', (client) =>
           updatePalette({
             data: {
               id: m.modified.id,
+              userId: m.modified.userId,
               baseColor: m.modified.baseColor,
               colors: m.modified.colors,
             },
@@ -63,7 +63,9 @@ export const paletteCollection = collectionOptions('palettes', (client) =>
     },
     onDelete: async ({ transaction }) => {
       await Promise.all(
-        transaction.mutations.map((m) => deletePalette({ data: { id: m.original.id } })),
+        transaction.mutations.map((m) =>
+          deletePalette({ data: { id: m.original.id, userId: m.original.userId } }),
+        ),
       )
     },
   }),

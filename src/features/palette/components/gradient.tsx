@@ -15,7 +15,7 @@ export const PaletteGradient = ({ className, children, ref, ...props }: PaletteG
       <div
         className="size-full"
         style={{
-          background: `linear-gradient(135deg, ${gradientStops})`,
+          background: `linear-gradient(180deg, ${gradientStops})`,
         }}
       />
     </div>

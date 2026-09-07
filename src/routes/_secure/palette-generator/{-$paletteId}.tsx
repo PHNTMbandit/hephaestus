@@ -1,11 +1,11 @@
 import { createFileRoute, notFound } from '@tanstack/react-router'
-import { Separator } from 'dawn-ui-react'
+import { Separator, SidebarProvider, SidebarToggle } from 'dawn-ui-react'
 import { CurrentPageTitle } from '#/components/current-page-title'
 import { Color } from '#/features/color/components/color.ts'
 import { PaletteEditor } from '#/features/palette-editor/components/palette-editor'
 import { Palette } from '#/features/palette/components/palette'
 import { PALETTE_CONFIG } from '#/features/palette/constants/state.ts'
-import { paletteCollection } from '#/features/palette/db/collection'
+import { paletteCollection } from '#/features/palette/db/palette-collection'
 import {
   generateRandomColor,
   hydratePaletteState,
@@ -27,13 +27,13 @@ export const Route = createFileRoute('/_secure/palette-generator/{-$paletteId}')
         PALETTE_CONFIG.INITIAL_COLORS_COUNT,
       ),
     })
-    const saveFormState = (await getFormDataFromServer()) ?? {
+    const publishFormState = (await getFormDataFromServer()) ?? {
       errorMap: { onServer: undefined },
       errors: [],
     }
 
     if (!paletteId) {
-      return { serializableState, savedPalette: null, saveFormState }
+      return { serializableState, savedPalette: null, publishFormState }
     }
 
     const collection = dbClient.collection(paletteCollection)
@@ -44,12 +44,12 @@ export const Route = createFileRoute('/_secure/palette-generator/{-$paletteId}')
       notFound({ throw: true })
     }
 
-    return { serializableState, savedPalette, saveFormState }
+    return { serializableState, savedPalette, publishFormState }
   },
 })
 
 function RouteComponent() {
-  const { serializableState, savedPalette, saveFormState } = Route.useLoaderData()
+  const { serializableState, savedPalette, publishFormState } = Route.useLoaderData()
   const paletteState = hydratePaletteState(savedPalette ?? serializableState)
 
   return (
@@ -62,66 +62,98 @@ function RouteComponent() {
             <PaletteEditor.PanelTabs />
           </PaletteEditor.PanelHeader>
           <PaletteEditor.PanelContent>
-            <PaletteEditor.Controls />
+            <PaletteEditor.ControlsContent />
             <PaletteEditor.AccessibilityContent />
+            <PaletteEditor.PreviewContent />
           </PaletteEditor.PanelContent>
         </PaletteEditor.Panel>
-        <div className="flex w-full flex-col">
-          <PaletteEditor.Toolbar>
-            <PaletteEditor.ToolbarGroup>
-              {savedPalette && <Palette.Name>{savedPalette.name}</Palette.Name>}
-            </PaletteEditor.ToolbarGroup>
-            <PaletteEditor.ToolbarGroup>
-              <PaletteEditor.ValueSelect />
-              <PaletteEditor.Undo />
-              <PaletteEditor.Redo />
-              <Separator orientation="vertical" className={'w-px!'} />
-              <PaletteEditor.Reset />
-              <PaletteEditor.Import />
-              <PaletteEditor.Export />
-              {savedPalette ? (
-                <PaletteEditor.Update paletteId={savedPalette.id} />
-              ) : (
-                <PaletteEditor.Save saveFormState={saveFormState} />
-              )}
-            </PaletteEditor.ToolbarGroup>
-          </PaletteEditor.Toolbar>
-          <PaletteEditor.ModeView>
-            {({ mode }) => {
-              if (mode === 'list') {
-                return (
-                  <PaletteEditor.ReorderableColors>
-                    {({ color, isDragging, valueType }) => (
-                      <Color.Provider color={color}>
-                        <Color.Swatch>
-                          <PaletteEditor.AddColor />
-                          <Color.Header>
-                            <Color.Name />
-                          </Color.Header>
-                          {!isDragging && (
-                            <Color.Actions>
-                              <PaletteEditor.RemoveColor />
-                              <PaletteEditor.EditColor />
-                              <PaletteEditor.Shades />
-                              <Color.Copy value={valueType?.getColorClipboardFormat(color.value)} />
-                              <PaletteEditor.LockColor />
-                            </Color.Actions>
-                          )}
-                          <Color.Footer>
-                            <Color.Value>{valueType?.displayColor(color.value)}</Color.Value>
-                          </Color.Footer>
-                        </Color.Swatch>
-                      </Color.Provider>
-                    )}
-                  </PaletteEditor.ReorderableColors>
-                )
-              }
-              if (mode === 'preview') {
-                return <Palette.Gradient />
-              }
-            }}
-          </PaletteEditor.ModeView>
-        </div>
+        <SidebarProvider collapsible="offcanvas">
+          <PaletteEditor.LibrarySidebar />
+          <div className="flex w-full flex-col">
+            <PaletteEditor.Toolbar>
+              <PaletteEditor.ToolbarGroup>
+                <SidebarToggle tone="neutral" />
+                <Palette.Name />
+              </PaletteEditor.ToolbarGroup>
+              <PaletteEditor.ToolbarGroup>
+                <PaletteEditor.Undo />
+                <PaletteEditor.Redo />
+                <Separator orientation="vertical" className={'h-md! w-px!'} />
+                <PaletteEditor.Reset />
+                <PaletteEditor.Import />
+                <PaletteEditor.Export />
+                {savedPalette ? (
+                  <PaletteEditor.Update paletteId={savedPalette.id} />
+                ) : (
+                  <PaletteEditor.Publish publishFormState={publishFormState} />
+                )}
+              </PaletteEditor.ToolbarGroup>
+            </PaletteEditor.Toolbar>
+            <PaletteEditor.RenderMode>
+              {({ mode }) => {
+                if (mode === 'list') {
+                  return (
+                    <PaletteEditor.ReorderableColors>
+                      {({ color, isDragging, valueType }) => (
+                        <Color.Provider color={color}>
+                          <Color.Swatch>
+                            <PaletteEditor.AddColor />
+                            <Color.Header>
+                              <Color.Name />
+                            </Color.Header>
+                            {!isDragging && (
+                              <Color.Actions>
+                                <PaletteEditor.RemoveColor />
+                                <PaletteEditor.EditColor />
+                                <PaletteEditor.Shades />
+                                <Color.Copy
+                                  value={valueType?.getColorClipboardFormat(color.value)}
+                                />
+                                <PaletteEditor.LockColor />
+                              </Color.Actions>
+                            )}
+                            <Color.Footer>
+                              <Color.Value>{valueType?.displayColor(color.value)}</Color.Value>
+                            </Color.Footer>
+                          </Color.Swatch>
+                        </Color.Provider>
+                      )}
+                    </PaletteEditor.ReorderableColors>
+                  )
+                }
+                if (mode === 'gradient') {
+                  return <Palette.Gradient />
+                }
+                if (mode === 'swatches') {
+                  return (
+                    <Palette.Swatches orientation="horizontal">
+                      {({ color }) => (
+                        <Color.Provider color={color}>
+                          <Color.Swatch />
+                        </Color.Provider>
+                      )}
+                    </Palette.Swatches>
+                  )
+                }
+                if (mode === 'blocks') {
+                  return (
+                    <Palette.Swatches orientation="horizontal">
+                      {({ color, valueType }) => (
+                        <Color.Provider color={color}>
+                          <Color.Swatch>
+                            <Color.Footer>
+                              <Color.Value>{valueType?.displayColor(color.value)}</Color.Value>
+                            </Color.Footer>
+                          </Color.Swatch>
+                        </Color.Provider>
+                      )}
+                    </Palette.Swatches>
+                  )
+                }
+              }}
+            </PaletteEditor.RenderMode>
+          </div>
+        </SidebarProvider>
       </div>
     </Palette.Root>
   )

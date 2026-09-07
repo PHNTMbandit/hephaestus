@@ -1,13 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
 import React from 'react'
 import { Dashboard } from '#/features/my-library/components/dashboard'
-import { paletteCollection } from '#/features/palette/db/collection'
+import { userPalettes } from '#/features/palette/db/live-queries'
 
 export const Route = createFileRoute('/_secure/my-library')({
   component: RouteComponent,
-  loader: async ({ context: { dbClient } }) => {
-    const collection = dbClient.collection(paletteCollection)
-    await collection.preload()
+  loader: async ({ context: { dbClient, user } }) => {
+    const session = await user
+    dbClient.preloadLiveQuery(userPalettes(session.id))
   },
 })
 

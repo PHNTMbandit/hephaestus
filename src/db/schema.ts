@@ -1,20 +1,30 @@
+import { sql } from 'drizzle-orm'
+import { crudPolicy } from 'drizzle-orm/neon'
 import {
   pgTable,
   index,
   foreignKey,
   unique,
-  pgPolicy,
   pgEnum,
+  pgView,
   uuid,
   text,
   timestamp,
   jsonb,
   boolean,
+  pgRole,
+  type AnyPgColumn,
 } from 'drizzle-orm/pg-core'
 
 import type { Color } from '#/features/color/color.types.ts'
 
 export const paletteVisibility = pgEnum('palette_visibility', ['public', 'unlisted', 'private'])
+
+export const authenticatedRole = pgRole('authenticated')
+export const anonymousRole = pgRole('anonymous')
+
+const authUid = (userIdColumn: AnyPgColumn) =>
+  sql`(select current_setting('app.user_id', true) = ${userIdColumn})`
 
 export const designSystems = pgTable(
   'design_systems',
@@ -22,6 +32,7 @@ export const designSystems = pgTable(
     id: uuid().defaultRandom().primaryKey().notNull(),
     userId: text('user_id').notNull(),
     name: text().notNull(),
+    visibility: paletteVisibility().default('private').notNull(),
     colorPaletteId: uuid('color_palette_id'),
     typographyBoardId: uuid('typography_board_id'),
     createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
@@ -52,10 +63,16 @@ export const designSystems = pgTable(
       name: 'design_systems_color_palette_id_fkey',
     }).onDelete('set null'),
     unique('design_systems_user_id_name_key').on(table.userId, table.name),
-    pgPolicy('select own design systems', { as: 'permissive', for: 'select', to: ['public'] }),
-    pgPolicy('insert own design systems', { as: 'permissive', for: 'insert', to: ['public'] }),
-    pgPolicy('update own design systems', { as: 'permissive', for: 'update', to: ['public'] }),
-    pgPolicy('delete own design systems', { as: 'permissive', for: 'delete', to: ['public'] }),
+    crudPolicy({
+      role: authenticatedRole,
+      read: sql`(${table.visibility} <> 'private' or ${authUid(table.userId)})`,
+      modify: authUid(table.userId),
+    }),
+    crudPolicy({
+      role: anonymousRole,
+      read: sql`${table.visibility} <> 'private'`,
+      modify: false,
+    }),
   ],
 )
 
@@ -65,6 +82,7 @@ export const typographyBoards = pgTable(
     id: uuid().defaultRandom().primaryKey().notNull(),
     userId: text('user_id').notNull(),
     name: text().notNull(),
+    visibility: paletteVisibility().default('private').notNull(),
     dataJson: jsonb('data_json').notNull(),
     createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
       .defaultNow()
@@ -84,10 +102,16 @@ export const typographyBoards = pgTable(
       name: 'typography_boards_user_id_fkey',
     }).onDelete('cascade'),
     unique('typography_boards_user_id_name_key').on(table.userId, table.name),
-    pgPolicy('select own typography boards', { as: 'permissive', for: 'select', to: ['public'] }),
-    pgPolicy('insert own typography boards', { as: 'permissive', for: 'insert', to: ['public'] }),
-    pgPolicy('update own typography boards', { as: 'permissive', for: 'update', to: ['public'] }),
-    pgPolicy('delete own typography boards', { as: 'permissive', for: 'delete', to: ['public'] }),
+    crudPolicy({
+      role: authenticatedRole,
+      read: sql`(${table.visibility} <> 'private' or ${authUid(table.userId)})`,
+      modify: authUid(table.userId),
+    }),
+    crudPolicy({
+      role: anonymousRole,
+      read: sql`${table.visibility} <> 'private'`,
+      modify: false,
+    }),
   ],
 )
 
@@ -119,6 +143,78 @@ export const colorPalettes = pgTable(
       name: 'color_palettes_user_id_fkey',
     }).onDelete('cascade'),
     unique('color_palettes_user_id_name_key').on(table.userId, table.name),
+    crudPolicy({
+      role: authenticatedRole,
+      read: sql`(${table.visibility} <> 'private' or ${authUid(table.userId)})`,
+      modify: authUid(table.userId),
+    }),
+    crudPolicy({
+      role: anonymousRole,
+      read: sql`${table.visibility} <> 'private'`,
+      modify: false,
+    }),
+  ],
+)
+
+export const colorPaletteSaves = pgTable(
+  'color_palette_saves',
+  {
+    id: uuid().defaultRandom().primaryKey().notNull(),
+    userId: text('user_id').notNull(),
+    colorPaletteId: uuid('color_palette_id').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
+      .defaultNow()
+      .notNull(),
+  },
+  (table) => [
+    index('color_palette_saves_palette_id_idx').using(
+      'btree',
+      table.colorPaletteId.asc().nullsLast(),
+    ),
+    foreignKey({
+      columns: [table.userId],
+      foreignColumns: [user.id],
+      name: 'color_palette_saves_user_id_fkey',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [table.colorPaletteId],
+      foreignColumns: [colorPalettes.id],
+      name: 'color_palette_saves_palette_id_fkey',
+    }).onDelete('cascade'),
+    unique('color_palette_saves_user_id_palette_id_key').on(table.userId, table.colorPaletteId),
+    crudPolicy({ role: authenticatedRole, read: true, modify: authUid(table.userId) }),
+    crudPolicy({ role: anonymousRole, read: true, modify: false }),
+  ],
+)
+
+export const typographyBoardSaves = pgTable(
+  'typography_board_saves',
+  {
+    id: uuid().defaultRandom().primaryKey().notNull(),
+    userId: text('user_id').notNull(),
+    typographyBoardId: uuid('typography_board_id').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
+      .defaultNow()
+      .notNull(),
+  },
+  (table) => [
+    index('typography_board_saves_board_id_idx').using(
+      'btree',
+      table.typographyBoardId.asc().nullsLast(),
+    ),
+    foreignKey({
+      columns: [table.userId],
+      foreignColumns: [user.id],
+      name: 'typography_board_saves_user_id_fkey',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [table.typographyBoardId],
+      foreignColumns: [typographyBoards.id],
+      name: 'typography_board_saves_board_id_fkey',
+    }).onDelete('cascade'),
+    unique('typography_board_saves_user_id_board_id_key').on(table.userId, table.typographyBoardId),
+    crudPolicy({ role: authenticatedRole, read: true, modify: authUid(table.userId) }),
+    crudPolicy({ role: anonymousRole, read: true, modify: false }),
   ],
 )
 
@@ -137,6 +233,8 @@ export const verification = pgTable(
       'btree',
       table.identifier.asc().nullsLast().op('text_ops'),
     ),
+    crudPolicy({ role: authenticatedRole, read: false, modify: false }),
+    crudPolicy({ role: anonymousRole, read: false, modify: false }),
   ],
 )
 
@@ -155,7 +253,21 @@ export const user = pgTable(
   (table) => [
     unique('user_username_unique').on(table.username),
     unique('user_email_unique').on(table.email),
+    crudPolicy({ role: authenticatedRole, read: authUid(table.id), modify: authUid(table.id) }),
+    crudPolicy({ role: anonymousRole, read: false, modify: false }),
   ],
+)
+
+export const userPublic = pgView('user_public').as((qb) =>
+  qb
+    .select({
+      id: user.id,
+      name: user.name,
+      username: user.username,
+      image: user.image,
+      createdAt: user.createdAt,
+    })
+    .from(user),
 )
 
 export const account = pgTable(
@@ -183,6 +295,8 @@ export const account = pgTable(
       foreignColumns: [user.id],
       name: 'account_user_id_user_id_fk',
     }).onDelete('cascade'),
+    crudPolicy({ role: authenticatedRole, read: false, modify: false }),
+    crudPolicy({ role: anonymousRole, read: false, modify: false }),
   ],
 )
 
@@ -206,5 +320,7 @@ export const session = pgTable(
       name: 'session_user_id_user_id_fk',
     }).onDelete('cascade'),
     unique('session_token_unique').on(table.token),
+    crudPolicy({ role: authenticatedRole, read: false, modify: false }),
+    crudPolicy({ role: anonymousRole, read: false, modify: false }),
   ],
 )

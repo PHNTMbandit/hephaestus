@@ -3,6 +3,8 @@ import type { PaletteCommand } from '../utils'
 import type { PaletteGeneratorMethod } from './generator'
 import type { ValueType } from './value'
 
+export type PaletteRenderMode = 'list' | 'gradient' | 'swatches' | 'blocks'
+
 export type PaletteState = {
   undoActions: PaletteCommand[]
   redoActions: PaletteCommand[]
@@ -11,7 +13,7 @@ export type PaletteState = {
   baseColor: string
   currentGeneratorMethod: PaletteGeneratorMethod
   limit: number
-  mode: 'list' | 'preview'
+  mode: PaletteRenderMode
   id?: string
   userId?: string
   createdAt?: string
@@ -37,7 +39,7 @@ export type PaletteAction =
   | { type: 'SET_GENERATOR_METHOD'; payload: { id: string } }
   | { type: 'SET_VALUE_TYPE'; payload: { valueType: string } }
   | { type: 'SET_LIMIT'; payload: { limit: number } }
-  | { type: 'SET_MODE'; payload: { mode: 'list' | 'preview' } }
+  | { type: 'SET_RENDER_MODE'; payload: { mode: PaletteRenderMode } }
   | {
       type: 'RESET'
       payload: {

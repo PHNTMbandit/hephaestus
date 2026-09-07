@@ -2,14 +2,14 @@ import { createServerFn } from '@tanstack/react-start'
 import { setResponseStatus } from '@tanstack/react-start/server'
 import { ZodError } from 'zod'
 import { paletteSaveSchema } from '../schema/palette-save-schema'
-import { savePalette } from '../utils'
+import { publishPalette } from '../utils'
 
 export const handleSavePaletteForm = createServerFn({ method: 'POST' })
   .validator(paletteSaveSchema)
   .handler(async ({ data }) => {
     try {
       const id = crypto.randomUUID()
-      const palette = await savePalette({
+      const palette = await publishPalette({
         data: {
           id,
           name: data.name,

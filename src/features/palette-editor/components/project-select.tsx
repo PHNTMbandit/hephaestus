@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from 'dawn-ui-react'
-import { paletteCollection } from '#/features/palette/db/collection'
+import { paletteCollection } from '#/features/palette/db/palette-collection'
 
 type PaletteEditorProjectSelectProps = React.ComponentProps<typeof SelectTrigger> & {
   value: string

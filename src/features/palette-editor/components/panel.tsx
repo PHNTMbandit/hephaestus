@@ -12,7 +12,7 @@ export const PaletteEditorPanel = ({
     <Tabs
       variant={'underline'}
       className={cn(
-        'flex w-[550px] flex-col items-center justify-between space-y-3xs! border-r border-border bg-surface-background',
+        'flex flex-col items-center justify-between space-y-3xs! border-r border-border bg-surface-background',
         className,
       )}
       ref={ref}

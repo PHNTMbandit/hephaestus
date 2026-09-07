@@ -14,7 +14,7 @@ import {
   Separator,
   AlertDialogFooter,
 } from 'dawn-ui-react'
-import { paletteCollection } from '#/features/palette/db/collection'
+import { paletteCollection } from '#/features/palette/db/palette-collection'
 import { usePalette } from '#/features/palette/hooks/use-palette'
 
 type PaletteEditorBlockerProps = React.ComponentProps<typeof AlertDialogPopup>

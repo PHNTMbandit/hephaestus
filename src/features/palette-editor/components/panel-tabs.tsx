@@ -10,8 +10,9 @@ export const PaletteEditorPanelTabs = ({
 }: PaletteEditorPanelTabsProps) => {
   return (
     <TabsList className={cn('', className)} ref={ref} {...props}>
-      <TabsTab value="generator">Generator</TabsTab>
+      <TabsTab value="controls">Controls</TabsTab>
       <TabsTab value="accessibility">Accessibility</TabsTab>
+      <TabsTab value="preview">Preview</TabsTab>
       <TabsIndicator />
       {children}
     </TabsList>

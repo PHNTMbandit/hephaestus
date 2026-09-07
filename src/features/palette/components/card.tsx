@@ -1,10 +1,7 @@
 import { cn } from 'dawn-ui-react'
-import { Color } from '#/features/color/components/color'
+import React from 'react'
 import { hydratePaletteState } from '../utils/state'
-import { PaletteDescription } from './description'
-import { PaletteName } from './name'
 import { PaletteRoot } from './root'
-import { PaletteSwatches } from './swatches'
 
 import type { PaletteInitialState } from '../types/state'
 
@@ -15,19 +12,12 @@ type PaletteCardProps = Omit<React.ComponentProps<'div'>, 'children'> & {
 
 export const PaletteCard = ({ palette, className, children, ref, ...props }: PaletteCardProps) => {
   return (
-    <div className={cn('flex flex-col gap-2xs', className)} ref={ref} {...props}>
+    <React.Suspense fallback={<div>Loading...</div>}>
       <PaletteRoot initialState={hydratePaletteState(palette)}>
-        <PaletteSwatches orientation="horizontal" rounded="xxLarge">
-          {({ color }) => (
-            <Color.Provider color={color}>
-              <Color.Swatch />
-            </Color.Provider>
-          )}
-        </PaletteSwatches>
+        <div className={cn('flex flex-col gap-3xs', className)} ref={ref} {...props}>
+          {children}
+        </div>
       </PaletteRoot>
-      {palette.name && <PaletteName>{palette.name}</PaletteName>}
-      {palette.description && <PaletteDescription>{palette.description}</PaletteDescription>}
-      {children}
-    </div>
+    </React.Suspense>
   )
 }

@@ -10,4 +10,9 @@ export default defineConfig({
   dbCredentials: {
     url: process.env.DATABASE_URL as string,
   },
+  entities: {
+    roles: {
+      include: ['authenticated', 'anonymous'],
+    },
+  },
 })

@@ -1,16 +1,16 @@
-import { useDbClient, useLiveSuspenseQuery } from '@tanstack/react-db'
+import { useLiveSuspenseQuery } from '@tanstack/react-db'
 import { Link } from '@tanstack/react-router'
-import { cn } from 'dawn-ui-react'
+import { Button, cn } from 'dawn-ui-react'
+import { Color } from '#/features/color/components/color'
 import { Palette } from '#/features/palette/components/palette'
-import { paletteCollection } from '#/features/palette/db/collection'
+import { userPalettes } from '#/features/palette/db/live-queries'
+import { authClient } from '#/lib/auth-client'
 
 type DashboardProps = React.ComponentProps<'div'>
 
 export const Dashboard = ({ className, children, ref, ...props }: DashboardProps) => {
-  const collection = useDbClient().collection(paletteCollection)
-  const { data } = useLiveSuspenseQuery((q) =>
-    q.from({ palette: collection }).orderBy(({ palette }) => palette.createdAt, 'asc'),
-  )
+  const { data: session } = authClient.useSession()
+  const { data } = useLiveSuspenseQuery(userPalettes(session?.user?.id ?? ''))
 
   return (
     <div
@@ -23,15 +23,23 @@ export const Dashboard = ({ className, children, ref, ...props }: DashboardProps
     >
       {data?.map((palette) => (
         <Palette.Card key={palette.id} palette={palette}>
-          <div className="flex items-center justify-between gap-2xs">
+          <Palette.Swatches orientation="horizontal" size={'large'}>
+            {({ color }) => (
+              <Color.Provider color={color}>
+                <Color.Swatch />
+              </Color.Provider>
+            )}
+          </Palette.Swatches>
+          <Palette.CardFooter>
             <Link to="/palette-generator/{-$paletteId}" params={{ paletteId: palette.id }}>
-              Open
+              <Button variant={'link'} tone="neutral">
+                <Palette.Name />
+              </Button>
             </Link>
-            <Palette.DeletePalette paletteId={palette.id} />
-          </div>
+          </Palette.CardFooter>
+          {children}
         </Palette.Card>
       ))}
-      {children}
     </div>
   )
 }
