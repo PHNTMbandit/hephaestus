@@ -1,6 +1,6 @@
 import { KeyIcon } from '@phosphor-icons/react'
 import { Button, cn } from 'dawn-ui-react'
-import { signIn } from '#/lib/auth-client.ts'
+import { authClient } from '#/lib/auth-client.ts'
 import { m } from '#/paraglide/messages.js'
 
 type PasskeyProps = React.ComponentProps<'button'>
@@ -8,7 +8,7 @@ type PasskeyProps = React.ComponentProps<'button'>
 export const Passkey = ({ className, children, ref, ...props }: PasskeyProps) => {
   const handleClick = async () => {
     try {
-      await signIn.social({
+      await authClient.signIn.social({
         provider: 'apple',
       })
     } catch {

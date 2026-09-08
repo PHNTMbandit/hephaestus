@@ -1,3 +1,4 @@
+import { ListIcon } from '@phosphor-icons/react'
 import { createFileRoute, notFound } from '@tanstack/react-router'
 import { Separator, SidebarProvider, SidebarToggle } from 'dawn-ui-react'
 import { CurrentPageTitle } from '#/components/current-page-title'
@@ -67,12 +68,12 @@ function RouteComponent() {
             <PaletteEditor.PreviewContent />
           </PaletteEditor.PanelContent>
         </PaletteEditor.Panel>
-        <SidebarProvider collapsible="offcanvas">
+        <SidebarProvider collapsible="offcanvas" defaultOpen={false} id={'library'}>
           <PaletteEditor.LibrarySidebar />
           <div className="flex w-full flex-col">
             <PaletteEditor.Toolbar>
               <PaletteEditor.ToolbarGroup>
-                <SidebarToggle tone="neutral" />
+                <SidebarToggle>{() => <ListIcon weight="bold" />}</SidebarToggle>
                 <Palette.Name />
               </PaletteEditor.ToolbarGroup>
               <PaletteEditor.ToolbarGroup>
@@ -81,7 +82,9 @@ function RouteComponent() {
                 <Separator orientation="vertical" className={'h-md! w-px!'} />
                 <PaletteEditor.Reset />
                 <PaletteEditor.Import />
-                <PaletteEditor.Export />
+                <PaletteEditor.ExportDialog>
+                  <PaletteEditor.ExportTrigger />
+                </PaletteEditor.ExportDialog>
                 {savedPalette ? (
                   <PaletteEditor.Update paletteId={savedPalette.id} />
                 ) : (

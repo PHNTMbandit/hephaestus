@@ -12,12 +12,10 @@ type PaletteCardProps = Omit<React.ComponentProps<'div'>, 'children'> & {
 
 export const PaletteCard = ({ palette, className, children, ref, ...props }: PaletteCardProps) => {
   return (
-    <React.Suspense fallback={<div>Loading...</div>}>
-      <PaletteRoot initialState={hydratePaletteState(palette)}>
-        <div className={cn('flex flex-col gap-3xs', className)} ref={ref} {...props}>
-          {children}
-        </div>
-      </PaletteRoot>
-    </React.Suspense>
+    <PaletteRoot initialState={hydratePaletteState(palette)}>
+      <div className={cn('flex flex-col gap-3xs', className)} ref={ref} {...props}>
+        {children}
+      </div>
+    </PaletteRoot>
   )
 }

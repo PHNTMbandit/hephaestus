@@ -15,12 +15,12 @@ const paletteListVariants = cva(
         vertical: 'grid-flow-row',
       },
       size: {
-        small: 'h-xl rounded-lg',
-        medium: 'h-2xl rounded-xl',
-        large: 'h-3xl rounded-2xl',
+        small: 'rounded-lg',
+        medium: 'rounded-xl',
+        large: 'rounded-2xl',
       },
     },
-    defaultVariants: { orientation: 'horizontal', size: 'medium' },
+    defaultVariants: { orientation: 'vertical', size: 'medium' },
   },
 )
 

@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
-import React from 'react'
-import { Dashboard } from '#/features/explore/components/dashboard'
+import { CurrentPageTitle } from '#/components/current-page-title'
+import { ExploreDashboard } from '#/features/explore/components/dashboard'
 import { publicPalettes } from '#/features/palette/db/live-queries'
 import { paletteCollection } from '#/features/palette/db/palette-collection'
 import { paletteSavesCollection } from '#/features/palette/db/saves-collection'
@@ -18,8 +18,9 @@ export const Route = createFileRoute('/_secure/explore')({
 
 function RouteComponent() {
   return (
-    <React.Suspense fallback={<div>Loading...</div>}>
-      <Dashboard />
-    </React.Suspense>
+    <div className="size-full">
+      <CurrentPageTitle />
+      <ExploreDashboard />
+    </div>
   )
 }

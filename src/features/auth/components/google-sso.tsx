@@ -1,7 +1,7 @@
 import { CircleNotchIcon } from '@phosphor-icons/react/dist/ssr'
 import { Button, cn } from 'dawn-ui-react'
 import React from 'react'
-import { signIn } from '#/lib/auth-client.ts'
+import { authClient } from '#/lib/auth-client.ts'
 import { m } from '#/paraglide/messages.js'
 
 type GoogleSSOProps = React.ComponentProps<'button'>
@@ -11,7 +11,7 @@ export const GoogleSSO = ({ className, children, ref, ...props }: GoogleSSOProps
 
   const handleClick = async () => {
     try {
-      await signIn.social(
+      await authClient.signIn.social(
         {
           provider: 'google',
           callbackURL: '/explore',

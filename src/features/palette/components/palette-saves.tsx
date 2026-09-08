@@ -35,7 +35,7 @@ export const PaletteSaves = ({ className, ref, ...props }: PaletteSavesProps) =>
       disabled={disabled}
       pressed={!!isSaved}
       onPressedChange={handleChange}
-      className={cn('', className)}
+      className={cn('ml-auto', className)}
       ref={ref}
       {...props}
     >

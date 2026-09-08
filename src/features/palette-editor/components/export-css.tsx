@@ -23,6 +23,9 @@ import {
   type CodeBlockValue,
   TabsPanel,
   TabsIndicator,
+  DialogIcon,
+  DialogDescription,
+  DialogClose,
 } from 'dawn-ui-react'
 import { usePalette } from '#/features/palette/hooks/use-palette'
 import { valueTypes } from '#/features/palette/utils'
@@ -79,16 +82,18 @@ export const PaletteEditorExportCss = ({
           CSS
         </Button>
       </DialogTrigger>
-      <DialogPopup className={'w-1/3'}>
+      <DialogPopup className={'w-1/2'}>
+        <DialogClose />
         <DialogHeader>
-          <DialogTitle>
+          <DialogIcon>
             <FileCssIcon weight="bold" />
-            CSS
-          </DialogTitle>
+          </DialogIcon>
+          <DialogTitle>CSS</DialogTitle>
+          <DialogDescription>Export your palette as CSS or SCSS.</DialogDescription>
         </DialogHeader>
         <DialogContent>
           {children}
-          <Tabs size="small" fill>
+          <Tabs fill>
             <TabsList>
               <TabsTab value="css">CSS</TabsTab>
               <TabsTab value="scss">SCSS</TabsTab>

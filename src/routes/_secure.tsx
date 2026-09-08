@@ -23,7 +23,7 @@ function RouteComponent() {
   const data = Route.useLoaderData()
 
   return (
-    <SidebarProvider>
+    <SidebarProvider id={'main'}>
       <ClientSidebar user={data} />
       <Outlet />
     </SidebarProvider>

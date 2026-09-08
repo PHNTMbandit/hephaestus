@@ -10,7 +10,7 @@ export const PaletteCardFooter = ({
 }: PaletteCardFooterProps) => {
   return (
     <div
-      className={cn('flex items-center justify-between gap-sm px-xs', className)}
+      className={cn('flex items-center justify-between gap-3xs px-2xs', className)}
       ref={ref}
       {...props}
     >

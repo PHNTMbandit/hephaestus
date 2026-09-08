@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
-import React from 'react'
-import { Dashboard } from '#/features/favorites/dashboard'
+import { CurrentPageTitle } from '#/components/current-page-title'
+import { FavoritesDashboard } from '#/features/favorites/dashboard'
 import { savedPalettes } from '#/features/palette/db/live-queries'
 
 export const Route = createFileRoute('/_secure/favorites')({
@@ -13,8 +13,9 @@ export const Route = createFileRoute('/_secure/favorites')({
 
 function RouteComponent() {
   return (
-    <React.Suspense fallback={<div>Loading...</div>}>
-      <Dashboard />
-    </React.Suspense>
+    <div className="size-full">
+      <CurrentPageTitle />
+      <FavoritesDashboard />
+    </div>
   )
 }

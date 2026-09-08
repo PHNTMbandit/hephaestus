@@ -13,7 +13,8 @@ import { PaletteEditorControlsBaseColor } from './controls/base-color'
 import { PaletteEditorControlsColorCount } from './controls/color-count'
 import { PaletteEditorControlsContent } from './controls/content'
 import { PaletteEditorEditColor } from './edit-color'
-import { PaletteEditorExportRoot } from './export-root'
+import { PaletteEditorExportDialog } from './export-dialog'
+import { PaletteEditorExportTrigger } from './export-trigger'
 import { PaletteEditorImport } from './import'
 import { PaletteEditorLibrarySidebar } from './library-sidebar'
 import { PaletteEditorLibraryTable } from './library-table'
@@ -54,7 +55,8 @@ export const PaletteEditor = {
   ControlsColorCount: PaletteEditorControlsColorCount,
   ControlsContent: PaletteEditorControlsContent,
   EditColor: PaletteEditorEditColor,
-  Export: PaletteEditorExportRoot,
+  ExportDialog: PaletteEditorExportDialog,
+  ExportTrigger: PaletteEditorExportTrigger,
   Import: PaletteEditorImport,
   LibrarySidebar: PaletteEditorLibrarySidebar,
   LibraryTable: PaletteEditorLibraryTable,
