@@ -29,12 +29,10 @@ const NavLink = Link as unknown as (props: {
 
 const { seededPalettes } = vi.hoisted(() => ({ seededPalettes: [] as unknown[] }))
 
-vi.mock('#/features/palette/utils/queries', () => ({
+vi.mock('#/features/palette/utils/palette-queries', () => ({
   getPalettes: vi.fn<() => Promise<unknown[]>>(async () => seededPalettes),
-  palettesQueryOptions: { queryKey: ['getPalettes'] },
-  paletteQueryOptions: () => ({ queryKey: ['getPalette'] }),
   getPalette: vi.fn<() => void>(),
-  savePalette: vi.fn<() => void>(),
+  publishPalette: vi.fn<() => void>(),
   updatePalette: vi.fn<() => void>(),
   deletePalette: vi.fn<() => void>(),
 }))
