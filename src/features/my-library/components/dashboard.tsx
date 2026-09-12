@@ -1,7 +1,7 @@
 import { useLiveSuspenseQuery } from '@tanstack/react-db'
 import { cn } from 'dawn-ui-react'
 import { Palette } from '#/features/palette/components/palette'
-import { userPalettes } from '#/features/palette/db/live-queries'
+import { palettesByUserId } from '#/features/palette/db/live-queries'
 import { authClient } from '#/lib/auth-client'
 import { MyLibraryPaletteCard } from './palette-card'
 
@@ -14,7 +14,7 @@ export const MyLibraryDashboard = ({
   ...props
 }: MyLibraryDashboardProps) => {
   const { data: session } = authClient.useSession()
-  const { data } = useLiveSuspenseQuery(userPalettes(session?.user?.id ?? ''))
+  const { data } = useLiveSuspenseQuery(palettesByUserId(session?.user?.id ?? ''))
 
   return (
     <Palette.Grid className={cn('', className)} ref={ref} {...props}>

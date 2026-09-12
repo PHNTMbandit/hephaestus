@@ -8,7 +8,7 @@ export const PaletteGrid = ({ className, children, ref, ...props }: PaletteGridP
     <React.Suspense fallback={<div>Loading...</div>}>
       <div
         className={cn(
-          'grid auto-rows-[384px] grid-cols-[repeat(auto-fill,minmax(256px,1fr))] gap-md p-md',
+          'box-border grid size-full min-h-0 max-w-full min-w-0 auto-rows-min grid-cols-[repeat(auto-fill,minmax(min(312px,100%),1fr))] gap-md overflow-x-hidden overflow-y-auto p-md',
           className,
         )}
         ref={ref}

@@ -1,26 +1,27 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { CurrentPageTitle } from '#/components/current-page-title'
 import { ExploreDashboard } from '#/features/explore/components/dashboard'
-import { publicPalettes } from '#/features/palette/db/live-queries'
-import { paletteCollection } from '#/features/palette/db/palette-collection'
 import { paletteSavesCollection } from '#/features/palette/db/saves-collection'
+import { palettesQueryOptions } from '#/features/palette/utils'
 
 export const Route = createFileRoute('/_secure/explore')({
   component: RouteComponent,
-  loader: async ({ context: { dbClient } }) => {
-    const palettes = dbClient.collection(paletteCollection)
+  loader: async ({ context: { dbClient, queryClient } }) => {
+    const data = queryClient.query(palettesQueryOptions)
     const saves = dbClient.collection(paletteSavesCollection)
-    dbClient.preloadLiveQuery(publicPalettes())
-    await palettes.preload()
     await saves.preload()
+
+    return data
   },
 })
 
 function RouteComponent() {
+  const data = Route.useLoaderData()
+
   return (
-    <div className="size-full">
+    <div className="flex size-full min-h-0 max-w-full min-w-0 flex-col overflow-hidden">
       <CurrentPageTitle />
-      <ExploreDashboard />
+      <ExploreDashboard data={data} />
     </div>
   )
 }

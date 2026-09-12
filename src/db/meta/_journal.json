@@ -78,6 +78,13 @@
       "when": 1788667868370,
       "tag": "0010_create_app_roles",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1789187755005,
+      "tag": "0011_fantastic_barracuda",
+      "breakpoints": true
     }
   ]
 }

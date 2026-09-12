@@ -1,25 +1,95 @@
-import { eq, useDbClient, useLiveQuery } from '@tanstack/react-db'
+import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from 'dawn-ui-react'
-import { paletteCollection } from '../db/palette-collection'
 import { usePalette } from '../hooks/use-palette'
 
-type PaletteNameProps = React.ComponentProps<'span'>
+const nameVariants = cva('', {
+  variants: {
+    size: {
+      small: '',
+      medium: '',
+      large: '',
+      xlarge: '',
+      xxlarge: '',
+    },
+    variant: {
+      default: '',
+      strong: '',
+    },
+  },
+  compoundVariants: [
+    {
+      size: 'small',
+      variant: 'default',
+      className: 'style-text-default--1',
+    },
+    {
+      size: 'small',
+      variant: 'strong',
+      className: 'style-text-strong--1',
+    },
+    {
+      size: 'medium',
+      variant: 'default',
+      className: 'style-text-default-0',
+    },
+    {
+      size: 'medium',
+      variant: 'strong',
+      className: 'style-text-strong-0',
+    },
+    {
+      size: 'large',
+      variant: 'default',
+      className: 'style-text-default-1',
+    },
+    {
+      size: 'large',
+      variant: 'strong',
+      className: 'style-text-strong-1',
+    },
+    {
+      size: 'xlarge',
+      variant: 'default',
+      className: 'style-text-default-2',
+    },
+    {
+      size: 'xlarge',
+      variant: 'strong',
+      className: 'style-text-strong-2',
+    },
+    {
+      size: 'xxlarge',
+      variant: 'default',
+      className: 'style-text-default-3',
+    },
+    {
+      size: 'xxlarge',
+      variant: 'strong',
+      className: 'style-text-strong-3',
+    },
+  ],
+  defaultVariants: {
+    size: 'medium',
+    variant: 'default',
+  },
+})
 
-export const PaletteName = ({ className, children, ref, ...props }: PaletteNameProps) => {
+type PaletteNameProps = React.ComponentProps<'span'> & VariantProps<typeof nameVariants>
+
+export const PaletteName = ({
+  size,
+  variant,
+  className,
+  children,
+  ref,
+  ...props
+}: PaletteNameProps) => {
   const { state } = usePalette()
-  const collection = useDbClient().collection(paletteCollection)
-  const { data } = useLiveQuery((q) =>
-    q
-      .from({ data: collection })
-      .where(({ data }) => eq(data.id, state.id))
-      .select(({ data }) => ({ name: data.name }))
-      .findOne(),
-  )
 
   return (
-    <span className={cn('style-text-default-0', className)} ref={ref} {...props}>
+    <span className={cn(nameVariants({ size, variant, className }))} ref={ref} {...props}>
       {children}
-      {data && <span>{data.name}</span>}
+      {<span>{state.name}</span>}
     </span>
   )
 }

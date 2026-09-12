@@ -4,11 +4,11 @@ import { Color } from '#/features/color/components/color'
 import { PaletteEditor } from '#/features/palette-editor/components/palette-editor'
 import { Palette } from '#/features/palette/components/palette'
 
-type MyLibraryPaletteCardProps = {
+type SavedPaletteCardProps = {
   palette: React.ComponentProps<typeof Palette.Card>['palette']
 }
 
-export const MyLibraryPaletteCard = ({ palette }: MyLibraryPaletteCardProps) => {
+export const SavedPaletteCard = ({ palette }: SavedPaletteCardProps) => {
   const [exportOpen, setExportOpen] = React.useState(false)
 
   return (

@@ -21,6 +21,7 @@ import { Route as SecureMyLibraryRouteImport } from './routes/_secure/my-library
 import { Route as SecureSpacingRouteImport } from './routes/_secure/spacing'
 import { Route as SecureTypographyRouteImport } from './routes/_secure/typography'
 import { Route as SecurePaletteGeneratorChar123PaletteIdChar125RouteImport } from './routes/_secure/palette-generator/{-$paletteId}'
+import { Route as SecurePalettePaletteIdRouteImport } from './routes/_secure/palette.$paletteId'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const IndexRoute = IndexRouteImport.update({
@@ -83,6 +84,11 @@ const SecurePaletteGeneratorChar123PaletteIdChar125Route =
     path: '/palette-generator/{-$paletteId}',
     getParentRoute: () => SecureRoute,
   } as any)
+const SecurePalettePaletteIdRoute = SecurePalettePaletteIdRouteImport.update({
+  id: '/palette/$paletteId',
+  path: '/palette/$paletteId',
+  getParentRoute: () => SecureRoute,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -101,6 +107,7 @@ export interface FileRoutesByFullPath {
   '/spacing': typeof SecureSpacingRoute
   '/typography': typeof SecureTypographyRoute
   '/palette-generator/{-$paletteId}': typeof SecurePaletteGeneratorChar123PaletteIdChar125Route
+  '/palette/$paletteId': typeof SecurePalettePaletteIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
@@ -115,6 +122,7 @@ export interface FileRoutesByTo {
   '/spacing': typeof SecureSpacingRoute
   '/typography': typeof SecureTypographyRoute
   '/palette-generator/{-$paletteId}': typeof SecurePaletteGeneratorChar123PaletteIdChar125Route
+  '/palette/$paletteId': typeof SecurePalettePaletteIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
@@ -131,6 +139,7 @@ export interface FileRoutesById {
   '/_secure/spacing': typeof SecureSpacingRoute
   '/_secure/typography': typeof SecureTypographyRoute
   '/_secure/palette-generator/{-$paletteId}': typeof SecurePaletteGeneratorChar123PaletteIdChar125Route
+  '/_secure/palette/$paletteId': typeof SecurePalettePaletteIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
@@ -147,6 +156,7 @@ export interface FileRouteTypes {
     | '/spacing'
     | '/typography'
     | '/palette-generator/{-$paletteId}'
+    | '/palette/$paletteId'
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -161,6 +171,7 @@ export interface FileRouteTypes {
     | '/spacing'
     | '/typography'
     | '/palette-generator/{-$paletteId}'
+    | '/palette/$paletteId'
     | '/api/auth/$'
   id:
     | '__root__'
@@ -176,6 +187,7 @@ export interface FileRouteTypes {
     | '/_secure/spacing'
     | '/_secure/typography'
     | '/_secure/palette-generator/{-$paletteId}'
+    | '/_secure/palette/$paletteId'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
@@ -273,6 +285,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SecurePaletteGeneratorChar123PaletteIdChar125RouteImport
       parentRoute: typeof SecureRoute
     }
+    '/_secure/palette/$paletteId': {
+      id: '/_secure/palette/$paletteId'
+      path: '/palette/$paletteId'
+      fullPath: '/palette/$paletteId'
+      preLoaderRoute: typeof SecurePalettePaletteIdRouteImport
+      parentRoute: typeof SecureRoute
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -292,6 +311,7 @@ interface SecureRouteChildren {
   SecureSpacingRoute: typeof SecureSpacingRoute
   SecureTypographyRoute: typeof SecureTypographyRoute
   SecurePaletteGeneratorChar123PaletteIdChar125Route: typeof SecurePaletteGeneratorChar123PaletteIdChar125Route
+  SecurePalettePaletteIdRoute: typeof SecurePalettePaletteIdRoute
 }
 
 const SecureRouteChildren: SecureRouteChildren = {
@@ -304,6 +324,7 @@ const SecureRouteChildren: SecureRouteChildren = {
   SecureTypographyRoute: SecureTypographyRoute,
   SecurePaletteGeneratorChar123PaletteIdChar125Route:
     SecurePaletteGeneratorChar123PaletteIdChar125Route,
+  SecurePalettePaletteIdRoute: SecurePalettePaletteIdRoute,
 }
 
 const SecureRouteWithChildren =

@@ -4,11 +4,11 @@ import { Color } from '#/features/color/components/color'
 import { PaletteEditor } from '#/features/palette-editor/components/palette-editor'
 import { Palette } from '#/features/palette/components/palette'
 
-type MyLibraryPaletteCardProps = {
+type ExplorePaletteCardProps = {
   palette: React.ComponentProps<typeof Palette.Card>['palette']
 }
 
-export const MyLibraryPaletteCard = ({ palette }: MyLibraryPaletteCardProps) => {
+export const ExplorePaletteCard = ({ palette }: ExplorePaletteCardProps) => {
   const [exportOpen, setExportOpen] = React.useState(false)
 
   return (
@@ -26,7 +26,8 @@ export const MyLibraryPaletteCard = ({ palette }: MyLibraryPaletteCardProps) => 
         </Palette.Open>
         <Palette.Saves />
         <Palette.Menu>
-          <Palette.MenuOpen />
+          <Palette.MenuEdit />
+          <Palette.MenuRemix />
           <MenuSeparator />
           <Palette.MenuExport onClick={() => setExportOpen(true)} />
         </Palette.Menu>

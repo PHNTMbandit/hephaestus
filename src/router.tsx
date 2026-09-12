@@ -13,6 +13,7 @@ export function getRouter() {
     scrollRestoration: true,
     defaultPreload: 'intent',
     defaultPreloadStaleTime: 0,
+    defaultPendingComponent: () => <p>Loading...</p>,
     defaultErrorComponent: ({ error }) => <ErrorComponent error={error} />,
   })
 

@@ -1,8 +1,9 @@
 import { HeartIcon } from '@phosphor-icons/react'
 import { useDbClient, useLiveSuspenseQuery } from '@tanstack/react-db'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import { cn, Toggle } from 'dawn-ui-react'
-import { authClient } from '#/lib/auth-client'
-import { paletteSaveCount, userPaletteSave } from '../db/live-queries'
+import { currentUserQueryOptions } from '#/utils/auth-func'
+import { savesByPaletteId, userSaveForPalette } from '../db/live-queries'
 import { paletteSavesCollection } from '../db/saves-collection'
 import { usePalette } from '../hooks/use-palette'
 
@@ -11,18 +12,18 @@ type PaletteSavesProps = React.ComponentProps<typeof Toggle>
 export const PaletteSaves = ({ className, ref, ...props }: PaletteSavesProps) => {
   const collection = useDbClient().collection(paletteSavesCollection)
   const { state } = usePalette()
-  const { data: session } = authClient.useSession()
+  const { data: user } = useSuspenseQuery(currentUserQueryOptions)
 
-  const userId = session?.user.id
+  const userId = user.id
   const paletteId = state.id
   const disabled = !paletteId || !userId
 
-  const { data: allSaves } = useLiveSuspenseQuery(paletteSaveCount(paletteId ?? ''))
-  const { data: saveRows } = useLiveSuspenseQuery(userPaletteSave(paletteId ?? '', userId ?? ''))
-  const isSaved = saveRows?.[0]
+  const { data: allSaves } = useLiveSuspenseQuery(savesByPaletteId(paletteId ?? ''))
+  const { data: isSaved } = useLiveSuspenseQuery(userSaveForPalette(paletteId ?? '', userId ?? ''))
 
   const handleChange = (pressed: boolean) => {
     if (!paletteId || !userId) return
+
     if (pressed) {
       collection.insert({ id: crypto.randomUUID(), colorPaletteId: paletteId, userId })
     } else if (isSaved) {
@@ -35,7 +36,7 @@ export const PaletteSaves = ({ className, ref, ...props }: PaletteSavesProps) =>
       disabled={disabled}
       pressed={!!isSaved}
       onPressedChange={handleChange}
-      className={cn('ml-auto', className)}
+      className={cn('', className)}
       ref={ref}
       {...props}
     >

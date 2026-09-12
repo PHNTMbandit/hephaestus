@@ -13,7 +13,6 @@ import { routerWithDbClient } from '@tanstack/react-router-with-db'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { PaletteRoot } from '#/features/palette/components/root'
-import { paletteCollection } from '#/features/palette/db/palette-collection'
 import { PaletteEditorBlocker } from '../components/blocker'
 
 import type { Color } from '#/features/color/color.types.ts'
@@ -98,10 +97,6 @@ async function renderBlocker({
 
   const queryClient = new QueryClient()
   const dbClient = new DbClient({ queryClient })
-
-  if (seed.length > 0) {
-    await dbClient.collection(paletteCollection).preload()
-  }
 
   const router = routerWithDbClient(
     createRouter({

@@ -1,3 +1,4 @@
+import { queryOptions } from '@tanstack/react-query'
 import { createServerFn } from '@tanstack/react-start'
 import { eq } from 'drizzle-orm'
 import { getDb } from '#/db/rls.ts'
@@ -22,6 +23,14 @@ export const getPalettes = createServerFn({ method: 'GET' })
   .middleware([authMiddleware])
   .handler(async ({ context }) => {
     return await getDb(context.user.id, (tx) => tx.select().from(colorPalettes))
+  })
+
+export const getUserPalettes = createServerFn({ method: 'GET' })
+  .middleware([authMiddleware])
+  .handler(async ({ context }) => {
+    return await getDb(context.user.id, (tx) =>
+      tx.select().from(colorPalettes).where(eq(colorPalettes.userId, context.user.id)),
+    )
   })
 
 export const publishPalette = createServerFn({ method: 'POST' })
@@ -83,4 +92,17 @@ export const deletePalette = createServerFn({ method: 'POST' })
     } catch (error) {
       throw new Error('Failed to delete palette', { cause: error })
     }
+  })
+
+export const palettesQueryOptions = queryOptions({
+  queryKey: ['palettes'],
+  queryFn: async () => getPalettes(),
+  staleTime: 'static',
+})
+
+export const paletteQueryOptions = (paletteId: string) =>
+  queryOptions({
+    queryKey: ['palette', paletteId],
+    queryFn: async () => getPalette({ data: { id: paletteId } }),
+    staleTime: 'static',
   })

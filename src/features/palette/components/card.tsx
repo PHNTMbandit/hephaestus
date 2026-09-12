@@ -13,7 +13,11 @@ type PaletteCardProps = Omit<React.ComponentProps<'div'>, 'children'> & {
 export const PaletteCard = ({ palette, className, children, ref, ...props }: PaletteCardProps) => {
   return (
     <PaletteRoot initialState={hydratePaletteState(palette)}>
-      <div className={cn('flex flex-col gap-3xs', className)} ref={ref} {...props}>
+      <div
+        className={cn('flex flex-col overflow-hidden rounded-xl border border-border', className)}
+        ref={ref}
+        {...props}
+      >
         {children}
       </div>
     </PaletteRoot>

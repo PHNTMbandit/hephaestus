@@ -26,7 +26,6 @@ import { PaletteEditorPanelHeader } from './panel-header'
 import { PaletteEditorPanelTabs } from './panel-tabs'
 import { PaletteEditorPreviewContent } from './preview/content'
 import { PaletteEditorPreviewRenderToggle } from './preview/render-toggle'
-import { PaletteEditorProjectSelect } from './project-select'
 import { PaletteEditorPublish } from './publish'
 import { PaletteEditorPublishForm } from './publish-form'
 import { PaletteEditorRedo } from './redo'
@@ -68,7 +67,6 @@ export const PaletteEditor = {
   PanelTabs: PaletteEditorPanelTabs,
   PreviewContent: PaletteEditorPreviewContent,
   PreviewRenderToggle: PaletteEditorPreviewRenderToggle,
-  ProjectSelect: PaletteEditorProjectSelect,
   Redo: PaletteEditorRedo,
   RemoveColor: PaletteEditorRemoveColor,
   RenderMode: PaletteEditorRenderMode,

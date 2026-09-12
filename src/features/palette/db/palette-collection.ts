@@ -3,7 +3,7 @@ import { queryCollectionOptions } from '@tanstack/query-db-collection'
 import { BasicIndex, collectionOptions } from '@tanstack/react-db'
 import { z } from 'zod'
 import { paletteVisibilities } from '../schema/palette-save-schema'
-import { getPalettes, publishPalette, updatePalette, deletePalette } from '../utils'
+import { publishPalette, updatePalette, deletePalette, getUserPalettes } from '../utils'
 
 import type { Color } from '#/features/color/color.types.ts'
 
@@ -24,13 +24,13 @@ export type Palette = z.infer<typeof paletteSchema>
 export const paletteCollection = collectionOptions('palettes', (client) =>
   queryCollectionOptions({
     id: 'palettes',
-    schema: paletteSchema,
-    queryKey: ['getPalettes'],
-    queryFn: () => getPalettes(),
-    queryClient: client.requireDependency<QueryClient>('queryClient'),
-    getKey: (palette) => palette.id,
     autoIndex: 'eager',
     defaultIndexType: BasicIndex,
+    getKey: (palette) => palette.id,
+    queryClient: client.requireDependency<QueryClient>('queryClient'),
+    queryFn: () => getUserPalettes(),
+    queryKey: ['getUserPalettes'],
+    schema: paletteSchema,
     onInsert: async ({ transaction }) => {
       await Promise.all(
         transaction.mutations.map((m) =>

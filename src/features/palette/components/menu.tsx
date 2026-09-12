@@ -7,11 +7,13 @@ export const PaletteMenu = ({ className, children, ref, ...props }: PaletteMenuP
   return (
     <Menu>
       <MenuTrigger className={cn('', className)} ref={ref} {...props}>
-        <Button variant={'ghost'} size="iconMedium" tone="neutral">
+        <Button variant={'ghost'} size="iconSmall" tone="neutral">
           <DotsThreeIcon weight="bold" />
         </Button>
       </MenuTrigger>
-      <MenuPopup>{children}</MenuPopup>
+      <MenuPopup side="bottom" align="end">
+        {children}
+      </MenuPopup>
     </Menu>
   )
 }

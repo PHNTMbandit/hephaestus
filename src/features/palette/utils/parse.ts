@@ -1,5 +1,7 @@
 import chroma from 'chroma-js'
 
+import type { Color } from '#/features/color/color.types'
+
 const NUMBER_PATTERN = String.raw`[+-]?(?:\d+(?:\.\d+)?|\.\d+)`
 
 const rgbColorRegex =
@@ -250,4 +252,8 @@ export const parseColorValues = (input: string, valueType: ColorValueTypeId): st
   }
 
   return values.map(colorValueParsers[valueType])
+}
+
+export const parseColorsToSearchParams = (colors: Color[]): string => {
+  return colors.map((color) => color.value.replace(/^#/, '').toLowerCase()).join('-')
 }

@@ -1,6 +1,7 @@
 import { ListIcon } from '@phosphor-icons/react'
 import { createFileRoute, notFound } from '@tanstack/react-router'
 import { Separator, SidebarProvider, SidebarToggle } from 'dawn-ui-react'
+import z, { ZodError } from 'zod'
 import { CurrentPageTitle } from '#/components/current-page-title'
 import { Color } from '#/features/color/components/color.ts'
 import { PaletteEditor } from '#/features/palette-editor/components/palette-editor'
@@ -14,19 +15,57 @@ import {
 } from '#/features/palette/utils/index.ts'
 import { getFormDataFromServer } from '#/utils/form-data'
 
+export const paletteSearchSchema = z.object({
+  colors: z.preprocess(
+    (value) => {
+      if (value === '[]' || (Array.isArray(value) && value.length === 0)) return undefined
+      return Array.isArray(value) ? value.join('-') : value
+    },
+    z
+      .string()
+      .regex(/^(?:#?[0-9a-f]{6})(?:-#?[0-9a-f]{6})*$/i)
+      .transform((value) =>
+        value
+          .split('-')
+          .map((color) => color.replace(/^#/, '').toLowerCase())
+          .join('-'),
+      )
+      .refine(
+        (value) => {
+          if (!value) return true
+          return /^([0-9a-f]{6})(?:-([0-9a-f]{6}))*$/i.test(value)
+        },
+        {
+          message: 'Invalid color format',
+        },
+      )
+      .optional(),
+  ),
+})
+
 export const Route = createFileRoute('/_secure/palette-generator/{-$paletteId}')({
   component: RouteComponent,
-  errorComponent: () => <p>Palette doesn't exist</p>,
+  errorComponent: ({ error }) => <p>{(error as ZodError).message}</p>,
   notFoundComponent: () => <p>Palette doesn't exist</p>,
-  loader: async ({ context: { dbClient }, params: { paletteId } }) => {
-    const baseColor = generateRandomColor().value
-    const newPaletteState = hydratePaletteState({ baseColor, colors: [] })
+  validateSearch: paletteSearchSchema,
+  loaderDeps: ({ search: { colors } }) => ({
+    colors: colors?.split('-').map((color) => `#${color}`) ?? [],
+  }),
+  loader: async ({ context: { dbClient }, params: { paletteId }, deps: { colors } }) => {
+    const baseColor = colors[0] ?? generateRandomColor().value
+    const newPaletteState = hydratePaletteState({
+      baseColor,
+      colors: colors.map((color, id) => ({ id: String(id), value: color, locked: false })),
+    })
     const serializableState = serializePaletteState({
       ...newPaletteState,
-      colors: newPaletteState.currentGeneratorMethod.generatePalette(
-        baseColor,
-        PALETTE_CONFIG.INITIAL_COLORS_COUNT,
-      ),
+      colors:
+        newPaletteState.colors.length > 0
+          ? newPaletteState.colors
+          : newPaletteState.currentGeneratorMethod.generatePalette(
+              baseColor,
+              PALETTE_CONFIG.INITIAL_COLORS_COUNT,
+            ),
     })
     const publishFormState = (await getFormDataFromServer()) ?? {
       errorMap: { onServer: undefined },
@@ -73,7 +112,15 @@ function RouteComponent() {
           <div className="flex w-full flex-col">
             <PaletteEditor.Toolbar>
               <PaletteEditor.ToolbarGroup>
-                <SidebarToggle>{() => <ListIcon weight="bold" />}</SidebarToggle>
+                <SidebarToggle>
+                  {(isExpanded) => {
+                    return isExpanded ? (
+                      <ListIcon weight="bold" className="rotate-90" />
+                    ) : (
+                      <ListIcon weight="bold" />
+                    )
+                  }}
+                </SidebarToggle>
                 <Palette.Name />
               </PaletteEditor.ToolbarGroup>
               <PaletteEditor.ToolbarGroup>

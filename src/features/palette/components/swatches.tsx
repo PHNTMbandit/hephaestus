@@ -7,20 +7,15 @@ import type { ValueType } from '../types/value'
 import type { VariantProps } from 'class-variance-authority'
 
 const paletteListVariants = cva(
-  'relative grid size-full min-h-0 min-w-0 grow auto-cols-fr overflow-hidden border border-border',
+  'relative grid size-full min-h-0 min-w-0 grow auto-cols-fr overflow-hidden',
   {
     variants: {
       orientation: {
         horizontal: 'grid-flow-col',
         vertical: 'grid-flow-row',
       },
-      size: {
-        small: 'rounded-lg',
-        medium: 'rounded-xl',
-        large: 'rounded-2xl',
-      },
     },
-    defaultVariants: { orientation: 'vertical', size: 'medium' },
+    defaultVariants: { orientation: 'vertical' },
   },
 )
 
@@ -31,7 +26,6 @@ type PaletteSwatchesProps = Omit<React.ComponentProps<'ul'>, 'children'> &
 
 export const PaletteSwatches = ({
   orientation,
-  size,
   className,
   children,
   ref,
@@ -42,7 +36,7 @@ export const PaletteSwatches = ({
   } = usePalette()
 
   return (
-    <ul className={cn(paletteListVariants({ orientation, size }), className)} ref={ref} {...props}>
+    <ul className={cn(paletteListVariants({ orientation }), className)} ref={ref} {...props}>
       {colors.map((color) => (
         <li key={color.id} className="">
           {children({ color, valueType })}
