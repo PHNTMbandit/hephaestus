@@ -123,6 +123,7 @@ export const PaletteEditorPublishForm = ({
                 <Field>
                   <field.FieldLabel>Name</field.FieldLabel>
                   <field.FieldInput
+                    maxLength={50}
                     placeholder="Enter a name for your palette"
                     variant={'secondary'}
                   />

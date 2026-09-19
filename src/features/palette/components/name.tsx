@@ -2,7 +2,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from 'dawn-ui-react'
 import { usePalette } from '../hooks/use-palette'
 
-const nameVariants = cva('break-all', {
+const nameVariants = cva('block max-w-full min-w-0', {
   variants: {
     size: {
       small: '',
@@ -10,6 +10,10 @@ const nameVariants = cva('break-all', {
       large: '',
       xlarge: '',
       xxlarge: '',
+    },
+    wrap: {
+      true: 'break-all',
+      false: 'truncate',
     },
     variant: {
       default: '',
@@ -71,6 +75,7 @@ const nameVariants = cva('break-all', {
   defaultVariants: {
     size: 'medium',
     variant: 'default',
+    wrap: false,
   },
 })
 
@@ -79,6 +84,7 @@ type PaletteNameProps = React.ComponentProps<'span'> & VariantProps<typeof nameV
 export const PaletteName = ({
   size,
   variant,
+  wrap,
   className,
   children,
   ref,
@@ -87,7 +93,7 @@ export const PaletteName = ({
   const { state } = usePalette()
 
   return (
-    <span className={cn(nameVariants({ size, variant, className }))} ref={ref} {...props}>
+    <span className={cn(nameVariants({ size, variant, wrap, className }))} ref={ref} {...props}>
       {children}
       {<span>{state.name}</span>}
     </span>

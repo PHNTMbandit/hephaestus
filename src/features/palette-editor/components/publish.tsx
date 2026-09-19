@@ -52,7 +52,7 @@ export const PaletteEditorPublish = ({
             key={state.colors.map(({ id }) => id).join(',')}
             initialState={{ colors: state.colors }}
           >
-            <Palette.Swatches orientation={'horizontal'} size="medium">
+            <Palette.Swatches orientation={'horizontal'} rounded="xlarge" className="h-2xl">
               {({ color }) => (
                 <Color.Provider color={color}>
                   <Color.Swatch />

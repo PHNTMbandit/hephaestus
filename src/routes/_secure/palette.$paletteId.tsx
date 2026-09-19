@@ -27,9 +27,9 @@ function RouteComponent() {
   return (
     <Palette.Root initialState={data} syncInitialState>
       <div className="flex size-full min-h-0 flex-col gap-xl overflow-y-auto px-3xl py-2xl">
-        <header className="grid-cols-2 items-center gap-2xs sm:grid">
-          <Palette.Name size="xxlarge" variant="strong" />
-          <div className="flex shrink-0 items-center gap-3xs sm:place-self-end">
+        <header className="grid-cols-2 items-center gap-2xs lg:grid">
+          <Palette.Name size="xxlarge" variant="strong" wrap={true} />
+          <div className="flex shrink-0 items-center gap-3xs lg:place-self-end">
             <Palette.Saves size={'large'} />
             <Palette.Remix />
             <Palette.Edit />
@@ -48,7 +48,8 @@ function RouteComponent() {
 
         <Palette.Swatches
           orientation={isMobile ? 'vertical' : 'horizontal'}
-          className="max-h-1/2 min-h-min rounded-3xl"
+          rounded={'xxxlarge'}
+          className="max-h-1/2"
         >
           {({ color, valueType }) => {
             return (

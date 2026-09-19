@@ -16,7 +16,7 @@ export const PaletteGrid = <T extends { id?: string }>({
   return (
     <div
       className={cn(
-        'box-border grid size-full min-h-0 max-w-full min-w-0 flex-1 auto-rows-[360px] grid-cols-[repeat(auto-fill,minmax(min(256px,100%),1fr))] gap-md overflow-x-hidden overflow-y-auto p-md',
+        'box-border grid size-full min-h-0 max-w-full min-w-0 flex-1 auto-rows-[512px] grid-cols-[repeat(auto-fill,minmax(min(360px,100%),1fr))] gap-md overflow-x-hidden overflow-y-auto p-md',
         className,
       )}
       ref={ref}

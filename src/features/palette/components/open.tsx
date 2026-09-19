@@ -10,12 +10,17 @@ export const PaletteOpen = ({ className, children, ref, ...props }: PaletteOpenP
   if (state.id === undefined) return null
 
   return (
-    <Link data-slot="palette-open" to="/palette/$paletteId" params={{ paletteId: state.id }}>
+    <Link
+      data-slot="palette-open"
+      className="min-w-0 flex-1"
+      to="/palette/$paletteId"
+      params={{ paletteId: state.id }}
+    >
       <Button
         variant={'ghost'}
         size={'small'}
         tone="neutral"
-        className={cn('', className)}
+        className={cn('w-full min-w-0 justify-start', className)}
         ref={ref}
         {...props}
       >

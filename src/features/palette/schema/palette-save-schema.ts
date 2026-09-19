@@ -9,7 +9,7 @@ export const paletteSaveSchema = z.object({
   name: z
     .string()
     .min(1, { message: 'Name cannot be empty' })
-    .max(200, { message: 'Name cannot exceed 200 characters' }),
+    .max(50, { message: 'Name cannot exceed 50 characters' }),
   description: z.string().max(200, { message: 'Description cannot exceed 200 characters' }),
   visibility: z.enum(paletteVisibilities, { error: 'Invalid visibility option' }),
   colors: z.string(),

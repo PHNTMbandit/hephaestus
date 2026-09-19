@@ -25,7 +25,7 @@ export const ExplorePaletteCard = ({ palette }: ExplorePaletteCardProps) => {
           <Palette.Name />
         </Palette.Open>
         <Palette.Saves />
-        <Palette.Menu>
+        <Palette.Menu size={'iconSmall'}>
           <Palette.MenuEdit />
           <Palette.MenuRemix />
           <MenuSeparator />
