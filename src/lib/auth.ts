@@ -26,6 +26,15 @@ export const auth = betterAuth({
       verification: verification,
     },
   }),
+  user: {
+    additionalFields: {
+      role: {
+        type: 'string',
+        required: true,
+        default: 'user',
+      },
+    },
+  },
   databaseHooks: {
     user: {
       create: {

@@ -1,13 +1,13 @@
-import { TypographyBackground } from './typography-background'
-import { TypographyColor } from './typography-color'
-import { TypographyFontFamily } from './typography-font-family'
-import { TypographyFontSize } from './typography-font-size'
-import { TypographyFontWeight } from './typography-font-weight'
-import { TypographyLetterSpacing } from './typography-letter-spacing'
-import { TypographyLineHeight } from './typography-line-height'
-import { TypographyPreview } from './typography-preview'
-import { TypographyProvider } from './typography-provider'
-import { TypographyScale } from './typography-scale'
+import { TypographyBackground } from './background'
+import { TypographyColor } from './color'
+import { TypographyFontFamily } from './font-family'
+import { TypographyFontSize } from './font-size'
+import { TypographyFontWeight } from './font-weight'
+import { TypographyLetterSpacing } from './letter-spacing'
+import { TypographyLineHeight } from './line-height'
+import { TypographyPreview } from './preview'
+import { TypographyProvider } from './provider'
+import { TypographyScale } from './scale'
 
 export const Typography = {
   Background: TypographyBackground,

@@ -3,6 +3,8 @@ import type { PaletteCommand } from '../utils'
 import type { PaletteGeneratorMethod } from './generator'
 import type { ValueType } from './value'
 
+export type PaletteRenderMode = 'list' | 'gradient' | 'swatches' | 'blocks'
+
 export type PaletteState = {
   undoActions: PaletteCommand[]
   redoActions: PaletteCommand[]
@@ -11,16 +13,18 @@ export type PaletteState = {
   baseColor: string
   currentGeneratorMethod: PaletteGeneratorMethod
   limit: number
-  mode: 'list' | 'preview'
+  mode: PaletteRenderMode
   id?: string
   userId?: string
   createdAt?: string
   updatedAt?: string
   name?: string
+  description?: string
   saving?: boolean
 }
 
 export type PaletteAction =
+  | { type: 'SYNC_EXTERNAL_STATE'; payload: PaletteInitialState }
   | { type: 'ADD' }
   | { type: 'ADD_AT'; payload: { index: number; color: Color } }
   | { type: 'REMOVE' }
@@ -32,11 +36,12 @@ export type PaletteAction =
   | { type: 'REORDER'; payload: { newColors: Color[] } }
   | { type: 'GENERATE' }
   | { type: 'SET_BASE_COLOR'; payload: { baseColor: string } }
+  | { type: 'SET_COLOR'; payload: { id: string; colorValue: string } }
   | { type: 'SET_COLORS'; payload: { colors: Color[] } }
   | { type: 'SET_GENERATOR_METHOD'; payload: { id: string } }
   | { type: 'SET_VALUE_TYPE'; payload: { valueType: string } }
   | { type: 'SET_LIMIT'; payload: { limit: number } }
-  | { type: 'SET_MODE'; payload: { mode: 'list' | 'preview' } }
+  | { type: 'SET_RENDER_MODE'; payload: { mode: PaletteRenderMode } }
   | {
       type: 'RESET'
       payload: {

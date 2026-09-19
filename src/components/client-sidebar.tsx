@@ -1,4 +1,4 @@
-import { CheckIcon, PaletteIcon } from '@phosphor-icons/react'
+import { CheckIcon, PaletteIcon, SidebarSimpleIcon } from '@phosphor-icons/react'
 import { CaretUpDownIcon } from '@phosphor-icons/react/dist/ssr'
 import {
   Avatar,
@@ -22,6 +22,7 @@ import {
   SidebarMenuCollapsible,
   SidebarMenuCollapsiblePanel,
   SidebarMenuCollapsibleTrigger,
+  SidebarToggle,
 } from 'dawn-ui-react'
 import { CLIENT_ROUTES } from '#/constants/client-routes'
 import { RouteLink } from './route-link'
@@ -38,7 +39,12 @@ export const ClientSidebar = ({ user, className, children, ref, ...props }: Clie
     <Sidebar width={350} tone="ghost" className={cn('', className)} ref={ref} {...props}>
       <SidebarHeader>
         {(isExpanded) => {
-          return <span className={cn('style-text-strong-3', !isExpanded && 'hidden')}>Dawn UI</span>
+          return (
+            <>
+              <span className={cn('style-text-strong-3', !isExpanded && 'hidden')}>Dawn UI</span>
+              <SidebarToggle>{() => <SidebarSimpleIcon weight="bold" />}</SidebarToggle>
+            </>
+          )
         }}
       </SidebarHeader>
       <SidebarContent>

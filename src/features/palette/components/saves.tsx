@@ -1,0 +1,52 @@
+import { HeartIcon } from '@phosphor-icons/react'
+import { useDbClient, useLiveSuspenseQuery } from '@tanstack/react-db'
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { cn, Toggle } from 'dawn-ui-react'
+import React from 'react'
+import { currentUserQueryOptions } from '#/utils/auth-func'
+import { savesByPaletteId, userSaveForPalette } from '../db/live-queries'
+import { paletteSavesCollection } from '../db/saves-collection'
+import { usePalette } from '../hooks/use-palette'
+
+type PaletteSavesProps = React.ComponentProps<typeof Toggle>
+
+export const PaletteSaves = ({ className, ref, ...props }: PaletteSavesProps) => {
+  const collection = useDbClient().collection(paletteSavesCollection)
+  const { state } = usePalette()
+  const { data: user } = useSuspenseQuery(currentUserQueryOptions)
+
+  const userId = user.id
+  const paletteId = state.id
+  const disabled = !paletteId || !userId
+
+  const { data: allSaves } = useLiveSuspenseQuery(savesByPaletteId(paletteId ?? ''))
+  const { data: isSaved } = useLiveSuspenseQuery(userSaveForPalette(paletteId ?? '', userId ?? ''))
+
+  const handleChange = (pressed: boolean) => {
+    if (!paletteId || !userId) return
+
+    if (pressed) {
+      collection.insert({ id: crypto.randomUUID(), colorPaletteId: paletteId, userId })
+    } else if (isSaved) {
+      collection.delete(isSaved.id)
+    }
+  }
+
+  return (
+    <Toggle
+      disabled={disabled}
+      pressed={!!isSaved}
+      onPressedChange={handleChange}
+      className={cn('', className)}
+      ref={ref}
+      {...props}
+    >
+      {({ pressed }) => (
+        <>
+          <HeartIcon weight={pressed ? 'fill' : 'bold'} />
+          <span className="style-text-default--1">{allSaves?.length ?? 0}</span>
+        </>
+      )}
+    </Toggle>
+  )
+}

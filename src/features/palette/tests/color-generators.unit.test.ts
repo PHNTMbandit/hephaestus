@@ -74,6 +74,14 @@ describe('generateMonochromaticPalette', () => {
   it('returns the requested number of colors', () => {
     expect(generateMonochromaticPalette('#3366cc', 6)).toHaveLength(6)
   })
+
+  it('includes the base color for both even and odd counts', () => {
+    const base = '#3366cc'
+    const baseHex = chroma(base).hex()
+
+    expect(generateMonochromaticPalette(base, 6).map((c) => c.value)).toContain(baseHex)
+    expect(generateMonochromaticPalette(base, 5).map((c) => c.value)).toContain(baseHex)
+  })
 })
 
 describe('generateInbetweenColor', () => {

@@ -1,49 +1,19 @@
-import { useDbClient, useLiveSuspenseQuery } from '@tanstack/react-db'
-import { Link } from '@tanstack/react-router'
-import { Button, cn } from 'dawn-ui-react'
-import { Color } from '#/features/color/components/color'
+import { useLiveSuspenseQuery } from '@tanstack/react-db'
+import { cn } from 'dawn-ui-react'
 import { Palette } from '#/features/palette/components/palette'
-import { paletteCollection } from '#/features/palette/db/collection'
-import { hydratePaletteState } from '#/features/palette/utils/state'
+import { palettesByUserId } from '#/features/palette/db/live-queries'
+import { authClient } from '#/lib/auth-client'
+import { MyLibraryPaletteCard } from './palette-card'
 
-type DashboardProps = React.ComponentProps<'div'>
+type MyLibraryDashboardProps = Omit<React.ComponentProps<'div'>, 'children'>
 
-export const Dashboard = ({ className, children, ref, ...props }: DashboardProps) => {
-  const collection = useDbClient().collection(paletteCollection)
-  const { data } = useLiveSuspenseQuery((q) =>
-    q.from({ palette: collection }).orderBy(({ palette }) => palette.createdAt, 'asc'),
-  )
-
-  const handleDelete = async (paletteId: string) => {
-    collection.delete(paletteId)
-  }
+export const MyLibraryDashboard = ({ className, ref, ...props }: MyLibraryDashboardProps) => {
+  const { data: session } = authClient.useSession()
+  const { data } = useLiveSuspenseQuery(palettesByUserId(session?.user?.id ?? ''))
 
   return (
-    <div
-      className={cn(
-        'grid auto-rows-[100px] grid-cols-[repeat(auto-fill,minmax(256px,1fr))] gap-sm p-md',
-        className,
-      )}
-      ref={ref}
-      {...props}
-    >
-      {data?.map((palette) => (
-        <div key={palette.id}>
-          <Link to="/palette-generator/{-$projectId}" params={{ projectId: palette.id }}>
-            <Palette.Root initialState={hydratePaletteState(palette)}>
-              <Palette.List orientation={'horizontal'} rounded="xxLarge">
-                {({ color }) => (
-                  <Color.Provider color={color}>
-                    <Color.Swatch />
-                  </Color.Provider>
-                )}
-              </Palette.List>
-            </Palette.Root>
-          </Link>
-          <Button onClick={() => handleDelete(palette.id)}>Delete</Button>
-        </div>
-      ))}
-      {children}
-    </div>
+    <Palette.Grid items={data} className={cn('', className)} ref={ref} {...props}>
+      {(palette) => <MyLibraryPaletteCard key={palette.id} palette={palette} />}
+    </Palette.Grid>
   )
 }

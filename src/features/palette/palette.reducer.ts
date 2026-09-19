@@ -2,11 +2,14 @@ import { valueTypesList } from './constants/values'
 import { generateRandomColor } from './utils/color-generators'
 import { paletteGeneratorMethodsList } from './utils/generator-methods'
 import { recordHistory } from './utils/history'
+import { hydratePaletteState } from './utils/state'
 
 import type { PaletteAction, PaletteState } from './types/state'
 
 export const paletteReducer = (state: PaletteState, action: PaletteAction): PaletteState => {
   switch (action.type) {
+    case 'SYNC_EXTERNAL_STATE':
+      return hydratePaletteState(action.payload)
     case 'ADD': {
       if (state.colors.length >= state.limit) return state
       const palette = state.currentGeneratorMethod.generatePalette(
@@ -133,6 +136,17 @@ export const paletteReducer = (state: PaletteState, action: PaletteAction): Pale
         }),
       }
     }
+    case 'SET_COLOR': {
+      const colors = state.colors.map((c) =>
+        c.id === action.payload.id ? { ...c, value: action.payload.colorValue } : c,
+      )
+
+      return {
+        ...state,
+        ...recordHistory(state, 'Set Color', { colors, baseColor: state.baseColor }),
+        colors,
+      }
+    }
     case 'SET_COLORS':
       return {
         ...state,
@@ -158,7 +172,7 @@ export const paletteReducer = (state: PaletteState, action: PaletteAction): Pale
         limit: action.payload.limit,
         colors: state.colors.slice(0, action.payload.limit),
       }
-    case 'SET_MODE': {
+    case 'SET_RENDER_MODE': {
       return {
         ...state,
         mode: action.payload.mode,

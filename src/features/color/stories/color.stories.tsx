@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker'
 import chroma from 'chroma-js'
 import { valueTypes } from '#/features/palette/utils'
 import { Color } from '../components/color'
-import { ColorProvider } from '../components/color-provider'
+import { ColorProvider } from '../components/provider'
 import { colorNameQueryOptions } from '../utils/queries'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'

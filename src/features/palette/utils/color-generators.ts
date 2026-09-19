@@ -54,7 +54,19 @@ export const generateMonochromaticColor = (
 }
 
 export const generateMonochromaticPalette = (baseColor: string, count: number): Color[] => {
-  return Array.from({ length: count }, (_, i) => generateMonochromaticColor(baseColor, i, count))
+  const colors = Array.from({ length: count }, (_, i) =>
+    generateMonochromaticColor(baseColor, i, count),
+  )
+
+  if (count > 0) {
+    colors[Math.round((count - 1) / 2)] = {
+      id: crypto.randomUUID(),
+      value: chroma(baseColor).hex(),
+      locked: false,
+    }
+  }
+
+  return colors
 }
 
 export const generateComplementaryColor = (baseColor: string): Color => {
