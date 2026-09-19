@@ -3,13 +3,13 @@ import { createServerFn } from '@tanstack/react-start'
 import { eq } from 'drizzle-orm'
 import { getDb } from '#/db/rls'
 import { userPublic } from '#/db/schema'
-import { authMiddleware } from '#/middleware/auth-middleware'
+import { optionalAuthMiddleware } from '#/middleware/optional-auth-middleware'
 
 export const getUser = createServerFn()
   .validator((data: { userId: string }) => data)
-  .middleware([authMiddleware])
-  .handler(async ({ context: { user }, data: { userId } }) => {
-    const [data] = await getDb(user.id, (tx) =>
+  .middleware([optionalAuthMiddleware])
+  .handler(async ({ context: { userId: currentUserId }, data: { userId } }) => {
+    const [data] = await getDb(currentUserId, (tx) =>
       tx.select().from(userPublic).where(eq(userPublic.id, userId)).limit(1),
     )
     return data

@@ -1,16 +1,6 @@
-import { CheckIcon, PaletteIcon, SidebarSimpleIcon } from '@phosphor-icons/react'
-import { CaretUpDownIcon } from '@phosphor-icons/react/dist/ssr'
+import { PaletteIcon, SidebarSimpleIcon } from '@phosphor-icons/react'
 import {
-  Avatar,
-  AvatarBadge,
-  AvatarFallback,
-  AvatarImage,
   cn,
-  Profile,
-  ProfileAction,
-  ProfileContent,
-  ProfileName,
-  ProfileSubname,
   Sidebar,
   SidebarContent,
   SidebarFooter,
@@ -25,16 +15,18 @@ import {
   SidebarToggle,
 } from 'dawn-ui-react'
 import { CLIENT_ROUTES } from '#/constants/client-routes'
+import { authClient } from '#/lib/auth-client'
 import { RouteLink } from './route-link'
+import { SignOut } from './sign-out'
+import { UserProfile } from './user-profile'
 import { m } from '@/paraglide/messages'
 
-import type { User } from 'better-auth'
+type ClientSidebarProps = React.ComponentProps<'div'>
 
-type ClientSidebarProps = React.ComponentProps<'div'> & {
-  user: User
-}
+export const ClientSidebar = ({ className, children, ref, ...props }: ClientSidebarProps) => {
+  const { data } = authClient.useSession()
+  const user = data?.user
 
-export const ClientSidebar = ({ user, className, children, ref, ...props }: ClientSidebarProps) => {
   return (
     <Sidebar width={350} tone="ghost" className={cn('', className)} ref={ref} {...props}>
       <SidebarHeader>
@@ -70,47 +62,23 @@ export const ClientSidebar = ({ user, className, children, ref, ...props }: Clie
               <RouteLink route={CLIENT_ROUTES.designSystems} />
             </SidebarGroupContent>
           </SidebarGroup>
-          <SidebarGroup>
-            <SidebarGroupLabel>{m['navigation.groups.myLibrary']()}</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <RouteLink route={CLIENT_ROUTES.myLibrary} />
-              <RouteLink route={CLIENT_ROUTES.favorites} />
-            </SidebarGroupContent>
-          </SidebarGroup>
+          {user && (
+            <SidebarGroup>
+              <SidebarGroupLabel>{m['navigation.groups.myLibrary']()}</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <RouteLink route={CLIENT_ROUTES.myLibrary} />
+                <RouteLink route={CLIENT_ROUTES.favorites} />
+              </SidebarGroupContent>
+            </SidebarGroup>
+          )}
         </SidebarMenu>
       </SidebarContent>
       <SidebarFooter>
         {(isExpanded) => (
-          <Profile>
-            <Avatar>
-              {user.image ? (
-                <AvatarImage src={user.image} alt={user.name} />
-              ) : (
-                <AvatarFallback>
-                  {user.name
-                    .split(' ')
-                    .map((n) => n[0])
-                    .join('')}
-                </AvatarFallback>
-              )}
-              {user.emailVerified && (
-                <AvatarBadge tone="success">
-                  <CheckIcon weight="bold" />
-                </AvatarBadge>
-              )}
-            </Avatar>
-            {isExpanded && (
-              <>
-                <ProfileContent>
-                  <ProfileName>{user.name}</ProfileName>
-                  <ProfileSubname>{user.email}</ProfileSubname>
-                </ProfileContent>
-                <ProfileAction>
-                  <CaretUpDownIcon weight="bold" />
-                </ProfileAction>
-              </>
-            )}
-          </Profile>
+          <div className="w-full space-y-xs">
+            <SignOut />
+            <UserProfile compact={!isExpanded} />
+          </div>
         )}
       </SidebarFooter>
       {children}

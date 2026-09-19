@@ -6,7 +6,7 @@ import { Palette } from '#/features/palette/components/palette'
 import { palettesSavedByUserId } from '#/features/palette/db/live-queries'
 import { paletteSavesCollection } from '#/features/palette/db/saves-collection'
 
-export const Route = createFileRoute('/_secure/favorites')({
+export const Route = createFileRoute('/_app/_secure/favorites')({
   component: RouteComponent,
   loader: async ({ context: { dbClient, user } }) => {
     await dbClient.preloadLiveQuery(palettesSavedByUserId(user.id))

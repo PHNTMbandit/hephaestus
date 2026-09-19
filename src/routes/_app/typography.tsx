@@ -4,7 +4,7 @@ import { Typography } from '#/features/typography/components/typography.ts'
 import { defaultTypographyState } from '#/features/typography/constants/state.ts'
 import { fontsQueryOptions } from '#/features/typography/utils/queries.ts'
 
-export const Route = createFileRoute('/_secure/typography')({
+export const Route = createFileRoute('/_app/typography')({
   component: RouteComponent,
   loader: async ({ context }) => {
     return await context.queryClient.ensureQueryData(fontsQueryOptions)

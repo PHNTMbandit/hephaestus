@@ -27,7 +27,7 @@ export const CLIENT_ROUTES: Record<ClientRouteName, ClientRoute> = {
     label: m['navigation.items.explore'](),
     leadingIcon: MagnifyingGlassIcon,
     linkOptions: {
-      to: '/explore',
+      to: '/',
     },
   },
   contrastChecker: {

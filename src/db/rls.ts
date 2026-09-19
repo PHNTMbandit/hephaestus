@@ -20,7 +20,15 @@ function getRlsDb() {
 type RlsTransaction = Parameters<Parameters<ReturnType<typeof createRlsDb>['transaction']>[0]>[0]
 
 export async function getDb<T>(userId: string, cb: (tx: RlsTransaction) => Promise<T>): Promise<T> {
-  if (!userId) throw new Error('withUser requires a non-empty userId')
+  if (!userId) {
+    return getRlsDb().transaction(async (tx) => {
+      await tx.execute(
+        sql`select set_config('app.user_id', '', true), set_config('role', 'anonymous', true)`,
+      )
+      return cb(tx)
+    })
+  }
+
   return getRlsDb().transaction(async (tx) => {
     await tx.execute(
       sql`select set_config('app.user_id', ${userId}, true), set_config('role', 'authenticated', true)`,

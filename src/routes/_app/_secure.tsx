@@ -1,9 +1,7 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
-import { SidebarProvider } from 'dawn-ui-react'
-import { ClientSidebar } from '#/components/client-sidebar.tsx'
 import { currentUserQueryOptions } from '#/utils/auth-func.ts'
 
-export const Route = createFileRoute('/_secure')({
+export const Route = createFileRoute('/_app/_secure')({
   component: RouteComponent,
   beforeLoad: async ({ context }) => {
     const user = await context.queryClient.query(currentUserQueryOptions)
@@ -20,12 +18,5 @@ export const Route = createFileRoute('/_secure')({
 })
 
 function RouteComponent() {
-  const data = Route.useLoaderData()
-
-  return (
-    <SidebarProvider id={'main'}>
-      <ClientSidebar user={data} />
-      <Outlet />
-    </SidebarProvider>
-  )
+  return <Outlet />
 }

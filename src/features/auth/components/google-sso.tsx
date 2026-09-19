@@ -14,7 +14,7 @@ export const GoogleSSO = ({ className, children, ref, ...props }: GoogleSSOProps
       await authClient.signIn.social(
         {
           provider: 'google',
-          callbackURL: '/explore',
+          callbackURL: '/',
         },
         {
           onRequest: () => {

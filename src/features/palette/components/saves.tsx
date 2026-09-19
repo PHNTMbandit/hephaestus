@@ -15,7 +15,7 @@ export const PaletteSaves = ({ className, ref, ...props }: PaletteSavesProps) =>
   const { state } = usePalette()
   const { data: user } = useSuspenseQuery(currentUserQueryOptions)
 
-  const userId = user.id
+  const userId = user?.id
   const paletteId = state.id
   const disabled = !paletteId || !userId
 

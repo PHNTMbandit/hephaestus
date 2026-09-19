@@ -1,31 +1,61 @@
-import { useNavigate } from '@tanstack/react-router'
+import { SignOutIcon } from '@phosphor-icons/react'
+import { useRouter } from '@tanstack/react-router'
 import { Button, cn } from 'dawn-ui-react'
-import { signOut } from '#/lib/auth-client.ts'
+import React from 'react'
+import { authClient } from '#/lib/auth-client'
 
 type SignOutProps = React.ComponentProps<'button'>
 
 export const SignOut = ({ className, children, ref, ...props }: SignOutProps) => {
-  const navigate = useNavigate()
+  const router = useRouter()
+  const { data } = authClient.useSession()
+  const [isPending, startTransition] = React.useTransition()
 
-  const handleClick = async () => {
-    await signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          navigate({ to: '/sign-in' })
+  if (!data) {
+    return null
+  }
+
+  const handleClick = () => {
+    startTransition(async () => {
+      await authClient.signOut({
+        fetchOptions: {
+          onSuccess: () => {
+            router.invalidate()
+            window.location.reload()
+          },
         },
-      },
+      })
     })
+  }
+
+  if (isPending) {
+    return (
+      <Button
+        disabled
+        tone="error"
+        variant={'ghost'}
+        className={cn('w-full justify-start', className)}
+        ref={ref}
+        {...props}
+      >
+        {children}
+        <SignOutIcon weight="bold" />
+        Signing out...
+      </Button>
+    )
   }
 
   return (
     <Button
-      variant={'outline'}
+      tone="error"
+      variant={'ghost'}
       onClick={handleClick}
-      className={cn('', className)}
+      className={cn('w-full justify-start', className)}
       ref={ref}
       {...props}
     >
       {children}
+      <SignOutIcon weight="bold" />
       Sign out
     </Button>
   )

@@ -14,7 +14,7 @@ export const GithubSSO = ({ className, children, ref, ...props }: GithubSSOProps
       await authClient.signIn.social(
         {
           provider: 'github',
-          callbackURL: '/explore',
+          callbackURL: '/',
         },
         {
           onRequest: () => {

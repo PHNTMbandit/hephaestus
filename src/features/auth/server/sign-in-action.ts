@@ -39,7 +39,7 @@ export const handleSignInForm = createServerFn({ method: 'POST' })
   .handler(async (ctx) => {
     try {
       await serverValidate(ctx.data)
-      return redirect({ to: '/explore' })
+      return redirect({ to: '/' })
     } catch (error) {
       if (error instanceof ServerValidateError) {
         return error.response
