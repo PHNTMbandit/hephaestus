@@ -117,12 +117,8 @@
           "name": "account_user_id_user_id_fk",
           "tableFrom": "account",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -132,10 +128,7 @@
         "account_provider_id_account_id_unique": {
           "name": "account_provider_id_account_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "provider_id",
-            "account_id"
-          ]
+          "columns": ["provider_id", "account_id"]
         }
       },
       "policies": {
@@ -143,27 +136,21 @@
           "name": "crud-authenticated-policy-select",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "false"
         },
         "crud-authenticated-policy-insert": {
           "name": "crud-authenticated-policy-insert",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "withCheck": "false"
         },
         "crud-authenticated-policy-update": {
           "name": "crud-authenticated-policy-update",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "false",
           "withCheck": "false"
         },
@@ -171,36 +158,28 @@
           "name": "crud-authenticated-policy-delete",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "false"
         },
         "crud-anonymous-policy-select": {
           "name": "crud-anonymous-policy-select",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "false"
         },
         "crud-anonymous-policy-insert": {
           "name": "crud-anonymous-policy-insert",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "withCheck": "false"
         },
         "crud-anonymous-policy-update": {
           "name": "crud-anonymous-policy-update",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "false",
           "withCheck": "false"
         },
@@ -208,9 +187,7 @@
           "name": "crud-anonymous-policy-delete",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "false"
         }
       },
@@ -270,12 +247,8 @@
           "name": "color_palette_saves_user_id_fkey",
           "tableFrom": "color_palette_saves",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -283,12 +256,8 @@
           "name": "color_palette_saves_palette_id_fkey",
           "tableFrom": "color_palette_saves",
           "tableTo": "color_palettes",
-          "columnsFrom": [
-            "color_palette_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["color_palette_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -298,10 +267,7 @@
         "color_palette_saves_user_id_palette_id_key": {
           "name": "color_palette_saves_user_id_palette_id_key",
           "nullsNotDistinct": false,
-          "columns": [
-            "user_id",
-            "color_palette_id"
-          ]
+          "columns": ["user_id", "color_palette_id"]
         }
       },
       "policies": {
@@ -309,27 +275,21 @@
           "name": "crud-authenticated-policy-select",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "true"
         },
         "crud-authenticated-policy-insert": {
           "name": "crud-authenticated-policy-insert",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "withCheck": "(select current_setting('app.user_id', true) = \"color_palette_saves\".\"user_id\")"
         },
         "crud-authenticated-policy-update": {
           "name": "crud-authenticated-policy-update",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(select current_setting('app.user_id', true) = \"color_palette_saves\".\"user_id\")",
           "withCheck": "(select current_setting('app.user_id', true) = \"color_palette_saves\".\"user_id\")"
         },
@@ -337,36 +297,28 @@
           "name": "crud-authenticated-policy-delete",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(select current_setting('app.user_id', true) = \"color_palette_saves\".\"user_id\")"
         },
         "crud-anonymous-policy-select": {
           "name": "crud-anonymous-policy-select",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "true"
         },
         "crud-anonymous-policy-insert": {
           "name": "crud-anonymous-policy-insert",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "withCheck": "false"
         },
         "crud-anonymous-policy-update": {
           "name": "crud-anonymous-policy-update",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "false",
           "withCheck": "false"
         },
@@ -374,9 +326,7 @@
           "name": "crud-anonymous-policy-delete",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "false"
         }
       },
@@ -471,12 +421,8 @@
           "name": "color_palettes_user_id_fkey",
           "tableFrom": "color_palettes",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -486,10 +432,7 @@
         "color_palettes_user_id_name_key": {
           "name": "color_palettes_user_id_name_key",
           "nullsNotDistinct": false,
-          "columns": [
-            "user_id",
-            "name"
-          ]
+          "columns": ["user_id", "name"]
         }
       },
       "policies": {
@@ -497,27 +440,21 @@
           "name": "crud-authenticated-policy-select",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(\"color_palettes\".\"visibility\" <> 'private' or (select current_setting('app.user_id', true) = \"color_palettes\".\"user_id\"))"
         },
         "crud-authenticated-policy-insert": {
           "name": "crud-authenticated-policy-insert",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "withCheck": "(select current_setting('app.user_id', true) = \"color_palettes\".\"user_id\")"
         },
         "crud-authenticated-policy-update": {
           "name": "crud-authenticated-policy-update",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(select current_setting('app.user_id', true) = \"color_palettes\".\"user_id\")",
           "withCheck": "(select current_setting('app.user_id', true) = \"color_palettes\".\"user_id\")"
         },
@@ -525,36 +462,28 @@
           "name": "crud-authenticated-policy-delete",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(select current_setting('app.user_id', true) = \"color_palettes\".\"user_id\")"
         },
         "crud-anonymous-policy-select": {
           "name": "crud-anonymous-policy-select",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "\"color_palettes\".\"visibility\" <> 'private'"
         },
         "crud-anonymous-policy-insert": {
           "name": "crud-anonymous-policy-insert",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "withCheck": "false"
         },
         "crud-anonymous-policy-update": {
           "name": "crud-anonymous-policy-update",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "false",
           "withCheck": "false"
         },
@@ -562,9 +491,7 @@
           "name": "crud-anonymous-policy-delete",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "false"
         }
       },
@@ -652,12 +579,8 @@
           "name": "design_systems_user_id_fkey",
           "tableFrom": "design_systems",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -665,12 +588,8 @@
           "name": "design_systems_typography_board_id_fkey",
           "tableFrom": "design_systems",
           "tableTo": "typography_boards",
-          "columnsFrom": [
-            "typography_board_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["typography_board_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -678,12 +597,8 @@
           "name": "design_systems_color_palette_id_fkey",
           "tableFrom": "design_systems",
           "tableTo": "color_palettes",
-          "columnsFrom": [
-            "color_palette_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["color_palette_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -693,10 +608,7 @@
         "design_systems_user_id_name_key": {
           "name": "design_systems_user_id_name_key",
           "nullsNotDistinct": false,
-          "columns": [
-            "user_id",
-            "name"
-          ]
+          "columns": ["user_id", "name"]
         }
       },
       "policies": {
@@ -704,27 +616,21 @@
           "name": "crud-authenticated-policy-select",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(\"design_systems\".\"visibility\" <> 'private' or (select current_setting('app.user_id', true) = \"design_systems\".\"user_id\"))"
         },
         "crud-authenticated-policy-insert": {
           "name": "crud-authenticated-policy-insert",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "withCheck": "(select current_setting('app.user_id', true) = \"design_systems\".\"user_id\")"
         },
         "crud-authenticated-policy-update": {
           "name": "crud-authenticated-policy-update",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(select current_setting('app.user_id', true) = \"design_systems\".\"user_id\")",
           "withCheck": "(select current_setting('app.user_id', true) = \"design_systems\".\"user_id\")"
         },
@@ -732,36 +638,28 @@
           "name": "crud-authenticated-policy-delete",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(select current_setting('app.user_id', true) = \"design_systems\".\"user_id\")"
         },
         "crud-anonymous-policy-select": {
           "name": "crud-anonymous-policy-select",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "\"design_systems\".\"visibility\" <> 'private'"
         },
         "crud-anonymous-policy-insert": {
           "name": "crud-anonymous-policy-insert",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "withCheck": "false"
         },
         "crud-anonymous-policy-update": {
           "name": "crud-anonymous-policy-update",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "false",
           "withCheck": "false"
         },
@@ -769,9 +667,7 @@
           "name": "crud-anonymous-policy-delete",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "false"
         }
       },
@@ -855,12 +751,8 @@
           "name": "session_user_id_user_id_fk",
           "tableFrom": "session",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -870,9 +762,7 @@
         "session_token_unique": {
           "name": "session_token_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "token"
-          ]
+          "columns": ["token"]
         }
       },
       "policies": {
@@ -880,27 +770,21 @@
           "name": "crud-authenticated-policy-select",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "false"
         },
         "crud-authenticated-policy-insert": {
           "name": "crud-authenticated-policy-insert",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "withCheck": "false"
         },
         "crud-authenticated-policy-update": {
           "name": "crud-authenticated-policy-update",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "false",
           "withCheck": "false"
         },
@@ -908,36 +792,28 @@
           "name": "crud-authenticated-policy-delete",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "false"
         },
         "crud-anonymous-policy-select": {
           "name": "crud-anonymous-policy-select",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "false"
         },
         "crud-anonymous-policy-insert": {
           "name": "crud-anonymous-policy-insert",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "withCheck": "false"
         },
         "crud-anonymous-policy-update": {
           "name": "crud-anonymous-policy-update",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "false",
           "withCheck": "false"
         },
@@ -945,9 +821,7 @@
           "name": "crud-anonymous-policy-delete",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "false"
         }
       },
@@ -1007,12 +881,8 @@
           "name": "typography_board_saves_user_id_fkey",
           "tableFrom": "typography_board_saves",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -1020,12 +890,8 @@
           "name": "typography_board_saves_board_id_fkey",
           "tableFrom": "typography_board_saves",
           "tableTo": "typography_boards",
-          "columnsFrom": [
-            "typography_board_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["typography_board_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1035,10 +901,7 @@
         "typography_board_saves_user_id_board_id_key": {
           "name": "typography_board_saves_user_id_board_id_key",
           "nullsNotDistinct": false,
-          "columns": [
-            "user_id",
-            "typography_board_id"
-          ]
+          "columns": ["user_id", "typography_board_id"]
         }
       },
       "policies": {
@@ -1046,27 +909,21 @@
           "name": "crud-authenticated-policy-select",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "true"
         },
         "crud-authenticated-policy-insert": {
           "name": "crud-authenticated-policy-insert",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "withCheck": "(select current_setting('app.user_id', true) = \"typography_board_saves\".\"user_id\")"
         },
         "crud-authenticated-policy-update": {
           "name": "crud-authenticated-policy-update",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(select current_setting('app.user_id', true) = \"typography_board_saves\".\"user_id\")",
           "withCheck": "(select current_setting('app.user_id', true) = \"typography_board_saves\".\"user_id\")"
         },
@@ -1074,36 +931,28 @@
           "name": "crud-authenticated-policy-delete",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(select current_setting('app.user_id', true) = \"typography_board_saves\".\"user_id\")"
         },
         "crud-anonymous-policy-select": {
           "name": "crud-anonymous-policy-select",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "true"
         },
         "crud-anonymous-policy-insert": {
           "name": "crud-anonymous-policy-insert",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "withCheck": "false"
         },
         "crud-anonymous-policy-update": {
           "name": "crud-anonymous-policy-update",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "false",
           "withCheck": "false"
         },
@@ -1111,9 +960,7 @@
           "name": "crud-anonymous-policy-delete",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "false"
         }
       },
@@ -1195,12 +1042,8 @@
           "name": "typography_boards_user_id_fkey",
           "tableFrom": "typography_boards",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1210,10 +1053,7 @@
         "typography_boards_user_id_name_key": {
           "name": "typography_boards_user_id_name_key",
           "nullsNotDistinct": false,
-          "columns": [
-            "user_id",
-            "name"
-          ]
+          "columns": ["user_id", "name"]
         }
       },
       "policies": {
@@ -1221,27 +1061,21 @@
           "name": "crud-authenticated-policy-select",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(\"typography_boards\".\"visibility\" <> 'private' or (select current_setting('app.user_id', true) = \"typography_boards\".\"user_id\"))"
         },
         "crud-authenticated-policy-insert": {
           "name": "crud-authenticated-policy-insert",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "withCheck": "(select current_setting('app.user_id', true) = \"typography_boards\".\"user_id\")"
         },
         "crud-authenticated-policy-update": {
           "name": "crud-authenticated-policy-update",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(select current_setting('app.user_id', true) = \"typography_boards\".\"user_id\")",
           "withCheck": "(select current_setting('app.user_id', true) = \"typography_boards\".\"user_id\")"
         },
@@ -1249,36 +1083,28 @@
           "name": "crud-authenticated-policy-delete",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(select current_setting('app.user_id', true) = \"typography_boards\".\"user_id\")"
         },
         "crud-anonymous-policy-select": {
           "name": "crud-anonymous-policy-select",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "\"typography_boards\".\"visibility\" <> 'private'"
         },
         "crud-anonymous-policy-insert": {
           "name": "crud-anonymous-policy-insert",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "withCheck": "false"
         },
         "crud-anonymous-policy-update": {
           "name": "crud-anonymous-policy-update",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "false",
           "withCheck": "false"
         },
@@ -1286,9 +1112,7 @@
           "name": "crud-anonymous-policy-delete",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "false"
         }
       },
@@ -1378,16 +1202,12 @@
         "user_username_unique": {
           "name": "user_username_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "username"
-          ]
+          "columns": ["username"]
         },
         "user_email_unique": {
           "name": "user_email_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "email"
-          ]
+          "columns": ["email"]
         }
       },
       "policies": {
@@ -1395,27 +1215,21 @@
           "name": "crud-authenticated-policy-select",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(select current_setting('app.user_id', true) = \"user\".\"id\")"
         },
         "crud-authenticated-policy-insert": {
           "name": "crud-authenticated-policy-insert",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "withCheck": "(select current_setting('app.user_id', true) = \"user\".\"id\")"
         },
         "crud-authenticated-policy-update": {
           "name": "crud-authenticated-policy-update",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(select current_setting('app.user_id', true) = \"user\".\"id\")",
           "withCheck": "(select current_setting('app.user_id', true) = \"user\".\"id\")"
         },
@@ -1423,36 +1237,28 @@
           "name": "crud-authenticated-policy-delete",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(select current_setting('app.user_id', true) = \"user\".\"id\")"
         },
         "crud-anonymous-policy-select": {
           "name": "crud-anonymous-policy-select",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "false"
         },
         "crud-anonymous-policy-insert": {
           "name": "crud-anonymous-policy-insert",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "withCheck": "false"
         },
         "crud-anonymous-policy-update": {
           "name": "crud-anonymous-policy-update",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "false",
           "withCheck": "false"
         },
@@ -1460,9 +1266,7 @@
           "name": "crud-anonymous-policy-delete",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "false"
         }
       },
@@ -1538,27 +1342,21 @@
           "name": "crud-authenticated-policy-select",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "false"
         },
         "crud-authenticated-policy-insert": {
           "name": "crud-authenticated-policy-insert",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "withCheck": "false"
         },
         "crud-authenticated-policy-update": {
           "name": "crud-authenticated-policy-update",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "false",
           "withCheck": "false"
         },
@@ -1566,36 +1364,28 @@
           "name": "crud-authenticated-policy-delete",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "false"
         },
         "crud-anonymous-policy-select": {
           "name": "crud-anonymous-policy-select",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "false"
         },
         "crud-anonymous-policy-insert": {
           "name": "crud-anonymous-policy-insert",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "withCheck": "false"
         },
         "crud-anonymous-policy-update": {
           "name": "crud-anonymous-policy-update",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "false",
           "withCheck": "false"
         },
@@ -1603,9 +1393,7 @@
           "name": "crud-anonymous-policy-delete",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "anonymous"
-          ],
+          "to": ["anonymous"],
           "using": "false"
         }
       },
@@ -1617,11 +1405,7 @@
     "public.palette_visibility": {
       "name": "palette_visibility",
       "schema": "public",
-      "values": [
-        "public",
-        "unlisted",
-        "private"
-      ]
+      "values": ["public", "unlisted", "private"]
     }
   },
   "schemas": {},
