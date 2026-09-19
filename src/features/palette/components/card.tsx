@@ -1,6 +1,5 @@
-import { cn } from 'dawn-ui-react'
+import { cn, Skeleton } from 'dawn-ui-react'
 import React from 'react'
-import { hydratePaletteState } from '../utils/state'
 import { PaletteRoot } from './root'
 
 import type { PaletteInitialState } from '../types/state'
@@ -12,14 +11,16 @@ type PaletteCardProps = Omit<React.ComponentProps<'div'>, 'children'> & {
 
 export const PaletteCard = ({ palette, className, children, ref, ...props }: PaletteCardProps) => {
   return (
-    <PaletteRoot initialState={hydratePaletteState(palette)}>
-      <div
-        className={cn('flex flex-col overflow-hidden rounded-xl border border-border', className)}
-        ref={ref}
-        {...props}
-      >
-        {children}
-      </div>
-    </PaletteRoot>
+    <React.Suspense fallback={<Skeleton />}>
+      <PaletteRoot initialState={palette} syncInitialState>
+        <div
+          className={cn('flex flex-col overflow-hidden rounded-xl border border-border', className)}
+          ref={ref}
+          {...props}
+        >
+          {children}
+        </div>
+      </PaletteRoot>
+    </React.Suspense>
   )
 }

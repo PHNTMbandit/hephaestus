@@ -26,7 +26,8 @@ export const SavedPaletteCard = ({ palette }: SavedPaletteCardProps) => {
         </Palette.Open>
         <Palette.Saves />
         <Palette.Menu>
-          <Palette.MenuOpen />
+          <Palette.MenuEdit />
+          <Palette.MenuRemix />
           <MenuSeparator />
           <Palette.MenuExport onClick={() => setExportOpen(true)} />
         </Palette.Menu>

@@ -2,7 +2,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from 'dawn-ui-react'
 import { usePalette } from '../hooks/use-palette'
 
-const nameVariants = cva('', {
+const nameVariants = cva('break-all', {
   variants: {
     size: {
       small: '',

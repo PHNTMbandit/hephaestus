@@ -7,7 +7,14 @@ import { Color } from '#/features/color/components/color.ts'
 import { PaletteEditor } from '#/features/palette-editor/components/palette-editor'
 import { Palette } from '#/features/palette/components/palette'
 import { PALETTE_CONFIG } from '#/features/palette/constants/state.ts'
+import {
+  explorePalettes,
+  paletteById,
+  palettesByUserId,
+  palettesSavedByUserId,
+} from '#/features/palette/db/live-queries'
 import { paletteCollection } from '#/features/palette/db/palette-collection'
+import { paletteSavesCollection } from '#/features/palette/db/saves-collection'
 import {
   generateRandomColor,
   hydratePaletteState,
@@ -51,7 +58,7 @@ export const Route = createFileRoute('/_secure/palette-generator/{-$paletteId}')
   loaderDeps: ({ search: { colors } }) => ({
     colors: colors?.split('-').map((color) => `#${color}`) ?? [],
   }),
-  loader: async ({ context: { dbClient }, params: { paletteId }, deps: { colors } }) => {
+  loader: async ({ context: { dbClient, user }, params: { paletteId }, deps: { colors } }) => {
     const baseColor = colors[0] ?? generateRandomColor().value
     const newPaletteState = hydratePaletteState({
       baseColor,
@@ -77,7 +84,11 @@ export const Route = createFileRoute('/_secure/palette-generator/{-$paletteId}')
     }
 
     const collection = dbClient.collection(paletteCollection)
-    await collection.preload()
+    await dbClient.preloadLiveQuery(paletteById(paletteId))
+    await dbClient.preloadLiveQuery(explorePalettes())
+    await dbClient.preloadLiveQuery(palettesByUserId(user.id))
+    await dbClient.preloadLiveQuery(palettesSavedByUserId(user.id))
+    await dbClient.collection(paletteSavesCollection).preload()
     const savedPalette = collection.get(paletteId)
 
     if (paletteId && !savedPalette) {

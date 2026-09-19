@@ -1,7 +1,5 @@
-import { useDbClient, useLiveQuery, eq } from '@tanstack/react-db'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from 'dawn-ui-react'
-import { paletteCollection } from '../db/palette-collection'
 import { usePalette } from '../hooks/use-palette'
 
 const descriptionVariants = cva('', {
@@ -35,19 +33,11 @@ export const PaletteDescription = ({
   ...props
 }: PaletteDescriptionProps) => {
   const { state } = usePalette()
-  const collection = useDbClient().collection(paletteCollection)
-  const { data } = useLiveQuery((q) =>
-    q
-      .from({ data: collection })
-      .where(({ data }) => eq(data.id, state.id))
-      .select(({ data }) => ({ description: data.description }))
-      .findOne(),
-  )
 
   return (
     <p className={cn(descriptionVariants({ size, variant }), className)} ref={ref} {...props}>
       {children}
-      {data && <span>{data.description}</span>}
+      {<span>{state.description}</span>}
     </p>
   )
 }

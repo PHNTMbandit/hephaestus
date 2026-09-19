@@ -3,13 +3,13 @@ import { cn } from 'dawn-ui-react'
 import { useColor } from './provider'
 
 const colorSwatchVariants = cva(
-  'group relative flex size-full flex-col items-start justify-between gap-md',
+  'group relative flex size-full flex-col items-start justify-between',
   {
     variants: {
       size: {
-        small: 'p-sm',
-        medium: 'p-md',
-        large: 'p-lg',
+        small: '*:p-sm',
+        medium: '*:p-md',
+        large: '*:p-lg',
       },
     },
     defaultVariants: {

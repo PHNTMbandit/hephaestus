@@ -41,7 +41,7 @@ export const ContrastColorInputs = ({
       <div className="flex flex-col gap-sm">
         <Label size="large">Foreground</Label>
         <ContrastColorPicker
-          color={state.foregroundColor}
+          value={state.foregroundColor}
           onValueChange={handleForegroundValueChange}
           palette={state.foregroundPalette}
           onPaletteChange={handleForegroundPaletteChange}
@@ -53,7 +53,7 @@ export const ContrastColorInputs = ({
       <div className="flex flex-col gap-sm">
         <Label size="large">Background</Label>
         <ContrastColorPicker
-          color={state.backgroundColor}
+          value={state.backgroundColor}
           onValueChange={handleBackgroundValueChange}
           palette={state.backgroundPalette}
           onPaletteChange={handleBackgroundPaletteChange}

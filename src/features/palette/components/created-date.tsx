@@ -25,11 +25,14 @@ export const PaletteCreatedDate = ({
 
   return (
     <span
-      className={cn('flex items-center gap-2xs style-text-default--1 [&>svg]:size-sm', className)}
+      className={cn(
+        'flex items-center gap-2xs style-text-default--1 whitespace-nowrap [&>svg]:size-sm',
+        className,
+      )}
       ref={ref}
       {...props}
     >
-      <CalendarIcon weight="bold" />
+      <CalendarIcon weight="bold" className="shrink-0" />
       {formattedDate}
       {children}
     </span>

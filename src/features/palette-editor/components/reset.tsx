@@ -16,16 +16,19 @@ export const PaletteEditorReset = ({
   const { state, dispatch } = usePalette()
   const collection = useDbClient().collection(paletteCollection)
   const { paletteId } = useParams({ from: '/_secure/palette-generator/{-$paletteId}' })
-  const { data } = useLiveQuery((q) =>
-    q
-      .from({ palette: collection })
-      .where(({ palette }) => eq(palette.id, paletteId))
-      .select(({ palette }) => ({
-        colors: palette.colors,
-        baseColor: palette.baseColor,
-      }))
-      .findOne(),
-  )
+  const { data } = useLiveQuery({
+    query: (q) =>
+      paletteId
+        ? q
+            .from({ palette: collection })
+            .where(({ palette }) => eq(palette.id, paletteId))
+            .select(({ palette }) => ({
+              colors: palette.colors,
+              baseColor: palette.baseColor,
+            }))
+            .findOne()
+        : undefined,
+  })
 
   if (!data) {
     return null

@@ -7,7 +7,7 @@ import type { ValueType } from '../types/value'
 import type { VariantProps } from 'class-variance-authority'
 
 const paletteListVariants = cva(
-  'relative grid size-full min-h-0 min-w-0 grow auto-cols-fr overflow-hidden',
+  'relative grid size-full min-h-0 min-w-0 grow auto-cols-fr overflow-hidden outline outline-border',
   {
     variants: {
       orientation: {

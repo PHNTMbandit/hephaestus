@@ -5,23 +5,15 @@ import { palettesByUserId } from '#/features/palette/db/live-queries'
 import { authClient } from '#/lib/auth-client'
 import { MyLibraryPaletteCard } from './palette-card'
 
-type MyLibraryDashboardProps = React.ComponentProps<'div'>
+type MyLibraryDashboardProps = Omit<React.ComponentProps<'div'>, 'children'>
 
-export const MyLibraryDashboard = ({
-  className,
-  children,
-  ref,
-  ...props
-}: MyLibraryDashboardProps) => {
+export const MyLibraryDashboard = ({ className, ref, ...props }: MyLibraryDashboardProps) => {
   const { data: session } = authClient.useSession()
   const { data } = useLiveSuspenseQuery(palettesByUserId(session?.user?.id ?? ''))
 
   return (
-    <Palette.Grid className={cn('', className)} ref={ref} {...props}>
-      {data?.map((palette) => (
-        <MyLibraryPaletteCard key={palette.id} palette={palette} />
-      ))}
-      {children}
+    <Palette.Grid items={data} className={cn('', className)} ref={ref} {...props}>
+      {(palette) => <MyLibraryPaletteCard key={palette.id} palette={palette} />}
     </Palette.Grid>
   )
 }

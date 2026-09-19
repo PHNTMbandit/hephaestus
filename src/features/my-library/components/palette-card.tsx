@@ -26,9 +26,10 @@ export const MyLibraryPaletteCard = ({ palette }: MyLibraryPaletteCardProps) => 
         </Palette.Open>
         <Palette.Saves />
         <Palette.Menu>
-          <Palette.MenuOpen />
+          <Palette.MenuEdit />
           <MenuSeparator />
           <Palette.MenuExport onClick={() => setExportOpen(true)} />
+          <Palette.MenuDelete />
         </Palette.Menu>
       </Palette.CardFooter>
       <PaletteEditor.ExportDialog open={exportOpen} onOpenChange={setExportOpen} />

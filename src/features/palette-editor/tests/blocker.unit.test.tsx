@@ -13,7 +13,7 @@ import { routerWithDbClient } from '@tanstack/react-router-with-db'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { PaletteRoot } from '#/features/palette/components/root'
-import { paletteCollection } from '#/features/palette/db/palette-collection'
+import { palettesByUserId } from '#/features/palette/db/live-queries'
 import { PaletteEditorBlocker } from '../components/blocker'
 
 import type { Color } from '#/features/color/color.types.ts'
@@ -32,6 +32,7 @@ const { seededPalettes } = vi.hoisted(() => ({ seededPalettes: [] as unknown[] }
 vi.mock('#/features/palette/utils/palette-queries', () => ({
   getUserPalettes: vi.fn<() => Promise<unknown[]>>(async () => seededPalettes),
   getPalettes: vi.fn<() => Promise<unknown[]>>(async () => seededPalettes),
+  getPalettesSubset: vi.fn<() => Promise<unknown[]>>(async () => seededPalettes),
   getPalette: vi.fn<() => void>(),
   publishPalette: vi.fn<() => void>(),
   updatePalette: vi.fn<() => void>(),
@@ -99,7 +100,7 @@ async function renderBlocker({
 
   const queryClient = new QueryClient()
   const dbClient = new DbClient({ queryClient })
-  await dbClient.collection(paletteCollection).preload()
+  await dbClient.preloadLiveQuery(palettesByUserId('user-1'))
 
   const router = routerWithDbClient(
     createRouter({

@@ -1,5 +1,5 @@
 import { WarningIcon } from '@phosphor-icons/react'
-import { useDbClient } from '@tanstack/react-db'
+import { eq, useLiveQuery } from '@tanstack/react-db'
 import { useBlocker, useParams } from '@tanstack/react-router'
 import {
   cn,
@@ -26,8 +26,16 @@ export const PaletteEditorBlocker = ({
   ...props
 }: PaletteEditorBlockerProps) => {
   const { paletteId } = useParams({ from: '/_secure/palette-generator/{-$paletteId}' })
-  const collection = useDbClient().collection(paletteCollection)
   const { state } = usePalette()
+  const { data: savedPalette } = useLiveQuery({
+    query: (q) =>
+      paletteId
+        ? q
+            .from({ palette: paletteCollection })
+            .where(({ palette }) => eq(palette.id, paletteId))
+            .findOne()
+        : undefined,
+  })
 
   const shouldBlock = (): boolean => {
     if (state.saving) {
@@ -35,10 +43,9 @@ export const PaletteEditorBlocker = ({
     }
 
     if (paletteId) {
-      const palette = collection.get(paletteId)
       const isSameColors =
-        palette?.colors.length === state.colors.length &&
-        palette?.colors.every((color, index) => color.id === state.colors[index].id)
+        savedPalette?.colors.length === state.colors.length &&
+        savedPalette?.colors.every((color, index) => color.id === state.colors[index].id)
       return !isSameColors
     }
 

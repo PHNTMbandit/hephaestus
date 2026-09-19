@@ -19,10 +19,12 @@ export type PaletteState = {
   createdAt?: string
   updatedAt?: string
   name?: string
+  description?: string
   saving?: boolean
 }
 
 export type PaletteAction =
+  | { type: 'SYNC_EXTERNAL_STATE'; payload: PaletteInitialState }
   | { type: 'ADD' }
   | { type: 'ADD_AT'; payload: { index: number; color: Color } }
   | { type: 'REMOVE' }

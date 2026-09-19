@@ -3,7 +3,7 @@ import { cn } from 'dawn-ui-react'
 import { getForeground } from '../utils/style'
 import { useColor } from './provider'
 
-const colorValueVariants = cva('w-full', {
+const colorValueVariants = cva('w-full break-all', {
   variants: {
     size: {
       small: 'style-text-prose--1',

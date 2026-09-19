@@ -8,7 +8,7 @@ import { colorNameQueryOptions } from '../utils/queries'
 import { getForeground } from '../utils/style'
 import { useColor } from './provider'
 
-const colorNameVariants = cva('capitalize', {
+const colorNameVariants = cva('break-all capitalize', {
   variants: {
     size: {
       small: 'style-text-strong--1',

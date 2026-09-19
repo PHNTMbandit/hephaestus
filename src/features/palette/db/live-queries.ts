@@ -10,6 +10,19 @@ export const palettesByUserId = (userId: string) => ({
       .orderBy(({ palette }) => palette.createdAt, 'asc'),
 })
 
+export const paletteById = (paletteId: string) => ({
+  query: (q: InitialQueryBuilder) =>
+    q
+      .from({ palette: paletteCollection })
+      .where(({ palette }) => eq(palette.id, paletteId))
+      .findOne(),
+})
+
+export const explorePalettes = () => ({
+  query: (q: InitialQueryBuilder) =>
+    q.from({ palette: paletteCollection }).orderBy(({ palette }) => palette.createdAt, 'desc'),
+})
+
 export const palettesSavedByUserId = (userId: string) => ({
   query: (q: InitialQueryBuilder) =>
     q
@@ -18,7 +31,7 @@ export const palettesSavedByUserId = (userId: string) => ({
         eq(saves.colorPaletteId, palettes.id),
       )
       .where(({ saves }) => eq(saves.userId, userId))
-      .select(({ palettes }) => ({ ...palettes })),
+      .select(({ palettes }) => palettes),
 })
 
 export const savesByPaletteId = (paletteId: string) => ({

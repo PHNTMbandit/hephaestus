@@ -7,19 +7,10 @@ import { currentUserQueryOptions } from '#/utils/auth-func'
 import { savesByPaletteId, userSaveForPalette } from '../db/live-queries'
 import { paletteSavesCollection } from '../db/saves-collection'
 import { usePalette } from '../hooks/use-palette'
-import { PaletteSavesSkeleton } from './saves-skeleton'
 
 type PaletteSavesProps = React.ComponentProps<typeof Toggle>
 
-export const PaletteSaves = (props: PaletteSavesProps) => {
-  return (
-    <React.Suspense fallback={<PaletteSavesSkeleton {...props} />}>
-      <PaletteSavesInner {...props} />
-    </React.Suspense>
-  )
-}
-
-const PaletteSavesInner = ({ className, ref, ...props }: PaletteSavesProps) => {
+export const PaletteSaves = ({ className, ref, ...props }: PaletteSavesProps) => {
   const collection = useDbClient().collection(paletteSavesCollection)
   const { state } = usePalette()
   const { data: user } = useSuspenseQuery(currentUserQueryOptions)

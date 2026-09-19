@@ -2,11 +2,14 @@ import { valueTypesList } from './constants/values'
 import { generateRandomColor } from './utils/color-generators'
 import { paletteGeneratorMethodsList } from './utils/generator-methods'
 import { recordHistory } from './utils/history'
+import { hydratePaletteState } from './utils/state'
 
 import type { PaletteAction, PaletteState } from './types/state'
 
 export const paletteReducer = (state: PaletteState, action: PaletteAction): PaletteState => {
   switch (action.type) {
+    case 'SYNC_EXTERNAL_STATE':
+      return hydratePaletteState(action.payload)
     case 'ADD': {
       if (state.colors.length >= state.limit) return state
       const palette = state.currentGeneratorMethod.generatePalette(

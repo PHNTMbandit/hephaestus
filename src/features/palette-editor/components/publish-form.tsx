@@ -136,7 +136,7 @@ export const PaletteEditorPublishForm = ({
                   <field.FieldLabel>Description</field.FieldLabel>
                   <field.FieldTextArea
                     placeholder="Enter a description for your palette"
-                    maxLength={50}
+                    maxLength={200}
                     variant={'secondary'}
                     className="resize-y"
                   />

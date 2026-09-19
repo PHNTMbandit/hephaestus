@@ -6,7 +6,7 @@ import React from 'react'
 import { getForeground } from '../utils/style'
 import { useColor } from './provider'
 
-type ColorCopyProps = React.ComponentProps<'button'> & {
+type ColorCopyProps = React.ComponentProps<typeof Button> & {
   value?: string
 }
 
@@ -63,7 +63,7 @@ export const ColorCopy = ({ value, className, children, ...props }: ColorCopyPro
       variant={'ghost'}
       size="iconMedium"
       className={cn(
-        'opacity-0 transition-all not-hover:bg-transparent! group-hover:opacity-100 [&>svg]:shrink-0',
+        'shrink-0 opacity-0 transition-all not-hover:bg-transparent! group-hover:opacity-100 [&>svg]:shrink-0',
         className,
       )}
       {...props}

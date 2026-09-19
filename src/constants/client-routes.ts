@@ -42,6 +42,9 @@ export const CLIENT_ROUTES: Record<ClientRouteName, ClientRoute> = {
     leadingIcon: SwatchesIcon,
     linkOptions: {
       to: '/palette-generator/{-$paletteId}',
+      params: {
+        paletteId: undefined,
+      },
     },
   },
   spacing: {

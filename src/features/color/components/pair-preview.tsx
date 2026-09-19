@@ -5,7 +5,6 @@ type ColorPairPreviewProps = React.ComponentProps<'div'> & {
   background: string
 }
 
-// Renders sample content with a foreground colour on a background colour.
 export const ColorPairPreview = ({
   foreground,
   background,
@@ -17,7 +16,7 @@ export const ColorPairPreview = ({
   return (
     <div
       className={cn(
-        'flex flex-col items-start justify-center rounded-lg border border-border px-md py-sm',
+        'flex flex-col items-start justify-center rounded-lg border border-border px-md py-sm transition-colors',
         className,
       )}
       style={{ backgroundColor: background, color: foreground }}
