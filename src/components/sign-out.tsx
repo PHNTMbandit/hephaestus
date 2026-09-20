@@ -1,17 +1,20 @@
 import { SignOutIcon } from '@phosphor-icons/react'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import { useRouter } from '@tanstack/react-router'
 import { Button, cn } from 'dawn-ui-react'
 import React from 'react'
 import { authClient } from '#/lib/auth-client'
+import { currentUserQueryOptions } from '#/utils/auth-func'
+import { m } from '@/paraglide/messages'
 
 type SignOutProps = React.ComponentProps<'button'>
 
 export const SignOut = ({ className, children, ref, ...props }: SignOutProps) => {
   const router = useRouter()
-  const { data } = authClient.useSession()
+  const { data: user } = useSuspenseQuery(currentUserQueryOptions)
   const [isPending, startTransition] = React.useTransition()
 
-  if (!data) {
+  if (!user) {
     return null
   }
 
@@ -40,7 +43,7 @@ export const SignOut = ({ className, children, ref, ...props }: SignOutProps) =>
       >
         {children}
         <SignOutIcon weight="bold" />
-        Signing out...
+        {m['auth.signOut.pending']()}
       </Button>
     )
   }
@@ -56,7 +59,7 @@ export const SignOut = ({ className, children, ref, ...props }: SignOutProps) =>
     >
       {children}
       <SignOutIcon weight="bold" />
-      Sign out
+      {m['auth.signOut.button']()}
     </Button>
   )
 }

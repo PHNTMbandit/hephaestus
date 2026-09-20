@@ -4,6 +4,11 @@
     "languages": {
       "en": "英語",
       "ja": "日本語"
+    },
+    "themes": {
+      "light": "ライト",
+      "dark": "ダーク",
+      "system": "システム"
     }
   },
   "navigation": {
@@ -21,7 +26,7 @@
       "typography": "タイポグラフィ",
       "designSystems": "デザインシステム",
       "myLibrary": "マイライブラリ",
-      "favourites": "お気に入り"
+      "favorites": "お気に入り"
     }
   },
   "auth": {
@@ -47,7 +52,8 @@
       },
       "errors": {
         "invalidCredentials": "ユーザー名またはパスワードが無効です。もう一度お試しください。"
-      }
+      },
+      "divider": "または"
     },
     "signUp": {
       "title": "新しいアカウントを作成",
@@ -65,6 +71,10 @@
         "passwordMismatch": "パスワードが一致しません。もう一度お試しください。",
         "emailInUse": "このメールアドレスは既に使用されています。別のメールアドレスを使用してください。"
       }
+    },
+    "signOut": {
+      "button": "サインアウト",
+      "pending": "サインアウトしています..."
     }
   },
   "colorPalette": {
@@ -116,7 +126,7 @@
     "title": "探索ページへようこそ",
     "description": "新機能、更新、リソースを見つけて、アプリケーションを最大限に活用しましょう。"
   },
-  "favourites": {
+  "favorites": {
     "label": "お気に入り",
     "title": "あなたのお気に入り",
     "description": "お気に入りの項目、プロジェクト、リソースに1か所でアクセスできます。"

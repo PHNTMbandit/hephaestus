@@ -1,4 +1,5 @@
 import { PaletteIcon, SidebarSimpleIcon } from '@phosphor-icons/react'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import {
   cn,
   Sidebar,
@@ -15,17 +16,17 @@ import {
   SidebarToggle,
 } from 'dawn-ui-react'
 import { CLIENT_ROUTES } from '#/constants/client-routes'
-import { authClient } from '#/lib/auth-client'
+import { currentUserQueryOptions } from '#/utils/auth-func'
 import { RouteLink } from './route-link'
-import { SignOut } from './sign-out'
+import { SignIn } from './sign-in'
+import { SignUp } from './sign-up'
 import { UserProfile } from './user-profile'
 import { m } from '@/paraglide/messages'
 
 type ClientSidebarProps = React.ComponentProps<'div'>
 
 export const ClientSidebar = ({ className, children, ref, ...props }: ClientSidebarProps) => {
-  const { data } = authClient.useSession()
-  const user = data?.user
+  const { data: user } = useSuspenseQuery(currentUserQueryOptions)
 
   return (
     <Sidebar width={350} tone="ghost" className={cn('', className)} ref={ref} {...props}>
@@ -75,8 +76,9 @@ export const ClientSidebar = ({ className, children, ref, ...props }: ClientSide
       </SidebarContent>
       <SidebarFooter>
         {(isExpanded) => (
-          <div className="w-full space-y-xs">
-            <SignOut />
+          <div className="flex w-full flex-col gap-3xs">
+            <SignIn />
+            <SignUp />
             <UserProfile compact={!isExpanded} />
           </div>
         )}

@@ -37,7 +37,7 @@ export const PaletteSaves = ({ className, ref, ...props }: PaletteSavesProps) =>
       disabled={disabled}
       pressed={!!isSaved}
       onPressedChange={handleChange}
-      className={cn('', className)}
+      className={cn('opacity-100!', className)}
       ref={ref}
       {...props}
     >
