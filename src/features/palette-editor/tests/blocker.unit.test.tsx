@@ -79,9 +79,9 @@ async function renderBlocker({
   seededPalettes.push(...seed)
 
   const rootRoute = createRootRoute({ component: () => <Outlet /> })
-  const secureRoute = createRoute({ getParentRoute: () => rootRoute, id: '_secure' })
+  const appRoute = createRoute({ getParentRoute: () => rootRoute, id: '_app' })
   const paletteRoute = createRoute({
-    getParentRoute: () => secureRoute,
+    getParentRoute: () => appRoute,
     path: 'palette-generator/{-$paletteId}',
     component: () => (
       <PaletteRoot initialState={initialState}>
@@ -96,7 +96,7 @@ async function renderBlocker({
     component: () => <div>Target Page</div>,
   })
 
-  const routeTree = rootRoute.addChildren([secureRoute.addChildren([paletteRoute]), targetRoute])
+  const routeTree = rootRoute.addChildren([appRoute.addChildren([paletteRoute]), targetRoute])
 
   const queryClient = new QueryClient()
   const dbClient = new DbClient({ queryClient })

@@ -15,7 +15,7 @@ export const PaletteEditorReset = ({
 }: PaletteEditorResetProps) => {
   const { state, dispatch } = usePalette()
   const collection = useDbClient().collection(paletteCollection)
-  const { paletteId } = useParams({ from: '/_secure/palette-generator/{-$paletteId}' })
+  const { paletteId } = useParams({ from: '/_app/palette-generator/{-$paletteId}' })
   const { data } = useLiveQuery({
     query: (q) =>
       paletteId

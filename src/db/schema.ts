@@ -292,6 +292,7 @@ export const account = pgTable(
   },
   (table) => [
     index('account_userId_idx').using('btree', table.userId.asc().nullsLast().op('text_ops')),
+    unique('account_provider_id_account_id_unique').on(table.providerId, table.accountId),
     foreignKey({
       columns: [table.userId],
       foreignColumns: [user.id],

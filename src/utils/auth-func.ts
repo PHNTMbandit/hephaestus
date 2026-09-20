@@ -1,9 +1,9 @@
 import { queryOptions } from '@tanstack/react-query'
 import { createServerFn } from '@tanstack/react-start'
-import { authMiddleware } from '#/middleware/auth-middleware.ts'
+import { optionalAuthMiddleware } from '#/middleware/optional-auth-middleware.ts'
 
 export const getCurrentUser = createServerFn()
-  .middleware([authMiddleware])
+  .middleware([optionalAuthMiddleware])
   .handler(async ({ context }) => {
     return context.user
   })

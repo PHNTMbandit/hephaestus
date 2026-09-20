@@ -25,7 +25,7 @@ export const PaletteEditorBlocker = ({
   ref,
   ...props
 }: PaletteEditorBlockerProps) => {
-  const { paletteId } = useParams({ from: '/_secure/palette-generator/{-$paletteId}' })
+  const { paletteId } = useParams({ from: '/_app/palette-generator/{-$paletteId}' })
   const { state } = usePalette()
   const { data: savedPalette } = useLiveQuery({
     query: (q) =>

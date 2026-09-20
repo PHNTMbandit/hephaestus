@@ -9,28 +9,23 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as SecureRouteImport } from './routes/_secure'
+import { Route as AppRouteImport } from './routes/_app'
 import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as SignUpRouteImport } from './routes/sign-up'
-import { Route as SecureContrastCheckerRouteImport } from './routes/_secure/contrast-checker'
-import { Route as SecureDesignSystemsRouteImport } from './routes/_secure/design-systems'
-import { Route as SecureExploreRouteImport } from './routes/_secure/explore'
-import { Route as SecureFavoritesRouteImport } from './routes/_secure/favorites'
-import { Route as SecureMyLibraryRouteImport } from './routes/_secure/my-library'
-import { Route as SecureSpacingRouteImport } from './routes/_secure/spacing'
-import { Route as SecureTypographyRouteImport } from './routes/_secure/typography'
-import { Route as SecurePaletteGeneratorChar123PaletteIdChar125RouteImport } from './routes/_secure/palette-generator/{-$paletteId}'
-import { Route as SecurePalettePaletteIdRouteImport } from './routes/_secure/palette.$paletteId'
+import { Route as AppIndexRouteImport } from './routes/_app/index'
+import { Route as AppSecureRouteImport } from './routes/_app/_secure'
+import { Route as AppContrastCheckerRouteImport } from './routes/_app/contrast-checker'
+import { Route as AppDesignSystemsRouteImport } from './routes/_app/design-systems'
+import { Route as AppSpacingRouteImport } from './routes/_app/spacing'
+import { Route as AppTypographyRouteImport } from './routes/_app/typography'
+import { Route as AppSecureFavoritesRouteImport } from './routes/_app/_secure/favorites'
+import { Route as AppSecureMyLibraryRouteImport } from './routes/_app/_secure/my-library'
+import { Route as AppPaletteGeneratorChar123PaletteIdChar125RouteImport } from './routes/_app/palette-generator/{-$paletteId}'
+import { Route as AppPalettePaletteIdRouteImport } from './routes/_app/palette.$paletteId'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SecureRoute = SecureRouteImport.update({
-  id: '/_secure',
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SignInRoute = SignInRouteImport.update({
@@ -43,51 +38,55 @@ const SignUpRoute = SignUpRouteImport.update({
   path: '/sign-up',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SecureContrastCheckerRoute = SecureContrastCheckerRouteImport.update({
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSecureRoute = AppSecureRouteImport.update({
+  id: '/_secure',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppContrastCheckerRoute = AppContrastCheckerRouteImport.update({
   id: '/contrast-checker',
   path: '/contrast-checker',
-  getParentRoute: () => SecureRoute,
+  getParentRoute: () => AppRoute,
 } as any)
-const SecureDesignSystemsRoute = SecureDesignSystemsRouteImport.update({
+const AppDesignSystemsRoute = AppDesignSystemsRouteImport.update({
   id: '/design-systems',
   path: '/design-systems',
-  getParentRoute: () => SecureRoute,
+  getParentRoute: () => AppRoute,
 } as any)
-const SecureExploreRoute = SecureExploreRouteImport.update({
-  id: '/explore',
-  path: '/explore',
-  getParentRoute: () => SecureRoute,
-} as any)
-const SecureFavoritesRoute = SecureFavoritesRouteImport.update({
-  id: '/favorites',
-  path: '/favorites',
-  getParentRoute: () => SecureRoute,
-} as any)
-const SecureMyLibraryRoute = SecureMyLibraryRouteImport.update({
-  id: '/my-library',
-  path: '/my-library',
-  getParentRoute: () => SecureRoute,
-} as any)
-const SecureSpacingRoute = SecureSpacingRouteImport.update({
+const AppSpacingRoute = AppSpacingRouteImport.update({
   id: '/spacing',
   path: '/spacing',
-  getParentRoute: () => SecureRoute,
+  getParentRoute: () => AppRoute,
 } as any)
-const SecureTypographyRoute = SecureTypographyRouteImport.update({
+const AppTypographyRoute = AppTypographyRouteImport.update({
   id: '/typography',
   path: '/typography',
-  getParentRoute: () => SecureRoute,
+  getParentRoute: () => AppRoute,
 } as any)
-const SecurePaletteGeneratorChar123PaletteIdChar125Route =
-  SecurePaletteGeneratorChar123PaletteIdChar125RouteImport.update({
+const AppSecureFavoritesRoute = AppSecureFavoritesRouteImport.update({
+  id: '/favorites',
+  path: '/favorites',
+  getParentRoute: () => AppSecureRoute,
+} as any)
+const AppSecureMyLibraryRoute = AppSecureMyLibraryRouteImport.update({
+  id: '/my-library',
+  path: '/my-library',
+  getParentRoute: () => AppSecureRoute,
+} as any)
+const AppPaletteGeneratorChar123PaletteIdChar125Route =
+  AppPaletteGeneratorChar123PaletteIdChar125RouteImport.update({
     id: '/palette-generator/{-$paletteId}',
     path: '/palette-generator/{-$paletteId}',
-    getParentRoute: () => SecureRoute,
+    getParentRoute: () => AppRoute,
   } as any)
-const SecurePalettePaletteIdRoute = SecurePalettePaletteIdRouteImport.update({
+const AppPalettePaletteIdRoute = AppPalettePaletteIdRouteImport.update({
   id: '/palette/$paletteId',
   path: '/palette/$paletteId',
-  getParentRoute: () => SecureRoute,
+  getParentRoute: () => AppRoute,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
@@ -96,50 +95,48 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof AppIndexRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
-  '/contrast-checker': typeof SecureContrastCheckerRoute
-  '/design-systems': typeof SecureDesignSystemsRoute
-  '/explore': typeof SecureExploreRoute
-  '/favorites': typeof SecureFavoritesRoute
-  '/my-library': typeof SecureMyLibraryRoute
-  '/spacing': typeof SecureSpacingRoute
-  '/typography': typeof SecureTypographyRoute
-  '/palette-generator/{-$paletteId}': typeof SecurePaletteGeneratorChar123PaletteIdChar125Route
-  '/palette/$paletteId': typeof SecurePalettePaletteIdRoute
+  '/contrast-checker': typeof AppContrastCheckerRoute
+  '/design-systems': typeof AppDesignSystemsRoute
+  '/spacing': typeof AppSpacingRoute
+  '/typography': typeof AppTypographyRoute
+  '/favorites': typeof AppSecureFavoritesRoute
+  '/my-library': typeof AppSecureMyLibraryRoute
+  '/palette-generator/{-$paletteId}': typeof AppPaletteGeneratorChar123PaletteIdChar125Route
+  '/palette/$paletteId': typeof AppPalettePaletteIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
-  '/contrast-checker': typeof SecureContrastCheckerRoute
-  '/design-systems': typeof SecureDesignSystemsRoute
-  '/explore': typeof SecureExploreRoute
-  '/favorites': typeof SecureFavoritesRoute
-  '/my-library': typeof SecureMyLibraryRoute
-  '/spacing': typeof SecureSpacingRoute
-  '/typography': typeof SecureTypographyRoute
-  '/palette-generator/{-$paletteId}': typeof SecurePaletteGeneratorChar123PaletteIdChar125Route
-  '/palette/$paletteId': typeof SecurePalettePaletteIdRoute
+  '/': typeof AppIndexRoute
+  '/contrast-checker': typeof AppContrastCheckerRoute
+  '/design-systems': typeof AppDesignSystemsRoute
+  '/spacing': typeof AppSpacingRoute
+  '/typography': typeof AppTypographyRoute
+  '/favorites': typeof AppSecureFavoritesRoute
+  '/my-library': typeof AppSecureMyLibraryRoute
+  '/palette-generator/{-$paletteId}': typeof AppPaletteGeneratorChar123PaletteIdChar125Route
+  '/palette/$paletteId': typeof AppPalettePaletteIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/_secure': typeof SecureRouteWithChildren
+  '/_app': typeof AppRouteWithChildren
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
-  '/_secure/contrast-checker': typeof SecureContrastCheckerRoute
-  '/_secure/design-systems': typeof SecureDesignSystemsRoute
-  '/_secure/explore': typeof SecureExploreRoute
-  '/_secure/favorites': typeof SecureFavoritesRoute
-  '/_secure/my-library': typeof SecureMyLibraryRoute
-  '/_secure/spacing': typeof SecureSpacingRoute
-  '/_secure/typography': typeof SecureTypographyRoute
-  '/_secure/palette-generator/{-$paletteId}': typeof SecurePaletteGeneratorChar123PaletteIdChar125Route
-  '/_secure/palette/$paletteId': typeof SecurePalettePaletteIdRoute
+  '/_app/_secure': typeof AppSecureRouteWithChildren
+  '/_app/contrast-checker': typeof AppContrastCheckerRoute
+  '/_app/design-systems': typeof AppDesignSystemsRoute
+  '/_app/spacing': typeof AppSpacingRoute
+  '/_app/typography': typeof AppTypographyRoute
+  '/_app/': typeof AppIndexRoute
+  '/_app/_secure/favorites': typeof AppSecureFavoritesRoute
+  '/_app/_secure/my-library': typeof AppSecureMyLibraryRoute
+  '/_app/palette-generator/{-$paletteId}': typeof AppPaletteGeneratorChar123PaletteIdChar125Route
+  '/_app/palette/$paletteId': typeof AppPalettePaletteIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
@@ -150,50 +147,47 @@ export interface FileRouteTypes {
     | '/sign-up'
     | '/contrast-checker'
     | '/design-systems'
-    | '/explore'
-    | '/favorites'
-    | '/my-library'
     | '/spacing'
     | '/typography'
+    | '/favorites'
+    | '/my-library'
     | '/palette-generator/{-$paletteId}'
     | '/palette/$paletteId'
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/sign-in'
     | '/sign-up'
+    | '/'
     | '/contrast-checker'
     | '/design-systems'
-    | '/explore'
-    | '/favorites'
-    | '/my-library'
     | '/spacing'
     | '/typography'
+    | '/favorites'
+    | '/my-library'
     | '/palette-generator/{-$paletteId}'
     | '/palette/$paletteId'
     | '/api/auth/$'
   id:
     | '__root__'
-    | '/'
-    | '/_secure'
+    | '/_app'
     | '/sign-in'
     | '/sign-up'
-    | '/_secure/contrast-checker'
-    | '/_secure/design-systems'
-    | '/_secure/explore'
-    | '/_secure/favorites'
-    | '/_secure/my-library'
-    | '/_secure/spacing'
-    | '/_secure/typography'
-    | '/_secure/palette-generator/{-$paletteId}'
-    | '/_secure/palette/$paletteId'
+    | '/_app/_secure'
+    | '/_app/contrast-checker'
+    | '/_app/design-systems'
+    | '/_app/spacing'
+    | '/_app/typography'
+    | '/_app/'
+    | '/_app/_secure/favorites'
+    | '/_app/_secure/my-library'
+    | '/_app/palette-generator/{-$paletteId}'
+    | '/_app/palette/$paletteId'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  SecureRoute: typeof SecureRouteWithChildren
+  AppRoute: typeof AppRouteWithChildren
   SignInRoute: typeof SignInRoute
   SignUpRoute: typeof SignUpRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
@@ -201,18 +195,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_secure': {
-      id: '/_secure'
+    '/_app': {
+      id: '/_app'
       path: ''
       fullPath: '/'
-      preLoaderRoute: typeof SecureRouteImport
+      preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sign-in': {
@@ -229,68 +216,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignUpRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_secure/contrast-checker': {
-      id: '/_secure/contrast-checker'
+    '/_app/': {
+      id: '/_app/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/_secure': {
+      id: '/_app/_secure'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AppSecureRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/contrast-checker': {
+      id: '/_app/contrast-checker'
       path: '/contrast-checker'
       fullPath: '/contrast-checker'
-      preLoaderRoute: typeof SecureContrastCheckerRouteImport
-      parentRoute: typeof SecureRoute
+      preLoaderRoute: typeof AppContrastCheckerRouteImport
+      parentRoute: typeof AppRoute
     }
-    '/_secure/design-systems': {
-      id: '/_secure/design-systems'
+    '/_app/design-systems': {
+      id: '/_app/design-systems'
       path: '/design-systems'
       fullPath: '/design-systems'
-      preLoaderRoute: typeof SecureDesignSystemsRouteImport
-      parentRoute: typeof SecureRoute
+      preLoaderRoute: typeof AppDesignSystemsRouteImport
+      parentRoute: typeof AppRoute
     }
-    '/_secure/explore': {
-      id: '/_secure/explore'
-      path: '/explore'
-      fullPath: '/explore'
-      preLoaderRoute: typeof SecureExploreRouteImport
-      parentRoute: typeof SecureRoute
-    }
-    '/_secure/favorites': {
-      id: '/_secure/favorites'
-      path: '/favorites'
-      fullPath: '/favorites'
-      preLoaderRoute: typeof SecureFavoritesRouteImport
-      parentRoute: typeof SecureRoute
-    }
-    '/_secure/my-library': {
-      id: '/_secure/my-library'
-      path: '/my-library'
-      fullPath: '/my-library'
-      preLoaderRoute: typeof SecureMyLibraryRouteImport
-      parentRoute: typeof SecureRoute
-    }
-    '/_secure/spacing': {
-      id: '/_secure/spacing'
+    '/_app/spacing': {
+      id: '/_app/spacing'
       path: '/spacing'
       fullPath: '/spacing'
-      preLoaderRoute: typeof SecureSpacingRouteImport
-      parentRoute: typeof SecureRoute
+      preLoaderRoute: typeof AppSpacingRouteImport
+      parentRoute: typeof AppRoute
     }
-    '/_secure/typography': {
-      id: '/_secure/typography'
+    '/_app/typography': {
+      id: '/_app/typography'
       path: '/typography'
       fullPath: '/typography'
-      preLoaderRoute: typeof SecureTypographyRouteImport
-      parentRoute: typeof SecureRoute
+      preLoaderRoute: typeof AppTypographyRouteImport
+      parentRoute: typeof AppRoute
     }
-    '/_secure/palette-generator/{-$paletteId}': {
-      id: '/_secure/palette-generator/{-$paletteId}'
+    '/_app/_secure/favorites': {
+      id: '/_app/_secure/favorites'
+      path: '/favorites'
+      fullPath: '/favorites'
+      preLoaderRoute: typeof AppSecureFavoritesRouteImport
+      parentRoute: typeof AppSecureRoute
+    }
+    '/_app/_secure/my-library': {
+      id: '/_app/_secure/my-library'
+      path: '/my-library'
+      fullPath: '/my-library'
+      preLoaderRoute: typeof AppSecureMyLibraryRouteImport
+      parentRoute: typeof AppSecureRoute
+    }
+    '/_app/palette-generator/{-$paletteId}': {
+      id: '/_app/palette-generator/{-$paletteId}'
       path: '/palette-generator/{-$paletteId}'
       fullPath: '/palette-generator/{-$paletteId}'
-      preLoaderRoute: typeof SecurePaletteGeneratorChar123PaletteIdChar125RouteImport
-      parentRoute: typeof SecureRoute
+      preLoaderRoute: typeof AppPaletteGeneratorChar123PaletteIdChar125RouteImport
+      parentRoute: typeof AppRoute
     }
-    '/_secure/palette/$paletteId': {
-      id: '/_secure/palette/$paletteId'
+    '/_app/palette/$paletteId': {
+      id: '/_app/palette/$paletteId'
       path: '/palette/$paletteId'
       fullPath: '/palette/$paletteId'
-      preLoaderRoute: typeof SecurePalettePaletteIdRouteImport
-      parentRoute: typeof SecureRoute
+      preLoaderRoute: typeof AppPalettePaletteIdRouteImport
+      parentRoute: typeof AppRoute
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -302,37 +296,47 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface SecureRouteChildren {
-  SecureContrastCheckerRoute: typeof SecureContrastCheckerRoute
-  SecureDesignSystemsRoute: typeof SecureDesignSystemsRoute
-  SecureExploreRoute: typeof SecureExploreRoute
-  SecureFavoritesRoute: typeof SecureFavoritesRoute
-  SecureMyLibraryRoute: typeof SecureMyLibraryRoute
-  SecureSpacingRoute: typeof SecureSpacingRoute
-  SecureTypographyRoute: typeof SecureTypographyRoute
-  SecurePaletteGeneratorChar123PaletteIdChar125Route: typeof SecurePaletteGeneratorChar123PaletteIdChar125Route
-  SecurePalettePaletteIdRoute: typeof SecurePalettePaletteIdRoute
+interface AppSecureRouteChildren {
+  AppSecureFavoritesRoute: typeof AppSecureFavoritesRoute
+  AppSecureMyLibraryRoute: typeof AppSecureMyLibraryRoute
 }
 
-const SecureRouteChildren: SecureRouteChildren = {
-  SecureContrastCheckerRoute: SecureContrastCheckerRoute,
-  SecureDesignSystemsRoute: SecureDesignSystemsRoute,
-  SecureExploreRoute: SecureExploreRoute,
-  SecureFavoritesRoute: SecureFavoritesRoute,
-  SecureMyLibraryRoute: SecureMyLibraryRoute,
-  SecureSpacingRoute: SecureSpacingRoute,
-  SecureTypographyRoute: SecureTypographyRoute,
-  SecurePaletteGeneratorChar123PaletteIdChar125Route:
-    SecurePaletteGeneratorChar123PaletteIdChar125Route,
-  SecurePalettePaletteIdRoute: SecurePalettePaletteIdRoute,
+const AppSecureRouteChildren: AppSecureRouteChildren = {
+  AppSecureFavoritesRoute: AppSecureFavoritesRoute,
+  AppSecureMyLibraryRoute: AppSecureMyLibraryRoute,
 }
 
-const SecureRouteWithChildren =
-  SecureRoute._addFileChildren(SecureRouteChildren)
+const AppSecureRouteWithChildren = AppSecureRoute._addFileChildren(
+  AppSecureRouteChildren,
+)
+
+interface AppRouteChildren {
+  AppSecureRoute: typeof AppSecureRouteWithChildren
+  AppContrastCheckerRoute: typeof AppContrastCheckerRoute
+  AppDesignSystemsRoute: typeof AppDesignSystemsRoute
+  AppSpacingRoute: typeof AppSpacingRoute
+  AppTypographyRoute: typeof AppTypographyRoute
+  AppIndexRoute: typeof AppIndexRoute
+  AppPaletteGeneratorChar123PaletteIdChar125Route: typeof AppPaletteGeneratorChar123PaletteIdChar125Route
+  AppPalettePaletteIdRoute: typeof AppPalettePaletteIdRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppSecureRoute: AppSecureRouteWithChildren,
+  AppContrastCheckerRoute: AppContrastCheckerRoute,
+  AppDesignSystemsRoute: AppDesignSystemsRoute,
+  AppSpacingRoute: AppSpacingRoute,
+  AppTypographyRoute: AppTypographyRoute,
+  AppIndexRoute: AppIndexRoute,
+  AppPaletteGeneratorChar123PaletteIdChar125Route:
+    AppPaletteGeneratorChar123PaletteIdChar125Route,
+  AppPalettePaletteIdRoute: AppPalettePaletteIdRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  SecureRoute: SecureRouteWithChildren,
+  AppRoute: AppRouteWithChildren,
   SignInRoute: SignInRoute,
   SignUpRoute: SignUpRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,

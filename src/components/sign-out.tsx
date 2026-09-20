@@ -1,32 +1,65 @@
-import { useNavigate } from '@tanstack/react-router'
+import { SignOutIcon } from '@phosphor-icons/react'
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { useRouter } from '@tanstack/react-router'
 import { Button, cn } from 'dawn-ui-react'
-import { signOut } from '#/lib/auth-client.ts'
+import React from 'react'
+import { authClient } from '#/lib/auth-client'
+import { currentUserQueryOptions } from '#/utils/auth-func'
+import { m } from '@/paraglide/messages'
 
 type SignOutProps = React.ComponentProps<'button'>
 
 export const SignOut = ({ className, children, ref, ...props }: SignOutProps) => {
-  const navigate = useNavigate()
+  const router = useRouter()
+  const { data: user } = useSuspenseQuery(currentUserQueryOptions)
+  const [isPending, startTransition] = React.useTransition()
 
-  const handleClick = async () => {
-    await signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          navigate({ to: '/sign-in' })
+  if (!user) {
+    return null
+  }
+
+  const handleClick = () => {
+    startTransition(async () => {
+      await authClient.signOut({
+        fetchOptions: {
+          onSuccess: () => {
+            router.invalidate()
+            window.location.reload()
+          },
         },
-      },
+      })
     })
+  }
+
+  if (isPending) {
+    return (
+      <Button
+        disabled
+        tone="error"
+        variant={'ghost'}
+        className={cn('w-full justify-start', className)}
+        ref={ref}
+        {...props}
+      >
+        {children}
+        <SignOutIcon weight="bold" />
+        {m['auth.signOut.pending']()}
+      </Button>
+    )
   }
 
   return (
     <Button
-      variant={'outline'}
+      tone="error"
+      variant={'ghost'}
       onClick={handleClick}
-      className={cn('', className)}
+      className={cn('w-full justify-start', className)}
       ref={ref}
       {...props}
     >
       {children}
-      Sign out
+      <SignOutIcon weight="bold" />
+      {m['auth.signOut.button']()}
     </Button>
   )
 }

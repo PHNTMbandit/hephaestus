@@ -9,7 +9,7 @@ import { PaletteEditor } from '#/features/palette-editor/components/palette-edit
 import { Palette } from '#/features/palette/components/palette'
 import { paletteById } from '#/features/palette/db/live-queries'
 
-export const Route = createFileRoute('/_secure/palette/$paletteId')({
+export const Route = createFileRoute('/_app/palette/$paletteId')({
   component: RouteComponent,
   loader: async ({ context: { dbClient }, params: { paletteId } }) => {
     await dbClient.preloadLiveQuery(paletteById(paletteId))

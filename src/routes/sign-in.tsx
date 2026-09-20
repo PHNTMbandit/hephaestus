@@ -29,7 +29,7 @@ function RouteComponent() {
         </div>
         <div className="flex w-full flex-col items-center gap-lg">
           <SignInForm state={state} />
-          <Separator>OR</Separator>
+          <Separator>{m['auth.signIn.divider']()}</Separator>
           <div className="flex w-full flex-col flex-wrap gap-xs">
             <Passkey />
             <FigmaSSO />

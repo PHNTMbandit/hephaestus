@@ -50,7 +50,7 @@ export const paletteSearchSchema = z.object({
   ),
 })
 
-export const Route = createFileRoute('/_secure/palette-generator/{-$paletteId}')({
+export const Route = createFileRoute('/_app/palette-generator/{-$paletteId}')({
   component: RouteComponent,
   errorComponent: ({ error }) => <p>{(error as ZodError).message}</p>,
   notFoundComponent: () => <p>Palette doesn't exist</p>,

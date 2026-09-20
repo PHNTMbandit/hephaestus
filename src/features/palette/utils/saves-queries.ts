@@ -3,21 +3,13 @@ import { and, eq } from 'drizzle-orm'
 import { getDb } from '#/db/rls'
 import { colorPaletteSaves } from '#/db/schema'
 import { authMiddleware } from '#/middleware/auth-middleware'
+import { optionalAuthMiddleware } from '#/middleware/optional-auth-middleware'
 
 export const getAllPaletteSaves = createServerFn({ method: 'GET' })
-  .middleware([authMiddleware])
-  .handler(async ({ context }) =>
-    getDb(context.user.id, (tx) => tx.select().from(colorPaletteSaves)),
-  )
-
-export const getPaletteSavesByPalette = createServerFn({ method: 'GET' })
-  .validator((data: { paletteId: string }) => data)
-  .middleware([authMiddleware])
-  .handler(async ({ data: { paletteId }, context }) =>
-    getDb(context.user.id, (tx) =>
-      tx.select().from(colorPaletteSaves).where(eq(colorPaletteSaves.colorPaletteId, paletteId)),
-    ),
-  )
+  .middleware([optionalAuthMiddleware])
+  .handler(async ({ context: { userId } }) => {
+    return getDb(userId, (tx) => tx.select().from(colorPaletteSaves))
+  })
 
 export const addLike = createServerFn({ method: 'POST' })
   .validator((data: { paletteId: string }) => data)

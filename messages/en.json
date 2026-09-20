@@ -4,6 +4,11 @@
     "languages": {
       "en": "English",
       "ja": "Japanese"
+    },
+    "themes": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
     }
   },
   "navigation": {
@@ -47,7 +52,8 @@
       },
       "errors": {
         "invalidCredentials": "Invalid username or password. Please try again."
-      }
+      },
+      "divider": "OR"
     },
     "signUp": {
       "title": "Create a New Account",
@@ -65,6 +71,10 @@
         "passwordMismatch": "Passwords do not match. Please try again.",
         "emailInUse": "This email address is already in use. Please use a different email address."
       }
+    },
+    "signOut": {
+      "button": "Sign out",
+      "pending": "Signing out..."
     }
   },
   "colorPalette": {
@@ -116,10 +126,10 @@
     "title": "Welcome to the Explore Page",
     "description": "Discover new features, updates, and resources to help you get the most out of our application."
   },
-  "favourites": {
-    "label": "Favourites",
-    "title": "Your Favourites",
-    "description": "Access your favourite items, projects, and resources in one convenient location."
+  "favorites": {
+    "label": "Favorites",
+    "title": "Your Favorites",
+    "description": "Access your favorite items, projects, and resources in one convenient location."
   },
   "myLibrary": {
     "label": "My Library",

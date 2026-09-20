@@ -1,6 +1,7 @@
 import { createRouter as createTanStackRouter, ErrorComponent } from '@tanstack/react-router'
 import { setupRouterSsrQueryIntegration } from '@tanstack/react-router-ssr-query'
 import { routerWithDbClient } from '@tanstack/react-router-with-db'
+import { NotFound } from './components/not-found'
 import { Pending } from './components/pending'
 import { getContext } from './integrations/tanstack-query/root-provider'
 import { routeTree } from './routeTree.gen'
@@ -15,6 +16,7 @@ export function getRouter() {
     defaultPreload: 'intent',
     defaultPreloadStaleTime: 0,
     defaultPendingComponent: () => <Pending />,
+    defaultNotFoundComponent: () => <NotFound />,
     defaultErrorComponent: ({ error }) => <ErrorComponent error={error} />,
   })
 

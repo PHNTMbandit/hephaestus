@@ -4,7 +4,7 @@ import { CurrentPageTitle } from '#/components/current-page-title'
 import { getContrastAlgorithm } from '#/features/accessibility/algorithms'
 import { ContrastChecker } from '#/features/accessibility/contrast-checker/components/contrast-checker'
 
-export const Route = createFileRoute('/_secure/contrast-checker')({
+export const Route = createFileRoute('/_app/contrast-checker')({
   component: RouteComponent,
   validateSearch: (search) => {
     return {

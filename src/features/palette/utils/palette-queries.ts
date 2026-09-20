@@ -4,15 +4,16 @@ import { and, asc, desc, eq, gt, gte, inArray, lt, lte } from 'drizzle-orm'
 import { getDb } from '#/db/rls.ts'
 import { colorPalettes } from '#/db/schema.ts'
 import { authMiddleware } from '#/middleware/auth-middleware.ts'
+import { optionalAuthMiddleware } from '#/middleware/optional-auth-middleware.ts'
 
 import type { Color } from '#/features/color/color.types.ts'
 import type { SQL } from 'drizzle-orm'
 
 export const getPalette = createServerFn({ method: 'GET' })
   .validator((data: { id: string }) => data)
-  .middleware([authMiddleware])
+  .middleware([optionalAuthMiddleware])
   .handler(async ({ data: { id }, context }) => {
-    const [response] = await getDb(context.user.id, (tx) =>
+    const [response] = await getDb(context.userId, (tx) =>
       tx.select().from(colorPalettes).where(eq(colorPalettes.id, id)).limit(1),
     )
 
@@ -21,9 +22,9 @@ export const getPalette = createServerFn({ method: 'GET' })
   })
 
 export const getPalettes = createServerFn({ method: 'GET' })
-  .middleware([authMiddleware])
+  .middleware([optionalAuthMiddleware])
   .handler(async ({ context }) => {
-    return await getDb(context.user.id, (tx) => tx.select().from(colorPalettes))
+    return await getDb(context.userId, (tx) => tx.select().from(colorPalettes))
   })
 
 export const getUserPalettes = createServerFn({ method: 'GET' })
@@ -34,8 +35,6 @@ export const getUserPalettes = createServerFn({ method: 'GET' })
     )
   })
 
-// Columns exposed to on-demand predicate push-down. `colors`/`baseColor` are excluded:
-// they are not indexed filter targets and must not be used as query constraints.
 const SUBSET_COLUMNS = {
   id: colorPalettes.id,
   userId: colorPalettes.userId,
@@ -92,11 +91,9 @@ const buildCondition = ({ field, operator, value }: PaletteSubsetFilter): SQL | 
   }
 }
 
-// On-demand subset loader: fetches only the rows a live query asks for so the
-// collection scales without materializing every palette client-side.
 export const getPalettesSubset = createServerFn({ method: 'POST' })
   .validator((data: PaletteSubsetInput) => data)
-  .middleware([authMiddleware])
+  .middleware([optionalAuthMiddleware])
   .handler(async ({ data: { filters, sorts, limit, offset }, context }) => {
     const conditions = filters
       .map(buildCondition)
@@ -110,7 +107,7 @@ export const getPalettesSubset = createServerFn({ method: 'POST' })
       })
       .filter((clause): clause is SQL => clause !== undefined)
 
-    return await getDb(context.user.id, (tx) => {
+    return await getDb(context.userId, (tx) => {
       let query = tx.select().from(colorPalettes).$dynamic()
       if (conditions.length > 0) query = query.where(and(...conditions))
       if (orderBy.length > 0) query = query.orderBy(...orderBy)
